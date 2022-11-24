@@ -1,23 +1,21 @@
-package com.example.mushafconsolidated;
+package com.example.mushafconsolidated.fragments;
 
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mushafconsolidated.R;
 import com.example.mushafconsolidated.intrface.OnItemClickListener;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
@@ -30,13 +28,15 @@ import java.util.ArrayList;
  *     ThemeListPrefrence.newInstance(30).show(getSupportFragmentManager(), "dialog");
  * </pre>
  */
-public class ThemeListPrefrence extends BottomSheetDialogFragment  {
+public class WbwTranslationListPrefrence extends BottomSheetDialogFragment  {
     public static final String TAG = "opton";
+    private int chap_id,verse_id;
+    private String name;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+  
     }
 
 
@@ -48,9 +48,9 @@ public class ThemeListPrefrence extends BottomSheetDialogFragment  {
     private FontQuranAdapter fontQuranAdapter;
     RelativeLayout frameLayout;
     // TODO: Customize parameters
-    public static ThemeListPrefrence newInstance() {
-        final ThemeListPrefrence fragment = new ThemeListPrefrence();
-;
+    public static WbwTranslationListPrefrence newInstance() {
+        final WbwTranslationListPrefrence fragment = new WbwTranslationListPrefrence();
+    ;
         return fragment;
 
     }
@@ -64,10 +64,10 @@ public class ThemeListPrefrence extends BottomSheetDialogFragment  {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-
+ 
         super.onCreateView(inflater, container, savedInstanceState);
         return inflater.inflate(R.layout.quran_list_dialog, container, false);
-
+      
     }
 
 
@@ -94,76 +94,67 @@ public class ThemeListPrefrence extends BottomSheetDialogFragment  {
     private class ViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener {
 
-        RadioButton purple,black,dark_blue,light,brown;
+ 
+        RadioButton wbwen,wbwbangla,wbwindonesia,wbwurdu;
 
 
 
         ViewHolder(LayoutInflater inflater, ViewGroup parent) {
-            // TODO: Customize the item layout
-            //  super(inflater.inflate(R.layout.fragment_item_list_dialog_list_dialog_item, parent, false));
-            super(inflater.inflate(R.layout.theme_prference_dialog, parent, false));
-            purple = itemView.findViewById(R.id.Purple);
-            black = itemView.findViewById(R.id.Black);
-            dark_blue = itemView.findViewById(R.id.Dark_Blue);
-            light = itemView.findViewById(R.id.Light);
-            brown = itemView.findViewById(R.id.Brown);
+       
+            super(inflater.inflate(R.layout.wbw_prference_dialog  , parent, false));
+            wbwen = itemView.findViewById(R.id.wbwen);
+            wbwbangla = itemView.findViewById(R.id.wbwbangla);
+
+            wbwurdu = itemView.findViewById(R.id.wbwurdu);
+            wbwindonesia = itemView.findViewById(R.id.wbwindonesia);
 
            frameLayout= itemView.findViewById(R.id.bottomSheet);
            itemView.setOnClickListener(this);
 
-            purple.setOnClickListener(new View.OnClickListener() {
+            wbwen.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getActivity()).edit();
-                    //     SharedPreferences.Editor editor = getActivity().getSharedPreferences("properties", 0).edit();
-                    editor.putString("themepref", "purple");
+               
+                    editor.putString("wbw", "en");
                     editor.apply();
                     dismiss();
                 }
             });
-            black.setOnClickListener(new View.OnClickListener() {
+            wbwbangla.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getActivity()).edit();
-                    //     SharedPreferences.Editor editor = getActivity().getSharedPreferences("properties", 0).edit();
-                    editor.putString("themepref", "dark");
-                    editor.apply();
-                    dismiss();
-                }
-            });
-
-            dark_blue.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getActivity()).edit();
-                    //     SharedPreferences.Editor editor = getActivity().getSharedPreferences("properties", 0).edit();
-                    editor.putString("themepref", "blue");
+              
+                    editor.putString("wbw", "bn");
                     editor.apply();
                     dismiss();
                 }
             });
 
-            light.setOnClickListener(new View.OnClickListener() {
+            wbwindonesia.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getActivity()).edit();
+                 
+                    editor.putString("wbw", "in");
+                    editor.apply();
+                    dismiss();
+                }
+            });
+
+            wbwurdu.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getActivity()).edit();
                     //     SharedPreferences.Editor editor = getActivity().getSharedPreferences("properties", 0).edit();
-                    editor.putString("themepref", "light");
+                    editor.putString("wbw", "ur");
                     editor.apply();
                     dismiss();
                 }
             });
 
-            brown.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getActivity()).edit();
 
-                    editor.putString("themepref", "brown");
-                    editor.apply();
-                    dismiss();
-                }
-            });
 
         }
 
@@ -193,24 +184,22 @@ public class ThemeListPrefrence extends BottomSheetDialogFragment  {
                     androidx.preference.PreferenceManager.getDefaultSharedPreferences(getContext());
 
 
-            String theme = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("themepref", "dark");
-       if(theme.equals("purple")){
-           holder.purple.setChecked(true);
-       } else if    (theme.equals("dark")) {
+            String theme = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("wbw", "en");
 
-           holder.black.setChecked(true);
-    } else if    (theme.equals("blue")) {
-            holder.dark_blue.setChecked(true);
-       } else if    (theme.equals("light")) {
-           holder.light.setChecked(true);
+       if(theme.equals("en")){
+           holder.wbwen.setChecked(true);
+       } else if    (theme.equals("bn")) {
 
-        } else if    (theme.equals("brown")) {
-            holder.brown.setChecked(true);
+           holder.wbwbangla.setChecked(true);
+    } else if    (theme.equals("ur")) {
+            holder.wbwurdu.setChecked(true);
+       } else if    (theme.equals("in")) {
+           holder.wbwindonesia.setChecked(true);
+
         }
 
 
-
-
+ 
 
 
         }

@@ -23,10 +23,9 @@ import androidx.preference.SeekBarPreference;
 
 import com.example.mushafconsolidated.BottomOptionDialog;
 import com.example.mushafconsolidated.R;
-import com.example.mushafconsolidated.ThemeListPrefrence;
-import com.example.mushafconsolidated.TranslationListPrefrence;
-import com.example.mushafconsolidated.WbwTranslationListPrefrence;
-import com.example.mushafconsolidated.databinding.ThemePrferenceDialogBinding;
+import com.example.mushafconsolidated.fragments.ThemeListPrefrence;
+import com.example.mushafconsolidated.fragments.TranslationListPrefrence;
+import com.example.mushafconsolidated.fragments.WbwTranslationListPrefrence;
 import com.example.mushafconsolidated.fragments.FontQuranListDialogFragment;
 import com.example.mushafconsolidated.fragments.WordAnalysisBottomSheet;
 import com.google.android.material.appbar.MaterialToolbar;
