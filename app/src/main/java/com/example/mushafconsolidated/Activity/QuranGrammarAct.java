@@ -10,24 +10,32 @@ import static com.example.Constant.RUKUCOUNT;
 import static com.example.Constant.SURAH_ARABIC_NAME;
 import static com.example.Constant.SURAH_ID;
 import static com.example.Constant.VERSESCOUNT;
+import static com.example.mushafconsolidated.settings.Constants.DATABASEZIP;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.SearchManager;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.text.format.DateFormat;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.Gravity;
@@ -48,6 +56,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -56,6 +65,7 @@ import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.core.content.FileProvider;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -66,6 +76,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.JustJava.InputFilterMinMax;
 import com.example.mushafconsolidated.Adapters.FlowAyahWordAdapter;
 import com.example.mushafconsolidated.Adapters.FlowAyahWordAdapterPassage;
+import com.example.mushafconsolidated.BuildConfig;
 import com.example.mushafconsolidated.Entities.BadalErabNotesEnt;
 import com.example.mushafconsolidated.Entities.BookMarks;
 import com.example.mushafconsolidated.Entities.ChaptersAnaEntity;
@@ -104,12 +115,18 @@ import org.ahocorasick.trie.Emit;
 import org.ahocorasick.trie.Trie;
 import org.sj.conjugator.activity.ConjugatorAct;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -1295,6 +1312,9 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
                             initDialogComponents(position);
                             optionsMenu.dismiss();
                             return true;
+                        case R.id.action_share:
+                            takeScreenShot(getWindow().getDecorView());
+                            return true;
                         case R.id.ivHelp: // Handle option2 Click
                             //  SurahAyahPicker();
                             //   ParticleColorScheme item = new ParticleColorScheme();
@@ -1451,6 +1471,65 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
             LoadItemList(dataBundle, word);
         }
     }
+
+    private void takeScreenShot(View view) {
+        Date date = new Date();
+        CharSequence format = DateFormat.format("MM-dd-yyyy_hh:mm:ss", date);
+
+        try {
+            File mainDir = new File(
+                    this.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "FilShare");
+            if (!mainDir.exists()) {
+                boolean mkdir = mainDir.mkdir();
+            }
+
+            String path = mainDir + "/" + "Mushafapplication" + "-" + format + ".jpeg";
+        //    File zipfile = new File(getExternalFilesDir(null).getAbsolutePath() + getString(R.string.app_folder_path) + File.separator + DATABASEZIP);
+
+            view.setDrawingCacheEnabled(true);
+            Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache());
+            view.setDrawingCacheEnabled(false);
+
+            File imageFile = new File(path);
+            FileOutputStream fileOutputStream = new FileOutputStream(imageFile);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 90, fileOutputStream);
+            fileOutputStream.flush();
+            fileOutputStream.close();
+            shareScreenShot(imageFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void shareScreenShot(File imageFile) {
+ /*       Uri uriw =     FileProvider.getUriForFile(Objects.requireNonNull(getApplicationContext()),
+                BuildConfig.APPLICATION_ID + ".provider", imageFile);*/
+  /*       Uri uri = FileProvider.getUriForFile(
+                this,
+                BuildConfig.APPLICATION_ID + "." + getLocalClassName() + ".provider",
+                imageFile);*/
+     //   Uri uri = Uri.fromFile(new File(imageFile.toURI()));
+        Uri uri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".provider", imageFile);
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        intent.setType("image/*");
+        intent.putExtra(android.content.Intent.EXTRA_TEXT, "Download Application from Instagram");
+        intent.putExtra(Intent.EXTRA_STREAM, uri);
+     //   intentShareFile.putExtra(Intent.EXTRA_STREAM, uri);
+
+        List<ResolveInfo> resInfoList = getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+        for (ResolveInfo resolveInfo : resInfoList) {
+            String packageName = resolveInfo.activityInfo.packageName;
+            grantUriPermission(packageName, uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        }
+      //  startActivity(Intent.createChooser(intent, "Share PDF using.."));
+        try {
+            this.startActivity(Intent.createChooser(intent, "Share With"));
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(this, "No App Available", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     private void RefreshActivity() {
         Log.e(TAG, "onClick called");
         final Intent intent = getIntent().putExtra("chapter", chapterno).putExtra("chapterorpart", chapterorpart).putExtra(SURAH_ARABIC_NAME, surahArabicName).putExtra("passages",passages)

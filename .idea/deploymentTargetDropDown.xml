@@ -6,12 +6,12 @@
         <type value="RUNNING_DEVICE_TARGET" />
         <deviceKey>
           <Key>
-            <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="$USER_HOME$/.android/avd/7_WSVGA_Tablet_API_31.avd" />
+            <type value="SERIAL_NUMBER" />
+            <value value="adb-HNP095BL-faqNRN._adb-tls-connect._tcp" />
           </Key>
         </deviceKey>
       </Target>
     </runningDeviceTargetSelectedWithDropDown>
-    <timeTargetWasSelectedWithDropDown value="2022-11-24T17:58:46.866250Z" />
+    <timeTargetWasSelectedWithDropDown value="2022-11-25T09:33:10.743391Z" />
   </component>
 </project>
