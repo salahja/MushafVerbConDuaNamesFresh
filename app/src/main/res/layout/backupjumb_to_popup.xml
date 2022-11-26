@@ -6,6 +6,7 @@
     android:background="@drawable/border"
     android:gravity="center"
     android:orientation="vertical"
+    android:backgroundTint="@color/red500"
     android:padding="16dp">
 
     <com.google.android.material.card.MaterialCardView
@@ -13,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
-
+        style="@style/Widget.Material3.CardView.Outlined"
         android:layout_marginTop="3dp"
         android:layout_marginEnd="3dp"
 
@@ -23,7 +24,7 @@
         android:dividerHeight="0.0px"
 
 
-        app:cardCornerRadius="2dp"
+        app:cardCornerRadius="20dp"
         app:cardElevation="10dp"
         app:cardPreventCornerOverlap="false"
 
@@ -38,6 +39,7 @@
 
             <EditText
                 android:id="@+id/suraIndex"
+                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -51,10 +53,10 @@
                 android:id="@+id/ayahInput"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+               android:textStyle="bold"
                 android:layout_marginStart="100dp"
                 android:layout_marginTop="8dp"
-
+               android:layout_alignParentEnd="true"
                 android:layout_toEndOf="@id/suraIndex"
                 android:hint="2"
                 android:inputType="number"
@@ -76,6 +78,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
+  style="@style/Widget.Material3.CardView.Elevated"
         android:layout_width="match_parent"
         android:layout_height="320dp"
         android:layout_below="@+id/topcard"
@@ -90,7 +93,7 @@
         android:dividerHeight="0.0px"
 
 
-        app:cardCornerRadius="5sp"
+        app:cardCornerRadius="25sp"
         app:cardElevation="10dp"
         app:cardPreventCornerOverlap="false"
         app:rippleColor="@color/colorAccent"
@@ -105,8 +108,10 @@
 
 
             <Spinner
+
+
                 android:id="@+id/suras"
-                android:layout_width="100dp"
+                android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
@@ -115,7 +120,9 @@
 
             <Spinner
                 android:id="@+id/verses"
-                android:layout_width="wrap_content"
+
+
+                android:layout_width="10dp"
                 android:layout_height="48dp"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="8dp"
@@ -123,7 +130,8 @@
 
                 android:spinnerMode="dropdown" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
+                style="@style/Widget.Material3.Button.TextButton.Dialog"
                 android:id="@+id/ok"
 
                 android:layout_width="wrap_content"

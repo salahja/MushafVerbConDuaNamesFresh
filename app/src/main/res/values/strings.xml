@@ -420,4 +420,5 @@
     <string name="urdu_jalalayn_tafsir">Urdu Jalalayn- Tafsir</string>
     <string name="select_translation">Select Translation</string>
     <string name="share_screen_image">Share ScreenShot</string>
+    <string name="share_text">Share Text</string>
 </resources>

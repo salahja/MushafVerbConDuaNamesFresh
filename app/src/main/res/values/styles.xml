@@ -117,6 +117,7 @@
         <item name="sc_unchecked_tint_color">@color/bg_black</item>
         <item name="textColorLight">@color/neutral3</item>
         <item name="tabStyle">@style/RoundedTabLayoutStyleDark</item>
+        <item name="android:spinnerStyle">@style/spinner_styles_black</item>
        <!-- <item name="bottomNavigationStyle">@style/Widget.Material3.BottomNavigationView</item>-->
         <item name="bottomSheetDialogTheme">@style/ThemeOverlay.Material3.BottomSheetDialog</item>
     </style>
@@ -294,8 +295,19 @@
     <style name="CardView.Dark">
         <item name="cardBackgroundColor">@color/cardview_dark_background</item>
     </style>
+
+
+    <style name="spinner_styles_purple" parent="Widget.AppCompat.Spinner.DropDown">
+        <item name="android:background">@drawable/spinner_btn_darkpurple_shape</item>
+        <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItem</item>
+        <item name="android:textColor">#993399</item>
+        <item name="android:dividerHeight">5dp</item>
+        <item name="android:scrollbarAlwaysDrawVerticalTrack">true</item>
+        <item name="android:popupBackground">@color/md_theme_light_tertiary</item>
+    </style>
+
     <style name="spinner_styles_blue" parent="Widget.AppCompat.Spinner.DropDown">
-        <item name="android:background">@android:drawable/btn_dropdown</item>
+        <item name="android:background">@drawable/xldabc_btn_default_mtrl_shape</item>
         <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItem</item>
         <item name="android:textColor">#993399</item>
         <item name="android:dividerHeight">5dp</item>
@@ -303,9 +315,10 @@
         <item name="android:popupBackground">@color/bg_dark_blue</item>
     </style>
     <style name="spinner_styles_black" parent="Widget.AppCompat.Spinner.DropDown">
+        <item name="android:background">@drawable/xldabc_btn_default_mtrl_shape</item>
         <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItem</item>
         <item name="android:textColor">#993399</item>
-        <item name="android:background">@android:drawable/btn_dropdown</item>
+
         <item name="android:dividerHeight">5dp</item>
         <item name="android:scrollbarAlwaysDrawVerticalTrack">true</item>
         <item name="android:popupBackground">@color/bg_black</item>
@@ -771,6 +784,8 @@
         <item name="colorSurfaceInverse">@color/md_theme_dark_inverseSurface</item>
         <item name="colorOnSurfaceInverse">@color/md_theme_dark_inverseOnSurface</item>
         <item name="colorPrimaryInverse">@color/md_theme_dark_inversePrimary</item>
+        <item name="android:spinnerStyle">@style/spinner_styles_purple</item>
+
     </style>
 
     <style name="AppTheme.Light" parent="Theme.MaterialComponents.Light.NoActionBar">
@@ -930,4 +945,10 @@
         <item name="harmonizeCustomColor1">true</item>
         <item name="colorPrimaryInverse">@color/md_theme_dark_inversePrimary</item>
     </style>
+
+  <!--  <style name="spinnerTheme" parent= "Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
+        <item name="strokeColor">@color/material_deep_teal_500</item>
+
+        <item name="endIconDrawable">@drawable/arrow_down</item>
+    </style>-->
 </resources>

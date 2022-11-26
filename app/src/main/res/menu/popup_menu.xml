@@ -46,5 +46,14 @@
         app:actionViewClass="androidx.appcompat.widget.SwitchCompat"
         app:showAsAction="always" />
 
+    <item
+        android:id="@+id/action_share_text"
+        android:enabled="true"
+        android:icon="@drawable/baseline_share_36"
+        android:title="@string/share_text"
+
+        app:actionViewClass="androidx.appcompat.widget.SwitchCompat"
+        app:showAsAction="always" />
+
 
 </menu>

@@ -10,7 +10,6 @@ import static com.example.Constant.RUKUCOUNT;
 import static com.example.Constant.SURAH_ARABIC_NAME;
 import static com.example.Constant.SURAH_ID;
 import static com.example.Constant.VERSESCOUNT;
-import static com.example.mushafconsolidated.settings.Constants.DATABASEZIP;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -22,6 +21,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
@@ -76,7 +76,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.JustJava.InputFilterMinMax;
 import com.example.mushafconsolidated.Adapters.FlowAyahWordAdapter;
 import com.example.mushafconsolidated.Adapters.FlowAyahWordAdapterPassage;
-import com.example.mushafconsolidated.BuildConfig;
 import com.example.mushafconsolidated.Entities.BadalErabNotesEnt;
 import com.example.mushafconsolidated.Entities.BookMarks;
 import com.example.mushafconsolidated.Entities.ChaptersAnaEntity;
@@ -110,13 +109,13 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.theartofdev.edmodo.cropper.CropImage;
 
 import org.ahocorasick.trie.Emit;
 import org.ahocorasick.trie.Trie;
 import org.sj.conjugator.activity.ConjugatorAct;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.NumberFormat;
@@ -126,7 +125,6 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -284,7 +282,7 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
         }else if (id == R.id.mushafview) {
 
             passages= !passages;
-            RefreshActivity();
+            ReloadActivity();
         }
         return super.onOptionsItemSelected(item);
 
@@ -1239,14 +1237,14 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
                 //     SharedPreferences.Editor editor = getActivity().getSharedPreferences("properties", 0).edit();
                 editor.putBoolean("colortag", false);
                 editor.apply();
-                RefreshActivity(colorsentence);
+                ReloadActivity(colorsentence);
 
             } else {
                 SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(QuranGrammarAct.this).edit();
                 //     SharedPreferences.Editor editor = getActivity().getSharedPreferences("properties", 0).edit();
                 editor.putBoolean("colortag", true);
                 editor.apply();
-                RefreshActivity(colorsentence);
+                ReloadActivity(colorsentence);
 
             }
         } else if (tag.equals("bookmark")) {
@@ -1313,7 +1311,18 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
                             optionsMenu.dismiss();
                             return true;
                         case R.id.action_share:
-                            takeScreenShot(getWindow().getDecorView());
+                      /*      Intent crop = new Intent(QuranGrammarAct.this, Scree.class);
+                            //  flowAyahWordAdapter.getItem(position);
+
+                            startActivity(crop);
+                            optionsMenu.dismiss();*/
+
+
+
+
+
+                         takeScreenShot(getWindow().getDecorView());
+                            optionsMenu.dismiss();
                             return true;
                         case R.id.ivHelp: // Handle option2 Click
                             //  SurahAyahPicker();
@@ -1333,13 +1342,13 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
                                 //     SharedPreferences.Editor editor = getActivity().getSharedPreferences("properties", 0).edit();
                                 editor.putBoolean("colortag", false);
                                 editor.apply();
-                                RefreshActivity();
+                                ReloadActivity();
                             } else {
                                 SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(QuranGrammarAct.this).edit();
                                 //     SharedPreferences.Editor editor = getActivity().getSharedPreferences("properties", 0).edit();
                                 editor.putBoolean("colortag", true);
                                 editor.apply();
-                                RefreshActivity();
+                                ReloadActivity();
                             }
                             optionsMenu.dismiss();
 
@@ -1429,13 +1438,13 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
                         //     SharedPreferences.Editor editor = getActivity().getSharedPreferences("properties", 0).edit();
                         editor.putBoolean("colortag", false);
                         editor.apply();
-                        RefreshActivity();
+                        ReloadActivity();
                     } else {
                         SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(QuranGrammarAct.this).edit();
                         //     SharedPreferences.Editor editor = getActivity().getSharedPreferences("properties", 0).edit();
                         editor.putBoolean("colortag", true);
                         editor.apply();
-                        RefreshActivity();
+                        ReloadActivity();
                     }
                     dialog.dismiss();
                 }
@@ -1475,6 +1484,12 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
     private void takeScreenShot(View view) {
         Date date = new Date();
         CharSequence format = DateFormat.format("MM-dd-yyyy_hh:mm:ss", date);
+       // final ArrayList<ImageItem> imageItems = new ArrayList<>();
+      //  TypedArray imgs =getResources().obtainTypedArray(R.array.names_imgs);
+        //    TypedArray imgs = getResources().obtainTypedArray(R.array.image_ids);
+       // int i=1;
+      //  Bitmap mBitmap = BitmapFactory.decodeResource(getResources(), imgs.getResourceId(i, -1));
+
 
         try {
             File mainDir = new File(
@@ -1487,8 +1502,10 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
         //    File zipfile = new File(getExternalFilesDir(null).getAbsolutePath() + getString(R.string.app_folder_path) + File.separator + DATABASEZIP);
 
             view.setDrawingCacheEnabled(true);
-            Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache());
-            view.setDrawingCacheEnabled(false);
+            int color=Color.RED;
+            Bitmap bitmap =        getBitmapFromView(view ,color);
+          //  Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache());
+          //  view.setDrawingCacheEnabled(false);
 
             File imageFile = new File(path);
             FileOutputStream fileOutputStream = new FileOutputStream(imageFile);
@@ -1500,22 +1517,30 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
             e.printStackTrace();
         }
     }
-
+    Bitmap getBitmapFromView(View view,int defaultColor) {
+        Bitmap bitmap = Bitmap.createBitmap(
+                view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888
+        );
+        Canvas canvas = new Canvas(bitmap);
+        canvas.drawColor(defaultColor);
+        view.draw(canvas);
+        return bitmap;
+    }
     private void shareScreenShot(File imageFile) {
- /*       Uri uriw =     FileProvider.getUriForFile(Objects.requireNonNull(getApplicationContext()),
-                BuildConfig.APPLICATION_ID + ".provider", imageFile);*/
-  /*       Uri uri = FileProvider.getUriForFile(
-                this,
-                BuildConfig.APPLICATION_ID + "." + getLocalClassName() + ".provider",
-                imageFile);*/
-     //   Uri uri = Uri.fromFile(new File(imageFile.toURI()));
+
         Uri uri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".provider", imageFile);
-        Intent intent = new Intent();
+ /*      CropImage.activity(uri)
+                .start(this);*/
+
+
+
+
+      Intent intent = new Intent();
         intent.setAction(Intent.ACTION_SEND);
         intent.setType("image/*");
         intent.putExtra(android.content.Intent.EXTRA_TEXT, "Download Application from Instagram");
         intent.putExtra(Intent.EXTRA_STREAM, uri);
-     //   intentShareFile.putExtra(Intent.EXTRA_STREAM, uri);
+
 
         List<ResolveInfo> resInfoList = getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
         for (ResolveInfo resolveInfo : resInfoList) {
@@ -1529,8 +1554,38 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
             Toast.makeText(this, "No App Available", Toast.LENGTH_SHORT).show();
         }
     }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                Uri resultUri = result.getUri();
+                System.out.println(resultUri);
+                    Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        intent.setType("image/*");
+        intent.putExtra(android.content.Intent.EXTRA_TEXT, "Download Application from Instagram");
+        intent.putExtra(Intent.EXTRA_STREAM, resultUri);
 
-    private void RefreshActivity() {
+
+        List<ResolveInfo> resInfoList = getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+        for (ResolveInfo resolveInfo : resInfoList) {
+            String packageName = resolveInfo.activityInfo.packageName;
+            grantUriPermission(packageName, resultUri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        }
+        startActivity(Intent.createChooser(intent, "Share PDF using.."));
+        try {
+            this.startActivity(Intent.createChooser(intent, "Share With"));
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(this, "No App Available", Toast.LENGTH_SHORT).show();
+        }
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = result.getError();
+            }
+        }
+    }
+    private void ReloadActivity() {
         Log.e(TAG, "onClick called");
         final Intent intent = getIntent().putExtra("chapter", chapterno).putExtra("chapterorpart", chapterorpart).putExtra(SURAH_ARABIC_NAME, surahArabicName).putExtra("passages",passages)
                 .putExtra(VERSESCOUNT, getVersescount()).putExtra(RUKUCOUNT, rukucount).putExtra(MAKKI_MADANI, isMakkiMadani);
@@ -1577,13 +1632,13 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
                 //     SharedPreferences.Editor editor = getActivity().getSharedPreferences("properties", 0).edit();
                 editor.putBoolean("colortag", false);
                 editor.apply();
-                //     RefreshActivity(colorsentence);
+                //     ReloadActivity(colorsentence);
             } else {
                 SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(QuranGrammarAct.this).edit();
                 //     SharedPreferences.Editor editor = getActivity().getSharedPreferences("properties", 0).edit();
                 editor.putBoolean("colortag", true);
                 editor.apply();
-                //     RefreshActivity(colorsentence);
+                //     ReloadActivity(colorsentence);
             }
 
         });
@@ -1602,7 +1657,7 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
 
 
 
-    private void RefreshActivity(SwitchCompat colorsentence) {
+    private void ReloadActivity(SwitchCompat colorsentence) {
         Log.e(TAG, "onClick called");
         final Intent intent = getIntent().putExtra("chapter", chapterno).putExtra("chapterorpart", chapterorpart).putExtra(SURAH_ARABIC_NAME, surahArabicName)
                 .putExtra(VERSESCOUNT, getVersescount()).putExtra(RUKUCOUNT, rukucount).putExtra(MAKKI_MADANI, isMakkiMadani);
