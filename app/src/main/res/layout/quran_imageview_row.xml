@@ -43,11 +43,47 @@
             android:visibility="gone">
 
         </ImageView>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab2q"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:fabSize="mini"
 
+            app:srcCompat="@android:drawable/ic_menu_share"
+            android:contentDescription="TODOs" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab1q"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:fabSize="mini"
+            app:srcCompat="@android:drawable/ic_dialog_map"
+            android:contentDescription="TODOss" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab3q"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:fabSize="mini"
+
+
+            app:srcCompat="@android:drawable/btn_star"
+            android:contentDescription="TODssO" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/expandfabs"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:fabSize="mini"
+            app:icon="@drawable/ic_plus_white_24dp"
+
+            app:srcCompat="@android:drawable/btn_plus"
+            android:contentDescription="TODO" />
         <ImageView
+            android:visibility="gone"
             android:id="@+id/ivSumarry"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
+            android:layout_marginStart="70dp"
             android:layout_alignParentLeft="true"
             android:layout_weight="0"
             android:background="?attr/selectableItemBackground"
@@ -55,10 +91,11 @@
             android:paddingEnd="@dimen/space_1"
             android:scaleType="fitCenter"
 
-            android:visibility="visible"
+
             app:srcCompat="@drawable/baseline_summarize_24" />
 
         <ImageView
+            android:visibility="gone"
             android:id="@id/ivActionOverflow"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
@@ -75,7 +112,7 @@
             android:paddingEnd="@dimen/space_1"
 
 
-            android:visibility="visible"
+
             app:srcCompat="@drawable/baseline_menu_open_24">
 
         </ImageView>

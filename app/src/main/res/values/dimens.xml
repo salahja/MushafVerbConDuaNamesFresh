@@ -171,6 +171,12 @@
     <dimen name="tooltip_y_offset_touch">16dp</dimen>
     <dimen name="viewpager_textsize">17dp</dimen>
     <dimen name="text_size_30">30dp</dimen>
+    <dimen name="ui_margin_medium">10dp</dimen>
+    <dimen name="ui_margin">10dp</dimen>
+    <dimen name="text_size_large">25dp</dimen>
+    <dimen name="standard_55">-55dp</dimen>
+    <dimen name="standard_105">-105dp</dimen>
+    <dimen name="standard_155">-155dp</dimen>
 
 
 </resources>

@@ -94,6 +94,7 @@ import com.example.mushafconsolidated.SurahSummary;
 import com.example.mushafconsolidated.Utils;
 
 import com.example.mushafconsolidated.fragments.BookmarkFragment;
+import com.example.mushafconsolidated.fragments.Fab_Fragment;
 import com.example.mushafconsolidated.fragments.GrammerFragmentsBottomSheet;
 import com.example.mushafconsolidated.fragments.NewSurahDisplayFrag;
 import com.example.mushafconsolidated.fragments.WordAnalysisBottomSheet;
@@ -130,10 +131,13 @@ import java.util.concurrent.Executors;
 
 import database.GridImageAct;
 import sj.hisnul.activity.HisnulBottomACT;
+import sj.hisnul.fragments.HDuaNamesfrag;
 //import com.example.mushafconsolidated.Entities.JoinVersesTranslationDataTranslation;
 
 public class QuranGrammarAct extends BaseActivity implements PassdataInterface, OnItemClickListenerOnLong {
     private static final String TAG = "fragment";
+  //  FloatingActionButton fab1, fab2, fab3, fab;
+    private boolean isFABOpen = false;
     private final ArrayList<String> det = new ArrayList<>();
     FloatingActionButton btnBottomSheet;
     String surahArabicName;
@@ -184,6 +188,8 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
     private RecyclerView parentRecyclerView;
     private RecyclerView surahRecView;
     private boolean passages=false;
+    private FloatingActionButton fabmenu;
+    private FloatingActionButton fab1,fab2,fab3;
 
     public int getRukucount() {
         return rukucount;
@@ -390,6 +396,7 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
     }
 
     private void initnavigation() {
+
         btnBottomSheet = findViewById(R.id.fab);
         drawerLayout = findViewById(R.id.drawer);
         navigationView = findViewById(R.id.navigationView);
@@ -414,6 +421,19 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
         } else {
             materialToolbar.setBackgroundColor(colorsurface);
         }*/
+  /*     fab.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               if (!isFABOpen) {
+                   showFABMenu();
+               } else {
+                   closeFABMenu();
+               }
+           }
+       });
+*/
+
+
         btnBottomSheet.setOnClickListener(v -> {
             toggleBottomSheets();
             //  toggleHideSeek();
@@ -503,6 +523,7 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
             return false;
         });
     }
+
 
     private boolean isFirstTime() {
         SharedPreferences preferences = getPreferences(MODE_PRIVATE);
@@ -1192,18 +1213,31 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
         SwitchCompat colorsentence = view.findViewById(R.id.colorized);
         boolean colortag = shared.getBoolean("colortag", true);
         View qurantext = view.findViewById(R.id.quran_textView);
+
         if (tag.equals("summary")) {
-            int chapter_no = corpusayahWordArrayList.get(position - 1).getWord().get(0).getSurahId();
+           int chapter_no = corpusayahWordArrayList.get(position - 1).getWord().get(0).getSurahId();
             int verse = corpusayahWordArrayList.get(position - 1).getWord().get(0).getVerseId();
             String name = getSurahArabicName();
             Bundle dataBundle = new Bundle();
             dataBundle.putInt(SURAH_ID, chapter_no);
-            SurahSummary item = new SurahSummary();
-            item.setArguments(dataBundle);
-            int data = (chapter_no);
-            //  FragmentTransaction transactions = fragmentManager.beginTransaction().setCustomAnimations(R.anim.abc_slide_in_top, android.R.anim.fade_out);
-            //   transactions.show(item);
-            SurahSummary.newInstance(data).show(getSupportFragmentManager(), NamesDetail.TAG);
+            Fragment fragvsi = Fab_Fragment.newInstance();
+
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction()
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            transaction.replace(R.id.frame_container, fragvsi, "items");
+            //     transaction.addToBackStack("setting");
+            transaction.addToBackStack("items");
+            transaction.commit();
+    /*        Intent fabintent = new Intent(QuranGrammarAct.this, FabMenuActivity.class);
+            //  flowAyahWordAdapter.getItem(position);
+            int chapter_no = corpusayahWordArrayList.get(position - 1).getWord().get(0).getSurahId();
+            int verse = corpusayahWordArrayList.get(position - 1).getWord().get(0).getVerseId();
+
+         ;
+            startActivity(fabintent);*/
+
+         //   return true;
+
 
         } else if (tag.equals("arrowforward")) {
             int currentsurah = quranEntity.getSurah();
@@ -1270,6 +1304,43 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
             BottomOptionDialog.newInstance(data).show(QuranGrammarAct.this.getSupportFragmentManager(), WordAnalysisBottomSheet.TAG);
 
 
+        }else  if(tag.equals("fabdumm6"))  {
+            fabmenu = view.findViewById(R.id.expandfabs);
+            fab1 = view.findViewById(R.id.fab1q);
+            fab2 = view.findViewById(R.id.fab2q);
+            fab3 = view.findViewById(R.id.fab3q);
+            fabmenu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (!isFABOpen) {
+                        showFABMenu();
+                    } else {
+                        closeFABMenu();
+                    }
+                }
+
+                private void showFABMenu() {
+                    isFABOpen = true;
+                    fab1.animate().translationX(-getResources().getDimension(R.dimen.standard_55));
+                    fab2.animate().translationX(-getResources().getDimension(R.dimen.standard_105));
+                    fab3.animate().translationX(-getResources().getDimension(R.dimen.standard_155));
+                    fab1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            System.out.printf("check");
+                        }
+                    });
+                }
+
+                private void closeFABMenu() {
+                    isFABOpen = false;
+                    fab1.animate().translationX(0);
+                    fab2.animate().translationX(0);
+                    fab3.animate().translationX(0);
+                }
+            });
+
+
         }
 
 
@@ -1311,18 +1382,18 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
                             optionsMenu.dismiss();
                             return true;
                         case R.id.action_share:
-                      /*      Intent crop = new Intent(QuranGrammarAct.this, Scree.class);
-                            //  flowAyahWordAdapter.getItem(position);
+                       Intent crop = new Intent(QuranGrammarAct.this, QiblaActivity.class);
+
 
                             startActivity(crop);
-                            optionsMenu.dismiss();*/
-
-
-
-
-
-                         takeScreenShot(getWindow().getDecorView());
                             optionsMenu.dismiss();
+
+
+
+
+
+                     //    takeScreenShot(getWindow().getDecorView());
+                          //  optionsMenu.dismiss();
                             return true;
                         case R.id.ivHelp: // Handle option2 Click
                             //  SurahAyahPicker();
@@ -1368,7 +1439,11 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
             optionsMenu.show();
 
 
-        }    else if (tag.equals("overflow_img")) {
+        }
+
+
+
+        else if (tag.equals("overflow_img")) {
             boolean issentencesanalysis = shared.getBoolean("grammarsentence", true);
             AlertDialog.Builder builder = new AlertDialog.Builder(QuranGrammarAct.this);
             LayoutInflater factory = LayoutInflater.from(QuranGrammarAct.this);
@@ -1378,6 +1453,7 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
             View bookmarkview = view.findViewById(R.id.bookmark);
             SwitchCompat colorized = view.findViewById(R.id.colorized);
             View helpview = view.findViewById(R.id.help);
+
             //  View surahsummary = view.findViewById(R.id.surahsummary);
             builder.setView(view);
             colorized.setChecked(colortag);

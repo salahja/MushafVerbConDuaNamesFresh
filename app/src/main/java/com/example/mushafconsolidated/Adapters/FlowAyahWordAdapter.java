@@ -21,6 +21,7 @@ import static com.example.Constant.TAMEEZHEADER;
 import static com.example.Constant.WORDNUMBER;
 import static com.example.utility.CorpusUtilityorig.getStringForegroundColorSpanMap;
 import static com.example.utility.QuranGrammarApplication.getContext;
+import static com.example.utility.QuranGrammarApplication.getInstance;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -81,6 +82,7 @@ import com.example.utility.AnimationUtility;
 import com.example.utility.CorpusUtilityorig;
 import com.example.utility.QuranGrammarApplication;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.tooltip.Tooltip;
 
 import java.util.ArrayList;
@@ -93,6 +95,8 @@ import java.util.Map;
 public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapter.ItemViewAdapter>
         //implements OnItemClickListenerOnLong {
 {
+
+
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
     final long surah_id;
@@ -795,7 +799,7 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
         ImageView mafoolatarow, showkatheer;
         Group hiddenGroup, card_group;
         MaterialCardView base_cardview;
-
+        FloatingActionButton fab1, fab2, fab3, fabmenu;
         ItemViewAdapter(View view, int viewType) {
             super(view);
             view.setTag(this);
@@ -867,14 +871,60 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
                 mafoolatarow.setOnClickListener(this);
                 mafoolbihi = view.findViewById(R.id.directobject);
                 base_cardview = view.findViewById(R.id.base_cardview);
+
+
+                fabmenu =  view. findViewById(R.id.expandfabs);
+                fab1 =   view. findViewById(R.id.fab1q);
+                fab2 =   view. findViewById(R.id.fab2q);
+                fab3 =   view. findViewById(R.id.fab3q);
+                fabmenu.setOnClickListener(this);
+                fab1.setOnClickListener(this);
+                fab2.setOnClickListener(this);
+                fab3.setOnClickListener(this);
+                fabmenu.setTag("fab");
+                fab1.setTag("fab1");
+                fab2.setTag("fab2");
+                fab3.setTag("fab3");
+
                 view.setOnClickListener(this);
                 view.setOnLongClickListener(this);
                 SharedPreferences shared = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getContext());
                 boolean colortag = shared.getBoolean("colortag", true);
-                //    colorize.setChecked(colortag);
-// Gets the layout params that will allow you to resize the layout
-                //  ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) colllayout.getLayoutParams();
-// Changes the height and width to the specified *pixels*
+                fabmenu.setOnClickListener(new View.OnClickListener() {
+                    private boolean isFABOpen=false;
+
+                    @Override
+                    public void onClick(View view) {
+                        if (!isFABOpen) {
+                            showFABMenu();
+                        } else {
+                            closeFABMenu();
+                        }
+                    }
+
+                    private void showFABMenu() {
+                        isFABOpen = true;
+                        fab1.animate().translationX(- getInstance().getResources().getDimension(R.dimen.standard_55));
+                        fab2.animate().translationX(-getInstance().getResources().getDimension(R.dimen.standard_105));
+                        fab3.animate().translationX(-getInstance().getResources().getDimension(R.dimen.standard_155));
+                        fab1.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                System.out.printf("check");
+                            }
+                        });
+                    }
+
+                    private void closeFABMenu() {
+                        isFABOpen = false;
+                        fab1.animate().translationX(0);
+                        fab2.animate().translationX(0);
+                        fab3.animate().translationX(0);
+                    }
+                });
+
+
+
                 mafoolatarow.setOnClickListener(view1 -> {
                     TransitionManager.beginDelayedTransition(erabnotescardView, new AutoTransition());
                     if (hiddenGroup.getVisibility() == View.VISIBLE) {

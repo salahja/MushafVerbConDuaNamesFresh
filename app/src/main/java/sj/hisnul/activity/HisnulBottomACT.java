@@ -38,7 +38,6 @@ public class HisnulBottomACT extends BaseActivity implements OnItemClickListener
     RelativeLayout layoutBottomSheet;
     BottomSheetBehavior sheetBehavior;
     private BottomNavigationView bottomNavigationView;
-    private ArrayList<ChaptersAnaEntity> soraList;
 
     @Override
     public void onBackPressed() {
@@ -89,7 +88,6 @@ public class HisnulBottomACT extends BaseActivity implements OnItemClickListener
     private void initnavigation() {
         btnBottomSheet = findViewById(R.id.fab);
         bottomNavigationView = findViewById(R.id.bottomNavView);
-        SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.getContext());
         btnBottomSheet.setOnClickListener(v -> {
             toggleBottomSheets();
             //  toggleHideSeek();
@@ -148,7 +146,6 @@ public class HisnulBottomACT extends BaseActivity implements OnItemClickListener
     }
 
     private void initView() {
-        Utils utils = new Utils(getApplication());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         btnBottomSheet = findViewById(R.id.fab);
         layoutBottomSheet = findViewById(R.id.bottom_sheet);
@@ -168,16 +165,6 @@ public class HisnulBottomACT extends BaseActivity implements OnItemClickListener
             //    btnBottomSheet.setText("Close sheet");
         } else {
             bottomNavigationView.setVisibility(View.VISIBLE);
-            //    btnBottomSheet.setText("Expand sheet");
-        }
-    }
-
-    public void toggleBottomSheet() {
-        if (sheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
-            sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-            //    btnBottomSheet.setText("Close sheet");
-        } else {
-            sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
             //    btnBottomSheet.setText("Expand sheet");
         }
     }

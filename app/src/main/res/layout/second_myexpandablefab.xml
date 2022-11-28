@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="80dp"
+
+    android:layout_gravity="bottom|end"
+ android:layout_marginBottom="100dp"
+    tools:ignore="HardcodedText">    <!--This will be the parent Floating Action Button-->
+
+
+
+
+
+     <com.google.android.material.floatingactionbutton.FloatingActionButton
+     android:id="@+id/fab3"
+         android:layout_width="wrap_content"
+         android:layout_height="match_parent"
+         android:layout_marginStart="@dimen/fab_margin"
+         android:layout_marginTop="@dimen/fab_margin"
+         android:layout_marginEnd="@dimen/fab_margin"
+         android:layout_marginBottom="@dimen/fab_margin"
+     android:layout_gravity="bottom|end"
+     android:layout_margin="5dp"
+     app:srcCompat="@android:drawable/ic_btn_speak_now"
+         android:contentDescription="TODO" />
+
+     <com.google.android.material.floatingactionbutton.FloatingActionButton
+     android:id="@+id/fab2"
+         android:layout_width="wrap_content"
+         android:layout_height="match_parent"
+         android:layout_marginStart="@dimen/fab_margin"
+         android:layout_marginTop="@dimen/fab_margin"
+         android:layout_marginEnd="@dimen/fab_margin"
+         android:layout_marginBottom="@dimen/fab_margin"
+         android:layout_gravity="bottom|end"
+     app:srcCompat="@android:drawable/ic_menu_camera"
+         android:contentDescription="TODO" />
+
+     <com.google.android.material.floatingactionbutton.FloatingActionButton
+     android:id="@+id/fab1"
+         android:layout_width="wrap_content"
+         android:layout_height="match_parent"
+         android:layout_marginStart="@dimen/fab_margin"
+         android:layout_marginTop="@dimen/fab_margin"
+         android:layout_marginEnd="@dimen/fab_margin"
+         android:layout_marginBottom="@dimen/fab_margin"
+         android:layout_gravity="bottom|end"
+     app:srcCompat="@android:drawable/ic_dialog_map"
+         android:contentDescription="TODO" />
+
+     <com.google.android.material.floatingactionbutton.FloatingActionButton
+     android:id="@+id/expandfabfrag"
+         android:layout_width="wrap_content"
+         android:layout_height="match_parent"
+         android:layout_marginStart="@dimen/fab_margin"
+         android:layout_marginTop="@dimen/fab_margin"
+         android:layout_marginEnd="@dimen/fab_margin"
+         android:layout_marginBottom="@dimen/fab_margin"
+         android:visibility="visible"
+         android:layout_gravity="bottom|end"
+     app:srcCompat="@android:drawable/ic_dialog_email"
+         android:contentDescription="TODO" />
+ </androidx.coordinatorlayout.widget.CoordinatorLayout>
