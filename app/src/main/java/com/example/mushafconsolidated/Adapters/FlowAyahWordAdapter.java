@@ -26,6 +26,7 @@ import static com.example.utility.QuranGrammarApplication.getInstance;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
@@ -50,18 +51,23 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.Group;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.transition.AutoTransition;
 import androidx.transition.TransitionManager;
 
+import com.example.mushafconsolidated.Activity.QuranGrammarAct;
+import com.example.mushafconsolidated.Activity.TafsirFullscreenActivity;
 import com.example.mushafconsolidated.Config;
 import com.example.mushafconsolidated.Entities.BadalErabNotesEnt;
+import com.example.mushafconsolidated.Entities.BookMarks;
 import com.example.mushafconsolidated.Entities.HalEnt;
 import com.example.mushafconsolidated.Entities.LiajlihiEnt;
 import com.example.mushafconsolidated.Entities.MafoolBihi;
@@ -70,7 +76,10 @@ import com.example.mushafconsolidated.Entities.NounCorpus;
 import com.example.mushafconsolidated.Entities.QuranEntity;
 import com.example.mushafconsolidated.Entities.TameezEnt;
 import com.example.mushafconsolidated.Entities.VerbCorpus;
+import com.example.mushafconsolidated.NamesDetail;
+import com.example.mushafconsolidated.ParticleColorScheme;
 import com.example.mushafconsolidated.R;
+import com.example.mushafconsolidated.SurahSummary;
 import com.example.mushafconsolidated.Utils;
 import com.example.mushafconsolidated.fragments.SentenceAnalysisBottomSheet;
 import com.example.mushafconsolidated.fragments.WordAnalysisBottomSheet;
@@ -83,6 +92,7 @@ import com.example.utility.CorpusUtilityorig;
 import com.example.utility.QuranGrammarApplication;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.tooltip.Tooltip;
 
 import java.util.ArrayList;
@@ -97,6 +107,7 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
 {
 
 
+    private boolean isFABOpen=false;
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
     final long surah_id;
@@ -121,6 +132,7 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
     private int headercolor;
     private WebView kathir_translation;
     private Typeface colorwordfont;
+    private CorpusAyahWord ayahWord;
 
     public FlowAyahWordAdapter(LinkedHashMap<Integer, ArrayList<CorpusWbwWord>> passage, ArrayList<MafoolMutlaqEnt> mutlaqent, ArrayList<TameezEnt> tameezEnts, ArrayList<BadalErabNotesEnt> badalErabNotesEnt, ArrayList<LiajlihiEnt> liajlihient, ArrayList<HalEnt> jumlahaliya, ArrayList<MafoolBihi> mafoolBihis, ArrayList<String> header, List<QuranEntity> allofQuran,
                                ArrayList<CorpusAyahWord> ayahWordArrayList, Context context, long surah_id, String surahName, int ismakki, OnItemClickListenerOnLong listener) {
@@ -315,7 +327,7 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
         } catch (IndexOutOfBoundsException e) {
             System.out.println(e.getMessage());
         }
-        final CorpusAyahWord ayahWord = ayahWordArrayList.get(position);
+       ayahWord = ayahWordArrayList.get(position);
         if (null != entity) {
             storepreferences(entity);
         }
@@ -799,7 +811,7 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
         ImageView mafoolatarow, showkatheer;
         Group hiddenGroup, card_group;
         MaterialCardView base_cardview;
-        FloatingActionButton fab1, fab2, fab3, fabmenu;
+        FloatingActionButton tafsir, jumptofb, bookmarfb, fabmenu,helpfb,summbaryfb,sharescreenfb;
         ItemViewAdapter(View view, int viewType) {
             super(view);
             view.setTag(this);
@@ -874,24 +886,34 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
 
 
                 fabmenu =  view. findViewById(R.id.expandfabs);
-                fab1 =   view. findViewById(R.id.fab1q);
-                fab2 =   view. findViewById(R.id.fab2q);
-                fab3 =   view. findViewById(R.id.fab3q);
+                tafsir =   view. findViewById(R.id.tafsirfb);
+                jumptofb =   view. findViewById(R.id.jumptofb);
+                bookmarfb =   view. findViewById(R.id.bookmarfb);
+                summbaryfb=view.findViewById(R.id.summbaryfb);
+                helpfb=view.findViewById(R.id.helpfb);
+                sharescreenfb=view.findViewById(R.id.sharescreenfb);
+                sharescreenfb.setOnClickListener(this);
                 fabmenu.setOnClickListener(this);
-                fab1.setOnClickListener(this);
-                fab2.setOnClickListener(this);
-                fab3.setOnClickListener(this);
-                fabmenu.setTag("fab");
-                fab1.setTag("fab1");
-                fab2.setTag("fab2");
-                fab3.setTag("fab3");
+                tafsir.setOnClickListener(this);
+                jumptofb.setOnClickListener(this);
+                bookmarfb.setOnClickListener(this);
+                summbaryfb.setOnClickListener(this);
+                helpfb.setOnClickListener(this);
+                fabmenu.setTag("fabmenu");
+                tafsir.setTag("tafsir");
+                jumptofb.setTag("jumptofb");
+                bookmarfb.setTag("bookmarfb");
+                helpfb.setTag("help");
+                summbaryfb.setTag("summaryfb");
+                sharescreenfb.setTag("sharefb");
 
                 view.setOnClickListener(this);
                 view.setOnLongClickListener(this);
                 SharedPreferences shared = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getContext());
                 boolean colortag = shared.getBoolean("colortag", true);
-                fabmenu.setOnClickListener(new View.OnClickListener() {
-                    private boolean isFABOpen=false;
+
+        fabmenu.setOnClickListener(new View.OnClickListener() {
+
 
                     @Override
                     public void onClick(View view) {
@@ -904,22 +926,107 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
 
                     private void showFABMenu() {
                         isFABOpen = true;
-                        fab1.animate().translationX(- getInstance().getResources().getDimension(R.dimen.standard_55));
-                        fab2.animate().translationX(-getInstance().getResources().getDimension(R.dimen.standard_105));
-                        fab3.animate().translationX(-getInstance().getResources().getDimension(R.dimen.standard_155));
-                        fab1.setOnClickListener(new View.OnClickListener() {
+                        fabmenu.animate().rotationBy(180);
+                        tafsir.animate().translationX(- getInstance().getResources().getDimension(R.dimen.standard_55));
+                        tafsir.animate().rotationBy(360);
+                        jumptofb.animate().translationX(-getInstance().getResources().getDimension(R.dimen.standard_105));
+                        jumptofb.animate().rotationBy(360);
+                        bookmarfb.animate().translationX(-getInstance().getResources().getDimension(R.dimen.standard_155));
+                        bookmarfb.animate().rotationBy(360);
+                        summbaryfb.animate().translationX(-getInstance().getResources().getDimension(R.dimen.standard_205));
+                        summbaryfb.animate().rotationBy(360);
+                        helpfb.animate().translationX(-getInstance().getResources().getDimension(R.dimen.standard_255));
+                        helpfb.animate().rotationBy(360);
+                        tafsir.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                System.out.printf("check");
+                                closeFABMenu();
+                                Intent readingintent = new Intent(((AppCompatActivity) context), TafsirFullscreenActivity.class);
+                                //  flowAyahWordAdapter.getItem(position);
+                                int chapter_no = ayahWord.getWord().get(0).getSurahId();
+                             //   int verse = ayahWord.getWord().get(0).getVerseId();
+                                int verse=        ayahWordArrayList.get(getPosition()-1).getWord().get(0).getVerseId();
+                             //   String name = getSurahArabicName();
+                                readingintent.putExtra(SURAH_ID, chapter_no);
+                                readingintent.putExtra(AYAH_ID, verse);
+                                readingintent.putExtra(SURAH_ARABIC_NAME, SurahName);
+                                ((AppCompatActivity) context).startActivity(readingintent);
                             }
                         });
+                        bookmarfb.setOnClickListener(new View.OnClickListener() {
+
+                            @Override
+                            public void onClick(View v) {
+                                closeFABMenu();
+                                bookMarkSelected(getPosition());
+
+                            }
+                        });
+
+                        summbaryfb.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                closeFABMenu();
+                                int chapter_no = ayahWord.getWord().get(0).getSurahId();
+                                //   int verse = ayahWord.getWord().get(0).getVerseId();
+                                int verse=        ayahWordArrayList.get(getPosition()-1).getWord().get(0).getVerseId();
+
+                                Bundle dataBundle = new Bundle();
+                                dataBundle.putInt(SURAH_ID, chapter_no);
+                                SurahSummary item = new SurahSummary();
+                                item.setArguments(dataBundle);
+                                int data = (chapter_no);
+                                //  FragmentTransaction transactions = fragmentManager.beginTransaction().setCustomAnimations(R.anim.abc_slide_in_top, android.R.anim.fade_out);
+                                //   transactions.show(item);
+                                SurahSummary.newInstance(data).show( ((AppCompatActivity) context).getSupportFragmentManager(), NamesDetail.TAG);
+                            }
+                        });
+
+                        helpfb.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                closeFABMenu();
+
+                                //    FragmentTransaction transactions = fragmentManager.beginTransaction().setCustomAnimations(R.anim.abc_slide_in_top, android.R.anim.fade_out);
+                                //   transactions.show(item);
+                                ParticleColorScheme.newInstance().show(((AppCompatActivity) context).getSupportFragmentManager(), WordAnalysisBottomSheet.TAG);
+                            }
+                        });
+
+
                     }
 
-                    private void closeFABMenu() {
+            private void bookMarkSelected(int position) {
+                //  position = flowAyahWordAdapter.getAdapterposition();
+
+                //  flowAyahWordAdapter.getItem(position);
+                int chapter_no = ayahWord.getWord().get(0).getSurahId();
+                //   int verse = ayahWord.getWord().get(0).getVerseId();
+                int verse=        ayahWordArrayList.get(getPosition()-1).getWord().get(0).getVerseId();
+                BookMarks en = new BookMarks();
+                en.setChapterno(String.valueOf(chapter_no));
+                en.setVerseno(String.valueOf(verse));
+                en.setSurahname(SurahName);
+                Utils utils=new Utils(getContext());
+                //     Utils utils = new Utils(ReadingSurahPartActivity.this);
+                utils.insertBookMark(en);
+
+                Snackbar snackbar = Snackbar
+                        .make(view, "BookMark Created", Snackbar.LENGTH_LONG);
+                snackbar.setActionTextColor(Color.BLUE);
+                snackbar.setTextColor(Color.CYAN);
+                snackbar.setBackgroundTint(Color.BLACK);
+                snackbar.show();
+            }
+            private void closeFABMenu() {
                         isFABOpen = false;
-                        fab1.animate().translationX(0);
-                        fab2.animate().translationX(0);
-                        fab3.animate().translationX(0);
+                fabmenu.animate().rotationBy(-180);
+                        tafsir.animate().translationX(0);
+                        tafsir.animate().rotationBy(-180);
+                        jumptofb.animate().translationX(0);
+                        bookmarfb.animate().translationX(0);
+                        summbaryfb.animate().translationX(0);
+                        helpfb.animate().translationX(0);
                     }
                 });
 
@@ -1000,7 +1107,14 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
         }
     }
 
-
+  /*  public void closeFABMenuf() {
+        isFABOpen = false;
+        tafsir.animate().translationX(0);
+        jumptofb.animate().translationX(0);
+        bookmarfb.animate().translationX(0);
+        summbaryfb.animate().translationX(0);
+        helpfb.animate().translationX(0);
+    }*/
 //View.OnClickListener, View.OnLongClickListener
 
 }

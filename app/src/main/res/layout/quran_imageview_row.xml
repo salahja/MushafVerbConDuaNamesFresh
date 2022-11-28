@@ -44,38 +44,70 @@
 
         </ImageView>
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab2q"
+            android:id="@+id/sharescreenfb"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:fabSize="mini"
+            android:tooltipText="Share ScreenShot"
+            android:src="@drawable/baseline_share_36"
 
-            app:srcCompat="@android:drawable/ic_menu_share"
+            android:contentDescription="TODOs" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/jumptofb"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:tooltipText="Jump to Surah/Ayah"
+            app:fabSize="mini"
+            android:src="@drawable/ic_baseline_open_in_browser_36"
+
             android:contentDescription="TODOs" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab1q"
+            android:id="@+id/tafsirfb"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:fabSize="mini"
+            android:tooltipText="Tafsir Ibne Kathir"
+            android:src="@drawable/tafsir"
             app:srcCompat="@android:drawable/ic_dialog_map"
+            android:contentDescription="TODOss" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/summbaryfb"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:fabSize="mini"
+            android:tooltipText="Surah Summary"
+            app:srcCompat="@drawable/baseline_summarize_24"
+
+            android:contentDescription="TODOss" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/helpfb"
+            android:tooltipText="Grammar Word Color Scheme"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:fabSize="mini"
+
+            app:srcCompat="@drawable/baseline_help_36"
+
             android:contentDescription="TODOss" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab3q"
+            android:id="@+id/bookmarfb"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:tooltipText="Bookmark Ayah"
             app:fabSize="mini"
+            android:src="@drawable/baseline_bookmarks_red_900_36dp"
 
 
-            app:srcCompat="@android:drawable/btn_star"
             android:contentDescription="TODssO" />
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/expandfabs"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:fabSize="mini"
-            app:icon="@drawable/ic_plus_white_24dp"
 
+            android:src="@drawable/rotatewheel"
             app:srcCompat="@android:drawable/btn_plus"
             android:contentDescription="TODO" />
         <ImageView
@@ -100,7 +132,7 @@
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_marginStart="20dip"
-            android:layout_toRightOf="@+id/ivSumarry"
+            android:layout_toRightOf="@+id/expandfabs"
             android:layout_weight="1"
             android:background="?attr/selectableItemBackground"
             android:backgroundTint="@color/white"

@@ -37,11 +37,9 @@ public class ParticleColorScheme extends BottomSheetDialogFragment {
     private ColorSchemeAdapter colorSchemeAdapter;
 
     // TODO: Customize parameters
-    public static ParticleColorScheme newInstance(String[] data) {
+    public static ParticleColorScheme newInstance() {
         final ParticleColorScheme fragment = new ParticleColorScheme();
-        final Bundle args = new Bundle();
-        args.putStringArray(ARG_OPTIONS_DATA, data);
-        fragment.setArguments(args);
+     ;
         return fragment;
 
     }
