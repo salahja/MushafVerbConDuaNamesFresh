@@ -113,7 +113,7 @@ public abstract class QuranAppDatabase extends RoomDatabase {
 
 
 
-/*
+
 
  quranAppDatabaseInstanceasset = Room.databaseBuilder(context, QuranAppDatabase.class, "qurangrammar.db")
                   .createFromAsset("databases/qurangrammar.db")
@@ -122,7 +122,7 @@ public abstract class QuranAppDatabase extends RoomDatabase {
                     .allowMainThreadQueries()
               //   .openHelperFactory(factory)
                      .build();
- */
+
             quranAppDatabaseInstance = Room.databaseBuilder(context, QuranAppDatabase.class, "qurangrammar.db")
                     .createFromFile(mainDatabase)
                     //          .fallbackToDestructiveMigration()

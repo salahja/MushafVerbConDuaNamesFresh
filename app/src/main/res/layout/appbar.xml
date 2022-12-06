@@ -5,7 +5,7 @@
     android:layout_width="fill_parent"
     android:layout_height="70.0dip"
     app:elevation="2dp"
-    android:theme="@style/ThemeOverlay.Material3.Toolbar.Surface"
+
     tools:showIn="@layout/new_fragment_reading">
 
     <com.google.android.material.appbar.MaterialToolbar

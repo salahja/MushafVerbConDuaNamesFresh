@@ -1,4 +1,4 @@
-package org.sj.conjugator.utilities;
+package com.example.mushafconsolidated.Activity;
 
 import android.Manifest;
 import android.content.Intent;
@@ -14,9 +14,9 @@ import androidx.core.content.ContextCompat;
 
 import com.example.mushafconsolidated.R;
 
-import org.sj.conjugator.MainActivity;
 
-public class Splash extends AppCompatActivity {
+
+public class SplashActivity extends AppCompatActivity {
     public final int SPLASH_DISPLAY_LENGTH = 3000;
 
     private void checkPermission() {
@@ -54,17 +54,17 @@ public class Splash extends AppCompatActivity {
                 Configuration config = new Configuration
                         ();
                 //  config.locale = locale;
-                Splash.this.getResources().updateConfiguration(config,
-                        Splash.this.getResources().getDisplayMetrics())
+                SplashActivity.this.getResources().updateConfiguration(config,
+                        SplashActivity.this.getResources().getDisplayMetrics())
                 ;
 //after three seconds, it will execute all of this code.
 //as such, we then want to redirect to the master-activity
-                startActivity(new Intent(Splash.this, MainActivity.class));
+                startActivity(new Intent(SplashActivity.this, MainActivity.class));
                 // Intent intent = new Intent(Splash.this.getActivity(), MainActivity.class);
                 // Intent mainIntent = new Intent(Splash.this, MainActivity.class);
                 //  startActivity(mainIntent);
 //then we finish this class. Dispose of it as it is longer needed
-                Splash.this.finish();
+                SplashActivity.this.finish();
             }
         }, SPLASH_DISPLAY_LENGTH);
     }

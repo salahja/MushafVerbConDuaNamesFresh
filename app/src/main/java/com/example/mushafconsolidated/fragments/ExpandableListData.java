@@ -65,6 +65,8 @@ public class ExpandableListData {
     private ArrayList<NewCorpusExpandWbwPOJO> corpusSurahWord;
     private Utils utils;
     private String whichwbw;
+    private String preferences;
+    private boolean dark;
 
     public ExpandableListData(int chapterid, int ayanumber, ArrayList<NewCorpusExpandWbwPOJO> corpusSurahWord, Utils utils) {
         this.chapterid = chapterid;
@@ -81,6 +83,11 @@ public class ExpandableListData {
 
     public LinkedHashMap<String, List<SpannableStringBuilder>> getData() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.getContext());
+        String preferences = prefs.getString("theme", "dark");
+        dark = preferences.equals("dark")
+                || preferences.equals("blue")
+                || preferences.equals("purple")
+                || preferences.equals("green");
         String whichtranslation = prefs.getString("selecttranslation", "en_sahih");
         whichwbw = prefs.getString("wbw", "en_sahih");
         LinkedHashMap<String, List<SpannableStringBuilder>> expandableListDetail = new LinkedHashMap<>();
@@ -117,7 +124,7 @@ public class ExpandableListData {
     private void setNewNasb(List<SpannableStringBuilder> hasbarray) {
         ArrayList<NewNasbEntity> kanaSurahAyahnew = utils.getHarfNasbIndSurahAyahSnew(chapterid, ayanumber);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.getContext());
-        String preferences = prefs.getString("theme", "dark");
+
         for (NewNasbEntity nasbEntity : kanaSurahAyahnew) {
             if (nasbEntity.getSurah() == 3 && nasbEntity.getAyah() == 118) {
                 //System.out.println("CHECK");
@@ -164,7 +171,7 @@ public class ExpandableListData {
                 harfinnaspanDark = new ForegroundColorSpan(GOLD);
                 harfismspanDark = new ForegroundColorSpan(GREEN);
                 harfkhabarspanDark = new ForegroundColorSpan(CYAN);
-                if (preferences.equals("dark") || preferences.equals("blue")) {
+                if (dark) {
                     harfinnaspanDark = new ForegroundColorSpan(GREEN);
                     harfismspanDark = new ForegroundColorSpan(BCYAN);
                     harfkhabarspanDark = new ForegroundColorSpan(YELLOW);
@@ -615,7 +622,7 @@ public class ExpandableListData {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.getContext());
         String preferences = prefs.getString("theme", "dark");
         for (SifaEntity shartEntity : sifabySurahAyah) {
-            if (preferences.equals("dark") || preferences.equals("blue")) {
+            if (dark) {
                 sifaspansDark = new BackgroundColorSpan(WBURNTUMBER);
             } else {
                 sifaspansDark = new BackgroundColorSpan(CYANLIGHTEST);
@@ -656,7 +663,7 @@ public class ExpandableListData {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.getContext());
         String preferences = prefs.getString("theme", "dark");
         for (NewMudhafEntity mudhafEntity : mudhafSurahAyah) {
-            if (preferences.equals("dark") || preferences.equals("blue")) {
+            if (dark) {
                 mudhafspansDark = new BackgroundColorSpan(MIDNIGHTBLUE);
             } else {
                 mudhafspansDark = new BackgroundColorSpan(GREENYELLOW);
@@ -749,7 +756,7 @@ public class ExpandableListData {
                 harfspannble = new SpannableStringBuilder(harfofverse);
                 shartspoannable = new SpannableStringBuilder(shartofverse);
                 jawabshartspannable = new SpannableStringBuilder(jawabofverrse);
-                if (preferences.equals("dark") || preferences.equals("blue")) {
+                if (dark) {
                     harfshartspanDark = new ForegroundColorSpan(MIDNIGHTBLUE);
                     shartspanDark = new ForegroundColorSpan(ORANGE400);
                     jawabshartspanDark = new ForegroundColorSpan(CYAN);

@@ -151,6 +151,8 @@ public class WordAnalysisBottomSheet extends DialogFragment {
     private ArrayList<ArrayList> ismfaelmafool;
     private VerbWazan vb;
     private VerbWazan arabicword;
+    private boolean dark;
+
 
     // TODO: Customize parameters
     @NonNull
@@ -254,6 +256,10 @@ public class WordAnalysisBottomSheet extends DialogFragment {
         if (stringArray.length > 4) {//ignore if the call is from wordoccurance
             storepreferences(chapterid, ayanumber, stringArray[4]);
         }
+        boolean dark = themepreference.equals("dark")
+                || themepreference.equals("blue")
+                || themepreference.equals("purple")
+                || themepreference.equals("green");
         Utils utils = new Utils(getActivity());
         ExecutorService ex = Executors.newSingleThreadExecutor();
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
@@ -599,7 +605,8 @@ public class WordAnalysisBottomSheet extends DialogFragment {
     protected void setHarfNasb(Utils utils) {
         ArrayList<NewNasbEntity> harfnasb = utils.getHarfNasbIndSurahAyahSnew(chapterid, ayanumber);
         for (NewNasbEntity nasb : harfnasb) {
-            if (themepreference.equals("dark") || themepreference.equals("blue") || themepreference.equals("white")) {
+    
+            if (dark) {
                 harfinnaspanDark = new ForegroundColorSpan(GREEN);
                 harfismspanDark = new ForegroundColorSpan(BCYAN);
                 harfkhabarspanDark = new ForegroundColorSpan(YELLOW);
@@ -652,7 +659,7 @@ public class WordAnalysisBottomSheet extends DialogFragment {
             harfshartspanDark = new ForegroundColorSpan(GOLD);
             shartspanDark = new ForegroundColorSpan(GREEN);
             jawabshartspanDark = new ForegroundColorSpan(CYAN);
-            if (themepreference.equals("dark") || themepreference.equals("blue") || themepreference.equals("white")) {
+            if (dark) {
                 harfshartspanDark = new ForegroundColorSpan(GOLD);
                 shartspanDark = new ForegroundColorSpan(ORANGE400);
                 jawabshartspanDark = new ForegroundColorSpan(CYAN);

@@ -35,4 +35,11 @@
         app:showAsAction="always" />
 
 
+    <item
+        android:id="@+id/searchtopic"
+        android:contentDescription="@string/content_description_one"
+        android:icon="@drawable/ic_open_book"
+        android:title="@string/action_search"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="always|collapseActionView" />
 </menu>

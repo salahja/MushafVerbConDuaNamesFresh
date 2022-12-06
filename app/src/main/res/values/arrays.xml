@@ -473,7 +473,24 @@
         <item>purple</item>
         <item>dark</item>
         <item>blue</item>
-        <item>light</item>
+        <item>green</item>
+        <item>brown</item>
+    </string-array>
+
+    <string-array name="mmthemeListArray">
+        <item>Purple Dark</item>
+        <item>Dark Black</item>
+
+        <item>Green</item>
+        <item>Brown</item>
+
+    </string-array>
+
+    <string-array name="mmthemeEntryArray">
+        <item>purple</item>
+        <item>dark</item>
+        <item>green</item>
+
         <item>brown</item>
     </string-array>
 

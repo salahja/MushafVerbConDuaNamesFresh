@@ -19,7 +19,7 @@ import org.sj.conjugator.fragments.RulesBottomSheet;
 
 import ru.dimorinny.floatingtextbutton.FloatingTextButton;
 
-public class SarfSagheerActivity extends BaseActivity {
+public class SarfSagheerActivity extends com.example.mushafconsolidated.Activity.BaseActivity {
     RecyclerView recyclerView;
     private TextView mTextView;
     private LinearLayoutManager layoutManager;

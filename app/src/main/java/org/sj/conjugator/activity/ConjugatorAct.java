@@ -51,7 +51,7 @@ import database.entity.Mazeed;
 import database.entity.MujarradVerbs;
 import ru.dimorinny.floatingtextbutton.FloatingTextButton;
 
-public class ConjugatorAct extends BaseActivity implements View.OnClickListener {
+public class ConjugatorAct extends com.example.mushafconsolidated.Activity.BaseActivity implements View.OnClickListener {
     public static Context contextOfApplication;
     private final SparseArray<String> keyValues = new SparseArray<>();
     Button quranbtn,

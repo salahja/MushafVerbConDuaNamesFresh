@@ -29,7 +29,7 @@ import org.sj.conjugator.utilities.SharedPref;
 
 import ru.dimorinny.floatingtextbutton.FloatingTextButton;
 
-public class ConjugatorTabsActivity extends BaseActivity {
+public class ConjugatorTabsActivity extends com.example.mushafconsolidated.Activity.BaseActivity {
     private static final int NUM_PAGES_THULATHI = 5;
     private static final int NUM_PAGES_MAZEED = 3;
     // Arrey of strings FOR TABS TITLES

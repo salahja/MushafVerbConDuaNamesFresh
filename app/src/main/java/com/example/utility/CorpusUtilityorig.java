@@ -148,15 +148,19 @@ public class CorpusUtilityorig {
     final ArrayList<MousufSifa> NEWmousufSifaArrayList = new ArrayList<>();
     private final String preferences;
     private final Context context;
- 
-   
+    private static  boolean dark=true;
 
-  
 
     public CorpusUtilityorig(Context context) {
         this.context = context;
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         preferences = prefs.getString("theme", "dark");
+
+        String preferences = prefs.getString("theme", "dark");
+        dark = preferences.equals("dark")
+                || preferences.equals("blue")
+                || preferences.equals("purple")
+                || preferences.equals("green");
 
     }
 
@@ -439,7 +443,7 @@ public class CorpusUtilityorig {
         SharedPreferences sharedPreferences =
                 androidx.preference.PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.getContext());
         String isNightmode = sharedPreferences.getString("themepref", "dark");
-        if (isNightmode.equals("dark") || isNightmode.equals("blue") || isNightmode.equals("purple")) {
+        if (dark) {
             spanhash.put("PN", propernounspanDark);
             spanhash.put("REL", relativespanDark);
             spanhash.put("DEM", demonstrativespanDark);
@@ -539,7 +543,7 @@ public class CorpusUtilityorig {
         BackgroundColorSpan sifaspansDark = Constant.sifaspansDark;
         BackgroundColorSpan mudhafspansDark = Constant.mudhafspansDark;
         if (b) {
-            if (preferences.equals("dark") || preferences.equals("blue") || preferences.equals("purple")) {
+            if (dark) {
                 Constant.mudhafspansDark = new BackgroundColorSpan(MIDNIGHTBLUE);
             } else {
                 Constant.mudhafspansDark = new BackgroundColorSpan(GREENYELLOW);
@@ -547,7 +551,7 @@ public class CorpusUtilityorig {
             return mudhafspansDark;
 
         } else {
-            if (preferences.equals("dark") || preferences.equals("blue") || preferences.equals("purple")) {
+            if (dark) {
                 Constant.sifaspansDark = new BackgroundColorSpan(WBURNTUMBER);
             } else {
                 Constant.sifaspansDark = new BackgroundColorSpan(CYANLIGHTEST);
@@ -565,7 +569,7 @@ public class CorpusUtilityorig {
         int indexOf = quranverses.indexOf(arabicword);
         if (indexOf != -1) {
             str = new SpannableString(quranverses);
-            if (preferences.equals("dark") || preferences.equals("blue") || preferences.equals("purple")) {
+            if (dark) {
                 str.setSpan(new ForegroundColorSpan(CYAN), indexOf, indexOf + wordlen, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             } else {
                 str.setSpan(new ForegroundColorSpan(ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.midnightblue)), indexOf, indexOf + wordlen, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -614,7 +618,7 @@ public class CorpusUtilityorig {
             try {
                 if (indexstart == 0 || indexstart > 0) {
                     //   sifaspansDark = getSpancolor(preferences, false);
-                    if (preferences.equals("dark") || preferences.equals("blue") || preferences.equals("purple")) {
+                    if (dark) {
                         sifaspansDark = new BackgroundColorSpan(WBURNTUMBER);
                     } else {
                         sifaspansDark = new BackgroundColorSpan(CYANLIGHTEST);
@@ -656,7 +660,7 @@ public class CorpusUtilityorig {
                 int khabarend = nasb.getKhabarend();
                 spannableverse = corpusayahWordArrayList.get(nasb.getAyah() - 1).getSpannableverse();
                 try {
-                    if (preferences.equals("dark") || preferences.equals("blue") || preferences.equals("purple")) {
+                    if (dark) {
                         harfinnaspanDark = new ForegroundColorSpan(GREEN);
                     } else {
                         harfinnaspanDark = new ForegroundColorSpan(GREENDARK);
@@ -670,7 +674,7 @@ public class CorpusUtilityorig {
                 }
                 try {
                     //    spannableverse.setSpan(new ForegroundColorSpan(GOLD), ismindexone, ismindexone + lenism1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    if (preferences.equals("dark") || preferences.equals("blue") || preferences.equals("purple")) {
+                    if (dark) {
                         harfismspanDark = new ForegroundColorSpan(BCYAN);
                     } else {
                         harfismspanDark = new ForegroundColorSpan(prussianblue);
@@ -682,7 +686,7 @@ public class CorpusUtilityorig {
                     err.add(nasb.getSurah() + ":" + nasb.getAyah());
                 }
                 try {
-                    if (preferences.equals("dark") || preferences.equals("blue") || preferences.equals("purple")) {
+                    if (dark) {
                         harfkhabarspanDark = new ForegroundColorSpan(YELLOW);
                     } else {
                         harfkhabarspanDark = new ForegroundColorSpan(deepburnsienna);
@@ -729,7 +733,7 @@ public class CorpusUtilityorig {
             try {
                 if (indexstart == 0 || indexstart > 0) {
                     if (true) {
-                        if (preferences.equals("dark") || preferences.equals("blue") || preferences.equals("purple")) {
+                        if (dark) {
                             mudhafspansDark = new BackgroundColorSpan(MIDNIGHTBLUE);
 
                         } else {
@@ -793,7 +797,7 @@ public class CorpusUtilityorig {
             //   spannableString = SpannableString.valueOf(corpusayahWordArrayList.get(shart.getAyah() - 1).getSpannableverse());
             try {
                 if (indexstart == 0 || indexstart > 0) {
-                    if (preferences.equals("dark") || preferences.equals("blue") || preferences.equals("purple")) {
+                    if (dark) {
                         harfshartspanDark = new ForegroundColorSpan(GOLD);
                     } else {
                         harfshartspanDark = new ForegroundColorSpan(FORESTGREEN);
@@ -803,7 +807,7 @@ public class CorpusUtilityorig {
 
                 }
                 if (shartsindex == 0 || shartsindex > 0) {
-                    if (preferences.equals("dark") || preferences.equals("blue") || preferences.equals("purple")) {
+                    if (dark) {
                         shartspanDark = new ForegroundColorSpan(ORANGE400);
                     } else {
                         shartspanDark = new ForegroundColorSpan(GREENDARK);
@@ -816,7 +820,7 @@ public class CorpusUtilityorig {
                     Drawable myDrawable = AppCompatResources.getDrawable(context, R.drawable.oval_circle);
                     assert myDrawable != null;
                     myDrawable.setBounds(0, 0, myDrawable.getIntrinsicWidth(), myDrawable.getIntrinsicHeight());
-                    if (preferences.equals("dark") || preferences.equals("blue") || preferences.equals("purple")) {
+                    if (dark) {
                         jawabshartspanDark = new ForegroundColorSpan(CYAN);
                     } else {
                         jawabshartspanDark = new ForegroundColorSpan(WHOTPINK);

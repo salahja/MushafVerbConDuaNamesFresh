@@ -15,7 +15,7 @@ public  class BaseActivity extends AppCompatActivity {
     public static final String PURPLE_THEME = "purple";
     public static final String DARK_THEME = "dark";
     public static final String DARK_BLUE = "blue";
-    public static final String LIGHT_PURPLE = "light";
+    public static final String DARK_GREEN = "green";
     public static final String BROWN_MODE = "brown";
 
 
@@ -45,8 +45,8 @@ public  class BaseActivity extends AppCompatActivity {
             case DARK_BLUE:
                 setTheme(R.style.Theme_DarkBlue);
                 break;
-            case LIGHT_PURPLE:
-                setTheme(R.style.AppTheme_Light);
+            case DARK_GREEN:
+                setTheme(R.style.AppTheme_DarkGreen);
                 break;
             case BROWN_MODE:
                 setTheme(R.style.Theme_Brown);

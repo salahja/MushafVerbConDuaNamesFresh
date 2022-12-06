@@ -92,7 +92,7 @@ public class ThemeListPrefrence extends BottomSheetDialogFragment  {
     private class ViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener {
 
-        RadioButton purple,black,dark_blue,light,brown;
+        RadioButton purple,black,dark_blue, green,brown;
 
 
 
@@ -103,7 +103,7 @@ public class ThemeListPrefrence extends BottomSheetDialogFragment  {
             purple = itemView.findViewById(R.id.Purple);
             black = itemView.findViewById(R.id.Black);
             dark_blue = itemView.findViewById(R.id.Dark_Blue);
-            light = itemView.findViewById(R.id.Light);
+            green = itemView.findViewById(R.id.green);
             brown = itemView.findViewById(R.id.Brown);
 
            frameLayout= itemView.findViewById(R.id.bottomSheet);
@@ -141,12 +141,12 @@ public class ThemeListPrefrence extends BottomSheetDialogFragment  {
                 }
             });
 
-            light.setOnClickListener(new View.OnClickListener() {
+            green.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getActivity()).edit();
                     //     SharedPreferences.Editor editor = getActivity().getSharedPreferences("properties", 0).edit();
-                    editor.putString("themepref", "light");
+                    editor.putString("themepref", "green");
                     editor.apply();
                     dismiss();
                 }
@@ -200,7 +200,7 @@ public class ThemeListPrefrence extends BottomSheetDialogFragment  {
     } else if    (theme.equals("blue")) {
             holder.dark_blue.setChecked(true);
        } else if    (theme.equals("light")) {
-           holder.light.setChecked(true);
+           holder.green.setChecked(true);
 
         } else if    (theme.equals("brown")) {
             holder.brown.setChecked(true);
