@@ -50,6 +50,9 @@ import java.util.List;
 import database.entity.AllahNames;
 import database.entity.DuaDetails;
 import database.entity.DuaGroup;
+import mm.prayer.muslimmate.entity.Cities;
+import mm.prayer.muslimmate.entity.Countries;
+import mm.prayer.muslimmate.ui.LocationInfo;
 import sj.hisnul.entity.hcategory;
 import sj.hisnul.entity.hduadetails;
 import sj.hisnul.entity.hduanames;
@@ -133,17 +136,6 @@ public class Utils {
 
     }
 
-    public ArrayList<DuaGroup> getDuagroup() {
-        ArrayList<DuaGroup> dua = (ArrayList<DuaGroup>) database.DuaGroupDao().getAllDua();
-        return dua;
-
-    }
-
-    public ArrayList<DuaDetails> getDuagroup(int id) {
-        ArrayList<DuaDetails> dua = (ArrayList<DuaDetails>) database.DuaDao().getDua(id);
-        return dua;
-
-    }
 
     public ArrayList<NewMudhafEntity> getMudhafSurahNew(int id) {
         return (ArrayList<NewMudhafEntity>) database.NewMudhafDao().getMudhafSurah(id);
@@ -987,6 +979,54 @@ public class Utils {
     public ArrayList<hduadetails> gethDuadetailsitems(String id) {
         ArrayList<hduadetails> duay = (ArrayList<hduadetails>) database.hDuaItemDao().getDitem(id);
         return duay;
+
+    }
+
+    //muslim mate
+
+    public  List<Countries> getAllCountries() {
+        return database.CountryDao().getAllCountries();
+
+    }
+
+    public static List<Cities> getAllCities() {
+        return database.CitiesDAO().getCities();
+
+    }
+
+
+
+    public static LocationInfo getLocinfo(Double latitude, Double longitude) {
+        String sqlverb = "select cityd.latitude,cityd.longitude,cityd.time_zone,Countries.Number,Countries.mazhab,Countries.way,Countries.dls,Countries.En_Name,Countries.En_Full_Name,\n" +
+                "Countries.iso3,Countries.Ar_Name,Countries.Continent_Code from cityd ,countries" +
+                "    where   CorpusExpand.surah = \""
+                + latitude + "\""
+                + "and Corpusexpand.ayah=\""
+                + longitude + "\""
+                ;
+        String sqls = "select  b.En_Name , b.Ar_Name , b.iso3 , a.city ," +
+                " b.Continent_Code ,  b.number  , b.mazhab , b.way , b.dls , a.time_zone ," +
+                " (latitude - " + latitude + ")*(latitude - " + latitude + ")+(longitude - " + longitude + ")" +
+                "*(longitude - " + longitude + ") as ed , a.Ar_Name  from cityd a , countries b where" +
+                " b.code = a.country order by ed asc limit 1;";
+
+
+        SimpleSQLiteQuery query = new SimpleSQLiteQuery(sqls);
+        //  List<Book> result = booksDao.getBooks(query);
+        return  database.RawDao().getLocinfo(query);
+    }
+
+
+    public List<Countries> GetCountryCitycode(String code) {
+        return database.CountryDao().getCountryCodebycityname(code);
+
+    }
+    public List<Countries> getCCwithCityname(String code) {
+        return database.CountryDao().getCountryCodebycityname(code);
+
+    }
+    public List<Cities> GetCitycode(String code) {
+        return database.CitiesDAO().getCityCode(code);
 
     }
 

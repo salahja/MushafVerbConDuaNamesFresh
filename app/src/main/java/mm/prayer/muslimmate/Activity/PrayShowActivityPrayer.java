@@ -20,7 +20,7 @@ import java.util.Locale;
 
 import mm.prayer.muslimmate.ui.AppEvent;
 import mm.prayer.muslimmate.ui.ConfigPreferences;
-import mm.prayer.muslimmate.entity.Dates;
+import mm.prayer.muslimmate.model.Dates;
 import mm.prayer.muslimmate.ui.HGDate;
 import mm.prayer.muslimmate.ui.LocationInfo;
 import mm.prayer.muslimmate.ui.LocationReader;

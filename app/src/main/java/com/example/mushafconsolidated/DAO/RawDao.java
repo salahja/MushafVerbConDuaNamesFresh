@@ -22,6 +22,7 @@ import com.example.mushafconsolidated.Entities.VerbCorpusBreakup;
 
 import java.util.List;
 
+import mm.prayer.muslimmate.ui.LocationInfo;
 import sj.hisnul.entity.hduanames;
 //import com.example.mushafconsolidated.Entities.JoinVersesTranslationDataTranslation;
 
@@ -83,5 +84,6 @@ public interface RawDao {
 
     @RawQuery
     List<hduanames> getDuaCATNAMES(SupportSQLiteQuery query);
-
+    @RawQuery
+    LocationInfo getLocinfo(SupportSQLiteQuery query);
 }

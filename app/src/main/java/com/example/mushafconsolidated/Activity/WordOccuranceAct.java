@@ -155,7 +155,7 @@ public class WordOccuranceAct extends BaseActivity {
         expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.getContext());
         String preferences = prefs.getString("theme", "dark");
-        if (preferences.equals("dark")||preferences.equals("blue")||preferences.equals("purple")) {
+        if (preferences.equals("dark")||preferences.equals("blue")||preferences.equals("purple")||preferences.equals("green")) {
             firstcolortat = Constant.BCYAN;
             maincolortag = Constant.BYELLOW;
             pronouncolortag = Constant.BBLUE;

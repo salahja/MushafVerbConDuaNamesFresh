@@ -29,7 +29,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 import org.jetbrains.annotations.NotNull;
-import org.sj.conjugator.adapter.AconSarfKabeerAdapter;
+
 import org.sj.conjugator.adapter.IsmAlaSarfKabeerAdapter;
 import org.sj.conjugator.adapter.MazeedFihiSagheerListingadapter;
 import org.sj.conjugator.utilities.GatherAll;
@@ -69,18 +69,10 @@ public class FragmentIsmIsmAla extends Fragment {
     private MazeedFihiSagheerListingadapter mazeedFiHiSagheerListingadapter;
     private Bitmap bitmap;
     private Spinner spinmazeed;
-    private AconSarfKabeerAdapter aconSarfKabeerAdapter;
+
     private ArrayList<ArrayList> skabeer = new ArrayList<>();
     private ArrayList<ArrayList> getsarfsagheer;
-    private int verbformmazeed;
-    private String verbformthulathi;
-    private String madhi;
-    private String mudharay;
-    private String madhimajhool;
-    private String mudharaymajhool;
-    private String amrstr;
-    private String verbweakness;
-    private boolean isSarfKabeer;
+
 
     public FragmentIsmIsmAla newInstance() {
         FragmentIsmIsmAla f = new FragmentIsmIsmAla();
@@ -97,10 +89,6 @@ public class FragmentIsmIsmAla extends Fragment {
         return f;
 
     }
-    //   public static SarfKabeerFragmentOnClickFromListing newInstance() {
-    //      SarfKabeerFragmentOnClickFromListing VerbListFragment = new SarfKabeerFragmentOnClickFromListing();
-    //     return VerbListFragment;
-    //  }
 
     public void setRegularverb(boolean regularverb) {
         this.regularverb = regularverb;
@@ -131,9 +119,7 @@ public class FragmentIsmIsmAla extends Fragment {
                 callButton.setVisibility(View.GONE);
             }
         }
-        // callButton = view.findViewById(R.id.action_buttons);
-        //   callButton.setVisibility(View.VISIBLE);
-        //   Bundle dataBundle = this.getArguments();
+ ;
         assert dataBundle != null;
         assert dataBundle != null;
         if (dataBundle.getString(VERBTYPE).equals("mujarrad")) {
@@ -150,14 +136,10 @@ public class FragmentIsmIsmAla extends Fragment {
         callButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //     FragmentManager fragmentManager = null;
-                //   fragmentManager.popBackStack("mujarrad", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
                 FragmentManager fm = getActivity()
                         .getSupportFragmentManager();
-                //   fm.popBackStack ("mujarrad", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                //    getFragmentManager().popBackStack();
-                //   FragmentManager fm = getActivity().getSupportFragmentManager();
-                //      ffm.popBackStack();
+
                 fm.popBackStack();
 
             }
@@ -175,12 +157,7 @@ public class FragmentIsmIsmAla extends Fragment {
             initMazeedAdapterNew();
         }
         recyclerView = view.findViewById(R.id.sarfrecview);
-        //    SarfSagheerThulathiWeak sw = new SarfSagheerThulathiWeak(getActivity());
-        //    SarfSagheerMazeedRegular mw = new SarfSagheerMazeedRegular(getActivity());
-        //    sarf = new SarfSagheerThulathiRegular(getActivity());
-        //     getsarfsagheer = sf.getThulathiRegularQuery("نصر",NASARA);
-        // getsarfsagheer = sw.getThulathiWeakQuery("وجد",ZARABA);
-        //  getsarfsagheer = mw.setUpSarfSagheerMazidQuery("نصر", 2);
+
         return skabeer;
     }
 
@@ -192,7 +169,7 @@ public class FragmentIsmIsmAla extends Fragment {
         ArrayList<ArrayList> mujarradListing = GatherAll.getInstance().getMujarradIsmAla(verbmood, verbroot, unaugmentedFormula);
         if (!mujarradListing.isEmpty()) {
             IsmAlaSarfKabeerAdapter ska = new IsmAlaSarfKabeerAdapter(mujarradListing, getContext());
-            //AconSarfSagheerAdapter sk=new AconSarfSagheerAdapter(ar, MainActivity.this);
+
             recyclerView.setAdapter(ska);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

@@ -18,7 +18,7 @@ import java.util.Date;
 import java.util.List;
 
 import mm.prayer.muslimmate.ui.NumbersLocal;
-import mm.prayer.muslimmate.entity.WeatherApp;
+import mm.prayer.muslimmate.model.WeatherApp;
 import mm.prayer.muslimmate.ui.WeatherIcon;
 import com.example.mushafconsolidated.R;
 

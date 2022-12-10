@@ -34,7 +34,7 @@
                 android:id="@+id/bottomNavView"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_7"
-                style="@style/Widget.Material3.BottomNavigationView.ActiveIndicator"
+                style="@style/ThemeOverlay.Material3.BottomAppBar"
                 android:layout_gravity="bottom"
                 android:background="?attr/colorSecondaryVariant"
                 app:itemBackground="?attr/colorPrimarySurface"
@@ -55,6 +55,7 @@
                 android:layout_marginTop="@dimen/fab_margin"
                 android:layout_marginEnd="@dimen/fab_margin"
                 android:layout_marginBottom="@dimen/fab_margin"
+
                 app:itemIconTint="?attr/colorPrimary"
                 app:srcCompat="@android:drawable/btn_plus"
                 tools:ignore="MissingClass" />

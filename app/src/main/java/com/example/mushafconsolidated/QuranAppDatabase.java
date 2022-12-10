@@ -67,12 +67,14 @@ import com.example.mushafconsolidated.Entities.wbwentity;
 
 import java.io.File;
 
-import database.Dao.DuaDao;
-import database.Dao.DuaGroupDao;
 import database.Dao.NamesDao;
 import database.entity.AllahNames;
 import database.entity.DuaDetails;
 import database.entity.DuaGroup;
+import mm.prayer.muslimmate.Dao.CitiesDAO;
+import mm.prayer.muslimmate.Dao.CountryDao;
+import mm.prayer.muslimmate.entity.Cities;
+import mm.prayer.muslimmate.entity.Countries;
 import sj.hisnul.Dao.hDuaCategoryDao;
 import sj.hisnul.Dao.hDuaItemDao;
 import sj.hisnul.Dao.hDuaNamesDao;
@@ -81,7 +83,7 @@ import sj.hisnul.entity.hduadetails;
 import sj.hisnul.entity.hduanames;
 
 //@Database(entities= {VerseEntit.class,ErabEntity.class,ChaptersAnaEntity.class},version= 1)
-@Database(entities = {hcategory.class, hduadetails.class, hduanames.class, surahsummary.class, quranexplorer.class, AllahNamesDetails.class, AllahNames.class, DuaGroup.class, DuaDetails.class, MafoolMutlaqEnt.class, BadalErabNotesEnt.class, HalEnt.class, MafoolBihi.class, LiajlihiEnt.class, TameezEnt.class, GrammarRules.class, hanslexicon.class, qurandictionary.class, lanelexicon.class, lughat.class, NewNasbEntity.class, NewShartEntity.class, NewKanaEntity.class, NewMudhafEntity.class, SifaEntity.class, wbwentity.class, NounCorpus.class, VerbCorpus.class, QuranEntity.class, CorpusEntity.class, BookMarks.class, ChaptersAnaEntity.class}, version = 1)
+@Database(entities = {Cities.class, Countries.class,hcategory.class, hduadetails.class, hduanames.class, surahsummary.class, quranexplorer.class, AllahNamesDetails.class, AllahNames.class, DuaGroup.class, DuaDetails.class, MafoolMutlaqEnt.class, BadalErabNotesEnt.class, HalEnt.class, MafoolBihi.class, LiajlihiEnt.class, TameezEnt.class, GrammarRules.class, hanslexicon.class, qurandictionary.class, lanelexicon.class, lughat.class, NewNasbEntity.class, NewShartEntity.class, NewKanaEntity.class, NewMudhafEntity.class, SifaEntity.class, wbwentity.class, NounCorpus.class, VerbCorpus.class, QuranEntity.class, CorpusEntity.class, BookMarks.class, ChaptersAnaEntity.class}, version = 1)
 public abstract class QuranAppDatabase extends RoomDatabase {
     //  public static Builder<QuranAppDatabase> quranAppDatabaseInstance;
     private static final RoomDatabase.Callback initialCallBack = new RoomDatabase.Callback() {
@@ -187,9 +189,6 @@ public abstract class QuranAppDatabase extends RoomDatabase {
 
     public abstract MafoolMutlaqEntDao MafoolMutlaqEntDao();
 
-    public abstract DuaDao DuaDao();
-
-    public abstract DuaGroupDao DuaGroupDao();
 
     public abstract NamesDao NamesDao();
 
@@ -204,5 +203,11 @@ public abstract class QuranAppDatabase extends RoomDatabase {
     public abstract hDuaNamesDao hDuaNamesDao();
 
     public abstract hDuaCategoryDao hDuaCategoryDao();
+
+    public abstract CountryDao CountryDao();
+
+    public abstract CitiesDAO CitiesDAO();
+
+
 
 }

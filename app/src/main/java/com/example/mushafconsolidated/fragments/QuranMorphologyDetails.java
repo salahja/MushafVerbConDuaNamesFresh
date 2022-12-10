@@ -8,6 +8,7 @@ import android.text.SpannableStringBuilder;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.preference.PreferenceManager;
 
 import com.example.mushafconsolidated.Entities.NewCorpusExpandWbwPOJO;
 import com.example.mushafconsolidated.Entities.NounCorpus;
@@ -39,7 +40,10 @@ public class QuranMorphologyDetails {
         this.corpusSurahWord = corpusSurahWord;
         this.verbcorpusform = verbCorpuses;
         this.corpusNoun = corpusNounWord;
-        String dark = SharedPref.themePreferences();
+
+
+        String dark  = PreferenceManager.getDefaultSharedPreferences(context).getString("themepref", "dark");
+
         int indigo;
         int cyan;
         int yellow;

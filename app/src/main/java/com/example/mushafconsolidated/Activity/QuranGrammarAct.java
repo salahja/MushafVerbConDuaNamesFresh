@@ -110,7 +110,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
-import com.theartofdev.edmodo.cropper.CropImage;
+
 
 import org.ahocorasick.trie.Emit;
 import org.ahocorasick.trie.Trie;
@@ -345,7 +345,7 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
         });*/
          // setSupportActionBar(toolbar);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.getContext());
-        if (preferences.equals("dark") || preferences.equals("blue") || preferences.equals("purple")) {
+        if (preferences.equals("dark") || preferences.equals("blue") || preferences.equals("purple")||preferences.equals("green")) {
             shartagainstback = prefs.getInt("shartback", Color.GREEN);
             mausofColoragainstBlack = prefs.getInt("mausoofblack", Color.RED);
             mudhafColoragainstBlack = prefs.getInt("mudhafblack", Color.CYAN);
@@ -814,7 +814,7 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
     }
 
     public void ExecuteSurahWordByWord() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.ThemeOverlay_Material3_Dialog);
         builder.setCancelable(false); // if you want user to wait for some process to finish,
         builder.setView(R.layout.layout_loading_dialog);
         AlertDialog dialog = builder.create();
@@ -1590,7 +1590,7 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
             Toast.makeText(this, "No App Available", Toast.LENGTH_SHORT).show();
         }
     }
-
+/*
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -1621,7 +1621,7 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
                 Exception error = result.getError();
             }
         }
-    }
+    }*/
 
     private void ReloadActivity() {
         Log.e(TAG, "onClick called");

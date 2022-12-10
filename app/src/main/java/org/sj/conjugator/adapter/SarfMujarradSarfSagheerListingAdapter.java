@@ -14,8 +14,10 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mushafconsolidated.Activity.QuranGrammarAct;
 import com.example.mushafconsolidated.R;
 import com.example.utility.QuranGrammarApplication;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.chip.Chip;
 
 import org.jetbrains.annotations.NotNull;
@@ -63,15 +65,20 @@ public class SarfMujarradSarfSagheerListingAdapter extends RecyclerView.Adapter<
     public void onBindViewHolder(@NotNull ViewHolder holder, int position) {
         //  final List sarf = sarfSagheer.get(position);
 //        final String[] array = (String[]) sarfSagheer.get(position).toArray();
+//        SharedPreferences shared = getDefaultSharedPreferences(context);
+//        String preferences = shared.getString("theme", "dark");
         SharedPreferences shared = getDefaultSharedPreferences(context);
-        String preferences = shared.getString("theme", "dark");
-        int cweakness = 0;
-        int crootword = 0;
-        final int cbabcolor;
-        if (preferences.equals("dark")) {
+        String preferences = shared.getString("themePref", "dark");
+       // SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.getContext());
+
+
+
+
+
+        if (preferences.equals("dark") || preferences.equals("blue") || preferences.equals("purple")||preferences.equals("green")) {
             rootcolor = Color.CYAN;
             weaknesscolor = Color.YELLOW;
-            wazancolor = Color.BLUE;
+            wazancolor = Color.CYAN;
 
         } else {
             rootcolor = Color.RED;
@@ -85,9 +92,17 @@ public class SarfMujarradSarfSagheerListingAdapter extends RecyclerView.Adapter<
         StringBuilder nahiamr = new StringBuilder();
         SarfSagheer sagheer = this.sarfSagheer.get(position);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        String fontCategory = prefs.getString("arabic_font_category", "kitab.ttf");
-        final Typeface mequran = Typeface.createFromAsset(QuranGrammarApplication.getContext().getAssets(), fontCategory);
-        //  final Typeface meqruans = Typeface.createFromAsset(DarkThemeApplication.getContext().getAssets(), SharedPref.arabicFontSelection());
+
+
+        SharedPreferences sharedPreferences = android.preference.PreferenceManager.getDefaultSharedPreferences(context);
+        String arabic_font_selection = sharedPreferences.getString("Arabic_Font_Selection", "me_quran.ttf");
+        Typeface mequran = Typeface.createFromAsset(context.getAssets(),
+                arabic_font_selection);
+
+
+
+
+
         int length = sarfSagheer.size();
         Integer arabicFontsize = prefs.getInt("arabicFontSizeEntryArray", 20);
         holder.mamaroof.setText((CharSequence) sagheer.getMadhi());
@@ -183,7 +198,7 @@ public class SarfMujarradSarfSagheerListingAdapter extends RecyclerView.Adapter<
     public class ViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener // current clickListerner
     {
-        public final Chip amr, nahiamr, ismfail, mumaroof,
+        public final MaterialButton amr, nahiamr, ismfail, mumaroof,
                 mamaroof, ismmafool, mumajhool, mamajhool,
                 ismzarf, ismala, verify;
         public final TextView babno, ismalaheader, ismzarfheader, masdart, masdaro, babname, rootword, weaknessname, wazan;

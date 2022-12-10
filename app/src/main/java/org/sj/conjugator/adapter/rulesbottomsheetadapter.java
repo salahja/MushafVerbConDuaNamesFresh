@@ -74,7 +74,7 @@ public class rulesbottomsheetadapter extends RecyclerView.Adapter<rulesbottomshe
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.getContext());
         String fonts = prefs.getString("Arabic_Font_Size", "25");
         //  String arabic_font_category = prefs.getString("arabic_font_category", "kitab.tff");
-        Typeface mequran = Typeface.createFromAsset(QuranGrammarApplication.getContext().getAssets(), "Taha.ttf");
+        Typeface mequran = Typeface.createFromAsset(QuranGrammarApplication.getContext().getAssets(), "me_quran.ttf");
         final Integer arabicFontsize = Integer.valueOf(fonts);
         //    holder.rulenumber.setTextSize(arabicFontsize);
         holder.rulenumber.setText(toArray.getRulename() + "(" + toArray.getExample() + ")"

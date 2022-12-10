@@ -69,8 +69,18 @@ public class MazeedFihiSagheerListingadapter extends RecyclerView.Adapter<Mazeed
         //    final Object[] toArray = sarfSagheer.get(position).toArray();
         final ArrayList toArray = sarfSagheer.get(position);
         final int length = toArray.size();
-        Typeface mequran = Typeface.createFromAsset(context.getAssets(), SharedPref.arabicFontSelection());
+
+        SharedPreferences sharedPreferences = android.preference.PreferenceManager.getDefaultSharedPreferences(context);
+        String arabic_font_selection = sharedPreferences.getString("Arabic_Font_Selection", "me_quran.ttf");
+        Typeface mequran = Typeface.createFromAsset(context.getAssets(),
+                arabic_font_selection);
+
+
+
+
+
         Integer fontsize = SharedPref.arabicFontsize();
+
         //   final Typeface mequran = Typeface.createFromAsset(context.getAssets(), "me_quran.ttf");
         // final Typeface mequran = Typeface.createFromAsset(context.getAssets(), "NooreHuda.ttf");
         //    final Typeface mequran = Typeface.createFromAsset(context.getAssets(), SharedPref.arabicFontSelection());
@@ -80,7 +90,7 @@ public class MazeedFihiSagheerListingadapter extends RecyclerView.Adapter<Mazeed
         holder.conjugate.setTypeface(mequran);
         holder.ismalaheader.setVisibility(GONE);
         holder.ismala.setVisibility(GONE);
-        SharedPreferences sharedPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.getContext());
+      //  SharedPreferences sharedPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.getContext());
         String width = sharedPreferences.getString("width", "compactWidth");
         final Integer arabicFontsize = sharedPreferences.getInt("pref_font_arabic_key", 20);
         if (length == 11) {

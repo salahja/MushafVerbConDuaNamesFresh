@@ -1,65 +1,45 @@
 package database;
 
-import static com.example.Constant.AYAHNUMBER;
-import static com.example.Constant.SURAH_ARABIC_NAME;
 import static com.example.Constant.SURAH_ID;
-import static com.example.Constant.VERBMOOD;
-import static com.example.Constant.WORDNUMBER;
 
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.GridView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mushafconsolidated.Activity.BaseActivity;
-import com.example.mushafconsolidated.Activity.newDuaGroupAdapter;
 import com.example.mushafconsolidated.NamesDetail;
 import com.example.mushafconsolidated.R;
 import com.example.mushafconsolidated.Utils;
-import com.example.mushafconsolidated.fragments.DuaItemFragment;
 
-import com.example.mushafconsolidated.fragments.WordAnalysisBottomSheet;
 import com.example.utility.QuranGrammarApplication;
 
-import org.sj.conjugator.adapter.rulesbottomsheetadapter;
 import org.sj.conjugator.interfaces.OnItemClickListener;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import database.entity.AllahNames;
-import database.entity.DuaGroup;
 
 public class GridImageAct extends BaseActivity {
-    private newDuaGroupAdapter mAdapter;
-    private ListView mListView;
-    private Toolbar toolbar;
 
 
     private GridAdapter gadapter;
@@ -75,13 +55,9 @@ public class GridImageAct extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dua_group);
-        //toolbar = (Toolbar) findViewById(R.id.my_action_bar);
-       // View mToolbarShadow = findViewById(R.id.view_toolbar_shadow);
-      //  setSupportActionBar(toolbar);
-        toolbar = (Toolbar) findViewById(R.id.my_action_bar);
-        View mToolbarShadow = findViewById(R.id.view_toolbar_shadow);
+        Toolbar toolbar = findViewById(R.id.my_action_bar);
         setSupportActionBar(toolbar);
-        final int color = ContextCompat.getColor(this, R.color.color_background_overlay);
+   /*     final int color = ContextCompat.getColor(this, R.color.color_background_overlay);
         final int colorsurface = ContextCompat.getColor(this, R.color.DarkGoldenrod);
         final int coloronbackground = ContextCompat.getColor(this, R.color.neutral0);
         SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.getContext());
@@ -92,8 +68,8 @@ public class GridImageAct extends BaseActivity {
         } else {
             toolbar.setBackgroundColor(colorsurface);
         }
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+*/
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         RecyclerView recyclerView = findViewById(R.id.duaListView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
      //  gridView = (GridView) findViewById(R.id.gridView);
@@ -106,30 +82,23 @@ public class GridImageAct extends BaseActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(gadapter);
-        gadapter.SetOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(View v, int position) {
+        gadapter.SetOnItemClickListener((v, position) -> {
 
-                AllahNames item1 = (AllahNames) gadapter.getItem(position);
-                System.out.println(item1.getArabic());
-                NamesDetail item=new NamesDetail();
+            AllahNames item1 = (AllahNames) gadapter.getItem(position);
+            System.out.println(item1.getArabic());
+            NamesDetail item=new NamesDetail();
 
-                //    item.setdata(rootWordMeanings,wbwRootwords,grammarRootsCombined);
-                //    FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
-                Bundle dataBundle = new Bundle();
-                dataBundle.putInt(SURAH_ID, item1.getId());
+            Bundle dataBundle = new Bundle();
+            dataBundle.putInt(SURAH_ID, item1.getId());
 
 
 
 
-                item.setArguments(dataBundle);
-               int data = (item1.getId());
-                //  FragmentTransaction transactions = fragmentManager.beginTransaction().setCustomAnimations(R.anim.abc_slide_in_top, android.R.anim.fade_out);
-                //   transactions.show(item);
-                NamesDetail.newInstance(data).show(getSupportFragmentManager(), NamesDetail.TAG);
+            item.setArguments(dataBundle);
+           int data = (item1.getId());
+            NamesDetail.newInstance(data).show(getSupportFragmentManager(), NamesDetail.TAG);
 
-                //   Toast.makeText(GridImageAct.this, item1.getId(), Toast.LENGTH_SHORT).show();
-            }
+            //   Toast.makeText(GridImageAct.this, item1.getId(), Toast.LENGTH_SHORT).show();
         });
 
 
@@ -200,9 +169,7 @@ public class GridImageAct extends BaseActivity {
 
         int id = item.getItemId();
            if (id == R.id.bookmark) {
-         //   Intent intent = new Intent(this, BookmarksGroupActivity.class);
-          //  this.startActivity(intent);
-        }
+           }
         return super.onOptionsItemSelected(item);
     }
 

@@ -37,9 +37,9 @@ import mm.prayer.muslimmate.ui.ConfigPreferences;
 import mm.prayer.muslimmate.ui.LocationInfo;
 import mm.prayer.muslimmate.ui.NumbersLocal;
 import mm.prayer.muslimmate.adapter.WeatherAdapter;
-import mm.prayer.muslimmate.entity.WeatherApp;
+import mm.prayer.muslimmate.model.WeatherApp;
 import mm.prayer.muslimmate.ui.WeatherIcon;
-import mm.prayer.muslimmate.entity.WeatherSave;
+import mm.prayer.muslimmate.model.WeatherSave;
 
 
 /**

@@ -49,7 +49,7 @@ import mm.itl.prayertime.PrayerTime;
 import mm.itl.prayertime.StandardMethod;
 import mm.itl.prayertime.TimeType;
 import mm.prayer.muslimmate.ui.ConfigPreferences;
-import mm.prayer.muslimmate.entity.Dates;
+import mm.prayer.muslimmate.model.Dates;
 import mm.prayer.muslimmate.ui.HGDate;
 import mm.prayer.muslimmate.ui.LocationInfo;
 import mm.prayer.muslimmate.ui.LocationReader;

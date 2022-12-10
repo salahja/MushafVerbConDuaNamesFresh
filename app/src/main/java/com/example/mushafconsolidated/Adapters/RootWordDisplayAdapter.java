@@ -115,7 +115,7 @@ public class RootWordDisplayAdapter extends RecyclerView.Adapter<RootWordDisplay
         SharedPreferences sharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(context);
         String quranFont = sharedPreferences.getString("quranFont", "kitab.ttf");
-        String theme = sharedPreferences.getString("theme", "dark");
+        String theme = sharedPreferences.getString("themePref", "dark");
         String width = sharedPreferences.getString("width", "compactWidth");
         if (width.equals("mediumWidth") || width.equals("expandedWidth")) {
             arabicFontsize = sharedPreferences.getInt("pref_font_arabic_key", 20);
@@ -123,14 +123,14 @@ public class RootWordDisplayAdapter extends RecyclerView.Adapter<RootWordDisplay
         } else {
             arabicFontsize = 18;
         }
-        if (theme.equals("dark")) {
+  /*      if (theme.equals("dark") || theme.equals("blue") || theme.equals("purple")||theme.equals("green")) {
             //    holder.darkThemeBacground.setBackground(context.getResources().getDrawable(R.drawable.activatedbackgroundblack));
             holder.darkThemeBacground.setCardBackgroundColor(context.getResources().getColor(R.color.odd_item_bg_black));
 
         } else if (theme.equals("blue")) {
             holder.darkThemeBacground.setCardBackgroundColor(context.getResources().getColor(R.color.background_color_light_darkBlue));
 
-        }
+        }*/
         if (!particples && !isnoun && !isverb) {
             holder.nounoccurancebtn.setVisibility(GONE);
             //  holder.verbOccurancebtn.setVisibility(GONE);
@@ -193,10 +193,10 @@ public class RootWordDisplayAdapter extends RecyclerView.Adapter<RootWordDisplay
         }
         Typeface mequran = Typeface.createFromAsset(context.getAssets(), quranFont);
         Log.d(TAG, "onBindViewHolder: called");
-        if (theme.equals("dark") || theme.equals("blue")) {
-            rootcolor = Constant.BCYAN;
-            weaknesscolor = Constant.BYELLOW;
-            wazancolor = Constant.BBLUE;
+        if (theme.equals("dark") || theme.equals("blue") || theme.equals("purple")||theme.equals("green")) {
+            rootcolor = Constant.BYELLOW;
+            weaknesscolor = Constant.BCYAN;
+            wazancolor = Constant.BCYAN;
 
         } else {
             rootcolor = Constant.WBURNTUMBER;
@@ -622,7 +622,13 @@ public class RootWordDisplayAdapter extends RecyclerView.Adapter<RootWordDisplay
 
     private void SetTypeFace(ItemViewAdapter holder) {
         //  final Typeface arabicTypeface = Typeface.createFromAsset(context.getAssets(), "Pdms.ttf");
-        Typeface arabicTypeface = Typeface.createFromAsset(context.getAssets(), SharedPref.arabicFontSelection());
+     //  Typeface arabicTypeface = Typeface.createFromAsset(context.getAssets(), SharedPref.arabicFontSelection());
+      //  Typeface arabicTypeface = Typeface.createFromAsset(QuranGrammarApplication.getContext().getAssets(), "Taha.ttf");
+        SharedPreferences sharedPreferences = android.preference.PreferenceManager.getDefaultSharedPreferences(context);
+        String arabic_font_selection = sharedPreferences.getString("Arabic_Font_Selection", "me_quran.ttf");
+        Typeface arabicTypeface = Typeface.createFromAsset(context.getAssets(),
+                arabic_font_selection);
+
         //   String s = SharedPref.arabicFontSelection();
         boolean isTraditional = true;
         holder.nom.setTypeface(arabicTypeface);// (array[0]);

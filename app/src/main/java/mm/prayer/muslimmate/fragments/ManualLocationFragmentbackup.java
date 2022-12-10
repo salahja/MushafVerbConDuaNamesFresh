@@ -23,8 +23,9 @@ import androidx.fragment.app.Fragment;
 
 
 import com.example.mushafconsolidated.R;
+import com.example.mushafconsolidated.Utils;
 import com.google.android.gms.maps.model.LatLng;
-import com.leo.searchablespinner.SearchableSpinner;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,7 @@ import java.util.List;
 import mm.prayer.muslimmate.Activity.PrayShowActivityPrayer;
 import mm.prayer.muslimmate.entity.Cities;
 import mm.prayer.muslimmate.entity.Countries;
-import mm.prayer.muslimmate.entity.DbUtility;
+ 
 import mm.prayer.muslimmate.interfaces.DetectLocationManualListener;
 import mm.prayer.muslimmate.ui.ConfigPreferences;
 import mm.prayer.muslimmate.ui.HGDate;
@@ -90,8 +91,8 @@ public class ManualLocationFragmentbackup extends Fragment implements SearchView
     @SuppressLint("ResourceType")
     public void addItemToSpinner(){
         //extract countries names and short cuts
-        DbUtility dbUtility=new DbUtility(getActivity());
-        final List<Countries> countriesList = dbUtility.getAllCountries();
+        Utils Utils=new Utils(getActivity());
+        final List<Countries> countriesList = Utils.getAllCountries();
         List<String> countryNamesArray = new ArrayList<>();
         List<String> countryArabicNamesArray = new ArrayList<>();
         final List<String> countriesID = new ArrayList<>();
@@ -110,8 +111,7 @@ public class ManualLocationFragmentbackup extends Fragment implements SearchView
         SharedPreferences sharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(getContext());
 
-        //
-        final SearchableSpinner searchableSpinner = new SearchableSpinner(getActivity());
+
 
 
 
@@ -145,10 +145,10 @@ public class ManualLocationFragmentbackup extends Fragment implements SearchView
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 String code = countriesID.get(position);
-                DbUtility dbUtility=new DbUtility(context);
+                Utils Utils=new Utils(context);
                 //extract countries names and short cuts
-                final List<Countries> countriesList=   dbUtility.getAllCountries();
-                cityList = dbUtility.GetCitycode(code);
+                final List<Countries> countriesList=   Utils.getAllCountries();
+                cityList = Utils.GetCitycode(code);
                 List<String> cityNames = new ArrayList<String>();
                 List<String> cityArabicNames = new ArrayList<String>();
                 for (Cities city : cityList) {
@@ -201,9 +201,9 @@ public class ManualLocationFragmentbackup extends Fragment implements SearchView
                     public void run() {
                         HGDate hgDate = new HGDate();
                         hgDate.toHigri();
-                        DbUtility utility=new DbUtility(getActivity());
+                        Utils utility=new Utils(getActivity());
 
-                        ConfigPreferences.setWorldPrayerCountry(context,  DbUtility.getLocinfo(lat,lon));
+                        ConfigPreferences.setWorldPrayerCountry(context,  Utils.getLocinfo(lat,lon));
                         context.startActivity(new Intent(context, PrayShowActivityPrayer.class).putExtra("date", hgDate.getDay() + "-" + hgDate.getMonth() + "-" + hgDate.getYear() + "- 0"));
                         ((Activity)context).finish();
                         if (progressDialog != null){

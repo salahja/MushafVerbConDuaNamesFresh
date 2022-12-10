@@ -20,9 +20,9 @@ import androidx.fragment.app.Fragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import mm.prayer.muslimmate.entity.CalendarCell;
+import mm.prayer.muslimmate.model.CalendarCell;
 import mm.prayer.muslimmate.adapter.CalenderAdapter;
-import mm.prayer.muslimmate.entity.Dates;
+import mm.prayer.muslimmate.model.Dates;
 import mm.prayer.muslimmate.ui.HGDate;
 import mm.prayer.muslimmate.ui.NumbersLocal;
 import mm.prayer.muslimmate.Activity.PrayShowActivityPrayer;

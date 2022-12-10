@@ -45,6 +45,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.Set;
 //import com.example.mushafconsolidated.Entities.JoinVersesTranslationDataTranslation;
 
@@ -80,8 +81,6 @@ public class TopicDetailAct extends BaseActivity implements OnItemClickListenerO
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.bookmark) {
-        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -113,7 +112,7 @@ public class TopicDetailAct extends BaseActivity implements OnItemClickListenerO
         setContentView(R.layout.topic_search_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
         Intent bundle = getIntent();
         if (!(bundle.getExtras() == null)) {

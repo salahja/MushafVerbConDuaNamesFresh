@@ -19,7 +19,7 @@ import java.util.List;
 import mm.prayer.muslimmate.Activity.PrayShowActivityPrayer;
 import mm.prayer.muslimmate.ui.AppEvent;
 import mm.prayer.muslimmate.ui.ConfigPreferences;
-import mm.prayer.muslimmate.entity.Dates;
+import mm.prayer.muslimmate.model.Dates;
 import mm.prayer.muslimmate.ui.HGDate;
 import mm.prayer.muslimmate.ui.NumbersLocal;
 import com.example.mushafconsolidated.R;

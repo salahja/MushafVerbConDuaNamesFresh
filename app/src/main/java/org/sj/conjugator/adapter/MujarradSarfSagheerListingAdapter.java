@@ -98,7 +98,14 @@ public class MujarradSarfSagheerListingAdapter extends RecyclerView.Adapter<Muja
         StringBuilder amr = new StringBuilder();
         StringBuilder nahiamr = new StringBuilder();
         final Object[] toArray = sarfSagheer.get(position).toArray();
-        final Typeface mequran = Typeface.createFromAsset(context.getAssets(), SharedPref.arabicFontSelection());
+
+        SharedPreferences sharedPreferences = android.preference.PreferenceManager.getDefaultSharedPreferences(context);
+        String arabic_font_selection = sharedPreferences.getString("Arabic_Font_Selection", "me_quran.ttf");
+        Typeface mequran = Typeface.createFromAsset(context.getAssets(),
+                arabic_font_selection);
+
+
+
         final int length = toArray.length;
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         Integer arabicFontsize = prefs.getInt("arabicFontSizeEntryArray", 20);

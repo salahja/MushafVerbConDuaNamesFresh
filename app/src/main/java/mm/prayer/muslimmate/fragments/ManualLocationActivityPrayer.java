@@ -1,43 +1,29 @@
 package mm.prayer.muslimmate.fragments;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.Spinner;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.SearchView;
 
 
 import com.example.mushafconsolidated.R;
+import com.example.mushafconsolidated.Utils;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textfield.TextInputLayout;
-import com.leo.searchablespinner.SearchableSpinner;
-import com.leo.searchablespinner.interfaces.OnItemSelectListener;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import mm.prayer.muslimmate.Activity.PrayerBaseActivity;
 import mm.prayer.muslimmate.Activity.PrayShowActivityPrayer;
 import mm.prayer.muslimmate.entity.Cities;
 import mm.prayer.muslimmate.entity.Countries;
-import mm.prayer.muslimmate.entity.DbUtility;
+
 import mm.prayer.muslimmate.interfaces.DetectLocationManualListener;
 import mm.prayer.muslimmate.ui.ConfigPreferences;
 import mm.prayer.muslimmate.ui.HGDate;
@@ -47,54 +33,27 @@ import mm.prayer.muslimmate.ui.HGDate;
  */
 
 public class ManualLocationActivityPrayer extends PrayerBaseActivity {
-    private SearchView searchView = null;
-    private SearchView.OnQueryTextListener queryTextListener;
-    View v;
 
 
-
-    Context context;
-    private Boolean iscountryistextinputlayout = false;
-    private Boolean iscitytextinputlayut = false;
     Spinner countrySp , citySp;
     MaterialButton okBtn , cancelBtn;
-    private String[] countries, cities;
+    private String[] cities;
     private List<Cities> cityList;
     private ProgressDialog progressDialog;
     DetectLocationManualListener listener;
 
-    private LatLng latLng;
-    private AutoCompleteTextView actv;
-    private   TextInputLayout countryinputspinner;
-    private TextInputLayout cityinputspinner;
-    private Double lon,lat;
-
-    public Double getLon() {
-        return lon;
-    }
-
-    public void setLon(Double lon) {
-        this.lon = lon;
-    }
-
-    public Double getLat() {
-        return lat;
-    }
-
-    public void setLat(Double lat) {
-        this.lat = lat;
-    }
-
-    public void addListener(DetectLocationManualListener listener){
-        this.listener = listener;
-    }
+    // --Commented out by Inspection START (10/12/22, 1:20 PM):
+//    public void addListener(DetectLocationManualListener listener){
+//        this.listener = listener;
+//    }
+// --Commented out by Inspection STOP (10/12/22, 1:20 PM)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //   switchTheme("brown");
         setContentView(R.layout.mm_topache);
-        latLng = new LatLng(0 , 0);
+        LatLng latLng = new LatLng(0, 0);
 
         setupViews();
     }
@@ -117,8 +76,8 @@ public class ManualLocationActivityPrayer extends PrayerBaseActivity {
     @SuppressLint("ResourceType")
     public void addItemToSpinner(){
         //extract countries names and short cuts
-        DbUtility dbUtility=new DbUtility(ManualLocationActivityPrayer.this);
-        final List<Countries> countriesList = dbUtility.getAllCountries();
+        Utils Utils=new Utils(ManualLocationActivityPrayer.this);
+        final List<Countries> countriesList = Utils.getAllCountries();
         List<String> countryNamesArray = new ArrayList<>();
         List<String> countryArabicNamesArray = new ArrayList<>();
         final List<String> countriesID = new ArrayList<>();
@@ -129,16 +88,15 @@ public class ManualLocationActivityPrayer extends PrayerBaseActivity {
         }
 
         //show arabic and english names of languages
+        String[] countries;
         if (ConfigPreferences.getApplicationLanguage(ManualLocationActivityPrayer.this).equals("ar")) {
-            countries = countryArabicNamesArray.toArray(new String[countryArabicNamesArray.size()]);
+            countries = countryArabicNamesArray.toArray(new String[0]);
         } else {
-            countries = countryNamesArray.toArray(new String[countryNamesArray.size()]);
+            countries = countryNamesArray.toArray(new String[0]);
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(ManualLocationActivityPrayer.this,
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(ManualLocationActivityPrayer.this,
                 R.layout.mm_spinner_view, countries);
         countrySp.setAdapter(adapter);
-        SharedPreferences sharedPreferences =
-                PreferenceManager.getDefaultSharedPreferences(ManualLocationActivityPrayer.this);
 
         //
 
@@ -149,26 +107,25 @@ public class ManualLocationActivityPrayer extends PrayerBaseActivity {
         countrySp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                DbUtility dbUtility=new DbUtility(ManualLocationActivityPrayer.this);
+                Utils Utils=new Utils(ManualLocationActivityPrayer.this);
                 //extract countries names and short cuts
-                countriesList.get(position);
-                final List<Countries> countriesList=   dbUtility.getAllCountries();
+
                 String ccode=      countriesID.get(position);
-                // List<Countries> countrycode=     dbUtility.GetCountryCitycode(ccode);
-                cityList = dbUtility.GetCitycode(ccode);
-                List<String> cityNames = new ArrayList<String>();
-                List<String> cityArabicNames = new ArrayList<String>();
+                // List<Countries> countrycode=     Utils.GetCountryCitycode(ccode);
+                cityList = Utils.GetCitycode(ccode);
+                List<String> cityNames = new ArrayList<>();
+                List<String> cityArabicNames = new ArrayList<>();
                 for (Cities city : cityList) {
                     cityNames.add(city.getCity());
                     cityArabicNames.add(city.getAr_Name() == null ? city.getCity() : city.getAr_Name());
                 }
                 if (ConfigPreferences.getApplicationLanguage(ManualLocationActivityPrayer.this).equals("ar")) {
-                    cities = cityArabicNames.toArray(new String[cityArabicNames.size()]);
+                    cities = cityArabicNames.toArray(new String[0]);
                 } else {
-                    cities = cityNames.toArray(new String[cityNames.size()]);
+                    cities = cityNames.toArray(new String[0]);
                 }
 
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(ManualLocationActivityPrayer.this,
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(ManualLocationActivityPrayer.this,
                         R.layout.mm_spinner_view, cities);
                 citySp.setAdapter(adapter);
                 addLATLNG();
@@ -186,30 +143,23 @@ public class ManualLocationActivityPrayer extends PrayerBaseActivity {
 
 
 
-        okBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        okBtn.setOnClickListener(view -> {
 
 
-                final Double lat= cityList.get(citySp.getSelectedItemPosition()).getLatitude();
-                final Double lon = cityList.get(citySp.getSelectedItemPosition()).getLongitude();
-                showDialog();
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        HGDate hgDate = new HGDate();
-                        hgDate.toHigri();
-                        DbUtility utility=new DbUtility(ManualLocationActivityPrayer.this);
+            final Double lat= cityList.get(citySp.getSelectedItemPosition()).getLatitude();
+            final Double lon = cityList.get(citySp.getSelectedItemPosition()).getLongitude();
+            showDialog();
+            new Thread(() -> {
+                HGDate hgDate = new HGDate();
+                hgDate.toHigri();
 
-                        ConfigPreferences.setWorldPrayerCountry(ManualLocationActivityPrayer.this,  DbUtility.getLocinfo(getLat(),getLon()));
-                        ManualLocationActivityPrayer.this.startActivity(new Intent(ManualLocationActivityPrayer.this, PrayShowActivityPrayer.class).putExtra("date", hgDate.getDay() + "-" + hgDate.getMonth() + "-" + hgDate.getYear() + "- 0"));
-                        ((Activity) ManualLocationActivityPrayer.this).finish();
-                        if (progressDialog != null){
-                            progressDialog.dismiss();
-                        }
-                    }
-                }).start();
-            }
+                ConfigPreferences.setWorldPrayerCountry(ManualLocationActivityPrayer.this,  Utils.getLocinfo(lat,lon));
+                ManualLocationActivityPrayer.this.startActivity(new Intent(ManualLocationActivityPrayer.this, PrayShowActivityPrayer.class).putExtra("date", hgDate.getDay() + "-" + hgDate.getMonth() + "-" + hgDate.getYear() + "- 0"));
+                ManualLocationActivityPrayer.this.finish();
+                if (progressDialog != null){
+                    progressDialog.dismiss();
+                }
+            }).start();
         });
 
 

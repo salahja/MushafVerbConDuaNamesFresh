@@ -204,7 +204,9 @@ public class ThemeListPrefrence extends BottomSheetDialogFragment  {
 
         } else if    (theme.equals("brown")) {
             holder.brown.setChecked(true);
-        }
+        }else if    (theme.equals("green")) {
+           holder.green.setChecked(true);
+       }
 
 
 

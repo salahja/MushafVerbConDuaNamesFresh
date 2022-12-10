@@ -5,8 +5,8 @@ import android.content.SharedPreferences;
 import com.google.gson.Gson;
 import java.util.List;
 
-import mm.prayer.muslimmate.entity.WeatherApp;
-import mm.prayer.muslimmate.entity.WeatherSave;
+import mm.prayer.muslimmate.model.WeatherApp;
+import mm.prayer.muslimmate.model.WeatherSave;
 
 /**
  * Class to save application configurations

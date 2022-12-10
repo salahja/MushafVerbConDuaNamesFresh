@@ -27,7 +27,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 import org.jetbrains.annotations.NotNull;
-import org.sj.conjugator.adapter.AconSarfKabeerAdapter;
+
 import org.sj.conjugator.adapter.IsmFaelIsmMafoolSarfKabeerAdapter;
 import org.sj.conjugator.adapter.MazeedFihiSagheerListingadapter;
 import org.sj.conjugator.utilities.GatherAll;
@@ -70,7 +70,7 @@ public class FragmentIsmfaelIsmMafools extends Fragment {
     private MazeedFihiSagheerListingadapter mazeedFiHiSagheerListingadapter;
     private Bitmap bitmap;
     private Spinner spinmazeed;
-    private AconSarfKabeerAdapter aconSarfKabeerAdapter;
+
     private ArrayList<ArrayList> skabeer = new ArrayList<>();
     private ArrayList<ArrayList> getsarfsagheer;
     private int augmented;
@@ -156,9 +156,7 @@ public class FragmentIsmfaelIsmMafools extends Fragment {
         verbmood = dataBundle.getString(VERBMOOD);
         recyclerView = view.findViewById(R.id.sarfrecview);
         skabeer = setUparrays(view);
-        //  AconSarfKabeerAdapter = new AconSarfKabeerAdapter(sarfkabeermadhi,skabeer, getActivity());
-        //   aconSarfKabeerAdapter = new AconSarfKabeerAdapter(skabeer, getActivity());
-        //  recyclerView.setAdapter(aconSarfKabeerAdapter);
+
         return view;
     }
 

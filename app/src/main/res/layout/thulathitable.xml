@@ -42,9 +42,9 @@
                     android:orientation="horizontal">
 
 
-                    <com.google.android.material.chip.Chip
+                     <com.google.android.material.button.MaterialButton
                         android:id="@id/babno"
-
+                         style="@style/Widget.Material3.Button.TextButton"
                         android:layout_width="0.0dip"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.2"
@@ -54,10 +54,12 @@
                         android:textAlignment="center"
 
 
+
+
                         android:textSize="20sp" />
 
-                    <com.google.android.material.chip.Chip
-
+                     <com.google.android.material.button.MaterialButton
+                         style="@style/Widget.Material3.Button.ElevatedButton"
                         android:id="@id/weknessname"
                         android:layout_width="0.0dip"
                         android:layout_height="wrap_content"
@@ -68,9 +70,10 @@
                         android:textAlignment="center"
 
 
+
                         android:textSize="20sp" />
 
-                    <com.google.android.material.chip.Chip
+                     <com.google.android.material.button.MaterialButton
                         android:id="@id/rootword"
                         android:layout_width="0.0dip"
                         android:layout_height="wrap_content"
@@ -80,6 +83,7 @@
                         android:paddingEnd="5.0dip"
 
                         android:textAlignment="center"
+                         style="@style/Widget.Material3.Button.TextButton"
                         android:textSize="20sp" />
 
 
@@ -102,7 +106,7 @@
                     <!--  app:chipSurfaceColor="@color/color_background_overlay" Button widget style attribute -->
 
                     <!--   Button widget style attribute -->
-                    <com.google.android.material.chip.Chip
+                     <com.google.android.material.button.MaterialButton
                         android:id="@id/ismfail"
                         android:layout_width="0.0dip"
                         android:layout_height="wrap_content"
@@ -112,13 +116,15 @@
                         android:paddingStart="5.0dip"
                         android:paddingEnd="3.0dip"
                         android:textAlignment="center"
+                      style="@style/Widget.Material3.Button.OutlinedButton"
 
                         android:textSize="20sp"
 
                         app:chipIconTint="@color/colorAccent" />
 
 
-                    <com.google.android.material.chip.Chip
+                     <com.google.android.material.button.MaterialButton
+                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:id="@id/masdar"
                         android:layout_width="0.0dip"
                         android:layout_height="wrap_content"
@@ -126,11 +132,13 @@
                         android:gravity="center|end"
                         android:paddingStart="5.0dip"
                         android:paddingEnd="5.0dip"
-                        android:textAlignment="center"
 
+                         android:text="@string/masdar"
+                            style="@style/Widget.Material3.Button.OutlinedButton"
+                         android:tooltipText="@string/checkdictionary"
                         android:textSize="20sp" />
 
-                    <com.google.android.material.chip.Chip
+                     <com.google.android.material.button.MaterialButton
                         android:id="@id/mumaroof"
                         android:layout_width="0.0dip"
                         android:layout_height="wrap_content"
@@ -140,12 +148,13 @@
                         android:paddingStart="5.0dip"
                         android:paddingEnd="3.0dip"
                         android:textAlignment="center"
+   style="@style/Widget.Material3.Button.OutlinedButton"
 
                         android:textSize="20sp"
                         app:chipCornerRadius="12dp" />
 
 
-                    <com.google.android.material.chip.Chip
+                     <com.google.android.material.button.MaterialButton
                         android:id="@id/mamaroof"
                         android:layout_width="0.0dip"
                         android:layout_height="wrap_content"
@@ -159,6 +168,7 @@
                         android:shadowDy="8"
                         android:shadowRadius="4"
                         android:textAlignment="center"
+   style="@style/Widget.Material3.Button.OutlinedButton"
                         android:textSize="20sp"
                         android:tooltipText="Click for Verb Conjugation"
                         app:rippleColor="@color/colorAccent"
@@ -184,7 +194,7 @@
                     android:orientation="horizontal">
 
 
-                    <com.google.android.material.chip.Chip
+                     <com.google.android.material.button.MaterialButton
                         android:id="@id/ismmafool"
                         android:layout_width="0.0dip"
                         android:layout_height="wrap_content"
@@ -194,11 +204,13 @@
                         android:paddingStart="5.0dip"
                         android:paddingEnd="3.0dip"
                         android:textAlignment="center"
+
+   style="@style/Widget.Material3.Button.OutlinedButton"
                         android:textSize="20sp" />
 
 
-                    <com.google.android.material.chip.Chip
-
+                     <com.google.android.material.button.MaterialButton
+                         android:textAppearance="?attr/textAppearanceBodySmall"
                         android:id="@id/masdar2"
                         android:layout_width="0.0dip"
                         android:layout_height="wrap_content"
@@ -206,11 +218,13 @@
                         android:gravity="center|end"
                         android:paddingStart="5.0dip"
                         android:paddingEnd="5.0dip"
-
+                       android:text="@string/masdar"
                         android:textAlignment="center"
+                         android:tooltipText="@string/checkdictionary"
+                         style="@style/Widget.Material3.Button.OutlinedButton"
                         android:textSize="20sp" />
 
-                    <com.google.android.material.chip.Chip
+                     <com.google.android.material.button.MaterialButton
                         android:id="@id/mumajhool"
                         android:layout_width="0.0dip"
                         android:layout_height="wrap_content"
@@ -220,10 +234,11 @@
                         android:paddingStart="5.0dip"
                         android:paddingEnd="3.0dip"
                         android:textAlignment="center"
+   style="@style/Widget.Material3.Button.OutlinedButton"
                         android:textSize="20sp" />
 
 
-                    <com.google.android.material.chip.Chip
+                     <com.google.android.material.button.MaterialButton
                         android:id="@id/mamajhool"
                         android:layout_width="0.0dip"
                         android:layout_height="wrap_content"
@@ -233,6 +248,7 @@
                         android:paddingStart="5.0dip"
                         android:paddingEnd="3.0dip"
                         android:textAlignment="center"
+   style="@style/Widget.Material3.Button.OutlinedButton"
                         android:textSize="20sp" />
 
 
@@ -252,7 +268,7 @@
                     android:orientation="horizontal">
 
 
-                    <com.google.android.material.chip.Chip
+                     <com.google.android.material.button.MaterialButton
                         android:id="@id/nahiamr"
                         android:layout_width="wrap_content"
 
@@ -262,11 +278,12 @@
                         android:paddingStart="5.0dip"
                         android:paddingEnd="3.0dip"
                         android:textAlignment="center"
+   style="@style/Widget.Material3.Button.OutlinedButton"
 
                         android:textSize="20sp" />
 
 
-                    <com.google.android.material.chip.Chip
+                     <com.google.android.material.button.MaterialButton
                         android:id="@id/amr"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -275,6 +292,7 @@
                         android:paddingStart="5.0dip"
                         android:paddingEnd="3.0dip"
                         android:textAlignment="center"
+   style="@style/Widget.Material3.Button.OutlinedButton"
                         android:textSize="20sp" />
                 </RelativeLayout>
             </TableRow>
@@ -292,7 +310,7 @@
                     android:orientation="horizontal">
 
 
-                    <com.google.android.material.chip.Chip
+                     <com.google.android.material.button.MaterialButton
                         android:id="@id/ismalaheader"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -302,10 +320,11 @@
                         android:paddingEnd="3.0dip"
                         android:text="اِسْم الآلَة"
                         android:textAlignment="center"
+   style="@style/Widget.Material3.Button.OutlinedButton"
                         android:textSize="20sp" />
 
 
-                    <com.google.android.material.chip.Chip
+                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/ismzarfheader"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -314,6 +333,7 @@
                         android:paddingEnd="3.0dip"
                         android:text="اِسْم الْظَرفْ"
                         android:textAlignment="center"
+   style="@style/Widget.Material3.Button.OutlinedButton"
                         android:textSize="20sp" />
                 </RelativeLayout>
             </TableRow>
@@ -332,7 +352,7 @@
                     android:orientation="horizontal">
 
 
-                    <com.google.android.material.chip.Chip
+                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/ismaalatable"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -342,11 +362,12 @@
                         android:paddingStart="5.0dip"
                         android:paddingEnd="3.0dip"
                         android:textAlignment="center"
+   style="@style/Widget.Material3.Button.OutlinedButton"
 
                         android:textSize="20sp" />
 
 
-                    <com.google.android.material.chip.Chip
+                     <com.google.android.material.button.MaterialButton
 
                         android:id="@id/zarftable"
                         android:layout_width="wrap_content"
@@ -356,6 +377,7 @@
                         android:paddingStart="50dp"
                         android:paddingEnd="3.0dip"
                         android:textAlignment="center"
+   style="@style/Widget.Material3.Button.OutlinedButton"
 
                         android:textSize="20sp" />
 
@@ -377,7 +399,7 @@
                     android:orientation="horizontal">
 
 
-                    <com.google.android.material.chip.Chip
+                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/conjugateall"
                         android:layout_width="300dp"
                         android:layout_height="wrap_content"
@@ -385,8 +407,10 @@
                         android:onClick="onClick"
                         android:paddingStart="5.0dip"
                         android:paddingEnd="3.0dip"
+                         android:visibility="gone"
                         android:text="Conjugate"
                         android:textAlignment="center"
+   style="@style/Widget.Material3.Button.OutlinedButton"
                         android:textSize="20sp" />
 
                 </RelativeLayout>
@@ -406,7 +430,8 @@
                     android:orientation="horizontal">
 
 
-                    <com.google.android.material.chip.Chip
+                    <com.google.android.material.button.MaterialButton
+
                         android:id="@id/wazan"
                         android:layout_width="0.0dip"
                         android:layout_height="wrap_content"
@@ -415,8 +440,9 @@
                         android:paddingStart="5.0dip"
                         android:paddingEnd="3.0dip"
                         android:textAlignment="center"
+   style="@style/Widget.Material3.Button.OutlinedButton"
                         android:textSize="20sp"
-                        android:visibility="visible" />
+                        android:visibility="gone" />
 
                 </LinearLayout>
 

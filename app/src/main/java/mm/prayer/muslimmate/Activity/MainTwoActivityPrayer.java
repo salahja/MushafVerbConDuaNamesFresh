@@ -30,6 +30,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 
 import com.example.mushafconsolidated.R;
+import com.example.mushafconsolidated.Utils;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -46,7 +47,7 @@ import mm.prayer.muslimmate.ui.LocationReader;
 import mm.prayer.muslimmate.ui.MuslimMatePrayerTimes;
 import mm.prayer.muslimmate.ui.QuiblaCalculator;
 import mm.prayer.muslimmate.ui.Validations;
-import mm.prayer.muslimmate.entity.DbUtility;
+
 import mm.prayer.muslimmate.fragments.CalendarFragment;
 import mm.prayer.muslimmate.fragments.IslamicEventsFragment;
 import mm.prayer.muslimmate.fragments.PrayingFragment;
@@ -359,10 +360,10 @@ public class MainTwoActivityPrayer extends PrayerBaseActivity implements com.goo
             gps.setFusedLongitude(location.getLongitude());
             if (gps.getFusedLatitude() != 0 && gps.getFusedLongitude() != 0) {
 
-                DbUtility dbUtility=new DbUtility(MainTwoActivityPrayer.this);
+                Utils Utils=new Utils(MainTwoActivityPrayer.this);
 
              //   LocationInfo locationInfo = new Database().getLocationInfo((float) gps.getFusedLatitude(), (float) gps.getFusedLongitude());
-              LocationInfo locationInfo =      dbUtility.getLocinfo(gps.getFusedLatitude(),gps.getFusedLongitude());
+              LocationInfo locationInfo =      Utils.getLocinfo(gps.getFusedLatitude(),gps.getFusedLongitude());
             //    LocationInfo locationInfo = new Database().getLocationInfo((float) gps.getFusedLatitude(), (float) gps.getFusedLongitude());
                 Calendar calendar = Calendar.getInstance();
                 LocationReader lr = new LocationReader(this);

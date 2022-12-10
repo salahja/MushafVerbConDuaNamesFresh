@@ -88,8 +88,17 @@ public class VerbSarfKabeerAdapter extends RecyclerView.Adapter<VerbSarfKabeerAd
         //  this.spannable = new SpannableStringBuilder(quranverses);
         SharedPreferences sharedPreferences =
                 androidx.preference.PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.getContext());
-        String indictive = sharedPreferences.getString("Arabic_Font_Selection", "kitab.ttf");
-        arabicTypeface = Typeface.createFromAsset(context.getAssets(), indictive);
+
+
+        String arabic_font_selection = sharedPreferences.getString("Arabic_Font_Selection", "me_quran.ttf");
+     arabicTypeface = Typeface.createFromAsset(context.getAssets(),
+                arabic_font_selection);
+
+
+
+
+
+
         //  SharedPref sharedPref=new SharedPref(DarkThemeApplication.getContext());
         //   arabicTypeface = Typeface.createFromAsset(context.getAssets(), sharedPref.arabicFontSelection());
         //   MadhiMaroof(holder, 8);

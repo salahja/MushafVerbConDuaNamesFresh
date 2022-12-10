@@ -688,6 +688,8 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
                 switch (isNightmode) {
                     case "dark":
                     case "blue":
+                    case "purple":
+                    case "green":
                         color = ContextCompat.getColor(context,R.color.background_color);
                         break;
                     case "brown":

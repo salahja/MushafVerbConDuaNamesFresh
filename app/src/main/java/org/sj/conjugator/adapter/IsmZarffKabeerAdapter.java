@@ -311,7 +311,7 @@ public class IsmZarffKabeerAdapter extends RecyclerView.Adapter<IsmZarffKabeerAd
         SharedPreferences sharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.getContext());
         //  String theme = sharedPreferences.getString("theme", 1);
-        String indictive = sharedPreferences.getString("Arabic_Font_Selection", "kitab.ttf");
+        String indictive = sharedPreferences.getString("Arabic_Font_Selection", "me_quran.ttf");
         Typeface arabicTypeface = Typeface.createFromAsset(context.getAssets(), indictive);
         holder.nom.setTypeface(arabicTypeface, Typeface.BOLD);//(array[0]);
         holder.nom.setTypeface(arabicTypeface, Typeface.BOLD);

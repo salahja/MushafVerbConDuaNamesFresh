@@ -13,7 +13,7 @@
         app:showAsAction="always" />
     <item
         android:id="@+id/search"
-        android:icon="@drawable/ic_baseline_search_36"
+        android:icon="@drawable/shr_search"
         android:title="@string/back"
         app:showAsAction="always" />
 

@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.example.mushafconsolidated.R;
 
 import mm.prayer.muslimmate.Activity.PrayShowActivityPrayer;
-import mm.prayer.muslimmate.entity.Dates;
+import mm.prayer.muslimmate.model.Dates;
 
 
 /**

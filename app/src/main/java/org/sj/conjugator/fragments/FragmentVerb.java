@@ -100,9 +100,7 @@ public class FragmentVerb extends Fragment {
         verbmood = dataBundle.getString(VERBMOOD);
         recyclerView = view.findViewById(R.id.sarfrecview);
         skabeer = setUparrays(view);
-        //  AconSarfKabeerAdapter = new AconSarfKabeerAdapter(sarfkabeermadhi,skabeer, getActivity());
-        //   aconSarfKabeerAdapter = new AconSarfKabeerAdapter(skabeer, getActivity());
-        //  recyclerView.setAdapter(aconSarfKabeerAdapter);
+
         return view;
     }
 

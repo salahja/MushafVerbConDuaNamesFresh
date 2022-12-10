@@ -10,8 +10,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import database.Dao.DuaDao;
-import database.Dao.DuaGroupDao;
+
 import database.Dao.kovDao;
 import database.Dao.mazeedDao;
 import database.Dao.mujarradDao;

@@ -630,4 +630,8 @@
     <string name="Theme">Choose Theme</string>
     <string name="search_hint">Searcg</string>
     <string name="content_description_two">Menu</string>
+    <string name="searchtopic">Quran Topics</string>
+    <string name="qurandictionary">Quran Dictionary</string>
+    <string name="masdar">Masdar/Verbal Noun</string>
+    <string name="checkdictionary">Check Dictionary</string>
 </resources>

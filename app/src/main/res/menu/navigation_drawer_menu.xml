@@ -22,7 +22,7 @@
         android:id="@+id/search"
         android:contentDescription="@string/content_description_one"
         android:icon="@drawable/ic_baseline_search_36"
-        android:title="@string/action_search"
+        android:title="@string/qurandictionary"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="always|collapseActionView" />
 
@@ -39,7 +39,7 @@
         android:id="@+id/searchtopic"
         android:contentDescription="@string/content_description_one"
         android:icon="@drawable/ic_open_book"
-        android:title="@string/action_search"
+        android:title="@string/searchtopic"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="always|collapseActionView" />
 </menu>
