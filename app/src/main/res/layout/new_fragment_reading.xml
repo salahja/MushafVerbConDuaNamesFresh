@@ -9,6 +9,7 @@
     style="@style/Widget.Material3.DrawerLayout"
     app:cardBackgroundColor="@android:color/transparent">
 
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -28,7 +29,9 @@
                 android:id="@+id/overlayViewRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingTop="100sp" />
+                android:scrollbars="vertical"
+
+                android:paddingTop="130sp" />
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/bottomNavView"
@@ -140,4 +143,5 @@
             </LinearLayout>
         </LinearLayout>
     </com.google.android.material.navigation.NavigationView>
+
 </androidx.drawerlayout.widget.DrawerLayout>

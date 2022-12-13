@@ -68,7 +68,7 @@ public class SarfMujarradSarfSagheerListingAdapter extends RecyclerView.Adapter<
 //        SharedPreferences shared = getDefaultSharedPreferences(context);
 //        String preferences = shared.getString("theme", "dark");
         SharedPreferences shared = getDefaultSharedPreferences(context);
-        String preferences = shared.getString("themePref", "dark");
+        String preferences = shared.getString("theme", "dark");
        // SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.getContext());
 
 

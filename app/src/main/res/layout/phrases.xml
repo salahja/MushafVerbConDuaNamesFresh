@@ -127,7 +127,7 @@
 
 
                         android:textSize="16.0sp"
-                        android:visibility="gone" />
+                        android:visibility="visible" />
 
                     <TextView
                         android:id="@id/translation"

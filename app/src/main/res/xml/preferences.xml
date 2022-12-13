@@ -15,6 +15,7 @@
             android:summary="@string/moodsummar"
             android:title="Verb Moods" />
         <SwitchPreference
+
             android:defaultValue="true"
             android:key="sarfkabeer_format_verb"
             android:title="Traditional-Verb Conjugation" />

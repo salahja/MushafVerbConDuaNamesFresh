@@ -7,21 +7,31 @@ import static com.example.Constant.VERBTYPE;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mushafconsolidated.R;
+import com.example.mushafconsolidated.fragments.VerbconjuationBottom;
+import com.example.mushafconsolidated.fragments.WordAnalysisBottomSheet;
+import com.tooltip.Tooltip;
+
 
 import org.jetbrains.annotations.NotNull;
 import org.sj.conjugator.adapter.SarfMujarradSarfSagheerListingAdapter;
+import org.sj.conjugator.interfaces.OnItemClickListener;
 import org.sj.conjugator.utilities.GatherAll;
 
 import java.util.ArrayList;
+import java.util.List;
+
 
 public class MazeedTabSagheerFragmentVerb extends Fragment {
     private static final int WRITE_REQUEST_CODE = 101;
@@ -38,6 +48,9 @@ public class MazeedTabSagheerFragmentVerb extends Fragment {
     private String unaugmentedFormula;
     private String verbroot, verbmood;
     private ArrayList<ArrayList> skabeer = new ArrayList<>();
+
+    ArrayList<SarfSagheer> ssagheer;
+    private Bundle dataBundle;
 
     public MazeedTabSagheerFragmentVerb(Context context) {
         this.context = context;
@@ -65,7 +78,7 @@ public class MazeedTabSagheerFragmentVerb extends Fragment {
             LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         View view = inflater.inflate(R.layout.sarfkabeerheader, container, false);
-        Bundle dataBundle = getArguments();
+         dataBundle = getArguments();
         if (dataBundle.getString(VERBTYPE).equals("mujarrad")) {
             isUnAugmented = true;
             unaugmentedFormula = dataBundle.getString(QURAN_VERB_WAZAN);
@@ -116,7 +129,7 @@ public class MazeedTabSagheerFragmentVerb extends Fragment {
         ss.setZarfthree(listing.get(0).get(16).toString());
         ss.setVerbtype(listing.get(0).get(17).toString());
         ss.setWazan(listing.get(0).get(18).toString());
-        ArrayList<SarfSagheer> ssagheer = new ArrayList<>();
+        ssagheer = new ArrayList<>();
         ssagheer.add(ss);
         sarfsagheerAdapter = new SarfMujarradSarfSagheerListingAdapter(ssagheer, getActivity());
         recyclerView.setAdapter(sarfsagheerAdapter);
@@ -162,19 +175,59 @@ public class MazeedTabSagheerFragmentVerb extends Fragment {
         recyclerView = view.findViewById(R.id.sarfrecview);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-        /*
+
         sarfsagheerAdapter.SetOnItemClickListener(new OnItemClickListener() {
             private static final String WORDNUMBER = "wordnumber";
 
             @Override
             public void onItemClick(View v, int position) {
-                Object o = sarfSagheerThulathiArray.get(position);
+          /*      SarfSagheer wordEntity = ssagheer.get(position);
                 //      GrammarWordEntity wordEntity = (GrammarWordEntity) sarfsagheerAdapter.getItem(position);
-              /*  int surah_id = wordEntity.getChapter_no();
-                int ayah_number = wordEntity.getVerse_no();
-                int word_no = wordEntity.getWord_no();
+                Bundle dataBundles = new Bundle();
+                String wazan = wordEntity.getWazan();
+                String weakness=                     wordEntity.getWeakness();
+                String root=                wordEntity.getVerbroot();
+*/
+                if (isAugmented) {
+                  /*  isUnAugmented = true;
+                    augmentedFormula = dataBundle.getString(QURAN_VERB_WAZAN);
+                    dataBundle.putString(VERBTYPE, "mujarrad");
+                    int color = context.getResources().getColor(R.color.background_color_light_brown);
+                    final ArrayList<ArrayList> indictive = GatherAll.getInstance().getMazeedListing(verbmood, root, augmentedFormula);
+                    VerbconjuationBottom frag=new VerbconjuationBottom();
+                    Bundle bundle=new Bundle();
+                    ArrayList list = indictive.get(1);
+                ;;
+                    bundle.putParcelableArrayList("list",list);
+                    frag.setArguments(bundle);
+
+                    frag.newInstance(list).show(((AppCompatActivity) context).getSupportFragmentManager(), WordAnalysisBottomSheet.TAG);
+*/
+
+
+
+
+
+            } else {
+
+                    /*unaugmentedFormula = dataBundle.getString(QURAN_VERB_WAZAN);
+                    dataBundle.putString(VERBTYPE, "mazeed");
+                    isAugmented = true;
+                    final ArrayList<ArrayList> lists = GatherAll.getInstance().getMujarradListing(verbmood, root, unaugmentedFormula);
+                    VerbconjuationBottom frag=new VerbconjuationBottom();
+                    Bundle bundle=new Bundle();
+                    ArrayList list = lists.get(1);
+                    ;;
+                    bundle.putParcelableArrayList("list",list);
+                    frag.setArguments(bundle);
+
+                    frag.newInstance(list).show(((AppCompatActivity) context).getSupportFragmentManager(), WordAnalysisBottomSheet.TAG);*/
+                }
+
+
+         /*       int word_no = wordEntity.getWord_no();
                 Bundle dataBundle = new Bundle();
-                dataBundle.putInt(SURAH_ID, surah_id);
+                dataBundle.putString(SURAH_ID, surah_id);
                 dataBundle.putInt(AYAHNUMBER, ayah_number);
                 dataBundle.putInt(WORDNUMBER, word_no);
                 dataBundle.putString(SURAH_ARABIC_NAME, suraharabicname);
@@ -183,16 +236,13 @@ public class MazeedTabSagheerFragmentVerb extends Fragment {
                 rootDialog.setArguments(dataBundle);
                 assert fragmentManager != null;
                 fragmentManager.beginTransaction().add(R.id.fragmentParentViewGroup, rootDialog).addToBackStack(ROOTDIALOGFRAG).commit();
-
+*/
 
             }
         });
 
-*/
-        //     ImageView ref;
-        //   ref = view.findViewById(R.id.dismissView);
-//        ref.setOnClickListener(view1 -> {
-        //    });
+
+
     }
 
 }

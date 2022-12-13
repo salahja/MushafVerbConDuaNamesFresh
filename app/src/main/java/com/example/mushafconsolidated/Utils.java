@@ -685,10 +685,8 @@ public class Utils {
     }
 
     public ArrayList<MudhafPOJO> getMudhaf() {
-        String sqlverb = "select mudhaf.surah,mudhaf.ayah,mudhaf.wordno,mudhaf.startindex,mudhaf.endindex,mudhaf.status,  \n" +
-                "mudhaf.comment\n" +
-                ",qurans.qurantext,qurans.translation from mudhaf,qurans where mudhaf.surah=qurans.surah and \n" +
-                "mudhaf.ayah=qurans.ayah";
+        String sqlverb = "select newmudhaf.surah,newmudhaf.ayah,newmudhaf.startindex,newmudhaf.endindex, newmudhaf.comment,qurans.qurantext,qurans.translation from newmudhaf,qurans where \n" +
+                "newmudhaf.surah=qurans.surah and newmudhaf.ayah=qurans.ayah";
         SimpleSQLiteQuery query = new SimpleSQLiteQuery(sqlverb);
         //  List<Book> result = booksDao.getBooks(query);
         return (ArrayList<MudhafPOJO>) database.RawDao().getMudhaf(query);

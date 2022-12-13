@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,9 +66,50 @@ public class MudhafDisplayFrag extends Fragment {
         View view = inflater.inflate(R.layout.reccylerview, container, false);
         Utils utils = new Utils(getContext());
         final ArrayList<MudhafPOJO> sifabySurahAll = utils.getMudhaf();
-        for (MudhafPOJO sifa : sifabySurahAll) {
+
+
+        for(int outer=0;outer<sifabySurahAll.size();outer++) {
+
+            try {
+
+                int prev = sifabySurahAll.get(outer-1).getAyah();
+                int current = sifabySurahAll.get(outer).getAyah();
+                int next = sifabySurahAll.get(outer + 1).getAyah();
+                int cstart = sifabySurahAll.get(outer).getStartindex();
+                int cend = sifabySurahAll.get(outer).getEndindex();
+                int nstart = sifabySurahAll.get(outer + 1).getStartindex();
+                int nend = sifabySurahAll.get(outer + 1).getEndindex();
+                if (current == next) {
+
+                    SpannableStringBuilder str = new SpannableStringBuilder(sifabySurahAll.get(outer).getQurantext());
+                    SpannableStringBuilder strt = new SpannableStringBuilder(sifabySurahAll.get(outer + 1).getQurantext());
+                    str.setSpan(new ForegroundColorSpan(BYELLOW), cstart, cend, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    str.setSpan(new ForegroundColorSpan(BYELLOW), nstart, nend, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    CharSequence charSequences = TextUtils.concat(str, " " + strt);
+                    sifabySurahAll.get(outer).setSpannedverse(str);
+                   // outer=next;
+                  outer++;
+                } else if(current==prev) {
+                    outer++;
+
+                } else  {
+                    SpannableStringBuilder str = new SpannableStringBuilder(sifabySurahAll.get(outer).getQurantext());
+
+                    str.setSpan(new ForegroundColorSpan(BYELLOW), cstart, cend, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                    sifabySurahAll.get(outer).setSpannedverse(str);
+
+                }
+
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("check");;
+            }
+        }
+    /*    for (MudhafPOJO sifa : sifabySurahAll) {
+            int aya=sifa.getAyah();
             SpannableStringBuilder str = new SpannableStringBuilder(sifa.getQurantext());
             try {
+
                 str.setSpan(new ForegroundColorSpan(BYELLOW), sifa.getStartindex(), sifa.getEndindex(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 sifa.setSpannedverse(str);
             } catch (IndexOutOfBoundsException e) {
@@ -75,7 +117,7 @@ public class MudhafDisplayFrag extends Fragment {
                 System.out.println(sifa.getSurah() + "," + sifa.getAyah() + "," + sifa.getWordno());
             }
 
-        }
+        }*/
         setRecyclerView(view.findViewById(R.id.RecyclerView));
         getRecyclerView().setHasFixedSize(true);
         setLayoutManager(new LinearLayoutManager(getActivity()));

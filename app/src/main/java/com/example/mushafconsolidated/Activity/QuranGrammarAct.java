@@ -96,6 +96,7 @@ import com.example.mushafconsolidated.Utils;
 
 import com.example.mushafconsolidated.fragments.BookmarkFragment;
 import com.example.mushafconsolidated.fragments.GrammerFragmentsBottomSheet;
+import com.example.mushafconsolidated.fragments.MudhafDisplayFrag;
 import com.example.mushafconsolidated.fragments.NewSurahDisplayFrag;
 import com.example.mushafconsolidated.fragments.WordAnalysisBottomSheet;
 import com.example.mushafconsolidated.intrface.OnItemClickListenerOnLong;
@@ -541,9 +542,24 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
                     //  Intent conjugatorintent = new Intent(newreadactivity.this, VerbConjugationAct.class);
                     break;
             case R.id.searchtopic:
+                drawerLayout.closeDrawers();
                     materialToolbar.setTitle("Topics");
                     Intent searchs = new Intent(this, QuranTopicSearchActivity.class);
                     startActivity(searchs);
+                 break;
+           /*     case R.id.mudhaf:
+                    drawerLayout.closeDrawers();
+                    materialToolbar.setTitle("Mudhaf");
+                    MudhafDisplayFrag mudhafDisplayFrag = new MudhafDisplayFrag();
+                    //  TameezDisplayFrag bookmarkFragment=new TameezDisplayFrag();
+                    FragmentTransaction transactionsmudhaf = getSupportFragmentManager().beginTransaction()
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                    transactionsmudhaf.replace(R.id.frame_container, mudhafDisplayFrag).addToBackStack("mujarrad");
+                    transactionsmudhaf.commit();
+                    break;
+*/
+
+
                 default:
                     break;
             }

@@ -179,7 +179,8 @@
     <dimen name="standard_155">-155dp</dimen>
     <dimen name="standard_205">-205dp</dimen>
     <dimen name="standard_255">-255dp</dimen>
-    <dimen name="standard_355">355dp</dimen>
+    <dimen name="standard_305">-305dp</dimen>
+    <dimen name="standard_405">405dp</dimen>
 
 mm mulsimmate
 

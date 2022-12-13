@@ -8,7 +8,7 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 //primaryKeys ={"translation_id","verse_id"}
 
-@Entity(tableName = "mudhaf")
+@Entity(tableName = "newmudhaf")
 public class MudhafPOJO {
     @Ignore
     SpannableStringBuilder spannedverse;

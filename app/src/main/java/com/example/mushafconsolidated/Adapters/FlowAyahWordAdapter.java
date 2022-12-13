@@ -785,7 +785,7 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
         surahInfo.append(SurahName);
         SharedPreferences sharedPreferences =
                 androidx.preference.PreferenceManager.getDefaultSharedPreferences(context);
-        String isNightmode = sharedPreferences.getString("themepref", "dark");
+        String isNightmode = sharedPreferences.getString("theme", "dark");
         if (isMakkiMadani == 1) {
             holder.surah_info.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_makkah_48, 0, 0, 0);
 
@@ -940,7 +940,7 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
                             showFABMenu();
                         } else {
                             closeFABMenu();
-                            HideFabMenu();
+                       //     HideFabMenu();
                         }
                     }
 
@@ -972,14 +972,12 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
                         helpfb.animate().translationX(-getInstance().getResources().getDimension(R.dimen.standard_255));
                         helpfb.animate().rotationBy(360);
 
-
-                     /*   ObjectAnimator animhelp = ObjectAnimator.ofFloat(helpfb, "translationX", 255f);
-                        animhelp.setDuration(1000);
-                        animhelp.start();*/
                         sharescreenfb.setVisibility(View.VISIBLE);
-                        sharescreenfb.animate().translationX(-getInstance().getResources().getDimension(R.dimen.standard_355));
+                        sharescreenfb.animate().translationX(-getInstance().getResources().getDimension(R.dimen.standard_305));
                         sharescreenfb.animate().rotationBy(360);
-                        sharescreenfb.animate().setDuration(1000);
+                        sharescreenfb.animate().setDuration(500);
+
+
 
 
 
@@ -989,7 +987,7 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
                             @Override
                             public void onClick(View view) {
                                 closeFABMenu();
-                                HideFabMenu();
+                                //HideFabMenu();
                                 Intent readingintent = new Intent(((AppCompatActivity) context), TafsirFullscreenActivity.class);
                                 //  flowAyahWordAdapter.getItem(position);
                                 int chapter_no = ayahWord.getWord().get(0).getSurahId();
@@ -1007,7 +1005,7 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
                             @Override
                             public void onClick(View v) {
                                 closeFABMenu();
-                                HideFabMenu();
+                             //   HideFabMenu();
                                 bookMarkSelected(getPosition());
 
                             }
@@ -1017,7 +1015,7 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
                             @Override
                             public void onClick(View v) {
                                 closeFABMenu();
-                                HideFabMenu();
+                              //  HideFabMenu();
                                 int chapter_no = ayahWord.getWord().get(0).getSurahId();
                                 //   int verse = ayahWord.getWord().get(0).getVerseId();
                                 int verse=        ayahWordArrayList.get(getPosition()-1).getWord().get(0).getVerseId();
@@ -1037,7 +1035,7 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
                             @Override
                             public void onClick(View v) {
                                 closeFABMenu();
-                                HideFabMenu();
+                              //  HideFabMenu();
 
                                 //    FragmentTransaction transactions = fragmentManager.beginTransaction().setCustomAnimations(R.anim.abc_slide_in_top, android.R.anim.fade_out);
                                 //   transactions.show(item);
@@ -1049,7 +1047,7 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
                             @Override
                             public void onClick(View v) {
                                 closeFABMenu();
-                                HideFabMenu();
+                                //HideFabMenu();
                                 takeScreenShot(((AppCompatActivity) context).getWindow().getDecorView());
                             }
 
@@ -1121,15 +1119,7 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
                         });
                     }
 
-                    private void HideFabMenu() {
-                        //     tafsir.setLayoutParams (new ViewGroup.LayoutParams(50, ViewGroup.LayoutParams.WRAP_CONTENT));
-                        //  tafsir.setVisibility(View.GONE);
-                        //  jumptofb.setVisibility(View.GONE);
-                        //   bookmarfb.setVisibility(View.GONE);
-                        //   summbaryfb.setVisibility(View.GONE);;
-                        //   helpfb.setVisibility(View.GONE);
-                        //  sharescreenfb.setVisibility(View.GONE);
-                    }
+
 
                     private void bookMarkSelected(int position) {
                         //  position = flowAyahWordAdapter.getAdapterposition();

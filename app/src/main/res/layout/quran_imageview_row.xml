@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
 
     android:layout_height="match_parent">
@@ -51,7 +52,7 @@
             android:tooltipText="Share ScreenShot"
             android:src="@drawable/baseline_share_36"
 
-            android:contentDescription="TODOs" />
+            android:contentDescription="share" />
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/jumptofb"
             android:layout_width="wrap_content"
@@ -60,7 +61,8 @@
             app:fabSize="mini"
             android:src="@drawable/ic_baseline_open_in_browser_36"
 
-            android:contentDescription="TODOs" />
+            android:contentDescription="TODOs"
+            tools:ignore="RelativeOverlap" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/tafsirfb"
@@ -147,6 +149,9 @@
 
             app:srcCompat="@drawable/baseline_menu_open_24">
 
+
+
+
         </ImageView>
         <ImageView
             android:id="@id/ivActionOverflowtwo"
@@ -169,7 +174,18 @@
             app:srcCompat="@drawable/shr_filter">
 
         </ImageView>
+        <TextView
+            android:id="@+id/headers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="title"
+            android:textSize="20dp"
+            android:textStyle="bold">
 
+        </TextView>
     </RelativeLayout>
 
     <LinearLayout

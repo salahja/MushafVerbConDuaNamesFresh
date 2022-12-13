@@ -83,13 +83,13 @@ public class MudhafAdapter extends RecyclerView.Adapter<MudhafAdapter.ItemViewAd
         TextView arabic;
         Log.d(TAG, "onBindViewHolder: called");
         final int fontsize = SharedPref.SeekarabicFontsize();
-        Typeface arabicTypeface = Typeface.createFromAsset(context.getAssets(), SharedPref.arabicFontSelection());
+       // Typeface mequran = Typeface.createFromAsset(context.getAssets(), SharedPref.arabicFontSelection());
+        Typeface arabicTypeface = Typeface.createFromAsset(QuranGrammarApplication.getContext().getAssets(), "me_quran.ttf");
         boolean showWordByword = true;
         final MudhafPOJO sifa = list.get(position);
-        Typeface custom_font = Typeface.createFromAsset(context.getAssets(),
-                SharedPref.arabicFontSelection());
-        fontSizeTranslation = SharedPref.arabicFontsize();
-        final String arabicFontSelection = arabicFontSelection();
+        SharedPreferences sharedPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.getContext());
+        final Integer fontSizeTranslation = sharedPreferences.getInt("pref_font_arabic_key", 20);
+
         try {
             if (sifa != null) {
                 holder.chapterverse.setText(sifa.getSurah() + ":" + sifa.getAyah());
@@ -97,12 +97,12 @@ public class MudhafAdapter extends RecyclerView.Adapter<MudhafAdapter.ItemViewAd
                 holder.ayah.setText(sifa.getSpannedverse());
                 holder.translation.setText(sifa.getTranslation());
                 holder.chapterverse.setTypeface(arabicTypeface);
-                holder.arabicword.setTypeface(arabicTypeface);
-                holder.ayah.setTypeface(custom_font);
-                holder.chapterverse.setTextSize(fontsize);
-                holder.ayah.setTextSize(fontsize);
+             //   holder.arabicword.setTypeface(arabicTypeface);
+                holder.ayah.setTypeface(arabicTypeface);
+                holder.chapterverse.setTextSize(fontSizeTranslation);
+                holder.ayah.setTextSize(fontSizeTranslation);
                 //    holder.translation.setTextSize(fontsize);
-                holder.arabicword.setTextSize(fontsize);
+               // holder.arabicword.setTextSize(fontSizeTranslation);
 
             }
         } catch (NullPointerException e) {
@@ -165,7 +165,7 @@ public class MudhafAdapter extends RecyclerView.Adapter<MudhafAdapter.ItemViewAd
             gendernumber = view.findViewById(R.id.gendernumber);
             cases = view.findViewById(R.id.cases);
             nounname = view.findViewById(R.id.nounname);
-            more.setOnClickListener(this);
+//            more.setOnClickListener(this);
             view.setOnClickListener(this);
 
         }

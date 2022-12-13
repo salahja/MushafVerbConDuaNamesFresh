@@ -42,4 +42,14 @@
         android:title="@string/searchtopic"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="always|collapseActionView" />
+<!--
+    <item
+        android:id="@+id/mudhaf"
+        android:contentDescription="@string/content_description_one"
+        android:icon="@drawable/ic_open_book"
+        android:title="@string/mudhaflisting"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="always|collapseActionView" />-->
+
+
 </menu>

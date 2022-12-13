@@ -6,7 +6,7 @@
     android:orientation="vertical"
     app:cardBackgroundColor="@android:color/transparent">
 
-    <include layout="@layout/topic_quran_imageview_row" />
+    <include layout="@layout/quran_imageview_row" />
 
     <com.example.utility.FlowLayout
         android:id="@+id/flow_word_by_word"
