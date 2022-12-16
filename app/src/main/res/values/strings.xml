@@ -429,14 +429,13 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
-<!--    mullimmate-->
+    <!--    mullimmate-->
 
     <string name="mm_app_name">Checkout</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="secret_google_maps_api_key" translatable="false">prayer-times-59273</string>
-
 
 
     <string name="main">Muslim Mate</string>
@@ -635,4 +634,23 @@
     <string name="masdar">Masdar/Verbal Noun</string>
     <string name="checkdictionary">Check Dictionary</string>
     <string name="mudhaflisting">Mudhaf Listing</string>
+    <string name="appwidget_text">App Widget</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">This is an app widget description</string>
+    <string name="folder_name_hint">Folder Name</string>
+    <string name="folder_multiple">Pins</string>
+    <string name="folder_single">Collection</string>
+    <string name="prefs_import">Import</string>
+    <string name="prefs_export">Export</string>
+    <string name="exact_word_match">Exact word</string>
+    <string name="search_in_all_collections">search_in_all_collections</string>
+    <string name="searchhelptext">Examples:Use Sura Number:Ayah Number to quickly go to a ayah</string>
+    <string name="searchTitle">Search using Phrases</string>
+    <string name="read">Read</string>
+    <string name="menu_quran_planner">Quran Planner</string>
+    <string name="menu_bookmarks">Library</string>
+    <string name="menu_notes">Notes</string>
+    <string name="menu_day_ayah">Ayah A day</string>
+    <string name="id_tab_search">Search</string>
+    <string name="search_with_dots">" Search… "</string>
 </resources>

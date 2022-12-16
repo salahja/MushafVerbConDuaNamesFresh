@@ -15,11 +15,11 @@
 -->
 
 <resources>
-    <attr name="colorCustomColor1" format="color"/>
-    <attr name="colorOnCustomColor1" format="color"/>
-    <attr name="colorCustomColor1Container" format="color"/>
-    <attr name="colorOnCustomColor1Container" format="color"/>
-    <attr name="harmonizeCustomColor1" format="boolean"/>
+    <attr name="colorCustomColor1" format="color" />
+    <attr name="colorOnCustomColor1" format="color" />
+    <attr name="colorCustomColor1Container" format="color" />
+    <attr name="colorOnCustomColor1Container" format="color" />
+    <attr name="harmonizeCustomColor1" format="boolean" />
 
     <attr name="bgColor" format="color" />
     <attr name="textColor" format="color" />
@@ -213,6 +213,11 @@
         <attr name="np_wrapSelectorWheel" format="boolean" />
 
 
+    </declare-styleable>
+    <declare-styleable name="AppWidgetAttrs">
+        <attr name="appWidgetPadding" format="dimension" />
+        <attr name="appWidgetInnerRadius" format="dimension" />
+        <attr name="appWidgetRadius" format="dimension" />
     </declare-styleable>
 
 

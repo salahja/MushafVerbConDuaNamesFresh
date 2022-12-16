@@ -25,8 +25,8 @@
     <item name="toolbar" type="id" />
 
 
-    <item name="chapterno" type="id"></item>
-    <item name="verseno" type="id"></item>
+    <item name="chapterno" type="id" />
+    <item name="verseno" type="id" />
     <item name="referenceView" type="id" />
     <item name="translationView" type="id" />
     <item name="rootView" type="id" />
@@ -303,6 +303,51 @@
     <item name="add_fab" type="id" />
     <item name="madhihuma" type="id" />
     <item name="madihum" type="id" />
+    <item name="sgFolderType" type="id" />
+    <item name="rbFolderSingle" type="id" />
+    <item name="tvFolderName" type="id" />
+    <item name="llIconHolder" type="id" />
+    <item name="rbFolderMultiple" type="id" />
+    <item name="tvAyahOftheDay" type="id" />
+    <item name="ivReload" type="id" />
+    <item name="ivDragArea" type="id" />
+    <item name="ivArrow" type="id" />
+    <item name="ivJump" type="id" />
+    <item name="viewColorStrip" type="id" />
+    <item name="tvDate" type="id" />
+    <item name="btnImportFile" type="id" />
+    <item name="btnExportFile" type="id" />
+    <item name="rvBookmarks" type="id" />
+    <item name="cbPartialMatch" type="id" />
+    <item name="tvHelp" type="id" />
+    <item name="lvSuggestion" type="id" />
+    <item name="ibActionVoice" type="id" />
+    <item name="etSearch" type="id" />
+    <item name="llSearchBar" type="id" />
+    <item name="ibActionBack" type="id" />
+    <item name="search_layout" type="id" />
+    <item name="ibActionClear" type="id" />
+    <item name="ibApply" type="id" />
+    <item name="btnSelectBookText" type="id" />
+    <item name="drawerLayout" type="id" />
+    <item name="bottomNav" type="id" />
+    <item name="navView" type="id" />
+    <item name="tvTitle" type="id" />
+    <item name="action_day_ayah" type="id" />
+    <item name="action_note" type="id" />
+    <item name="action_bookmark" type="id" />
+    <item name="action_quran_planner" type="id" />
+    <item name="action_home" type="id" />
+
+    <item name="search_closed_view" type="id" />
+    <item name="open_search_button" type="id" />
+    <item name="search_open_view" type="id" />
+    <item name="close_search_button" type="id" />
+    <item name="search_input_text" type="id" />
+    <item name="execute_search_button" type="id" />
+    <item name="clearAllContainer" type="id" />
+    <item name="searchViewRoot" type="id" />
+
 
 
 </resources>

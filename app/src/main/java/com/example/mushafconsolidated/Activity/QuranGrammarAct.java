@@ -10,6 +10,7 @@ import static com.example.Constant.RUKUCOUNT;
 import static com.example.Constant.SURAH_ARABIC_NAME;
 import static com.example.Constant.SURAH_ID;
 import static com.example.Constant.VERSESCOUNT;
+import static com.example.mushafconsolidated.R.drawable.custom_search_box;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -25,6 +26,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -65,7 +67,7 @@ import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.SwitchCompat;
-import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -96,7 +98,6 @@ import com.example.mushafconsolidated.Utils;
 
 import com.example.mushafconsolidated.fragments.BookmarkFragment;
 import com.example.mushafconsolidated.fragments.GrammerFragmentsBottomSheet;
-import com.example.mushafconsolidated.fragments.MudhafDisplayFrag;
 import com.example.mushafconsolidated.fragments.NewSurahDisplayFrag;
 import com.example.mushafconsolidated.fragments.WordAnalysisBottomSheet;
 import com.example.mushafconsolidated.intrface.OnItemClickListenerOnLong;
@@ -268,6 +269,26 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
         getMenuInflater().inflate(R.menu.menu_dua_group, menu);
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setQueryHint("Type something…");
+      Drawable sear = ContextCompat.getDrawable(this, custom_search_box);
+        searchView.setClipToOutline(true);
+       searchView.setBackgroundDrawable(sear);
+       searchView.setGravity(View.TEXT_ALIGNMENT_CENTER);
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+
+        int searchPlateId = searchView.getContext().getResources()
+                .getIdentifier("android:id/search_plate", null, null);
+        View searchPlateView = searchView.findViewById(searchPlateId);
+
+        if (searchPlateView!=null) {
+            searchPlateView.setBackgroundColor(Color.WHITE);
+            int searchTextId = searchPlateView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
+            TextView searchText = (TextView) searchPlateView.findViewById(searchTextId);
+            if (searchText != null) {
+                searchText.setTextColor(Color.BLACK);
+                searchText.setHintTextColor(Color.BLACK);
+            }
+        }
         MenuItem jumpitem = menu.findItem(R.id.jumpto);
         return true;
     }

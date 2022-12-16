@@ -1002,7 +1002,7 @@ public class Utils {
                 + "and Corpusexpand.ayah=\""
                 + longitude + "\""
                 ;
-        String sqls = "select  b.En_Name , b.Ar_Name , b.iso3 , a.city ," +
+        String sqls = "select  b.En_Name , b.Ar_Name , b.iso3 , a.city ,a.latitude,a.longitude," +
                 " b.Continent_Code ,  b.number  , b.mazhab , b.way , b.dls , a.time_zone ," +
                 " (latitude - " + latitude + ")*(latitude - " + latitude + ")+(longitude - " + longitude + ")" +
                 "*(longitude - " + longitude + ") as ed , a.Ar_Name  from cityd a , countries b where" +

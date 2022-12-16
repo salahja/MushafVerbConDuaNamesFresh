@@ -14,8 +14,6 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" /> -->
     <!-- <uses-permission android:name="android.permission.WRITE_SETTINGS"/> -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-
-
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -24,7 +22,7 @@
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
     <application
         android:name="com.example.utility.QuranGrammarApplication"
@@ -37,7 +35,17 @@
         android:theme="@style/Theme.Material3.DayNight.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
+        <receiver
+            android:name=".NewAppWidget"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
 
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/new_app_widget_info" />
+        </receiver>
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -51,7 +59,6 @@
 
         <activity
             android:name=".Activity.SplashActivity"
-
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -59,7 +66,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".Activity.MainActivity"
             android:parentActivityName=".Activity.SplashActivity"
@@ -68,7 +74,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
         </activity>
-
         <activity
             android:name="sj.hisnul.activity.HisnulBottomACT"
             android:parentActivityName=".Activity.MainActivity"
@@ -77,8 +82,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
         </activity>
-
-
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:parentActivityName=".Activity.MainActivity"
@@ -196,7 +199,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
         </activity>
-
         <activity
             android:name="org.sj.conjugator.activity.SarfSagheerActivity"
             android:parentActivityName=".Activity.QuranGrammarAct">
@@ -240,7 +242,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/secret_google_maps_api_key" />
 
-
         <activity
             android:name="mm.prayer.muslimmate.Activity.MainTwoActivityPrayer"
             android:exported="true"
@@ -255,7 +256,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name="mm.prayer.muslimmate.Activity.PrayShowActivityPrayer"
             android:parentActivityName="mm.prayer.muslimmate.Activity.MainTwoActivityPrayer"
@@ -264,8 +264,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mm.prayer.muslimmate.Activity.MainTwoActivityPrayer" />
         </activity>
-
-
         <activity
             android:name="mm.prayer.muslimmate.fragments.ManualLocationActivityPrayer"
             android:parentActivityName="mm.prayer.muslimmate.Activity.MainTwoActivityPrayer"
@@ -274,10 +272,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mm.prayer.muslimmate.Activity.MainTwoActivityPrayer" />
         </activity>
-
-
-
-
         <activity
             android:name="mm.prayer.muslimmate.Activity.SettingsActivity"
             android:parentActivityName="mm.prayer.muslimmate.Activity.MainTwoActivityPrayer"
@@ -294,10 +288,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mm.prayer.muslimmate.Activity.MainTwoActivityPrayer" />
         </activity>
-
-
-
-
     </application>
 
 </manifest>

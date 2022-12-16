@@ -1,8 +1,13 @@
 package sj.hisnul.fragments;
 
+import static com.example.mushafconsolidated.R.drawable.custom_search_box;
+import static com.example.mushafconsolidated.R.drawable.search_round;
+import static com.example.mushafconsolidated.R.drawable.search_rounded_borderline;
+
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
@@ -85,6 +90,15 @@ public class AllDuaFrag extends Fragment implements SearchView.OnQueryTextListen
         SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
         if (searchItem != null) {
             searchView = (SearchView) searchItem.getActionView();
+            Drawable sear = ContextCompat.getDrawable(getActivity(), custom_search_box);
+            searchView.setClipToOutline(true);
+            searchView.setBackgroundDrawable(sear);
+            searchView.setGravity(View.TEXT_ALIGNMENT_CENTER);
+            searchView.setMaxWidth(Integer.MAX_VALUE);
+
+
+
+
         }
         if (searchView != null) {
             searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));

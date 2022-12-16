@@ -343,7 +343,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:$PROJECT_DIR$/../../Android/Sdk/icons/material/materialicons/reset_tv/baseline_reset_tv_24.xml" />
+                                      <entry key="url" value="file:$PROJECT_DIR$/../../Android/Sdk/icons/material/materialicons/manage_search/baseline_manage_search_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -354,7 +354,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="dc3636" />
-                            <entry key="outputName" value="baseline_reset_tv_36" />
+                            <entry key="outputName" value="baseline_manage_search_24" />
                             <entry key="sourceFile" value="$USER_HOME$/Documents/red-compass-4-hi.svg" />
                           </map>
                         </option>

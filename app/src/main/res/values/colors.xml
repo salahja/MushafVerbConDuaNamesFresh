@@ -417,7 +417,7 @@
     <color name="textInputOutlineColor">#FBB8AC</color>
 
 
-<!--
+    <!--
     <color name="seed">#6750A4</color>
     <color name="md_theme_light_primary">#6750A4</color>
     <color name="md_theme_light_onPrimary">#FFFFFF</color>
@@ -492,15 +492,12 @@
     <color name="primaryColorWhiteLight">#6679bff8</color>
 
 
-
-
-
     <color name="md_purple_dark_outline">#37B7F1</color>
 
     <color name="CustomColor1">#16202A</color>
 
 
-/////
+    /////
 
     <color name="seed">#6750A4</color>
     <color name="md_theme_light_primary">#6750A4</color>
@@ -563,7 +560,7 @@
     <color name="md_theme_dark_surfaceTint">#D0BCFF</color>
     <color name="md_theme_dark_outlineVariant">#49454F</color>
     <color name="md_theme_dark_scrim">#000000</color>
- mmm darkgreen
+    mmm darkgreen
 
     <!-- green-->
     <color name="mdgreen_theme_light_primary">#006B5B</color>
@@ -627,5 +624,10 @@
     <color name="mdgreen_theme_dark_outlineVariant">#3F4946</color>
     <color name="mdgreen_theme_dark_scrim">#000000</color>
     <color name="colorMuslimMate">#2a5f54</color>
+    <color name="light_blue_50">#FFE1F5FE</color>
+    <color name="light_blue_200">#FF81D4FA</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="light_blue_900">#FF01579B</color>
+    <color name="tab_deselected_color">#D6B1AE</color>
 
 </resources>

@@ -7,10 +7,11 @@
     android:orientation="horizontal">
 
     <androidx.cardview.widget.CardView
-
         android:id="@+id/cardview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_rowWeight="1"
+        android:layout_columnWeight="1"
         android:layout_gravity="bottom"
         android:layout_margin="12dp"
         android:clipChildren="false"
@@ -18,14 +19,13 @@
         android:dividerHeight="0.0px"
         app:cardCornerRadius="12dp"
 
-
-        app:cardElevation="10dp"
+        app:cardElevation="20dp"
         app:cardPreventCornerOverlap="false"
         app:layout_anchorGravity="bottom"
         app:rippleColor="@color/colorAccent"
+        style="@style/Widget.Material3.CardView.Outlined"
 
 
-        app:strokeColor="@color/color_primary_variant"
         app:strokeWidth="1dp">
 
         <LinearLayout

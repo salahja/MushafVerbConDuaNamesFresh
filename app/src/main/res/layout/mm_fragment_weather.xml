@@ -127,14 +127,14 @@
             android:id="@+id/weather" />
 
         <ImageView
-            android:layout_width="16dp"
-            android:layout_height="16dp"
             android:id="@+id/refresh"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="10dp"
+            android:layout_width="24dp"
+            android:layout_height="21dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
-            android:src="@drawable/baseline_refresh_36"/>
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/baseline_refresh_64" />
 
         <ProgressBar
             style="?android:attr/progressBarStyle"

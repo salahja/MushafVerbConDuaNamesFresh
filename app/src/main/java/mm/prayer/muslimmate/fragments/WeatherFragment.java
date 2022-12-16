@@ -50,9 +50,10 @@ public class WeatherFragment extends Fragment {
     private final String URL = "https://api.openweathermap.org/data/2.5/forecast?";
     //    private final String API_ID = "&appid=9aea9d6625da386486980f9c7cb32b73";
     private final String API_ID = "&appid=ac6f2688dbfdc24772be777529947e27";
+    private final String METRIC="&lang=PT&units=metric";
     private RecyclerView weatherRecyclerView;
     private WeatherAdapter adapter;
-    private List<WeatherApp> weatherAppList;
+    private List<WeatherApp> weatherList;
     private TextView today, todayDescription, dayA, humidity, windSpeed,
             dayB, dayC, dayD, dayA_temp, dayB_temp, dayC_temp, dayD_temp,
             locationName;
@@ -108,8 +109,8 @@ public class WeatherFragment extends Fragment {
         });
 
         //Recycler view init
-        weatherAppList = new ArrayList<>();
-        adapter = new WeatherAdapter(weatherAppList, getContext());
+        weatherList = new ArrayList<>();
+        adapter = new WeatherAdapter(weatherList, getContext());
         weatherRecyclerView = (RecyclerView) view.findViewById(R.id.weather);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
@@ -129,7 +130,7 @@ public class WeatherFragment extends Fragment {
             windSpeed.setText(NumbersLocal.convertNumberType(getContext(), weatherSave.weatherApps.get(0).windSpeed + " " + getString(R.string.wind_meager)));
             todayDescription.setText(weatherSave.weatherApps.get(0).desc);
             imageToday.setImageResource(WeatherIcon.get_icon_id_white(weatherSave.weatherApps.get(0).image));
-            weatherAppList.addAll(weatherSave.weatherApps);
+            weatherList.addAll(weatherSave.weatherApps);
             adapter.notifyDataSetChanged();
             WeatherSave weekWeather = ConfigPreferences.getWeekListWeather(getContext());
             if (weekWeather.weatherApps.size() > 0) {
@@ -174,7 +175,7 @@ public class WeatherFragment extends Fragment {
                 weathers = new ArrayList<>();
                 LocationInfo locationInfo = ConfigPreferences.getLocationConfig(getContext());
                 OkHttpClient client = new OkHttpClient();
-                Request request = new Request.Builder().url(URL + "lat=" + locationInfo.latitude + "&lon=" + locationInfo.longitude + "&lang=" + Locale.getDefault().getLanguage() + API_ID).build();
+                Request request = new Request.Builder().url(URL + "lat=" + locationInfo.latitude + "&lon=" + locationInfo.longitude + "&lang=" + Locale.getDefault().getLanguage() + API_ID+METRIC).build();
 
                 Log.i("URL_WITHER", URL + "lat=" + locationInfo.latitude + "&lon=" + locationInfo.longitude + "&lang=" + Locale.getDefault().getLanguage() + API_ID);
                 //receive json and parse
@@ -202,11 +203,18 @@ public class WeatherFragment extends Fragment {
                         String windSpeed = wind.getString("speed");
 
                         //convert weather degree and add to weather list
+
+                        float celsius = ((Float.valueOf(temp) - 273.15f) * 9 / 5) + 32;
                         weathers.add(new WeatherApp
+                                (date, temp + "",
+                                        temp_min  + "",
+                                       temp_max+ "",
+                                        icon, desc, humidity, windSpeed));
+                 /*       weathers.add(new WeatherApp
                                 (date, Math.round(Float.valueOf(temp) - 272.15f) + "",
                                         Math.round(Float.valueOf(temp_min) - 272.15f) + "",
                                         Math.round(Float.valueOf(temp_max) - 272.15f) + "",
-                                        icon, desc, humidity, windSpeed));
+                                        icon, desc, humidity, windSpeed));*/
                     }
 
 
@@ -219,8 +227,8 @@ public class WeatherFragment extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(List<WeatherApp> weatherApps) {
-            super.onPostExecute(weatherApps);
+        protected void onPostExecute(List<WeatherApp> weathers) {
+            super.onPostExecute(weathers);
             try {
                 seeking.setVisibility(View.GONE);
                 refresh.setVisibility(View.VISIBLE);
@@ -236,15 +244,15 @@ public class WeatherFragment extends Fragment {
                     });
                     View snackView = snackbar.getView();
 //                TextView snackViewText = (TextView) snackView.findViewById(android.support.design.R.id.snackbar_text);
-                    // Button snackViewButton = (Button) snackView.findViewById(R.id.snackbar_action);
-                    //  snackViewButton.setTextColor(ContextCompat.getColor(getActivity(), R.color.watermelon));
+                  //  Button snackViewButton = (Button) snackView.findViewById(android.support.design.R.id.snackbar_action);
+                 //   snackViewButton.setTextColor(ContextCompat.getColor(getActivity(), R.color.watermelon));
                     snackbar.show();
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             snackbar.dismiss();
                         }
-                    }, 30000);
+                    } , 30000);
                 }
                 List<WeatherApp> todayList = new ArrayList<>();
                 List<WeatherApp> allDays = new ArrayList<>();
@@ -252,33 +260,7 @@ public class WeatherFragment extends Fragment {
                 int min = 0;
                 int max = 0;
                 String weatherIcon = "";
-
-          /*      Calendar calendar = Calendar.getInstance();
-                TimeZone tz = TimeZone.getDefault();
-                Long dayName = Long.valueOf(weatherApps.get(0).dayName);
-                calendar.add(Calendar.MILLISECOND, tz.getOffset(calendar.getTimeInMillis()));
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-                java.util.Date currenTimeZone = new java.util.Date((long) dayName * 1000);*/
-                //   Toast.makeText(TimeStampChkActivity.this, sdf.format(currenTimeZone), Toast.LENGTH_SHORT).show();
-                //  ;todayList.add((WeatherApp) weatherApps);
-               /* for (WeatherApp weather : weatherApps) {
-                    System.out.println(weather.dayName);
-                    System.out.println(weather.tempMini);
-                    max = Integer.parseInt(weather.tempMini);
-                    weatherIcon = weather.image;
-                    todayList.add(weather);
-                    if (min != 0 && max != 0) {
-                        weather.tempMax = max + "";
-                        weather.tempMini = min + "";
-                        allDays.add(new WeatherApp(previousDayName,
-                                min + "",
-                                max + "",
-                                weatherIcon));
-                        max = min = 0;
-                    }
-                    //       todayList.add(weather);
-                }*/
-                for (WeatherApp weather : weatherApps) {
+                for (WeatherApp weather : weathers) {
                     String[] splits = weather.dayName.split(" ");
                     if (NumbersLocal.convertNumberTypeToEnglish(getContext(), getDataNow()).equals(splits[0].trim())) {
                         //degrees of the current day
@@ -291,10 +273,14 @@ public class WeatherFragment extends Fragment {
                         //degrees of the week
                         if (splits[0].trim().equals(previousDayName)) {
                             if (weather.dayName.contains("12:00:00")) {
-                                max = Integer.parseInt(weather.tempMini);
+
+                                max =     Math.round(Float.parseFloat(weather.tempMini));
+                              //   Integer.parseInt(weather.tempMini);
                                 weatherIcon = weather.image;
                             } else if (weather.dayName.contains("21:00:00")) {
-                                min = Integer.parseInt(weather.tempMini);
+                                min =     Math.round(Float.parseFloat(weather.tempMini));
+
+                                
                             }
                             //check to add day
                             if (min != 0 && max != 0) {
@@ -312,14 +298,15 @@ public class WeatherFragment extends Fragment {
                         }
                     }
                 }
-
+                System.out.println("check");
                 //update or add weather of the week
                 if (todayList.size() > 0) {
-                    weatherAppList.clear();
+                    weatherList.clear();
                     ConfigPreferences.setTodayListWeather(getActivity(), todayList);
-                    weatherAppList.addAll(todayList);
+                    weatherList.addAll(todayList);
                     adapter.notifyDataSetChanged();
                     WeatherSave weatherSave = ConfigPreferences.getTodayListWeather(getContext());
+
                     today.setText(NumbersLocal.convertNumberType(getContext(), weatherSave.weatherApps.get(0).tempMini + "°"));
                     humidity.setText(NumbersLocal.convertNumberType(getContext(), weatherSave.weatherApps.get(0).humidity) + " %");
                     windSpeed.setText(NumbersLocal.convertNumberType(getContext(), weatherSave.weatherApps.get(0).windSpeed + " " + getString(R.string.wind_meager)));

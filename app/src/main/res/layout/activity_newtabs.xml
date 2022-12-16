@@ -15,19 +15,31 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                app:cardCornerRadius="12dp"
+                app:strokeColor="?attr/colorAccent"
+                app:strokeWidth="1dp">
+
 
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@id/tabLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:tabGravity="center"
-                app:tabIndicatorHeight="0.0dip"
-                app:tabMode="scrollable"
-                style="@style/Widget.Material3.TabLayout"
 
+                android:layout_height="27dp"
+                app:tabGravity="fill"
+                app:tabIndicatorColor="?attr/colorAccent"
+                app:tabIndicatorGravity="stretch"
+                app:tabMaxWidth="0dp"
+                app:tabMode="fixed"
+                app:tabSelectedTextColor="@android:color/white"
+                app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+                app:tabTextColor="?attr/colorPrimary"
                 tools:ignore="SpeakableTextPresentCheck" />
-
+            </com.google.android.material.card.MaterialCardView>
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/pager"

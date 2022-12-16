@@ -1,6 +1,9 @@
 package database;
 
 import static com.example.Constant.SURAH_ID;
+import static com.example.mushafconsolidated.R.drawable.custom_search_box;
+import static com.example.mushafconsolidated.R.drawable.search_box_bg;
+import static com.example.mushafconsolidated.R.drawable.search_round;
 
 import android.app.SearchManager;
 import android.content.Context;
@@ -8,6 +11,7 @@ import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.AttributeSet;
@@ -142,6 +146,12 @@ public class GridImageAct extends BaseActivity {
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
         if(searchView != null) {
+            Drawable sear = ContextCompat.getDrawable(this, custom_search_box);
+            searchView.setClipToOutline(true);
+            searchView.setBackgroundDrawable(sear);
+            searchView.setGravity(View.TEXT_ALIGNMENT_CENTER);
+            searchView.setMaxWidth(Integer.MAX_VALUE);
+
             searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override

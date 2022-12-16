@@ -1,12 +1,15 @@
 package com.example.mushafconsolidated.Activity;
 
 import static com.example.Constant.QURAN_VERB_ROOT;
+import static com.example.mushafconsolidated.R.drawable.custom_search_box;
+import static com.example.mushafconsolidated.R.drawable.search_rounded_borderline;
 
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -20,6 +23,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -129,6 +133,14 @@ public class SearchActivity extends BaseActivity implements OnItemClickListener 
         searchView.setSearchableInfo(searchManager
                 .getSearchableInfo(getComponentName()));
         searchView.setMaxWidth(Integer.MAX_VALUE);
+
+ ;
+        Drawable sear = ContextCompat.getDrawable(this, custom_search_box);
+        searchView.setClipToOutline(true);
+        searchView.setBackgroundDrawable(sear);
+        searchView.setGravity(View.TEXT_ALIGNMENT_CENTER);
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+
         // listening to search query text change
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

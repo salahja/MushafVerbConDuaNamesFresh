@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RadioGroup
+        android:id="@id/sgFolderType"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/space_3"
+        android:paddingTop="@dimen/space_2"
+        android:paddingRight="@dimen/space_3"
+
+         >
+
+        <RadioButton
+            android:id="@id/rbFolderSingle"
+            style="@style/RadioButton"
+            android:layout_width="0.0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:text="@string/folder_single" />
+
+        <RadioButton
+            android:id="@id/rbFolderMultiple"
+            style="@style/RadioButton"
+            android:layout_width="0.0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:text="@string/folder_multiple" />
+    </RadioGroup>
+
+    <EditText
+        android:id="@id/tvFolderName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80.0dip"
+        android:hint="@string/folder_name_hint"
+        android:padding="@dimen/space_3"
+        android:selectAllOnFocus="true" />
+
+    <LinearLayout
+        android:id="@id/llIconHolder"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40.0dip"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="24.0dip"
+            android:layout_height="24.0dip"
+            android:layout_margin="@dimen/space_2"
+            android:background="@color/foldercolor_1" />
+
+        <ImageView
+            android:layout_width="24.0dip"
+            android:layout_height="24.0dip"
+            android:layout_margin="@dimen/space_2"
+            android:background="@color/foldercolor_2" />
+
+        <ImageView
+            android:layout_width="24.0dip"
+            android:layout_height="24.0dip"
+            android:layout_margin="@dimen/space_2"
+            android:background="@color/foldercolor_3" />
+
+        <ImageView
+            android:layout_width="24.0dip"
+            android:layout_height="24.0dip"
+            android:layout_margin="@dimen/space_2"
+            android:background="@color/foldercolor_4" />
+
+        <ImageView
+            android:layout_width="24.0dip"
+            android:layout_height="24.0dip"
+            android:layout_margin="@dimen/space_2"
+            android:background="@color/foldercolor_5" />
+
+        <ImageView
+            android:layout_width="24.0dip"
+            android:layout_height="24.0dip"
+            android:layout_margin="@dimen/space_2"
+            android:background="@color/foldercolor_6" />
+    </LinearLayout>
+</FrameLayout>
