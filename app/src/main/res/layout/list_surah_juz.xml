@@ -12,7 +12,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="70dp"
         android:background="@android:color/transparent"
         app:elevation="0.0dip">
 
@@ -21,7 +21,16 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_scrollFlags="enterAlwaysCollapsed|scroll">
-
+            <TextView
+               android:id="@+id/searchint"
+                android:layout_width="fill_parent"
+                android:layout_height="40.0dip"
+                android:textColor="@color/cyan"
+               android:textSize="22sp"
+                android:paddingStart="18.0dip"
+                android:paddingEnd="18.0dip"
+                android:text="@string/searchhint"
+                android:visibility="gone" />
             <TextView
 
                 android:layout_width="fill_parent"
@@ -42,7 +51,7 @@
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="left"
+                    android:layout_gravity="start"
                     android:paddingStart="@dimen/space_2"
                     android:paddingEnd="@dimen/space_2">
 
@@ -106,7 +115,7 @@
                     android:id="@id/llQuickLinks"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="left"
+                    android:layout_gravity="start"
                     android:paddingStart="@dimen/space_2"
                     android:paddingEnd="@dimen/space_2">
 

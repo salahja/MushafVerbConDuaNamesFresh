@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -32,17 +34,19 @@ import java.util.List;
 
 //public class VerseDisplayAdapter extends RecyclerView.Adapter<VerseDisplayAdapter.ItemViewAdapter> {
 //public class SurahPartAdap extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-public class NewSurahDisplayAdapter extends RecyclerView.Adapter<NewSurahDisplayAdapter.ItemViewAdapter> {
+public class NewSurahDisplayAdapter extends RecyclerView.Adapter<NewSurahDisplayAdapter.ItemViewAdapter> implements Filterable {
     private static final String TAG = "SurahPartAdap ";
     OnItemClickListener mItemClickListener;
     private List<ChaptersAnaEntity> listonearray = new ArrayList<>();
     private List<ChaptersAnaEntity> listtwoarray = new ArrayList<>();
     private final Context context;
     private String surahname;
+    private List<ChaptersAnaEntity> chapterfilered;
 
     public NewSurahDisplayAdapter(Context context, ArrayList<ChaptersAnaEntity> allAnaChapters) {
         this.context = context;
         this.listonearray = allAnaChapters;
+        this.chapterfilered=allAnaChapters;
 
     }
 
@@ -63,7 +67,7 @@ public class NewSurahDisplayAdapter extends RecyclerView.Adapter<NewSurahDisplay
     @Override
     public void onBindViewHolder(@NonNull NewSurahDisplayAdapter.ItemViewAdapter holder, int position) {
         Log.d(TAG, "onBindViewHolder: called");
-        final ChaptersAnaEntity surah = listonearray.get(position);
+        final ChaptersAnaEntity surah = chapterfilered.get(position);
         Context context = QuranGrammarApplication.getContext();
         SharedPreferences pref = context.getSharedPreferences("lastread", MODE_PRIVATE);
         int chapterno = pref.getInt("surah", 1);
@@ -78,14 +82,12 @@ public class NewSurahDisplayAdapter extends RecyclerView.Adapter<NewSurahDisplay
         String sb = surah.getChapterid() +
                 ":" +
                 surah.getNameenglish();
-        StringBuilder sbs = new StringBuilder();
-        //    sbs.append(surahright.getChapterid());
-        //  sbs.append(":");
-        //  sbs.append(surahright.getNameenglish());
-        //   int surahrightIsmakki = surahright.getIsmakki();
+
+
         int surahIsmakki = surah.getIsmakki();
         int cno = surah.getChapterid();
-        holder.tvsurahleft.setText(sb);
+      //  holder.tvsurahleft.setText(sb);
+        holder.tvsurahleft.setText(surah.getNameenglish());
         holder.tvsurahleft.setTextSize(SharedPref.SeekarabicFontsize());
         final Drawable drawable = imgs.getDrawable(cno - 1);
         holder.ivsurahicon.setImageDrawable(drawable);
@@ -121,19 +123,23 @@ public class NewSurahDisplayAdapter extends RecyclerView.Adapter<NewSurahDisplay
     }
 
     @Override
-    public int getItemViewType(int position) {
-        return listonearray.get(position).getPart_no();
+    public long getItemId(int position) {
+        //  Surah surah = surahArrayList.get(position);
+        return chapterfilered.size();
+    }
 
+    public Object getItem(int position) {
+        return chapterfilered.get(position);
     }
 
     @Override
     public int getItemCount() {
-        return listonearray.size();
+        return chapterfilered.size();
+
     }
 
-    public Object getItem(int position) {
-        return listonearray.get(position);
-    }
+
+
 
     public void setUp(List<ChaptersAnaEntity> listone, List<ChaptersAnaEntity> listtwo) {
         this.listonearray = listone;
@@ -143,6 +149,65 @@ public class NewSurahDisplayAdapter extends RecyclerView.Adapter<NewSurahDisplay
 
     public void setUp(ArrayList<ChaptersAnaEntity> allAnaChapters) {
         this.listonearray = allAnaChapters;
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+
+
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String charString = charSequence.toString();
+                boolean bool = false;
+                char charArray[] = charString.toCharArray();
+                if(!charString.isEmpty()) {
+                    bool = Character.isDigit(charArray[0]);
+                }
+
+                if (charString.isEmpty()) {
+                    chapterfilered = listonearray;
+
+                } else {
+                    if(!bool) {
+                        List<ChaptersAnaEntity> filteredList = new ArrayList<>();
+                        for (ChaptersAnaEntity details : listonearray) {
+                            // name match condition. this might differ depending on your requirement
+                            // here we are looking for name or phone number match
+                            if (details.getNameenglish().toLowerCase().contains(charString.toLowerCase())) {
+                                filteredList.add(details);
+                            }
+                        }
+                        chapterfilered = filteredList;
+                    }else {
+                        List<ChaptersAnaEntity> filteredList = new ArrayList<>();
+                        for (ChaptersAnaEntity details : listonearray) {
+                            int str= Integer.parseInt(charString);
+                            String Cardresult = String.valueOf(details.getChapterid());
+                            // name match condition. this might differ depending on your requirement
+                            // here we are looking for name or phone number match
+                           if(details.getChapterid()==str)
+
+                                {
+                                    filteredList.add(details);
+
+                            }
+                            chapterfilered = filteredList;
+
+                        }
+                    }
+                }
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = chapterfilered;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                chapterfilered = (ArrayList<ChaptersAnaEntity>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
     public class ItemViewAdapter extends RecyclerView.ViewHolder

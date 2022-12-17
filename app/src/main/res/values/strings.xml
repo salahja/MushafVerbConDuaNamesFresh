@@ -653,4 +653,5 @@
     <string name="menu_day_ayah">Ayah A day</string>
     <string name="id_tab_search">Search</string>
     <string name="search_with_dots">" Search… "</string>
+    <string name="searchhint">ex; 22 or Surah English Name</string>
 </resources>

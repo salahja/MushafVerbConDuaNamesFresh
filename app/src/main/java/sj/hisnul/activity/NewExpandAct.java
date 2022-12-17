@@ -261,7 +261,12 @@ public class NewExpandAct extends BaseActivity implements SearchView.OnQueryText
         expandAll();
         return false;
     }
-
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        customAdapter.filterData(newText);
+        expandAll();
+        return false;
+    }
     private void expandAll() {
         int count = customAdapter.getGroupCount();
         for (int i = 0; i < count; i++) {
@@ -269,11 +274,6 @@ public class NewExpandAct extends BaseActivity implements SearchView.OnQueryText
         }
     }
 
-    @Override
-    public boolean onQueryTextChange(String newText) {
-        customAdapter.filterData(newText);
-        expandAll();
-        return false;
-    }
+
 
 }

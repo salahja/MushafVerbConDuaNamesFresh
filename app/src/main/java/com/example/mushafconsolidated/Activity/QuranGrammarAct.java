@@ -137,6 +137,8 @@ import sj.hisnul.activity.HisnulBottomACT;
 //import com.example.mushafconsolidated.Entities.JoinVersesTranslationDataTranslation;
 
 public class QuranGrammarAct extends BaseActivity implements PassdataInterface, OnItemClickListenerOnLong {
+
+
     private static final String TAG = "fragment";
 
     //  FloatingActionButton fab1, fab2, fab3, fab;
@@ -270,26 +272,13 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
         searchView.setQueryHint("Type something…");
-      Drawable sear = ContextCompat.getDrawable(this, custom_search_box);
+        Drawable sear = ContextCompat.getDrawable(this, custom_search_box);
         searchView.setClipToOutline(true);
-       searchView.setBackgroundDrawable(sear);
-       searchView.setGravity(View.TEXT_ALIGNMENT_CENTER);
+        searchView.setBackgroundDrawable(sear);
+        searchView.setGravity(View.TEXT_ALIGNMENT_CENTER);
         searchView.setMaxWidth(Integer.MAX_VALUE);
 
-        int searchPlateId = searchView.getContext().getResources()
-                .getIdentifier("android:id/search_plate", null, null);
-        View searchPlateView = searchView.findViewById(searchPlateId);
 
-        if (searchPlateView!=null) {
-            searchPlateView.setBackgroundColor(Color.WHITE);
-            int searchTextId = searchPlateView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
-            TextView searchText = (TextView) searchPlateView.findViewById(searchTextId);
-            if (searchText != null) {
-                searchText.setTextColor(Color.BLACK);
-                searchText.setHintTextColor(Color.BLACK);
-            }
-        }
-        MenuItem jumpitem = menu.findItem(R.id.jumpto);
         return true;
     }
 
@@ -496,6 +485,7 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
                     transaction.addToBackStack(null);
                     transaction.commit();
                     navigationView.setCheckedItem(R.id.surahnav);
+                   //  this.getSupportActionBar().hide();
                     break;
                 case R.id.conjugationnav:
                     //   drawerLayout.closeDrawers();
@@ -790,9 +780,9 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
             int valuePicker1 = surahPicker.getValue();
             int vcount = intArray[valuePicker1 - 1];
             ayahPicker.setMaxValue(vcount);
-            Log.d("picker value", surahArrays[valuePicker1]);
-            Log.d(TAG, "surah: " + surahPicker.getValue());
-            Log.d(TAG, "ayah: " + ayahPicker.getValue());
+//            Log.d("picker value", surahArrays[valuePicker1]);
+      //      Log.d(TAG, "surah: " + surahPicker.getValue());
+      //      Log.d(TAG, "ayah: " + ayahPicker.getValue());
             surahname.setText(surahArrays[valuePicker1 - 1]);
             ayanum.setText(Integer.toString(ayahPicker.getValue()));
             //     ayanum.setText(ayahPicker.getValue());
