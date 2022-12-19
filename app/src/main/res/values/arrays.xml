@@ -529,6 +529,125 @@
 
 
     <string-array name="com_google_android_gms_fonts_certs" />
+    <string-array name="surahdetails">
+        <item>	1	The Opening	الْفَاتِحَة	</item>
+        <item>	2	The Cow	الْبَقَرَة	</item>
+        <item>	3	The Family of Imraan	آل عِمۡرٰن	</item>
+        <item>	4	The Women	النِّسَآء	</item>
+        <item>	5	The Table	الْمَآئِدَة	</item>
+        <item>	6	The Cattle	الْأَنْعَام	</item>
+        <item>	7	The Heights	الْأَعْرَاف	</item>
+        <item>	8	The Spoils of War	الْأَنْفَال	</item>
+        <item>	9	The Repentance	التَّوْبَة	</item>
+        <item>	10	Jonas	يُوْنـُس	</item>
+        <item>	11	Hud	هُوْد	</item>
+        <item>	12	Joseph	يُوْسُف	</item>
+        <item>	13	The Thunder	الرَّعْد	</item>
+        <item>	14	Abraham	اِبۡرٰهِيۡم	</item>
+        <item>	15	The Rock	الْحِجْر	</item>
+        <item>	16	The Bee	النَّحْل	</item>
+        <item>	17	The Night Journey	الْإِسْرَاء / بَنِيْ إِسْرَآءِيْل	</item>
+        <item>	18	The Cave	الْكَهْف	</item>
+        <item>	19	Mary	مَرْيَم	</item>
+        <item>	20	Taa-Haa	طهٰ	</item>
+        <item>	21	The Prophets	الْأَنْبِيَآء	</item>
+        <item>	22	The Pilgrimage	الْحَجّ	</item>
+        <item>	23	The Believers	الْمُؤْمِنُوْن	</item>
+        <item>	24	The Light	النُّوْر	</item>
+        <item>	25	The Criterion	الْفُرْقَان	</item>
+        <item>	26	The Poets	الشُّعَرَآء	</item>
+        <item>	27	The Ant	النَّمْل	</item>
+        <item>	28	The Stories	الْقَصَص	</item>
+        <item>	29	The Spider	الْعَنْکَبُوْت	</item>
+        <item>	30	The Romans	الرُّوْم	</item>
+        <item>	31	Luqman	لُقۡمٰن	</item>
+        <item>	32	The Prostration	السَّجْدَة	</item>
+        <item>	33	The Clans	الْأَحْزَاب	</item>
+        <item>	34	Sheba	سَبـَا	</item>
+        <item>	35	The Originator	فَاطِر	</item>
+        <item>	36	Yaseen	يٰس	</item>
+        <item>	37	Those drawn up in Ranks	الصّٰٓفّٰت	</item>
+        <item>	38	The letter Saad	ص	</item>
+        <item>	39	The Groups	الزُّمَر	</item>
+        <item>	40	The Forgiver	غَافِر / الْمُؤْمِن	</item>
+        <item>	41	Explained in detail	فُصِّلَت / حٰم السَّجْدَة	</item>
+        <item>	42	Consultation	الشُّوْرٰی	</item>
+        <item>	43	Ornaments of gold	الزُّخْرُف	</item>
+        <item>	44	The Smoke	الدُّخَان	</item>
+        <item>	45	Crouching	الْجَاثِيَة	</item>
+        <item>	46	The Dunes	الْأَحْقَاف	</item>
+        <item>	47	Muhammad	مُحَمَّد	</item>
+        <item>	48	The Victory	الْفَتْح	</item>
+        <item>	49	The Inner Apartments	الۡحُجُرٰت	</item>
+        <item>	50	The letter Qaaf	ق	</item>
+        <item>	51	The Winnowing Winds	الذّٰرِيٰت	</item>
+        <item>	52	The Mount	الطُّوْر	</item>
+        <item>	53	The Star	النَّجْم	</item>
+        <item>	54	The Moon	الْقَمَر	</item>
+        <item>	55	The Beneficent	الرَّحْمٰن	</item>
+        <item>	56	The Inevitable	الْوَاقِعَة	</item>
+        <item>	57	The Iron	الْحَدِيْد	</item>
+        <item>	58	The Pleading Woman	الْمُجَادَلَة	</item>
+        <item>	59	The Exile	الْحَشْر	</item>
+        <item>	60	She that is to be examined	الْمُمْتَحِنَة	</item>
+        <item>	61	The Ranks	الصَّفّ	</item>
+        <item>	62	Friday	الْجُمُعَة	</item>
+        <item>	63	The Hypocrites	الۡمُنٰفِقُوۡن	</item>
+        <item>	64	Mutual Disillusion	التَّغَابُن	</item>
+        <item>	65	Divorce	الطَّلاَق	</item>
+        <item>	66	The Prohibition	التَّحْرِيْم	</item>
+        <item>	67	The Sovereignty	الْمُلْک	</item>
+        <item>	68	The Pen	الْقَلَم	</item>
+        <item>	69	The Reality	الْحَآقَّة	</item>
+        <item>	70	The Ascending Stairways	الْمَعَارِج	</item>
+        <item>	71	Noah	نُوْح	</item>
+        <item>	72	The Jinn	الْجِنّ	</item>
+        <item>	73	The Enshrouded One	الْمُزَّمِّل	</item>
+        <item>	74	The Cloaked One	الْمُدَّثِّر	</item>
+        <item>	75	The Resurrection	الۡقِيٰمَة	</item>
+        <item>	76	Man	الْإِنْسَان / الدَّهْر	</item>
+        <item>	77	The Emissaries	الۡمُرۡسَلٰت	</item>
+        <item>	78	The Announcement	النَّبَا	</item>
+        <item>	79	Those who drag forth	النّٰزِعٰت	</item>
+        <item>	80	He frowned	عَبَسَ	</item>
+        <item>	81	The Overthrowing	التَّکْوِيْر	</item>
+        <item>	82	The Cleaving	الْإِنْفِطَار	</item>
+        <item>	83	Defrauding	الْمُطَفِّفِيْن	</item>
+        <item>	84	The Splitting Open	الْإِنْشِقَاق	</item>
+        <item>	85	The Constellations	الْبُرُوْج	</item>
+        <item>	86	The Morning Star	الطَّارِق	</item>
+        <item>	87	The Most High	الْأَعْلیٰ	</item>
+        <item>	88	The Overwhelming	الْغَاشِيَة	</item>
+        <item>	89	The Dawn	الْفَجْر	</item>
+        <item>	90	The City	الْبَلَد	</item>
+        <item>	91	The Sun	الشَّمْس	</item>
+        <item>	92	The Night	اللَّيْل	</item>
+        <item>	93	The Morning Hours	الضُّحٰی	</item>
+        <item>	94	The Consolation	  الْإِنْشِرَاح	</item>
+        <item>	95	The Fig	التِّيْن	</item>
+        <item>	96	The Clot	الْعَلَق	</item>
+        <item>	97	The Power, Fate	الْقَدْر	</item>
+        <item>	98	The Evidence	الْبَـيِّـنَة	</item>
+        <item>	99	The Earthquake	 الزِّلْزَال	</item>
+        <item>	100	The Chargers	الۡعٰدِيٰت	</item>
+        <item>	101	The Calamity	الْقَارِعَة	</item>
+        <item>	102	Competition	التَّکَاثُر	</item>
+        <item>	103	The Declining Day, Epoch	الْعَصْر	</item>
+        <item>	104	The Traducer	الْهُمَزَة	</item>
+        <item>	105	The Elephant	الْفِيل	</item>
+        <item>	106	Quraysh	قُرَيْش	</item>
+        <item>	107	Almsgiving	الْمَاعُوْن	</item>
+        <item>	108	Abundance	الْکَوْثَر	</item>
+        <item>	109	The Disbelievers	الْکَافِرُوْن	</item>
+        <item>	110	Divine Support	النَّصْر	</item>
+        <item>	111	The Palm Fibre / اللَّهَب	</item>
+        <item>	112	Sincerity	الْإِخْلاَص	</item>
+        <item>	113	The Dawn	الْفَلَق	</item>
+        <item>	114	Mankind	النَّاس	</item>
+
+
+
+    </string-array>
     <string-array name="suraharabic">
 
 
@@ -767,6 +886,123 @@
 
 
     </integer-array>
+    <string-array name="versescounts">
+
+        <item>7</item>
+        <item>286</item>
+        <item>200</item>
+        <item>176</item>
+        <item>120</item>
+        <item>165</item>
+        <item>206</item>
+        <item>75</item>
+        <item>129</item>
+        <item>109</item>
+        <item>123</item>
+        <item>111</item>
+        <item>43</item>
+        <item>52</item>
+        <item>99</item>
+        <item>128</item>
+        <item>111</item>
+        <item>110</item>
+        <item>98</item>
+        <item>135</item>
+        <item>112</item>
+        <item>78</item>
+        <item>118</item>
+        <item>64</item>
+        <item>77</item>
+        <item>227</item>
+        <item>93</item>
+        <item>88</item>
+        <item>69</item>
+        <item>60</item>
+        <item>34</item>
+        <item>30</item>
+        <item>73</item>
+        <item>54</item>
+        <item>45</item>
+        <item>83</item>
+        <item>182</item>
+        <item>88</item>
+        <item>75</item>
+        <item>85</item>
+        <item>54</item>
+        <item>53</item>
+        <item>89</item>
+        <item>59</item>
+        <item>37</item>
+        <item>35</item>
+        <item>38</item>
+        <item>29</item>
+        <item>18</item>
+        <item>45</item>
+        <item>60</item>
+        <item>49</item>
+        <item>62</item>
+        <item>55</item>
+        <item>78</item>
+        <item>96</item>
+        <item>29</item>
+        <item>22</item>
+        <item>24</item>
+        <item>13</item>
+        <item>14</item>
+        <item>11</item>
+        <item>11</item>
+        <item>18</item>
+        <item>12</item>
+        <item>12</item>
+        <item>30</item>
+        <item>52</item>
+        <item>52</item>
+        <item>44</item>
+        <item>28</item>
+        <item>28</item>
+        <item>20</item>
+        <item>56</item>
+        <item>40</item>
+        <item>31</item>
+        <item>50</item>
+        <item>40</item>
+        <item>46</item>
+        <item>42</item>
+        <item>29</item>
+        <item>19</item>
+        <item>36</item>
+        <item>25</item>
+        <item>22</item>
+        <item>17</item>
+        <item>19</item>
+        <item>26</item>
+        <item>30</item>
+        <item>20</item>
+        <item>15</item>
+        <item>21</item>
+        <item>11</item>
+        <item>8</item>
+        <item>8</item>
+        <item>19</item>
+        <item>5</item>
+        <item>8</item>
+        <item>8</item>
+        <item>11</item>
+        <item>11</item>
+        <item>8</item>
+        <item>3</item>
+        <item>9</item>
+        <item>5</item>
+        <item>4</item>
+        <item>7</item>
+        <item>3</item>
+        <item>6</item>
+        <item>3</item>
+        <item>5</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
     <integer-array name="versescount">
 
         <item>7</item>

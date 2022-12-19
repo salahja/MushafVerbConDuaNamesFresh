@@ -4,12 +4,19 @@ import static android.text.TextUtils.concat;
 import static com.example.Constant.AYAHNUMBER;
 import static com.example.Constant.AYAH_ID;
 import static com.example.Constant.CHAPTER;
+import static com.example.Constant.CYANLIGHT;
+import static com.example.Constant.GREENYELLOW;
 import static com.example.Constant.MAKKI_MADANI;
+import static com.example.Constant.MUSLIMMATE;
+import static com.example.Constant.ORANGE100;
+import static com.example.Constant.PURPLES;
 import static com.example.Constant.QURAN_VERB_ROOT;
 import static com.example.Constant.RUKUCOUNT;
 import static com.example.Constant.SURAH_ARABIC_NAME;
 import static com.example.Constant.SURAH_ID;
+import static com.example.Constant.TEAL;
 import static com.example.Constant.VERSESCOUNT;
+import static com.example.Constant.prussianblue;
 import static com.example.mushafconsolidated.R.drawable.custom_search_box;
 
 import android.annotation.SuppressLint;
@@ -67,6 +74,8 @@ import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.cardview.widget.CardView;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -163,7 +172,7 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
     // --Commented out by Inspection (14/08/21, 7:26 PM):ChipNavigationBar chipNavigationBar;
     int verse_no = 0;
     //  CoordinatorLayout coordinatorLayout;
-    DrawerLayout coordinatorLayout;
+    CoordinatorLayout coordinatorLayout;
     private DrawerLayout drawerLayout;
     private BottomNavigationView bottomNavigationView;
     private NavigationView navigationView;
@@ -312,22 +321,26 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
     protected void onCreate(Bundle savedInstanceState) {
         shared =
                 androidx.preference.PreferenceManager.getDefaultSharedPreferences(QuranGrammarAct.this);
-        String preferences = shared.getString("themePref", "dark");
+        String preferences = shared.getString("themepref", "dark");
         switch (preferences) {
-            case "white":
-                switchTheme("purple");
+
+            case PURPLE_THEME:
+                setTheme(R.style.AppTheme_Dark);
                 break;
-            case "dark":
-                switchTheme("dark");
+            case DARK_THEME:
+                setTheme(R.style.Theme_Black);
                 break;
-            case "blue":
-                switchTheme("blue");
+            case DARK_BLUE:
+                setTheme(R.style.Theme_DarkBlue);
                 break;
-            case "green":
-                switchTheme("light");
+            case DARK_GREEN:
+                setTheme(R.style.AppTheme_DarkGreen);
                 break;
-            case "brwon":
-                switchTheme("brown");
+            case BROWN_MODE:
+                setTheme(R.style.Theme_Browns);
+                break;
+            default:
+                setTheme(R.style.Theme_Black);
                 break;
         }
         super.onCreate(savedInstanceState);
@@ -751,7 +764,7 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
 
     public void SurahAyahPicker() {
         // final AlertDialog.Builder dialogPicker = new AlertDialog.Builder(this);
-        final String[] surahArrays = getResources().getStringArray(R.array.suraharabic);
+        final String[] surahArrays = getResources().getStringArray(R.array.surahdetails);
         final int[] intArray = getResources().getIntArray(R.array.versescount);
         //     final AlertDialog.Builder dialogPicker = new AlertDialog.Builder(this);
         AlertDialog.Builder dialogPicker = new AlertDialog.Builder(this);
@@ -767,6 +780,7 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
         final NumberPicker ayahPicker = dialogView.findViewById(R.id.ayahpicker);
         TextView surahname = dialogView.findViewById(R.id.etSura);
         TextView ayanum = dialogView.findViewById(R.id.etAyah);
+     CardView cardview=   dialogView.findViewById(R.id.cardview);
         surahPicker.setMaxValue(114);
         surahPicker.setMinValue(1);
         surahPicker.setWrapSelectorWheel(false);
@@ -781,8 +795,8 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
             int vcount = intArray[valuePicker1 - 1];
             ayahPicker.setMaxValue(vcount);
 //            Log.d("picker value", surahArrays[valuePicker1]);
-      //      Log.d(TAG, "surah: " + surahPicker.getValue());
-      //      Log.d(TAG, "ayah: " + ayahPicker.getValue());
+            //      Log.d(TAG, "surah: " + surahPicker.getValue());
+            //      Log.d(TAG, "ayah: " + ayahPicker.getValue());
             surahname.setText(surahArrays[valuePicker1 - 1]);
             ayanum.setText(Integer.toString(ayahPicker.getValue()));
             //     ayanum.setText(ayahPicker.getValue());
@@ -821,16 +835,39 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
         });
         //   Dialog d = adb.setView(new View(this)).create();
         AlertDialog alertDialog = dialogPicker.create();
+
+        String preferences = shared.getString("themepref", "dark");
+        int db = ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.odd_item_bg_dark_blue_light);
+
+        if(preferences.equals("purple")) {
+            alertDialog.getWindow().setBackgroundDrawableResource(R.color.md_theme_dark_onSecondary);
+            cardview.setCardBackgroundColor(PURPLES);
+        }else   if(preferences.equals("brown")) {
+            alertDialog.getWindow().setBackgroundDrawableResource(R.color.background_color_light_brown);
+            cardview.setCardBackgroundColor(ORANGE100);
+        }else   if(preferences.equals("blue")){
+            alertDialog.getWindow().setBackgroundDrawableResource(R.color.prussianblue);
+            cardview.setCardBackgroundColor(db);
+        }else   if(preferences.equals("green")){
+            alertDialog.getWindow().setBackgroundDrawableResource(R.color.mdgreen_theme_dark_onPrimary);
+            cardview.setCardBackgroundColor(MUSLIMMATE);
+        }
+
+
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
         lp.copyFrom(alertDialog.getWindow().getAttributes());
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+
         //   alertDialog.show();
         alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         WindowManager.LayoutParams wmlp = alertDialog.getWindow().getAttributes();
-        wmlp.gravity = Gravity.TOP | Gravity.CENTER;
+
         alertDialog.show();
+
+        //  wmlp.gravity = Gravity.TOP | Gravity.CENTER;
         alertDialog.getWindow().setAttributes(lp);
+        alertDialog.getWindow().setGravity(Gravity.TOP);
     }
 
     private void SetTranslation() {

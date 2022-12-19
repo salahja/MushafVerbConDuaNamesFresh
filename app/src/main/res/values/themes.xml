@@ -27,7 +27,7 @@
 
     <style name="Theme.MaterialComponents.DayNight.DarkActionBar.Fullscreen" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="android:actionBarStyle">
-            @style/Widget.Theme.MaterialComponents.DayNight.DarkActionBar.ActionBar.Fullscreen
+            @style/Widget.Material3.MaterialCalendar.Fullscreen
         </item>
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:windowBackground">@null</item>

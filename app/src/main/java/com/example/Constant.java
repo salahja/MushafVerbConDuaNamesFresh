@@ -156,6 +156,8 @@ public class Constant {
     public static final String DATABASE_URL = "http://127.0.0.1/drupal/sites/default/files/2021-04/QuranDatabase.db.zip";
     public static final String DATABAWSE_FILENAME = "QuranDatabase.db.zip";
     public static final int PURPLE = ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.purple);
+    public static final int PURPLES = ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.purples);
+
     public static final int PeachPuff = ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.PeachPuff);
     public static final int BBLUE = ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.RoyalBlue);
     public static final int BCYAN = ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.cyan);
@@ -179,6 +181,8 @@ public class Constant {
     public static final int ORANGE100 = ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.orange100);
     public static final int LIGHTPINK = ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.LightPink);
     public static final int CYANLIGHT = ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.cyan_light);
+    public static final int MUSLIMMATE = ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.colorMuslimMate);
+
     public static final int CYANLIGHTEST = ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.cyan_lightest);
     public static final int ORANGERED = ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.OrangeRed);
     public static final int GREENYELLOW = ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.GreenYellow);

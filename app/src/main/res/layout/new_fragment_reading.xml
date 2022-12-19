@@ -2,150 +2,152 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer"
+    style="@style/Widget.Material3.DrawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?android:colorBackground"
     android:fitsSystemWindows="true"
-    style="@style/Widget.Material3.DrawerLayout"
     app:cardBackgroundColor="@android:color/transparent">
 
-
-    <RelativeLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <include layout="@layout/appbar" />
-      <!--  <include layout="@layout/q_search_view" />-->
- <!--       <androidx.compose.ui.platform.ComposeView
-            android:id="@+id/main_compose_view"
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <FrameLayout
+                android:id="@+id/frame_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="0dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/overlayViewRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingTop="130sp"
+
+                    android:scrollbars="vertical" />
+
+                <com.google.android.material.bottomnavigation.BottomNavigationView
+                    android:id="@+id/bottomNavView"
+                    style="@style/ThemeOverlay.Material3.BottomAppBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_7"
+                    android:layout_gravity="bottom"
+                    android:background="?attr/colorSecondaryVariant"
+                    app:itemBackground="?attr/colorPrimarySurface"
+                    app:itemIconTint="?attr/colorSecondary"
+                    app:itemTextAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                    app:itemTextColor="@color/bottom_nav_item_bg"
+                    app:labelVisibilityMode="auto"
+                    app:menu="@menu/bottom_nav_menu" />
+
+
+                <com.example.utility.MovableFloatingActionButton
+                    android:id="@+id/fab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="bottom|end"
+                    android:layout_marginStart="@dimen/fab_margin"
+                    android:layout_marginTop="@dimen/fab_margin"
+                    android:layout_marginEnd="@dimen/fab_margin"
+                    android:layout_marginBottom="@dimen/fab_margin"
+                    android:visibility="visible"
+
+                    app:itemIconTint="?attr/colorPrimary"
+                    app:srcCompat="@android:drawable/btn_plus"
+                    tools:ignore="MissingClass" />
+            </FrameLayout>
+        </RelativeLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navigationView"
+
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />-->
-        <FrameLayout
-            android:id="@+id/frame_container"
-            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="0dp"
-            android:layout_marginBottom="0dp">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/overlayViewRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scrollbars="vertical"
-
-                android:paddingTop="130sp" />
-
-            <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/bottomNavView"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/space_7"
-                style="@style/ThemeOverlay.Material3.BottomAppBar"
-                android:layout_gravity="bottom"
-                android:background="?attr/colorSecondaryVariant"
-                app:itemBackground="?attr/colorPrimarySurface"
-                app:itemIconTint="?attr/colorSecondary"
-                app:itemTextAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-                app:itemTextColor="@color/bottom_nav_item_bg"
-                app:labelVisibilityMode="auto"
-                app:menu="@menu/bottom_nav_menu" />
-
-
-            <com.example.utility.MovableFloatingActionButton
-                android:id="@+id/fab"
-                android:visibility="visible"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="bottom|end"
-                android:layout_marginStart="@dimen/fab_margin"
-                android:layout_marginTop="@dimen/fab_margin"
-                android:layout_marginEnd="@dimen/fab_margin"
-                android:layout_marginBottom="@dimen/fab_margin"
-
-                app:itemIconTint="?attr/colorPrimary"
-                app:srcCompat="@android:drawable/btn_plus"
-                tools:ignore="MissingClass" />
-        </FrameLayout>
-    </RelativeLayout>
-
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/navigationView"
-
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:clipToPadding="false"
-        android:fitsSystemWindows="true"
-        android:paddingBottom="68dp"
-        app:elevation="5dp"
-        app:headerLayout="@layout/nav_header_main"
-        app:itemIconTint="?attr/colorPrimary"
-        app:itemTextAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-        app:menu="@menu/navigation_drawer_menu">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="-58dp"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:alpha="0.2"
-                android:background="@color/gray" />
+            android:layout_gravity="start"
+            android:clipToPadding="false"
+            android:fitsSystemWindows="true"
+            android:paddingBottom="68dp"
+            app:elevation="5dp"
+            app:headerLayout="@layout/nav_header_main"
+            app:itemIconTint="?attr/colorPrimary"
+            app:itemTextAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+            app:menu="@menu/navigation_drawer_menu">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginTop="@dimen/space_2"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="-58dp"
                 android:gravity="center_horizontal"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/ivWebsite"
-                    android:layout_width="@dimen/drawer_footer_view_width"
-                    android:layout_height="@dimen/drawer_footer_view_height"
-                    android:layout_marginStart="@dimen/drawer_footer_view_margin"
-                    android:layout_marginEnd="@dimen/drawer_footer_view_margin"
-                    android:clickable="true"
-                    android:focusable="true"
-                    app:srcCompat="@drawable/ic_web_home_24" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:alpha="0.2"
+                    android:background="@color/gray" />
 
-                <ImageView
-                    android:id="@+id/ivFacebook"
-                    android:layout_width="@dimen/drawer_footer_view_width"
-                    android:layout_height="@dimen/drawer_footer_view_height"
-                    android:layout_marginStart="@dimen/drawer_footer_view_margin"
-                    android:layout_marginEnd="@dimen/drawer_footer_view_margin"
-                    android:clickable="true"
-                    android:focusable="true"
-                    app:srcCompat="@drawable/ic_web_fb_24" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="@dimen/space_2"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/ivInstagram"
-                    android:layout_width="@dimen/drawer_footer_view_width"
-                    android:layout_height="@dimen/drawer_footer_view_height"
-                    android:layout_marginStart="@dimen/drawer_footer_view_margin"
-                    android:layout_marginEnd="@dimen/drawer_footer_view_margin"
-                    android:clickable="true"
-                    android:focusable="true"
-                    app:srcCompat="@drawable/ic_web_instagram_24" />
+                    <ImageView
+                        android:id="@+id/ivWebsite"
+                        android:layout_width="@dimen/drawer_footer_view_width"
+                        android:layout_height="@dimen/drawer_footer_view_height"
+                        android:layout_marginStart="@dimen/drawer_footer_view_margin"
+                        android:layout_marginEnd="@dimen/drawer_footer_view_margin"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:srcCompat="@drawable/ic_web_home_24" />
 
-                <ImageView
-                    android:id="@+id/ivTwitter"
-                    android:layout_width="@dimen/drawer_footer_view_width"
-                    android:layout_height="@dimen/drawer_footer_view_height"
-                    android:layout_marginStart="@dimen/drawer_footer_view_margin"
-                    android:layout_marginEnd="@dimen/drawer_footer_view_margin"
-                    android:clickable="true"
-                    android:focusable="true"
-                    app:srcCompat="@drawable/ic_web_twitter_24" />
+                    <ImageView
+                        android:id="@+id/ivFacebook"
+                        android:layout_width="@dimen/drawer_footer_view_width"
+                        android:layout_height="@dimen/drawer_footer_view_height"
+                        android:layout_marginStart="@dimen/drawer_footer_view_margin"
+                        android:layout_marginEnd="@dimen/drawer_footer_view_margin"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:srcCompat="@drawable/ic_web_fb_24" />
+
+                    <ImageView
+                        android:id="@+id/ivInstagram"
+                        android:layout_width="@dimen/drawer_footer_view_width"
+                        android:layout_height="@dimen/drawer_footer_view_height"
+                        android:layout_marginStart="@dimen/drawer_footer_view_margin"
+                        android:layout_marginEnd="@dimen/drawer_footer_view_margin"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:srcCompat="@drawable/ic_web_instagram_24" />
+
+                    <ImageView
+                        android:id="@+id/ivTwitter"
+                        android:layout_width="@dimen/drawer_footer_view_width"
+                        android:layout_height="@dimen/drawer_footer_view_height"
+                        android:layout_marginStart="@dimen/drawer_footer_view_margin"
+                        android:layout_marginEnd="@dimen/drawer_footer_view_margin"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:srcCompat="@drawable/ic_web_twitter_24" />
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-    </com.google.android.material.navigation.NavigationView>
+        </com.google.android.material.navigation.NavigationView>
 
 </androidx.drawerlayout.widget.DrawerLayout>

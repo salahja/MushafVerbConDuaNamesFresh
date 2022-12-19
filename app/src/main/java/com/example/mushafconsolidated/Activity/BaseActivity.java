@@ -35,7 +35,7 @@ public  class BaseActivity extends AppCompatActivity {
     // }
     protected void switchTheme(String currenttheme) {
         switch (currenttheme) {
-            default:
+
             case PURPLE_THEME:
                 setTheme(R.style.AppTheme_Dark);
                 break;
@@ -49,9 +49,11 @@ public  class BaseActivity extends AppCompatActivity {
                 setTheme(R.style.AppTheme_DarkGreen);
                 break;
             case BROWN_MODE:
-                setTheme(R.style.Theme_Brown);
+                setTheme(R.style.Theme_Browns);
                 break;
-
+            default:
+                setTheme(R.style.Theme_Black);
+                break;
         }
         PreferenceManager.getDefaultSharedPreferences(this).edit().putString("theme", currenttheme).apply();
     }

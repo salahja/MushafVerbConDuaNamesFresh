@@ -49,7 +49,7 @@ public  class PrayerBaseActivity extends AppCompatActivity {
                 setTheme(R.style.AppTheme_DarkGreen);
                 break;
             case BROWN_MODE:
-                setTheme(R.style.Theme_Brown);
+                setTheme(R.style.Theme_Browns);
                 break;
         }
         PreferenceManager.getDefaultSharedPreferences(this).edit().putString("mmtheme", currenttheme).apply();

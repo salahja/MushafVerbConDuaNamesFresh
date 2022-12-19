@@ -301,7 +301,8 @@
     <color name="midnightblue">#000033</color>
 
 
-    //good
+    //good  332D41
+    <color name="purples">#4A4161</color>
     <color name="purple">#A020F0</color>
     <color name="sforestgreen">#006600</color>
     <color name="deepburnsienna">#660000</color>
@@ -629,5 +630,11 @@
     <color name="light_blue_600">#FF039BE5</color>
     <color name="light_blue_900">#FF01579B</color>
     <color name="tab_deselected_color">#D6B1AE</color>
+
+
+    <color name="wheel_text_color">#727272</color>
+    <color name="wheel_selected_text_color">#1db0b8</color>
+    <color name="wheel_highlight_color">#00000000</color>
+    <color name="wheel_divider_color">#805C0707</color>
 
 </resources>
