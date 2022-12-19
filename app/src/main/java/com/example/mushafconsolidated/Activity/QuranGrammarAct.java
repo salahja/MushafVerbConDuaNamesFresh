@@ -809,15 +809,28 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
 
             //
             //   setSurahArabicName(suraNumber + "-" + soraList.get(suraNumber - 1).getNameenglish() + "-" + soraList.get(suraNumber - 1).getAbjadname());
-            setSurahArabicName(suraNumber + "-" + soraList.get(chapterno[0]-1).getNameenglish() + "-" +soraList.get( chapterno[0]-1).getAbjadname());
-            setSurahArabicName(soraList.get(chapterno[0]).getAbjadname());
-            setVerse_no(verseno[0]);
-            setVersescount(soraList.get(chapterno[0]-1).getVersescount());
-            setIsMakkiMadani(soraList.get(chapterno[0]-1).getIsmakki());
-            setRukucount(soraList.get(chapterno[0]-1).getRukucount());
-            setCurrentSelectSurah(soraList.get(chapterno[0]-1).getChapterid());
+          try {
+              setSurahArabicName(suraNumber + "-" + soraList.get(chapterno[0] - 1).getNameenglish() + "-" + soraList.get(chapterno[0] - 1).getAbjadname());
+              setSurahArabicName(soraList.get(chapterno[0]).getAbjadname());
+              setVerse_no(verseno[0]);
+              setVersescount(soraList.get(chapterno[0] - 1).getVersescount());
+              setIsMakkiMadani(soraList.get(chapterno[0] - 1).getIsmakki());
+              setRukucount(soraList.get(chapterno[0] - 1).getRukucount());
+              setCurrentSelectSurah(soraList.get(chapterno[0] - 1).getChapterid());
 
-            setChapterno(soraList.get(chapterno[0]-1).getChapterid());
+              setChapterno(soraList.get(chapterno[0] - 1).getChapterid());
+          } catch (ArrayIndexOutOfBoundsException e){
+              setSurahArabicName(suraNumber + "-" + soraList.get(chapterno[0]).getNameenglish() + "-" + soraList.get(chapterno[0]).getAbjadname());
+              setSurahArabicName(soraList.get(chapterno[0]).getAbjadname());
+              setVerse_no(1);
+              setVersescount(soraList.get(chapterno[0]).getVersescount());
+              setIsMakkiMadani(soraList.get(chapterno[0]).getIsmakki());
+              setRukucount(soraList.get(chapterno[0]).getRukucount());
+              setCurrentSelectSurah(soraList.get(chapterno[0]).getChapterid());
+
+              setChapterno(soraList.get(chapterno[0]).getChapterid());
+
+          }
             parentRecyclerView = findViewById(R.id.overlayViewRecyclerView);
             //
             if (currentSelectSurah == surah_id) {
