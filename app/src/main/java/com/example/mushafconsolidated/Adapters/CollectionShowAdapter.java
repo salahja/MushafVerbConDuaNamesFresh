@@ -14,10 +14,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mushafconsolidated.Entities.BookMarks;
+import com.example.mushafconsolidated.Entities.BookMarksPojo;
 import com.example.mushafconsolidated.R;
 import com.example.mushafconsolidated.intrface.OnItemClickListener;
 import com.example.utility.PreferenceUtil;
@@ -29,7 +28,7 @@ import java.util.List;
  * RecyclerView.Adapter<BookmarksShowAdapter.ViewHolder>
  * Adapter class for the bookmarks list view
  */
-public class BookmarksShowAdapter extends RecyclerView.Adapter<BookmarksShowAdapter.ViewHolder> {
+public class CollectionShowAdapter extends RecyclerView.Adapter<CollectionShowAdapter.ViewHolder> {
     private static final String TAG = "BookmarksShowAdapter";
     OnItemClickListener mItemClickListener;
     Context BookmarksShowAdapterContext;
@@ -40,11 +39,11 @@ public class BookmarksShowAdapter extends RecyclerView.Adapter<BookmarksShowAdap
     private String SurahName;
     private int bookChapterno;
     private int bookVerseno;
-    private List<BookMarks> bookMarkArrayList;
-    public BookmarksShowAdapter() {
+    private List<BookMarksPojo> bookMarkArrayList;
+    public CollectionShowAdapter() {
     }
 
-    public BookmarksShowAdapter(Context context) {
+    public CollectionShowAdapter(Context context) {
         this.BookmarksShowAdapterContext = context;
     }
 
@@ -96,7 +95,7 @@ public class BookmarksShowAdapter extends RecyclerView.Adapter<BookmarksShowAdap
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final int d = Log.d(TAG, "onBindViewHolder: called");
-        final BookMarks bookMark = bookMarkArrayList.get(position);
+        final BookMarksPojo bookMark = bookMarkArrayList.get(position);
         setHolderposition(position);
         setBookmarid(bookMark.getId());
         TypedArray imgs = QuranGrammarApplication.getContext().getResources().obtainTypedArray(R.array.sura_imgs);
@@ -104,12 +103,15 @@ public class BookmarksShowAdapter extends RecyclerView.Adapter<BookmarksShowAdap
         String isNightmode = shared.getString("theme", "dark");
         String chapterno = bookMark.getChapterno();
         final Drawable drawable = imgs.getDrawable((Integer.parseInt(chapterno) - 1));
-        holder.surahicon.setImageDrawable(drawable);
+        holder.pinicon.setImageDrawable(drawable);
         if (isNightmode.equals("dark") || isNightmode.equals("blue")) {
-            holder.surahicon.setColorFilter(Color.CYAN);
+            holder.pinicon.setColorFilter(Color.CYAN);
 
         }
-        holder.header.setText(bookMark.getHeader());
+        holder.pinicon.setVisibility(View.GONE);
+        holder.collectionicon.setVisibility(View.VISIBLE);
+        holder.header.setText(    bookMark.getHeader().concat("(").concat(bookMark.getCount().concat(" aya;s").concat(")")));
+     //   holder.header.setText(bookMark.getHeader());
         holder.datestamp.setText(bookMark.getDatetime());
         holder.suraName.setText(bookMark.getSurahname());
         holder.chapterno.setText(bookMark.getChapterno());
@@ -135,11 +137,11 @@ public class BookmarksShowAdapter extends RecyclerView.Adapter<BookmarksShowAdap
         return bookMarkArrayList.size();
     }
 
-    public List<BookMarks> getBookMarkArrayList() {
+    public List<BookMarksPojo> getBookMarkArrayList() {
         return bookMarkArrayList;
     }
 
-    public void setBookMarkArrayList(List<BookMarks> bookmarstringarray) {
+    public void setBookMarkArrayList(List<BookMarksPojo> bookmarstringarray) {
         this.bookMarkArrayList = bookmarstringarray;
     }
 
@@ -163,14 +165,15 @@ public class BookmarksShowAdapter extends RecyclerView.Adapter<BookmarksShowAdap
         public final TextView datestamp;
         public final TextView suraName;
         public final TextView verseno;
-        final ImageView surahicon;
+        final ImageView pinicon,collectionicon;
         final CardView cardView;
         public TextView chapterno,header;
 
         public ViewHolder(View view) {
             super(view);
+            collectionicon=view.findViewById(R.id.bookmark);
             header=view.findViewById(R.id.header);
-            surahicon = view.findViewById(R.id.surahicon);
+            pinicon = view.findViewById(R.id.imgview);
             cardView = view.findViewById(R.id.cardview);
             datestamp = view.findViewById(R.id.date);
             chapterno = view.findViewById(R.id.chapterno);

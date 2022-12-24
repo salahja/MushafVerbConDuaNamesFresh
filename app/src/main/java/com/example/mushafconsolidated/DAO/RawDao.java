@@ -2,8 +2,11 @@ package com.example.mushafconsolidated.DAO;
 
 import androidx.room.Dao;
 import androidx.room.RawQuery;
+import androidx.sqlite.db.SimpleSQLiteQuery;
 import androidx.sqlite.db.SupportSQLiteQuery;
 
+import com.example.mushafconsolidated.Entities.BookMarks;
+import com.example.mushafconsolidated.Entities.BookMarksPojo;
 import com.example.mushafconsolidated.Entities.CorpusExpandWbwPOJO;
 import com.example.mushafconsolidated.Entities.CorpusNounWbwGrouping;
 import com.example.mushafconsolidated.Entities.CorpusNounWbwOccurance;
@@ -86,4 +89,10 @@ public interface RawDao {
     List<hduanames> getDuaCATNAMES(SupportSQLiteQuery query);
     @RawQuery
     LocationInfo getLocinfo(SupportSQLiteQuery query);
+
+
+
+
+    @RawQuery
+    List<BookMarksPojo> getCollectionCount(SupportSQLiteQuery query);
 }

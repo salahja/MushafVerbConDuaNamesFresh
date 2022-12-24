@@ -110,5 +110,12 @@ public class TafsirFullscreenActivity extends BaseActivity {
         tvaryah.setText(list.get(0).getQurantext());
 
     }
+    @Override
+    public void onBackPressed()
+    {
+        // code here to show dialog
+       super.onBackPressed();  // optional depending on your needs
 
+        this.finish();
+    }
 }

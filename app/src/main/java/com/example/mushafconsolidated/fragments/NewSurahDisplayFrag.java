@@ -30,6 +30,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
@@ -222,7 +223,7 @@ public class NewSurahDisplayFrag extends Fragment implements  SearchView.OnQuery
     }
 
     private void setToolbarFragment() {
-        MaterialToolbar materialToolbar = ((QuranGrammarAct) requireActivity()).findViewById(R.id.toolbarmain);
+        Toolbar materialToolbar = ((QuranGrammarAct) requireActivity()).findViewById(R.id.toolbarmain);
         ((QuranGrammarAct) requireActivity()).   setSupportActionBar(materialToolbar)
      ;
     }

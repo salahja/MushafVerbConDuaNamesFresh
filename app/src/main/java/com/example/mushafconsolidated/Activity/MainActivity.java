@@ -15,22 +15,16 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 import androidx.window.layout.WindowMetrics;
 import androidx.window.layout.WindowMetricsCalculator;
 
 import com.example.mushafconsolidated.R;
-import com.example.utility.QuranGrammarApplication;
 import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
-
-import org.sj.conjugator.activity.ConjugatorAct;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -44,21 +38,9 @@ import java.util.concurrent.Executors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import database.GridImageAct;
-
 public class MainActivity extends BaseActivity {
-    private static final int PERMISSION_REQUEST_CODE = 100;
     private static final int REQUEST_WRITE_STORAGE = 112;
-    private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
-    private MaterialToolbar materialToolbar;
     private File newquran;
-    private BottomNavigationView bottomNavigationView;
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -70,16 +52,9 @@ public class MainActivity extends BaseActivity {
         switchTheme("brown");
         super.onCreate(savedInstanceState);
         boolean hasPermission = (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
-    /*
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-     */
         computeWindowSizeClasses();
         //  setContentView(R.layout.fragment_reading);
         setContentView(R.layout.main_activity);
-      //  materialToolbar = findViewById(R.id.toolbar);
-      //  setSupportActionBar(materialToolbar);
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         int SPL = 1;
         if (sp.getInt("spl", 0) != SPL) {
@@ -99,7 +74,6 @@ public class MainActivity extends BaseActivity {
 
         }
         //  PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
-        boolean hasPermissions = (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
 
     }
 
@@ -107,17 +81,11 @@ public class MainActivity extends BaseActivity {
         WindowMetrics metrics = WindowMetricsCalculator.getOrCreate().computeCurrentWindowMetrics(this);
         SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(MainActivity.this).edit();
         float widthDp = metrics.getBounds().width() / getResources().getDisplayMetrics().density;
-        // WindowSizeClass widthWindowSizeClass;
-        //     SharedPreferences.Editor editor = getActivity().getSharedPreferences("properties", 0).edit();
         if (widthDp < 600f) {
-            //widthWindowSizeClass = WindowSizeClass.COMPACT;
-            //     SharedPreferences.Editor editor = getActivity().getSharedPreferences("properties", 0).edit();
             editor.putString("width", "compactWidth");
             editor.apply();
 
         } else if (widthDp < 840f) {
-            //widthWindowSizeClass = WindowSizeClass.MEDIUM;
-            //     SharedPreferences.Editor editor = getActivity().getSharedPreferences("properties", 0).edit();
             editor.putString("width", "mediumWidth");
             editor.apply();
         } else {
@@ -159,7 +127,6 @@ public class MainActivity extends BaseActivity {
     }
 
     private void validateFilesAndDownload() throws IOException {
-        boolean isexternalstorageMounted = getDefaultSaveRootPath();
         if (!newquran.exists()) {
             // first install copy newquran.db.zip and unzip
             //   new CopyDatabase().execute();
@@ -169,7 +136,7 @@ public class MainActivity extends BaseActivity {
             Intent homeactivity = new Intent(MainActivity.this, QuranGrammarAct.class);
             //   Intent homeactivity = new Intent(MainActivity.this, ReadingSurahPartActivity.class);
             startActivity(homeactivity);
-            MainActivity.this.finish();
+         //   MainActivity.this.finish();
             //   initnavigation();
         }
 
@@ -203,7 +170,6 @@ public class MainActivity extends BaseActivity {
                         //    InputStream inputStream = getApplicationContext().getAssets().open("newquran.db");
                         InputStream inputStream = getApplicationContext().getAssets().open(DATABASEZIP);
                         FileOutputStream outputStream = new FileOutputStream(databaseFile);
-                        int fileSize = inputStream.available();
                         //   publishProgress(0, fileSize);
                         int copylength = 0;
                         byte[] buffer = new byte[1024];
@@ -289,7 +255,6 @@ public class MainActivity extends BaseActivity {
 
     public boolean getDefaultSaveRootPath() {
         boolean useExternalStorage = false;
-        File externalCacheDir = getExternalCacheDir();
         boolean mounted = Environment.getExternalStorageState().equals("mounted");
         final long freeSpace = Environment.getExternalStorageDirectory().getFreeSpace();
         if (mounted) {

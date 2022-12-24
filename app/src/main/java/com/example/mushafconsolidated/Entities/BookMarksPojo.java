@@ -6,15 +6,14 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import androidx.room.RoomWarnings;
 
-@SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
-@Entity(tableName = "bookmark")
-public class BookMarks {
-    @PrimaryKey(autoGenerate = true)
+
+public class BookMarksPojo {
+
     private int id;
     private String header;
-    @NonNull
+
     private String verseno;
-    @NonNull
+
     private String chapterno;
 
     public String getCount() {
@@ -25,22 +24,13 @@ public class BookMarks {
         this.count = count;
     }
 
-    @NonNull
+
     private String surahname;
     private String datetime;
-    @Ignore
+
     private String count;
 
-    public BookMarks(int id, String header, @NonNull String verseno, @NonNull String chapterno, @NonNull String surahname, String datetime) {
-        this.id = id;
-        this.header = header;
-        this.verseno = verseno;
-        this.chapterno = chapterno;
-        this.surahname = surahname;
-        this.datetime = datetime;
-    }
-
-    public BookMarks(int id, String header, @NonNull String verseno, @NonNull String chapterno, @NonNull String surahname, String datetime, String count) {
+    public BookMarksPojo(int id, String header, String verseno, String chapterno, String surahname, String datetime, String count) {
         this.id = id;
         this.header = header;
         this.verseno = verseno;
@@ -50,7 +40,7 @@ public class BookMarks {
         this.count = count;
     }
 
-    public BookMarks() {
+    public BookMarksPojo() {
     }
 
     public int getId() {

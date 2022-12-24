@@ -4,8 +4,6 @@ import static android.text.TextUtils.concat;
 import static com.example.Constant.AYAHNUMBER;
 import static com.example.Constant.AYAH_ID;
 import static com.example.Constant.CHAPTER;
-import static com.example.Constant.CYANLIGHT;
-import static com.example.Constant.GREENYELLOW;
 import static com.example.Constant.MAKKI_MADANI;
 import static com.example.Constant.MUSLIMMATE;
 import static com.example.Constant.ORANGE100;
@@ -14,10 +12,9 @@ import static com.example.Constant.QURAN_VERB_ROOT;
 import static com.example.Constant.RUKUCOUNT;
 import static com.example.Constant.SURAH_ARABIC_NAME;
 import static com.example.Constant.SURAH_ID;
-import static com.example.Constant.TEAL;
 import static com.example.Constant.VERSESCOUNT;
-import static com.example.Constant.prussianblue;
 import static com.example.mushafconsolidated.R.drawable.custom_search_box;
+import static com.example.utility.QuranGrammarApplication.getContext;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -68,6 +65,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
@@ -75,6 +73,7 @@ import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
@@ -106,6 +105,7 @@ import com.example.mushafconsolidated.R;
 import com.example.mushafconsolidated.SurahSummary;
 import com.example.mushafconsolidated.Utils;
 
+import com.example.mushafconsolidated.fragments.BookMarkCreateFrag;
 import com.example.mushafconsolidated.fragments.BookmarkFragment;
 import com.example.mushafconsolidated.fragments.GrammerFragmentsBottomSheet;
 import com.example.mushafconsolidated.fragments.NewSurahDisplayFrag;
@@ -116,10 +116,10 @@ import com.example.mushafconsolidated.model.CorpusAyahWord;
 import com.example.mushafconsolidated.model.CorpusWbwWord;
 import com.example.utility.CorpusUtilityorig;
 import com.example.utility.QuranGrammarApplication;
-import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -141,7 +141,6 @@ import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import database.GridImageAct;
 import mm.prayer.muslimmate.Activity.MainTwoActivityPrayer;
 import sj.hisnul.activity.HisnulBottomACT;
 import wheel.OnWheelChangedListener;
@@ -180,7 +179,7 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
     private BottomNavigationView bottomNavigationView;
     private NavigationView navigationView;
     // ChipNavigationBar chipNavigationBar;
-    private MaterialToolbar materialToolbar;
+    private Toolbar materialToolbar;
     private FlowAyahWordAdapter flowAyahWordAdapter;
     private FlowAyahWordAdapterPassage flowAyahWordAdapterpassage;
     // private UpdateMafoolFlowAyahWordAdapter flowAyahWordAdapter;
@@ -325,7 +324,7 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
         shared =
                 androidx.preference.PreferenceManager.getDefaultSharedPreferences(QuranGrammarAct.this);
         String preferences = shared.getString("themepref", "dark");
-        switch (preferences) {
+/*        switch (preferences) {
 
             case PURPLE_THEME:
                 setTheme(R.style.AppTheme_Dark);
@@ -345,32 +344,13 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
             default:
                 setTheme(R.style.Theme_Black);
                 break;
-        }
+        }*/
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_fragment_reading);
         materialToolbar = findViewById(R.id.toolbarmain);
         setSupportActionBar(materialToolbar);
-  /*      materialToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println("check");
-            }
-        });
-        materialToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
 
-                    case R.id.settings:
-                        Intent settingint = new Intent(QuranGrammarAct.this, ActivitySettings.class);
-                        startActivity(settingint);
-                        return false;
 
-                }
-                return false;
-            }
-        });*/
-         // setSupportActionBar(toolbar);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.getContext());
         if (preferences.equals("dark") || preferences.equals("blue") || preferences.equals("purple")||preferences.equals("green")) {
             shartagainstback = prefs.getInt("shartback", Color.GREEN);
@@ -487,53 +467,75 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
             toggleBottomSheets();
             //  toggleHideSeek();
         });
-        bottomNavigationView.setOnNavigationItemReselectedListener(item ->
-        {
-            Fragment fragment;
-            switch (item.getItemId()) {
-                case R.id.surahnav:
-                    materialToolbar.setTitle("Surah");
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    FragmentTransaction transaction = fragmentManager.beginTransaction();
-                    transaction.setCustomAnimations(R.anim.slide_down, R.anim.slide_up);
-                    NewSurahDisplayFrag newCustomFragment = NewSurahDisplayFrag.newInstance();
-                    transaction.add(R.id.frame_container, newCustomFragment);
-                    transaction.addToBackStack(null);
-                    transaction.commit();
-                    navigationView.setCheckedItem(R.id.surahnav);
-                   //  this.getSupportActionBar().hide();
-                    break;
-                case R.id.conjugationnav:
-                    //   drawerLayout.closeDrawers();
-                    materialToolbar.setTitle("Conjugator");
-                    //  Intent conjugatorintent = new Intent(newreadactivity.this, VerbConjugationAct.class);
-                    Intent conjugatorintent = new Intent(this, ConjugatorAct.class);
-                    startActivity(conjugatorintent);
-                    break;
-                case R.id.dua:
-                    materialToolbar.setTitle("Hisnul Muslim-Dua;s");
-                    //        Intent searchintent = new Intent(this, HisnulMainAct.class);
-                    Intent searchintent = new Intent(this, HisnulBottomACT.class);
-                    startActivity(searchintent);
-                    navigationView.setCheckedItem(R.id.duanav);
-                    break;
-                case R.id.Names:
-                    materialToolbar.setTitle("Aallah(SWT) Namess");
-                    Intent searchintents = new Intent(this, GridImageAct.class);
-                    startActivity(searchintents);
-                    navigationView.setCheckedItem(R.id.Names);
-                    break;
-                case R.id.prayers:
-                    materialToolbar.setTitle("Topics");
-                 Intent searchs = new Intent(this, MainTwoActivityPrayer.class);
-                 //   Intent searchs = new Intent(this, ActivitySettings.class);
-                    startActivity(searchs);
-                    break;
-                default:
-                    break;
-            }
 
-        });
+       bottomNavigationView.setOnItemReselectedListener(new NavigationBarView.OnItemReselectedListener() {
+           @Override
+           public void onNavigationItemReselected(@NonNull MenuItem item) {
+
+
+               Fragment fragment;
+               switch (item.getItemId()) {
+                   case R.id.surahnav:
+                       materialToolbar.setTitle("Surah");
+                       FragmentManager fragmentManager = getSupportFragmentManager();
+                       FragmentTransaction transaction = fragmentManager.beginTransaction();
+                       transaction.setCustomAnimations(R.anim.slide_down, R.anim.slide_up);
+                       NewSurahDisplayFrag newCustomFragment = NewSurahDisplayFrag.newInstance();
+                       transaction.add(R.id.frame_container, newCustomFragment);
+                       transaction.addToBackStack(null);
+                       transaction.commit();
+                       navigationView.setCheckedItem(R.id.surahnav);
+                       //  this.getSupportActionBar().hide();
+                       break;
+                   case R.id.conjugationnav:
+                       //   drawerLayout.closeDrawers();
+                       materialToolbar.setTitle("Conjugator");
+                       //  Intent conjugatorintent = new Intent(newreadactivity.this, VerbConjugationAct.class);
+                       Intent conjugatorintent = new Intent(QuranGrammarAct.this, ConjugatorAct.class);
+                       startActivity(conjugatorintent);
+                       break;
+                   case R.id.dua:
+                     materialToolbar.setTitle("Hisnul Muslim-Dua;s");
+
+                        Intent searchintent = new Intent(QuranGrammarAct.this, HisnulBottomACT.class);
+                        startActivity(searchintent);
+
+
+
+
+
+
+
+                       break;
+                   case R.id.Names:
+                     //  materialToolbar.setTitle("Aallah(SWT) Namess");
+                       materialToolbar.setTitle("Settings");
+                 /*      Intent searchintents = new Intent(QuranGrammarAct.this, GridImageAct.class);
+                       startActivity(searchintents);
+                       navigationView.setCheckedItem(R.id.Names);*/
+
+                       Intent settingint = new Intent(QuranGrammarAct.this, ActivitySettings.class);
+                       startActivity(settingint);
+                       navigationView.setCheckedItem(R.id.duanav);
+                       break;
+                   case R.id.prayers:
+                       materialToolbar.setTitle("Topics");
+                       Intent searchs = new Intent(QuranGrammarAct.this, MainTwoActivityPrayer.class);
+
+                       startActivity(searchs);
+
+
+
+
+                       break;
+                   default:
+                       break;
+               }
+
+           }
+       });
+
+
         navigationView.setNavigationItemSelectedListener(item ->
         {
             Fragment fragment;
@@ -869,7 +871,7 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
             alertDialog.getWindow().setBackgroundDrawableResource(R.color.mdgreen_theme_dark_onPrimary);
           //  cardview.setCardBackgroundColor(MUSLIMMATE);
         }
-      //  alertDialog.getWindow().setBackgroundDrawableResource(R.color.background_color_light_brown);
+
 
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
         lp.copyFrom(alertDialog.getWindow().getAttributes());
@@ -1501,7 +1503,21 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
         SwitchCompat colorsentence = view.findViewById(R.id.colorized);
         boolean colortag = shared.getBoolean("colortag", true);
         View qurantext = view.findViewById(R.id.quran_textView);
+         if(tag.equals("bookmarfb"))
+         {
+            bookMarkSelected(position);
+             BookMarkCreateFrag item = new BookMarkCreateFrag();
+             //    item.setdata(rootWordMeanings,wbwRootwords,grammarRootsCombined);
+             FragmentManager fragmentManager = QuranGrammarAct.this.getSupportFragmentManager();
+             String sample = "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ";
+             String[] data = {sample, sample, sample};
+             FragmentTransaction transactions = fragmentManager.beginTransaction().setCustomAnimations(R.anim.abc_slide_in_top, android.R.anim.fade_out);
+             //   transactions.show(item);
+             BookMarkCreateFrag.newInstance().show(QuranGrammarAct.this.getSupportFragmentManager(), WordAnalysisBottomSheet.TAG);
 
+
+
+         }
         if (tag.equals("arrowforward")) {
             int currentsurah = quranEntity.getSurah();
             if (currentsurah != 114) {
@@ -1785,6 +1801,9 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
         }
     }
 
+    private void bookMarkSelected() {
+    }
+
     private void takeScreenShot(View view) {
         Date date = new Date();
         CharSequence format = DateFormat.format("MM-dd-yyyy_hh:mm:ss", date);
@@ -1899,6 +1918,7 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
         int chapter_no = corpusayahWordArrayList.get(position).getWord().get(0).getSurahId();
         int verse = corpusayahWordArrayList.get(position).getWord().get(0).getVerseId();
         BookMarks en = new BookMarks();
+        en.setHeader("mercy");
         en.setChapterno(String.valueOf(chapter_no));
         en.setVerseno(String.valueOf(verse));
         en.setSurahname(getSurahArabicName());

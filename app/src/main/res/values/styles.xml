@@ -45,7 +45,7 @@
         <item name="colorAccent">@color/colorPrimary</item>
     </style>
 
-    <style name="DarkThemeDialog" parent="Theme.MaterialComponents.DayNight.Dialog">
+    <style name="DarkThemeDialog" parent="Theme.Material3.DayNight.Dialog">
         <item name="android:windowFrame">@null</item>
         <item name="android:colorBackground">@color/bg_dark_blue</item>
         <item name="android:windowIsFloating">false</item>
@@ -86,7 +86,7 @@
         <item name="tabSelectedTextColor">?android:textColor</item>
         <item name="tabTextColor">?colorOnPrimarySurface</item>
     </style>
-    <style name="Widget.MaterialComponents.TabLayout" parent="@style/Widget.Design.TabLayout">
+    <style name="Widget.Material3.TabLayout" parent="@style/Widget.Design.TabLayout">
         <item name="android:background">?colorSurface</item>
         <item name="enforceMaterialTheme">true</item>
         <item name="enforceTextAppearance">true</item>
@@ -99,7 +99,7 @@
         <item name="tabTextColor">@color/mtrl_tabs_icon_color_selector</item>
         <item name="tabUnboundedRipple">true</item>
     </style>
-    <style name="Theme.Black" parent="@style/Theme.MaterialComponents.NoActionBar">
+    <style name="Theme.Black" parent="Theme.Material3.Dark.NoActionBar">
 
         <item name="android:windowBackground">@color/bg_black</item>
         <item name="android:textViewStyle">@style/Base.Widget.TextView</item>
@@ -174,7 +174,7 @@
         <item name="colorPrimaryInverse">@color/md_theme_dark_inversePrimary</item>
     </style>
 
-    <style name="Theme.Purple" parent="@style/Theme.MaterialComponents.NoActionBar">
+    <style name="Theme.Purple" parent="Theme.Material3.DayNight.NoActionBar">
 
         <item name="dialog_bg">@color/odd_item_bg_dark_blue_light</item>
         <item name="colorOnErrorContainer">@color/md_theme_dark_onErrorContainer</item>
@@ -206,7 +206,7 @@
         <item name="bottomSheetDialogTheme">@style/ThemeOverlay.Material3.BottomSheetDialog</item>
     </style>
 
-    <style name="Theme.White" parent="@style/Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Theme.White" parent="@style/Theme.Material3.Light.NoActionBar">
         <item name="bottomSheetDialogTheme">@style/MyBottomSheetStyle</item>
         <item name="tabStyle">@style/RoundedTabLayoutStyleBrown</item>
         <item name="android:colorBackground">@color/bg_white</item>
@@ -262,7 +262,7 @@
         <item name="cornerSize">@dimen/mushaf_large_component_corner_radius</item>
     </style>
 
-    <style name="AppCardBlue" parent="Widget.MaterialComponents.CardView">
+    <style name="AppCardBlue" parent="Widget.Material3.CardView.Elevated">
         <item name="cardElevation">8dp</item>
         <item name="cardBackgroundColor">@color/solarizedBase02</item>
     </style>
@@ -325,7 +325,7 @@
         <item name="android:popupBackground">@color/BlanchedAlmond</item>
     </style>
 
-    <style name="Theme.Green" parent="@style/Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Theme.Green" parent="@style/Theme.Material3.Light.NoActionBar">
         <item name="bottomSheetDialogTheme">@style/GreenThemeSheetDesign</item>
         <item name="android:colorBackground">@color/bg_green</item>
         <item name="android:windowBackground">@color/bg_green</item>
@@ -379,7 +379,7 @@
         <item name="android:windowExitAnimation">@anim/slide_down</item>
     </style>
     <!--  Base application theme.  -->
-    <style name="Theme.Shrine" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Theme.Shrine" parent="Theme.Material3.Light.NoActionBar">
         <!--  Customize your theme here.  -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -388,7 +388,7 @@
         <item name="android:textColorPrimary">@color/textColorPrimary</item>
     </style>
 
-    <style name="Widget.Shrine.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+    <style name="Widget.Shrine.TextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
         <item name="hintTextAppearance">@style/TextAppearance.Shrine.TextInputLayout.HintText</item>
         <item name="hintTextColor">@color/textColorPrimary</item>
         <item name="android:paddingBottom">8dp</item>
@@ -399,7 +399,7 @@
         <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>
 
-    <style name="Widget.Shrine.Button" parent="Widget.MaterialComponents.Button">
+    <style name="Widget.Shrine.Button" parent="Widget.Material3.Button">
         <item name="android:textColor">?android:attr/textColorPrimary</item>
         <item name="backgroundTint">?attr/colorPrimaryDark</item>
         <item name="android:stateListAnimator" tools:ignore="NewApi">
@@ -407,7 +407,7 @@
         </item>
     </style>
 
-    <style name="Widget.Shrine.Button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
+    <style name="Widget.Shrine.Button.TextButton" parent="Widget.Material3.Button.TextButton">
         <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>
 
@@ -436,7 +436,7 @@
         <item name="bottomSheetStyle">@style/CustomBottomSheet</item>
     </style>
 
-    <style name="CustomBottomSheet" parent="Widget.MaterialComponents.BottomSheet">
+    <style name="CustomBottomSheet" parent="Widget.Material3.BottomSheet">
         <item name="shapeAppearanceOverlay">@style/CustomShapeAppearanceBottomSheetDialog</item>
     </style>
 
@@ -446,7 +446,7 @@
         <item name="bottomSheetStyle">@style/Widget.Design.BottomSheet.Modal</item>
     </style>
 
-    <style name="CustomShapeAppearanceBottomSheetDialog" parent="Theme.MaterialComponents.BottomSheetDialog">
+    <style name="CustomShapeAppearanceBottomSheetDialog" parent="Theme.Material3.BottomSheetDialog">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeTopRight">30dp</item>
         <item name="cornerSizeTopLeft">30dp</item>
@@ -454,12 +454,12 @@
         <item name="cornerSizeBottomLeft">0dp</item>
     </style>
 
-    <style name="Theme.MaterialComponents.BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.Dialog">
+    <style name="Theme.Material3.BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.Dialog">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowAnimationStyle">
             @style/Animation.MaterialComponents.BottomSheetDialog
         </item>
-        <item name="bottomSheetStyle">@style/Widget.MaterialComponents.BottomSheet.Modal</item>
+        <item name="bottomSheetStyle">@style/Widget.Material3.BottomSheet.Modal</item>
     </style>
 
     <style name="bstyle" parent="Theme.Material3.DayNight.BottomSheetDialog">
@@ -509,7 +509,7 @@
         <item name="android:background">@drawable/green_bottom_corners</item>
     </style>
     <!--   END BlueBottomSheetStyle -->
-    <style name="Theme.Brown" parent="@style/Theme.MaterialComponents.NoActionBar">
+    <style name="Theme.Brown" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="searchViewStyle">@style/MySearchViewStyle</item>
 
         <item name="dialog_bg">@color/background_color_light_brown</item>
@@ -568,8 +568,8 @@
 
     </style>
 
-    <style name="Theme.DarkBlue" parent="@style/Theme.MaterialComponents.NoActionBar">
-        <item name="android:colorBackground">@color/bg_dark_blue</item>
+    <style name="Theme.DarkBlue" parent="Theme.Material3.DayNight.NoActionBar">
+
         <item name="android:windowBackground">@color/bg_dark_blue</item>
         <item name="android:textViewStyle">@style/Base.Widget.TextView</item>
         <item name="android:textColor">@color/neutral1</item>
@@ -577,7 +577,7 @@
         <item name="colorPrimarySurface">@color/bg_surface_dark_blue</item>
         <item name="android:fastScrollPreviewBackgroundRight">@drawable/fs_preview_bg</item>
         `
-        <item name="colorOutline">@color/md_theme_blue_outline</item>
+
         <item name="android:fastScrollTrackDrawable">@null</item>
         <item name="android:fastScrollOverlayPosition">atThumb</item>
         <item name="android:fastScrollTextColor">?attr/colorPrimary</item>
@@ -586,16 +586,32 @@
         <item name="android:statusBarColor">@color/neutral9</item>
         <item name="android:navigationBarColor">@color/neutral9</item>
         <item name="colorControlNormal">@color/neutral5</item>
-        <item name="colorError">@color/errorColor</item>
-        <item name="colorOnError">@color/neutral0</item>
-        <item name="colorOnPrimary">@color/neutral0</item>
-        <item name="colorOnSecondary">@color/neutral0</item>
+
+
         <item name="colorPrimary">@color/colorPrimaryDarkBlue</item>
+        <item name="colorOnPrimary">@color/neutral0</item>
+
+        <item name="colorSecondary">@color/colorPrimaryDarkBlue</item>
+        <item name="colorOnSecondary">@color/neutral0</item>
+
+        <item name="colorOutline">@color/md_theme_blue_outline</item>
+
         <item name="colorPrimaryDark">@color/colorPrimaryDarkBlueDark</item>
         <item name="colorPrimaryLight">@color/colorPrimaryDarkBlueLight</item>
-        <item name="colorPrimaryVariant">@color/colorPrimaryDarkBlueDark</item>
-        <item name="colorSecondary">@color/colorPrimaryDarkBlue</item>
-        <item name="colorSecondaryVariant">@color/colorPrimaryDarkBlueLight</item>
+<!--        <item name="colorPrimaryVariant">@color/colorPrimaryDarkBlueDark</item>-->
+<!--        <item name="colorSecondaryVariant">@color/colorPrimaryDarkBlueLight</item>-->
+
+    <!--    <item name="colorError">@color/errorColor</item>
+        <item name="colorOnError">@color/neutral0</item>-->
+
+        <item name="colorError">@color/md_theme_dark_error</item>
+        <item name="colorOnError">@color/md_theme_dark_onError</item>
+
+        <item name="colorErrorContainer">@color/md_theme_dark_errorContainer</item>
+        <item name="colorOnErrorContainer">@color/md_theme_dark_onErrorContainer</item>
+        <item name="android:colorBackground">@color/bg_dark_blue</item>
+
+
         <item name="colorSurface">@color/bg_surface_dark_blue</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
         <item name="sc_tint_color">@color/colorPrimaryDarkBlue</item>
@@ -608,9 +624,35 @@
         <item name="tabStyle">@style/Widget.Material3.TabLayout</item>
         <item name="bottomSheetDialogTheme">@style/ThemeOverlay.Material3.BottomSheetDialog</item>
         <item name="android:spinnerStyle">@style/spinner_styles_blue</item>
+
+
+
+        <item name="colorPrimaryContainer">@color/md_theme_dark_primaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/md_theme_dark_onPrimaryContainer</item>
+
+
+        <item name="colorSecondaryContainer">@color/md_theme_dark_secondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/md_theme_dark_onSecondaryContainer</item>
+        <item name="colorTertiary">@color/md_theme_dark_tertiary</item>
+        <item name="colorOnTertiary">@color/md_theme_dark_onTertiary</item>
+        <item name="colorTertiaryContainer">@color/md_theme_dark_tertiaryContainer</item>
+        <item name="colorOnTertiaryContainer">@color/md_theme_dark_onTertiaryContainer</item>
+
+
+
+
+        <item name="colorOnBackground">@color/md_theme_dark_onBackground</item>
+
+        <item name="colorOnSurface">@color/md_theme_dark_onSurface</item>
+        <item name="colorSurfaceVariant">@color/md_theme_dark_surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/md_theme_dark_onSurfaceVariant</item>
+        <item name="colorSurfaceInverse">@color/md_theme_dark_inverseSurface</item>
+        <item name="colorOnSurfaceInverse">@color/md_theme_dark_inverseOnSurface</item>
+        <item name="colorPrimaryInverse">@color/md_theme_dark_inversePrimary</item>
+
     </style>
 
-    <style name="Theme.DarkBluexgwxjiyr" parent="@style/Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Theme.DarkBluexgwxjiyr" parent="@style/Theme.Material3.Light.NoActionBar">
         <item name="bottomSheetDialogTheme">@style/BlueBottomSheetStyle</item>
         <!--        <item name="android:colorBackground">@color/bg_dark_blue</item>-->
         <item name="android:windowBackground">@color/bg_dark_blue</item>
@@ -712,7 +754,7 @@
     </style>
 
 
-    <style name="Theme.DarkBlues" parent="@style/Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Theme.DarkBlues" parent="@style/Theme.Material3.Light.NoActionBar">
         <item name="textAppearanceDisplayLarge">@style/TextAppearance.Material3.DisplayLarge</item>
         <item name="textAppearanceDisplayMedium">@style/TextAppearance.Material3.DisplayMedium
         </item>
@@ -776,11 +818,11 @@
         <item name="android:spinnerStyle">@style/spinner_styles_blue</item>
     </style>
 
-    <style name="Widget.Theme.MaterialComponents.DayNight.DarkActionBar.ActionBar.Fullscreen" parent="Widget.AppCompat.ActionBar">
+    <style name="Widget.Theme.Material3.DayNight.DarkActionBar.ActionBar.Fullscreen" parent="Widget.AppCompat.ActionBar">
         <item name="android:background">@color/black_overlay</item>
     </style>
 
-    <style name="Widget.Theme.MaterialComponents.DayNight.DarkActionBar.ButtonBar.Fullscreen" parent="">
+    <style name="Widget.Theme.Material3.DayNight.DarkActionBar.ButtonBar.Fullscreen" parent="">
         <item name="android:background">@color/black_overlay</item>
         <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
     </style>
@@ -789,7 +831,7 @@
  <!--   parent="ThemeOverlay.Material3.DynamicColors.Dark">-->
 
 
-    <style name="AppTheme.Dark"  parent="@style/Theme.MaterialComponents.NoActionBar">
+    <style name="AppTheme.Dark" parent="Theme.Material3.Dark.NoActionBar">
         <item name="colorPrimary">@color/md_theme_dark_primary</item>
         <item name="colorOnPrimary">@color/md_theme_dark_onPrimary</item>
         <item name="colorPrimaryContainer">@color/md_theme_dark_primaryContainer</item>
@@ -820,7 +862,7 @@
 
     </style>
 
-    <style name="AppTheme.Light" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="AppTheme.Light" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimary">@color/md_theme_light_primary</item>
         <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
         <item name="colorPrimaryContainer">@color/md_theme_light_primaryContainer</item>
@@ -985,7 +1027,7 @@
         <item name="colorPrimaryInverse">@color/md_theme_dark_inversePrimary</item>
     </style>
 
-    <style name="AppTheme.DarkGreen" parent="@style/Theme.MaterialComponents.NoActionBar">
+    <style name="AppTheme.DarkGreen" parent="Theme.Material3.Dark.NoActionBar">
         <item name="colorPrimary">@color/mdgreen_theme_dark_primary</item>
         <item name="colorOnPrimary">@color/mdgreen_theme_dark_onPrimary</item>
         <item name="colorPrimaryContainer">@color/mdgreen_theme_dark_primaryContainer</item>
@@ -1064,7 +1106,7 @@
         <item name="endIconDrawable">@drawable/arrow_down</item>
     </style>-->
 
-    <style name="Theme.Browns" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.Browns" parent="Theme.Material3.Light.NoActionBar">
         <item name="android:colorBackground">@color/bg_brown</item>
         <item name="android:windowBackground">@color/bg_brown</item>
         <item name="android:textViewStyle">@style/Base.Widget.TextView</item>
@@ -1099,4 +1141,165 @@
         <item name="android:textColorPrimary">@android:color/white</item>
     </style>
 
+
+    <style name="AppTheme.materialdarkblue" parent="Theme.Material3.Dark.NoActionBar">
+    <item name="colorPrimary">@color/md_db__theme_dark_primary</item>
+    <item name="colorOnPrimary">@color/md_db__theme_dark_onPrimary</item>
+    <item name="colorPrimaryContainer">@color/md_db__theme_dark_primaryContainer</item>
+    <item name="colorOnPrimaryContainer">@color/md_db__theme_dark_onPrimaryContainer</item>
+    <item name="colorSecondary">@color/md_db__theme_dark_secondary</item>
+    <item name="colorOnSecondary">@color/md_db__theme_dark_onSecondary</item>
+    <item name="colorSecondaryContainer">@color/md_db__theme_dark_secondaryContainer</item>
+    <item name="colorOnSecondaryContainer">@color/md_db__theme_dark_onSecondaryContainer</item>
+    <item name="colorTertiary">@color/md_db__theme_dark_tertiary</item>
+    <item name="colorOnTertiary">@color/md_db__theme_dark_onTertiary</item>
+    <item name="colorTertiaryContainer">@color/md_db__theme_dark_tertiaryContainer</item>
+    <item name="colorOnTertiaryContainer">@color/md_db__theme_dark_onTertiaryContainer</item>
+    <item name="colorError">@color/md_db__theme_dark_error</item>
+    <item name="colorErrorContainer">@color/md_db__theme_dark_errorContainer</item>
+    <item name="colorOnError">@color/md_db__theme_dark_onError</item>
+    <item name="colorOnErrorContainer">@color/md_db__theme_dark_onErrorContainer</item>
+    <item name="android:colorBackground">@color/md_db__theme_dark_background</item>
+    <item name="colorOnBackground">@color/md_db__theme_dark_onBackground</item>
+    <item name="colorSurface">@color/md_db__theme_dark_surface</item>
+    <item name="colorOnSurface">@color/md_db__theme_dark_onSurface</item>
+    <item name="colorSurfaceVariant">@color/md_db__theme_dark_surfaceVariant</item>
+    <item name="colorOnSurfaceVariant">@color/md_db__theme_dark_onSurfaceVariant</item>
+    <item name="colorOutline">@color/md_db__theme_dark_outline</item>
+    <item name="colorOnSurfaceInverse">@color/md_db__theme_dark_inverseOnSurface</item>
+    <item name="colorSurfaceInverse">@color/md_db__theme_dark_inverseSurface</item>
+    <item name="colorCustomColor1">#8aceff</item>
+    <item name="colorOnCustomColor1">#00344e</item>
+    <item name="colorCustomColor1Container">#004b6f</item>
+    <item name="colorOnCustomColor1Container">#c9e6ff</item>
+    <item name="harmonizeCustomColor1">true</item>
+    <item name="colorPrimaryInverse">@color/md_db__theme_dark_inversePrimary</item>
+    </style>
+
+
+    <style name="AppTheme.materiallightblue" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/md_theme_light_primary</item>
+        <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
+        <item name="colorPrimaryContainer">@color/md_theme_light_primaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/md_theme_light_onPrimaryContainer</item>
+        <item name="colorSecondary">@color/md_theme_light_secondary</item>
+        <item name="colorOnSecondary">@color/md_theme_light_onSecondary</item>
+        <item name="colorSecondaryContainer">@color/md_theme_light_secondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/md_theme_light_onSecondaryContainer</item>
+        <item name="colorTertiary">@color/md_theme_light_tertiary</item>
+        <item name="colorOnTertiary">@color/md_theme_light_onTertiary</item>
+        <item name="colorTertiaryContainer">@color/md_theme_light_tertiaryContainer</item>
+        <item name="colorOnTertiaryContainer">@color/md_theme_light_onTertiaryContainer</item>
+        <item name="colorError">@color/md_theme_light_error</item>
+        <item name="colorErrorContainer">@color/md_theme_light_errorContainer</item>
+        <item name="colorOnError">@color/md_theme_light_onError</item>
+        <item name="colorOnErrorContainer">@color/md_theme_light_onErrorContainer</item>
+        <item name="android:colorBackground">@color/md_theme_light_background</item>
+        <item name="colorOnBackground">@color/md_theme_light_onBackground</item>
+        <item name="colorSurface">@color/md_theme_light_surface</item>
+        <item name="colorOnSurface">@color/md_theme_light_onSurface</item>
+        <item name="colorSurfaceVariant">@color/md_theme_light_surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/md_theme_light_onSurfaceVariant</item>
+        <item name="colorOutline">@color/md_theme_light_outline</item>
+        <item name="colorOnSurfaceInverse">@color/md_theme_light_inverseOnSurface</item>
+        <item name="colorSurfaceInverse">@color/md_theme_light_inverseSurface</item>
+        <item name="colorCustomColor1">#006491</item>
+        <item name="colorOnCustomColor1">#ffffff</item>
+        <item name="colorCustomColor1Container">#c9e6ff</item>
+        <item name="colorOnCustomColor1Container">#001e2f</item>
+        <item name="harmonizeCustomColor1">true</item>
+        <item name="colorPrimaryInverse">@color/md_theme_light_inversePrimary</item>
+    </style>
+
+    <style name="AppTheme.materialbrown" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="android:colorBackground">@color/bg_brown</item>
+        <item name="android:windowBackground">@color/bg_brown</item>
+        <item name="colorPrimary">@color/md_brown__theme_dark_primary</item>
+        <item name="colorOnPrimary">@color/md_brown__theme_dark_onPrimary</item>
+        <item name="colorPrimaryContainer">@color/md_brown__theme_dark_primaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/md_brown__theme_dark_onPrimaryContainer</item>
+        <item name="colorSecondary">@color/md_brown__theme_dark_secondary</item>
+        <item name="colorOnSecondary">@color/md_brown__theme_dark_onSecondary</item>
+        <item name="colorSecondaryContainer">@color/md_brown__theme_dark_secondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/md_brown__theme_dark_onSecondaryContainer</item>
+        <item name="colorTertiary">@color/md_brown__theme_dark_tertiary</item>
+        <item name="colorOnTertiary">@color/md_brown__theme_dark_onTertiary</item>
+        <item name="colorTertiaryContainer">@color/md_brown__theme_dark_tertiaryContainer</item>
+        <item name="colorOnTertiaryContainer">@color/md_brown__theme_dark_onTertiaryContainer</item>
+        <item name="colorError">@color/md_brown__theme_dark_error</item>
+        <item name="colorErrorContainer">@color/md_brown__theme_dark_errorContainer</item>
+        <item name="colorOnError">@color/md_brown__theme_dark_onError</item>
+        <item name="colorOnErrorContainer">@color/md_brown__theme_dark_onErrorContainer</item>
+      <!--  <item name="android:colorBackground">@color/md_brown__theme_dark_background</item>-->
+        <item name="colorOnBackground">@color/md_brown__theme_dark_onBackground</item>
+        <item name="colorSurface">@color/md_brown__theme_dark_surface</item>
+        <item name="colorOnSurface">@color/md_brown__theme_dark_onSurface</item>
+        <item name="colorSurfaceVariant">@color/md_brown__theme_dark_surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/md_brown__theme_dark_onSurfaceVariant</item>
+        <item name="colorOutline">@color/md_brown__theme_dark_outline</item>
+        <item name="colorOnSurfaceInverse">@color/md_brown__theme_dark_inverseOnSurface</item>
+        <item name="colorSurfaceInverse">@color/md_brown__theme_dark_inverseSurface</item>
+        <item name="colorPrimaryInverse">@color/md_brown__theme_dark_inversePrimary</item>
+    </style>
+
+
+    <style name="AppTheme.materialbrowndark" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/md_brown__theme_light_primary</item>
+        <item name="colorOnPrimary">@color/md_brown__theme_light_onPrimary</item>
+        <item name="colorPrimaryContainer">@color/md_brown__theme_light_primaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/md_brown__theme_light_onPrimaryContainer</item>
+        <item name="colorSecondary">@color/md_brown__theme_light_secondary</item>
+        <item name="colorOnSecondary">@color/md_brown__theme_light_onSecondary</item>
+        <item name="colorSecondaryContainer">@color/md_brown__theme_light_secondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/md_brown__theme_light_onSecondaryContainer</item>
+        <item name="colorTertiary">@color/md_brown__theme_light_tertiary</item>
+        <item name="colorOnTertiary">@color/md_brown__theme_light_onTertiary</item>
+        <item name="colorTertiaryContainer">@color/md_brown__theme_light_tertiaryContainer</item>
+        <item name="colorOnTertiaryContainer">@color/md_brown__theme_light_onTertiaryContainer</item>
+        <item name="colorError">@color/md_brown__theme_light_error</item>
+        <item name="colorErrorContainer">@color/md_brown__theme_light_errorContainer</item>
+        <item name="colorOnError">@color/md_brown__theme_light_onError</item>
+        <item name="colorOnErrorContainer">@color/md_brown__theme_light_onErrorContainer</item>
+        <item name="android:colorBackground">@color/md_brown__theme_light_background</item>
+        <item name="colorOnBackground">@color/md_brown__theme_light_onBackground</item>
+        <item name="colorSurface">@color/md_brown__theme_light_surface</item>
+        <item name="colorOnSurface">@color/md_brown__theme_light_onSurface</item>
+        <item name="colorSurfaceVariant">@color/md_brown__theme_light_surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/md_brown__theme_light_onSurfaceVariant</item>
+        <item name="colorOutline">@color/md_brown__theme_light_outline</item>
+        <item name="colorOnSurfaceInverse">@color/md_brown__theme_light_inverseOnSurface</item>
+        <item name="colorSurfaceInverse">@color/md_brown__theme_light_inverseSurface</item>
+        <item name="colorPrimaryInverse">@color/md_brown__theme_light_inversePrimary</item>
+    </style>
+
+
+    <style name="AppTheme.materialbrownlight" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/md_brown__theme_light_primary</item>
+        <item name="colorOnPrimary">@color/md_brown__theme_light_onPrimary</item>
+        <item name="colorPrimaryContainer">@color/md_brown__theme_light_primaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/md_brown__theme_light_onPrimaryContainer</item>
+        <item name="colorSecondary">@color/md_brown__theme_light_secondary</item>
+        <item name="colorOnSecondary">@color/md_brown__theme_light_onSecondary</item>
+        <item name="colorSecondaryContainer">@color/md_brown__theme_light_secondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/md_brown__theme_light_onSecondaryContainer</item>
+        <item name="colorTertiary">@color/md_brown__theme_light_tertiary</item>
+        <item name="colorOnTertiary">@color/md_brown__theme_light_onTertiary</item>
+        <item name="colorTertiaryContainer">@color/md_brown__theme_light_tertiaryContainer</item>
+        <item name="colorOnTertiaryContainer">@color/md_brown__theme_light_onTertiaryContainer</item>
+        <item name="colorError">@color/md_brown__theme_light_error</item>
+        <item name="colorErrorContainer">@color/md_brown__theme_light_errorContainer</item>
+        <item name="colorOnError">@color/md_brown__theme_light_onError</item>
+        <item name="colorOnErrorContainer">@color/md_brown__theme_light_onErrorContainer</item>
+        <item name="android:colorBackground">@color/md_brown__theme_light_background</item>
+        <item name="colorOnBackground">@color/md_brown__theme_light_onBackground</item>
+        <item name="colorSurface">@color/md_brown__theme_light_surface</item>
+        <item name="colorOnSurface">@color/md_brown__theme_light_onSurface</item>
+        <item name="colorSurfaceVariant">@color/md_brown__theme_light_surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/md_brown__theme_light_onSurfaceVariant</item>
+        <item name="colorOutline">@color/md_brown__theme_light_outline</item>
+        <item name="colorOnSurfaceInverse">@color/CustomColor1</item>
+        <item name="colorSurfaceInverse">@color/md_brown__theme_light_inverseSurface</item>
+        <item name="colorPrimaryInverse">@color/md_brown__theme_light_inversePrimary</item>
+        <item name="textColorLight">@color/neutral7</item>
+    </style>
 </resources>

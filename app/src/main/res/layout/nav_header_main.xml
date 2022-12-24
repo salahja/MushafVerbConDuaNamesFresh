@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/al_quran"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        android:textAppearance="@style/TextAppearance.Material3.ActionBar.Subtitle"
         android:textStyle="bold" />
 
     <TextView
@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/tafsir_by_word"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
+        android:textAppearance="@style/TextAppearance.Material3.ActionBar.Title" />
 
     <TextView
         android:id="@+id/headerAppVersion"

@@ -29,6 +29,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 
+import com.example.mushafconsolidated.Activity.BaseActivity;
 import com.example.mushafconsolidated.R;
 import com.example.mushafconsolidated.Utils;
 import com.google.android.material.tabs.TabLayout;
@@ -53,7 +54,7 @@ import mm.prayer.muslimmate.fragments.IslamicEventsFragment;
 import mm.prayer.muslimmate.fragments.PrayingFragment;
 import mm.prayer.muslimmate.fragments.WeatherFragment;
 
-public class MainTwoActivityPrayer extends PrayerBaseActivity implements com.google.android.gms.location.LocationListener {
+public class MainTwoActivityPrayer extends BaseActivity implements com.google.android.gms.location.LocationListener {
 
     private static final int REQUEST_GPS_LOCATION = 113;
 
@@ -76,7 +77,7 @@ public class MainTwoActivityPrayer extends PrayerBaseActivity implements com.goo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(MainTwoActivityPrayer.this);
-        String preferences = shared.getString("theme", "dark");
+/*        String preferences = shared.getString("theme", "dark");
        // preferences="blue";
         switch (preferences) {
             case "white":
@@ -92,7 +93,7 @@ public class MainTwoActivityPrayer extends PrayerBaseActivity implements com.goo
             case "brown":
                 switchTheme("brown");
                 break;
-        }
+        }*/
         //load application language
         String languageToLoad = ConfigPreferences.getApplicationLanguage(this);
         Locale locale = new Locale(languageToLoad);

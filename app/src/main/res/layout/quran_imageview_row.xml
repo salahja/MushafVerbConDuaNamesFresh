@@ -47,8 +47,9 @@
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/sharescreenfb"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             app:fabSize="mini"
+            app:fabCustomSize="@dimen/fabsize"
             android:tooltipText="Share ScreenShot"
             android:src="@drawable/baseline_share_36"
 
@@ -56,19 +57,20 @@
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/jumptofb"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:tooltipText="Jump to Surah/Ayah"
             app:fabSize="mini"
             android:src="@drawable/ic_baseline_open_in_browser_36"
-
+            app:fabCustomSize="@dimen/fabsize"
             android:contentDescription="TODOs"
             tools:ignore="RelativeOverlap" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/tafsirfb"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             app:fabSize="mini"
+            app:fabCustomSize="@dimen/fabsize"
             android:tooltipText="Tafsir Ibne Kathir"
             android:src="@drawable/tafsir"
             app:srcCompat="@android:drawable/ic_dialog_map"
@@ -76,9 +78,10 @@
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/summbaryfb"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             app:fabSize="mini"
             android:tooltipText="Surah Summary"
+            app:fabCustomSize="@dimen/fabsize"
             app:srcCompat="@drawable/baseline_summarize_24"
 
             android:contentDescription="TODOss" />
@@ -86,9 +89,9 @@
             android:id="@+id/helpfb"
             android:tooltipText="Grammar Word Color Scheme"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             app:fabSize="mini"
-
+            app:fabCustomSize="@dimen/fabsize"
             app:srcCompat="@drawable/baseline_help_36"
 
             android:contentDescription="TODOss" />
@@ -96,8 +99,9 @@
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/bookmarfb"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:tooltipText="Bookmark Ayah"
+            app:fabCustomSize="@dimen/fabsize"
             app:fabSize="mini"
             android:src="@drawable/baseline_bookmarks_red_900_36dp"
 
@@ -106,9 +110,9 @@
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/expandfabs"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             app:fabSize="mini"
-
+            app:fabCustomSize="@dimen/fabsize"
             android:src="@drawable/rotatewheel"
             app:srcCompat="@android:drawable/btn_plus"
             android:contentDescription="TODO" />
@@ -116,7 +120,7 @@
             android:visibility="gone"
             android:id="@+id/ivSumarry"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="70dp"
             android:layout_alignParentLeft="true"
             android:layout_weight="0"

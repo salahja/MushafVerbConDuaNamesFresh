@@ -243,8 +243,8 @@ public class WeatherFragment extends Fragment {
                         }
                     });
                     View snackView = snackbar.getView();
-//                TextView snackViewText = (TextView) snackView.findViewById(android.support.design.R.id.snackbar_text);
-                  //  Button snackViewButton = (Button) snackView.findViewById(android.support.design.R.id.snackbar_action);
+//                TextView snackViewText = (TextView) snackView.findViewById(com.google.android.material.R.id.snackbar_text);
+                  //  Button snackViewButton = (Button) snackView.findViewById(com.google.android.material.R.id.snackbar_action);
                  //   snackViewButton.setTextColor(ContextCompat.getColor(getActivity(), R.color.watermelon));
                     snackbar.show();
                     new Handler().postDelayed(new Runnable() {

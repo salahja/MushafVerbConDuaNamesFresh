@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/top"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/pinlabel"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="false"
+            android:layout_gravity="center"
+            android:text="pins">
+
+        </TextView>
+
+
+
+
+        <ImageView
+            android:id="@+id/imgview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_below="@+id/pinlabel"
+            android:src="@drawable/ic_pin_color"
+
+
+
+            android:text="chapter" />
+
+        <TextView
+            android:layout_marginRight="20dp"
+            android:id="@+id/chapterno"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/imgview"
+            android:src="@drawable/ic_pin_color"
+            android:layout_below="@+id/pinlabel"
+            android:text="chapter" />
+
+        <TextView
+            android:id="@+id/surahname"
+            android:layout_below="@+id/pinlabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/chapterno"
+            android:src="@drawable/ic_pin_color"
+            android:layout_marginRight="20dp"
+
+            android:text="sura" />
+
+        <TextView
+            android:src="@drawable/ic_pin_color"
+            android:id="@+id/verseno"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/pinlabel"
+            android:layout_toEndOf="@+id/surahname"
+            android:layout_marginRight="20dp"
+            android:text="verse" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/pinlabel"
+            android:layout_toEndOf="@+id/verseno"
+            android:src="@drawable/ic_pin_color"
+            android:layout_marginRight="20dp"
+            android:text="time" />
+
+        <ImageView
+            android:id="@id/surahicon"
+            android:layout_toEndOf="@+id/date"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="@dimen/space_2"
+            android:layout_marginRight="20dp"
+            android:layout_below="@+id/pinlabel"
+            android:paddingEnd="@dimen/space_2">
+
+        </ImageView>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+
+        android:layout_toEndOf="@+id/top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+android:visibility="gone"
+            android:id="@+id/collectionlable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="false"
+            android:layout_gravity="center"
+            android:text="Collection">
+
+        </TextView>
+
+
+
+
+        <ImageView
+            android:id="@+id/imgviewcol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_below="@+id/collectionlable"
+            android:src="@drawable/ic_baseline_bookmark_add_24"
+
+
+
+            android:text="chapter" />
+
+        <TextView
+            android:layout_marginRight="20dp"
+            android:id="@+id/chapternocol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/imgviewcol"
+            android:src="@drawable/ic_pin_color"
+            android:layout_below="@+id/collectionlable"
+            android:text="chapter" />
+
+        <TextView
+            android:id="@+id/collectiondetails"
+            android:layout_below="@+id/collectionlable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/chapternocol"
+            android:src="@drawable/ic_pin_color"
+            android:layout_marginRight="20dp"
+           android:visibility="gone"
+            android:text="sura" />
+
+        <TextView
+            android:src="@drawable/ic_pin_color"
+            android:id="@+id/versenocol"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/collectionlable"
+            android:layout_toEndOf="@+id/collectiondetails"
+            android:layout_marginRight="20dp"
+            android:text="verse" />
+
+        <TextView
+            android:id="@+id/datecol"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/collectionlable"
+            android:layout_toEndOf="@+id/versenocol"
+            android:src="@drawable/ic_pin_color"
+            android:layout_marginRight="20dp"
+            android:text="time" />
+
+        <ImageView
+            android:id="@id/surahiconcol"
+            android:layout_toEndOf="@+id/datecol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="@dimen/space_2"
+            android:layout_marginRight="20dp"
+            android:layout_below="@+id/collectionlable"
+            android:paddingEnd="@dimen/space_2">
+
+        </ImageView>
+    </RelativeLayout>
+
+
+</RelativeLayout>

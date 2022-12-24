@@ -9,18 +9,9 @@
     android:fitsSystemWindows="true"
  >
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
 
-        android:id="@+id/coordinatorLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appbarlayout"
-            app:statusBarForeground="?attr/colorPrimarySurface"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fitsSystemWindows="true">
+
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbarmain"
@@ -37,7 +28,7 @@
 
 
 
-        </com.google.android.material.appbar.AppBarLayout>
+
 
 
         <RelativeLayout
@@ -54,7 +45,18 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginEnd="0dp"
                 android:layout_marginBottom="0dp">
+                <ProgressBar
+                    style="@style/Widget.AppCompat.ProgressBar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
 
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:gravity="center"
+                    android:text="Please wait! This may take a moment." />
 
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -95,16 +97,12 @@
                     app:itemIconTint="?attr/colorPrimary"
                     app:srcCompat="@android:drawable/btn_plus"
                     tools:ignore="MissingClass" />
+
+
             </FrameLayout>
         </RelativeLayout>
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
-        </androidx.core.widget.NestedScrollView>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/navigationView"
 

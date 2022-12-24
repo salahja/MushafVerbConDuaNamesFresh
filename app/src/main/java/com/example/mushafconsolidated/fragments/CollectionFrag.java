@@ -9,103 +9,79 @@ import static com.example.Constant.SURAH_ARABIC_NAME;
 import static com.example.Constant.SURAH_ID;
 import static com.example.Constant.WBW;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Lifecycle;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
-import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.mushafconsolidated.Activity.BookMarkActivity;
 import com.example.mushafconsolidated.Activity.QuranGrammarAct;
 import com.example.mushafconsolidated.Adapters.BookmarksShowAdapter;
+import com.example.mushafconsolidated.Adapters.CollectionShowAdapter;
 import com.example.mushafconsolidated.Entities.BookMarks;
+import com.example.mushafconsolidated.Entities.BookMarksPojo;
 import com.example.mushafconsolidated.R;
 import com.example.mushafconsolidated.Utils;
 import com.example.mushafconsolidated.intrface.OnItemClickListener;
 import com.example.utility.SwipeToDeleteCallback;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Timer;
 
-import database.entity.MujarradVerbs;
-import mm.prayer.muslimmate.fragments.CalendarFragment;
-import mm.prayer.muslimmate.fragments.IslamicEventsFragment;
-import mm.prayer.muslimmate.fragments.PrayingFragment;
-import mm.prayer.muslimmate.fragments.WeatherFragment;
+import mm.itl.prayertime.Prayer;
+import mm.itl.prayertime.StandardMethod;
+import mm.prayer.muslimmate.ui.LocationInfo;
+import mm.prayer.muslimmate.ui.LocationReader;
+import mm.prayer.muslimmate.ui.MuslimMatePrayerTimes;
+
 
 /**
- * Bookmark fragment class
+ * Created by Dev. M. Hussein on 5/9/2017.
  */
-public class BookmarkFragment extends Fragment implements AdapterView.OnItemClickListener {
-    private static final int[] TAB_TITLES = new int[]{ R.string.pins ,R.string.collection};
+
+public class CollectionFrag extends Fragment {
     CoordinatorLayout coordinatorLayout;
     RecyclerView.LayoutManager layoutManager;
-    private BookmarksShowAdapter bookmarksShowAdapter;
+    private CollectionShowAdapter collectionShowAdapter;
     private RecyclerView mRecview;
-    private ViewPager2 mViewPager;
-    private ListView listView;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.mm_activity_main_location, container, false);
+    //    View rootView = inflater.inflate(R.layout.activity_collection, container, false);
+        View view = inflater.inflate(R.layout.fragment_bookmark, container, false);
         Utils utils = new Utils(getActivity());
-        final TabLayout tabLayout = view.findViewById(R.id.tabs);
-        final ViewPager2 viewPager =view. findViewById(R.id.container);
-        FragmentManager fm = getActivity().getSupportFragmentManager();
-        ViewStateAdapter mSectionsPagerAdapter = new ViewStateAdapter(fm, getLifecycle());
-
-
-
-
-        //  mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        mViewPager = view.findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> tab.setText(TAB_TITLES[position])).attach();
-
-        //clickable application title
-        TextView applicationTitle = (TextView) view.findViewById(R.id.title);
-        applicationTitle.setText(getString(R.string.main));
-        applicationTitle.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                mViewPager.setCurrentItem(0);
-            }
-        });
-
-
+        List<BookMarksPojo> bookMarksNew = utils.getCollectionC();
 
         //  List<BookMarks> bookmarks = new DatabaseAccess().getBookmarks();
-        bookmarksShowAdapter = new BookmarksShowAdapter(getActivity());
-
+        collectionShowAdapter = new CollectionShowAdapter(getActivity());
+        mRecview = view.findViewById(R.id.recyclerViewAdapterTranslation);
+        coordinatorLayout = view.findViewById(R.id.coordinatorLayout);
         this.layoutManager = new LinearLayoutManager(getActivity());
-     //   mRecview.setLayoutManager(layoutManager);
-
-       // bookmarksShowAdapter.setBookMarkArrayList(bookMarksNew);
-      //  mRecview.setAdapter(bookmarksShowAdapter);
-
-      //  enableSwipeToDeleteAndUndo();
+        mRecview.setLayoutManager(layoutManager);
+        //    bookmarksShowAdapter.setBookMarkArrayList((ArrayList<String>) bookmarstringarray);
+        collectionShowAdapter.setBookMarkArrayList(bookMarksNew);
+        mRecview.setAdapter(collectionShowAdapter);
+        //    mRecview.setLayoutManager(new LinearLayoutManager(getActivity()));
+    enableSwipeToDeleteAndUndo();
         return view;
+      //  return rootView;
     }
 
     private void enableSwipeToDeleteAndUndo() {
@@ -116,10 +92,10 @@ public class BookmarkFragment extends Fragment implements AdapterView.OnItemClic
                 //  final String item = mAdapter.getData().get(position);
                 //   mAdapter.removeItem(position);
                 final int position = viewHolder.getAdapterPosition();
-                final BookMarks item = bookmarksShowAdapter.getBookMarkArrayList().get(position);
+                final BookMarksPojo item = collectionShowAdapter.getBookMarkArrayList().get(position);
                 //   final int code = item.hashCode();
-                bookmarksShowAdapter.getItemId(position);
-                bookmarksShowAdapter.removeItem(position);
+                collectionShowAdapter.getItemId(position);
+                collectionShowAdapter.removeItem(position);
                 Snackbar snackbar = Snackbar
                         .make(coordinatorLayout, "Item was removed from the list.", Snackbar.LENGTH_LONG);
                 snackbar.setAction("UNDO", new View.OnClickListener() {
@@ -131,13 +107,13 @@ public class BookmarkFragment extends Fragment implements AdapterView.OnItemClic
                 });
                 snackbar.setActionTextColor(Color.CYAN);
                 snackbar.show();
-                final long itemId = bookmarksShowAdapter.getItemId(position);
-                final int bookmarkid = bookmarksShowAdapter.getBookmarid();
-                bookmarksShowAdapter.getBookChapterno();
+                final long itemId = collectionShowAdapter.getItemId(position);
+                final int bookmarkid = collectionShowAdapter.getBookmarid();
+                collectionShowAdapter.getBookChapterno();
                 //      bookmarksShowAdapter.getBookMarkArrayList(bookmarkid)
                 //  Utils butils = new Utils(getActivity());
                 //  butils.deleteBookmarks(bookmarid);
-                Utils.deleteBookMarks(item);
+            //    Utils.deleteBookMarks(item);
 
             }
         };
@@ -146,24 +122,12 @@ public class BookmarkFragment extends Fragment implements AdapterView.OnItemClic
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-    }
-
-    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
-        bookmarksShowAdapter.SetOnItemClickListener(new OnItemClickListener() {
+        collectionShowAdapter.SetOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
-                BookMarks bmark = (BookMarks) bookmarksShowAdapter.getItem(position);
+                BookMarksPojo bmark = (BookMarksPojo) collectionShowAdapter.getItem(position);
                 //        ChaptersAnaEntity surah = (ChaptersAnaEntity) bookmarksShowAdapter.getItem(position);
                 Bundle dataBundle = new Bundle();
                 dataBundle.putInt(SURAH_ID, Integer.parseInt(bmark.getChapterno()));
@@ -188,49 +152,16 @@ public class BookmarkFragment extends Fragment implements AdapterView.OnItemClic
 
     }
 
-    private static class ViewStateAdapter extends FragmentStateAdapter {
-        public ViewStateAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
-            super(fragmentManager, lifecycle);
-        }
-
-        @NonNull
-        @Override
-        public Fragment createFragment(int position) {
-            switch (position) {
-                case 0:
-                    PinsFragment fragv = new PinsFragment();
-
-                    return fragv;
-                case 1:
-                    CollectionFrag cfrag = new CollectionFrag();
-                    return cfrag;
 
 
-
-
-                default:
-                    PrayingFragment fragvv = new PrayingFragment();
-                    return fragvv;
-            }
-
-
-        }
-
-        @Override
-        public int getItemCount() {
-
-            return 2;
-
-        }
 
     }
-    private void loadFragments(Fragment fragment, String fragtag) {
-        // load fragment
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction()
-                .setCustomAnimations(R.anim.left_slide, android.R.anim.fade_out);
-        transaction.replace(R.id.frame_container, fragment);
-        transaction.addToBackStack(fragtag);
-        transaction.commit();
 
-    }
-}
+
+
+
+
+
+
+
+

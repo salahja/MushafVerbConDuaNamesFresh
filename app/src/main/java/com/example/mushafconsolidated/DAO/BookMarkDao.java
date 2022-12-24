@@ -23,4 +23,12 @@ public interface BookMarkDao {
 
     @Query("Delete from bookmark")
     void deleteAllBookMakrs();
+
+    @Query(" select  count(*) as count, * from bookmark group by header")
+    List<BookMarks> getCollectionCount();
+
+    @Query(" select    * from bookmark where header=:str group by header")
+    List<BookMarks> getCollectionbygroup(String str);
+
+
 }

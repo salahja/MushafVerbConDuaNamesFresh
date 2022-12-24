@@ -961,7 +961,7 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
                         bookmarfb.setVisibility(View.VISIBLE);
                         bookmarfb.animate().translationX(-getInstance().getResources().getDimension(R.dimen.standard_155));
                         bookmarfb.animate().rotationBy(360);
-                        bookmarfb.animate().setDuration(1200);
+                        bookmarfb.animate().setDuration(600);
                         //  ObjectAnimator animationbook = ObjectAnimator.ofFloat(bookmarfb, "translationX", 155f);
                         // animationbook.setDuration(1000);
                         //   animationbook.start();
@@ -1000,6 +1000,7 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
                                 ((AppCompatActivity) context).startActivity(readingintent);
                             }
                         });
+              /*
                         bookmarfb.setOnClickListener(new View.OnClickListener() {
 
                             @Override
@@ -1011,6 +1012,7 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
                             }
                         });
 
+               */
                         summbaryfb.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {

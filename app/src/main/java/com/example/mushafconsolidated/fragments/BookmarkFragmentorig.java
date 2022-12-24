@@ -16,24 +16,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Lifecycle;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
-import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.mushafconsolidated.Activity.BookMarkActivity;
 import com.example.mushafconsolidated.Activity.QuranGrammarAct;
 import com.example.mushafconsolidated.Adapters.BookmarksShowAdapter;
 import com.example.mushafconsolidated.Entities.BookMarks;
@@ -42,69 +34,34 @@ import com.example.mushafconsolidated.Utils;
 import com.example.mushafconsolidated.intrface.OnItemClickListener;
 import com.example.utility.SwipeToDeleteCallback;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.List;
-
-import database.entity.MujarradVerbs;
-import mm.prayer.muslimmate.fragments.CalendarFragment;
-import mm.prayer.muslimmate.fragments.IslamicEventsFragment;
-import mm.prayer.muslimmate.fragments.PrayingFragment;
-import mm.prayer.muslimmate.fragments.WeatherFragment;
 
 /**
  * Bookmark fragment class
  */
-public class BookmarkFragment extends Fragment implements AdapterView.OnItemClickListener {
-    private static final int[] TAB_TITLES = new int[]{ R.string.pins ,R.string.collection};
+public class BookmarkFragmentorig extends Fragment implements AdapterView.OnItemClickListener {
     CoordinatorLayout coordinatorLayout;
     RecyclerView.LayoutManager layoutManager;
     private BookmarksShowAdapter bookmarksShowAdapter;
     private RecyclerView mRecview;
-    private ViewPager2 mViewPager;
-    private ListView listView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.mm_activity_main_location, container, false);
+        View view = inflater.inflate(R.layout.fragment_bookmark, container, false);
         Utils utils = new Utils(getActivity());
-        final TabLayout tabLayout = view.findViewById(R.id.tabs);
-        final ViewPager2 viewPager =view. findViewById(R.id.container);
-        FragmentManager fm = getActivity().getSupportFragmentManager();
-        ViewStateAdapter mSectionsPagerAdapter = new ViewStateAdapter(fm, getLifecycle());
-
-
-
-
-        //  mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        mViewPager = view.findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> tab.setText(TAB_TITLES[position])).attach();
-
-        //clickable application title
-        TextView applicationTitle = (TextView) view.findViewById(R.id.title);
-        applicationTitle.setText(getString(R.string.main));
-        applicationTitle.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                mViewPager.setCurrentItem(0);
-            }
-        });
-
-
-
+        List<BookMarks> bookMarksNew = Utils.getBookMarksNew();
         //  List<BookMarks> bookmarks = new DatabaseAccess().getBookmarks();
         bookmarksShowAdapter = new BookmarksShowAdapter(getActivity());
-
+        mRecview = view.findViewById(R.id.recyclerViewAdapterTranslation);
+        coordinatorLayout = view.findViewById(R.id.coordinatorLayout);
         this.layoutManager = new LinearLayoutManager(getActivity());
-     //   mRecview.setLayoutManager(layoutManager);
-
-       // bookmarksShowAdapter.setBookMarkArrayList(bookMarksNew);
-      //  mRecview.setAdapter(bookmarksShowAdapter);
-
-      //  enableSwipeToDeleteAndUndo();
+        mRecview.setLayoutManager(layoutManager);
+        //    bookmarksShowAdapter.setBookMarkArrayList((ArrayList<String>) bookmarstringarray);
+        bookmarksShowAdapter.setBookMarkArrayList(bookMarksNew);
+        mRecview.setAdapter(bookmarksShowAdapter);
+        //    mRecview.setLayoutManager(new LinearLayoutManager(getActivity()));
+        enableSwipeToDeleteAndUndo();
         return view;
     }
 
@@ -158,8 +115,6 @@ public class BookmarkFragment extends Fragment implements AdapterView.OnItemClic
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
         bookmarksShowAdapter.SetOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
@@ -188,42 +143,6 @@ public class BookmarkFragment extends Fragment implements AdapterView.OnItemClic
 
     }
 
-    private static class ViewStateAdapter extends FragmentStateAdapter {
-        public ViewStateAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
-            super(fragmentManager, lifecycle);
-        }
-
-        @NonNull
-        @Override
-        public Fragment createFragment(int position) {
-            switch (position) {
-                case 0:
-                    PinsFragment fragv = new PinsFragment();
-
-                    return fragv;
-                case 1:
-                    CollectionFrag cfrag = new CollectionFrag();
-                    return cfrag;
-
-
-
-
-                default:
-                    PrayingFragment fragvv = new PrayingFragment();
-                    return fragvv;
-            }
-
-
-        }
-
-        @Override
-        public int getItemCount() {
-
-            return 2;
-
-        }
-
-    }
     private void loadFragments(Fragment fragment, String fragtag) {
         // load fragment
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction()

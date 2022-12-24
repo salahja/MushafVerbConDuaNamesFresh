@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:RadioGroup="http://schemas.android.com/apk/res-auto">
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@id/llIconHolder"
+        android:layout_width="fill_parent"
+        android:layout_height="700dp"
+        android:layout_marginTop="290.0dip"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@id/tvFolderName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/folder_name_hint"
+            android:padding="@dimen/space_3"
+            android:selectAllOnFocus="true"
+            android:visibility="visible"
+            RadioGroup:layout_constraintEnd_toEndOf="parent"
+            RadioGroup:layout_constraintHorizontal_bias="0.522"
+            RadioGroup:layout_constraintStart_toStartOf="parent"
+            RadioGroup:layout_constraintTop_toTopOf="parent" />
+
+        <RadioGroup
+            android:id="@id/sgFolderType"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/space_3"
+            android:paddingTop="@dimen/space_2"
+
+            android:paddingRight="@dimen/space_3"
+
+            RadioGroup:layout_constraintEnd_toEndOf="parent"
+            RadioGroup:layout_constraintStart_toStartOf="parent"
+            RadioGroup:layout_constraintTop_toTopOf="parent">
+
+        </RadioGroup>
+
+        <RadioButton
+            android:id="@+id/radioButton2"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+
+            android:layout_weight="1.0"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/space_3"
+
+            android:paddingTop="@dimen/space_2"
+            android:paddingRight="@dimen/space_3"
+            android:text="@string/folder_single"
+            RadioGroup:layout_constraintEnd_toEndOf="parent"
+            RadioGroup:layout_constraintHorizontal_bias="0.211"
+            RadioGroup:layout_constraintStart_toStartOf="parent"
+            RadioGroup:layout_constraintTop_toBottomOf="@+id/sgFolderType" />
+
+        <RadioButton
+            android:id="@id/rbFolderMultiple"
+            style="@style/RadioButton"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="404dp"
+            android:layout_weight="1.0"
+            android:text="@string/folder_multiple"
+            RadioGroup:layout_constraintBottom_toBottomOf="parent"
+            RadioGroup:layout_constraintEnd_toEndOf="parent"
+            RadioGroup:layout_constraintHorizontal_bias="0.228"
+            RadioGroup:layout_constraintStart_toStartOf="parent"
+            RadioGroup:layout_constraintTop_toBottomOf="@+id/radioButton2"
+            RadioGroup:layout_constraintVertical_bias="0.478" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@id/llIconHoldert"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40.0dip"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="24.0dip"
+            android:layout_height="24.0dip"
+            android:layout_margin="@dimen/space_2"
+            android:background="@color/foldercolor_1" />
+
+        <ImageView
+            android:layout_width="24.0dip"
+            android:layout_height="24.0dip"
+            android:layout_margin="@dimen/space_2"
+            android:background="@color/foldercolor_2" />
+
+        <ImageView
+            android:layout_width="24.0dip"
+            android:layout_height="24.0dip"
+            android:layout_margin="@dimen/space_2"
+            android:background="@color/foldercolor_3" />
+
+        <ImageView
+            android:layout_width="24.0dip"
+            android:layout_height="24.0dip"
+            android:layout_margin="@dimen/space_2"
+            android:background="@color/foldercolor_4" />
+
+        <ImageView
+            android:layout_width="24.0dip"
+            android:layout_height="24.0dip"
+            android:layout_margin="@dimen/space_2"
+            android:background="@color/foldercolor_5" />
+
+        <ImageView
+            android:layout_width="24.0dip"
+            android:layout_height="24.0dip"
+            android:layout_margin="@dimen/space_2"
+            android:background="@color/foldercolor_6" />
+    </LinearLayout>
+    <androidx.cardview.widget.CardView
+        android:id="@id/bottomButtonsContainer"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"
+   >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100.0">
+
+            <RelativeLayout
+                android:id="@id/downloadedView"
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="49.8">
+
+                <TextView
+                    android:id="@id/downloadedLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="false"
+                    android:gravity="start"
+                    android:paddingTop="10.0dip"
+                    android:paddingBottom="10.0dip"
+                    android:text="@string/ccreate_new"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="17.0sp" />
+
+                <TextView
+                    android:id="@id/addpin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_toEndOf="@+id/downloadedLabel"
+                    android:gravity="end"
+                    android:paddingTop="10.0dip"
+                    android:paddingBottom="10.0dip"
+                    android:text="@string/addbookmarks"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="17.0sp" />
+
+
+
+
+
+
+
+
+            </RelativeLayout>
+
+
+
+            <View
+                style="@style/VerticalLine"
+                android:layout_width="0.0dip"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="5.0dip"
+                android:layout_marginBottom="5.0dip"
+                android:layout_weight="0.4" />
+
+            <View
+                android:id="@id/translationTypeIndicatorView"
+                android:layout_width="0.0dip"
+                android:layout_height="6.0dip"
+                android:layout_above="@id/readyToDownloadView"
+                android:background="@color/colorPrimary" />
+
+            <TextView
+                android:id="@id/readyToDownloadView"
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="49.8"
+                android:gravity="center"
+                android:paddingTop="10.0dip"
+                android:paddingBottom="10.0dip"
+                android:text="@string/Done"
+                android:textColor="@color/colorPrimary"
+                android:textSize="17.0sp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    
+</FrameLayout>

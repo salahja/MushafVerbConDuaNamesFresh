@@ -9,6 +9,7 @@ import androidx.sqlite.db.SimpleSQLiteQuery;
 import com.example.mushafconsolidated.Entities.AllahNamesDetails;
 import com.example.mushafconsolidated.Entities.BadalErabNotesEnt;
 import com.example.mushafconsolidated.Entities.BookMarks;
+import com.example.mushafconsolidated.Entities.BookMarksPojo;
 import com.example.mushafconsolidated.Entities.ChaptersAnaEntity;
 import com.example.mushafconsolidated.Entities.CorpusExpandWbwPOJO;
 import com.example.mushafconsolidated.Entities.CorpusNounWbwOccurance;
@@ -48,8 +49,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import database.entity.AllahNames;
-import database.entity.DuaDetails;
-import database.entity.DuaGroup;
 import mm.prayer.muslimmate.entity.Cities;
 import mm.prayer.muslimmate.entity.Countries;
 import mm.prayer.muslimmate.ui.LocationInfo;
@@ -97,6 +96,19 @@ public class Utils {
                 return null;
             }
         }.execute();
+
+    }
+
+
+    public static ArrayList<BookMarks> getCollectionCount() {
+        ArrayList<BookMarks> duat = (ArrayList<BookMarks>) database.BookMarkDao().getCollectionCount();
+        return duat;
+
+    }
+
+    public static ArrayList<BookMarks> getCollectionbygroup(String header) {
+        ArrayList<BookMarks> duat = (ArrayList<BookMarks>) database.BookMarkDao().getCollectionbygroup(header);
+        return duat;
 
     }
 
@@ -989,6 +1001,14 @@ public class Utils {
 
     public static List<Cities> getAllCities() {
         return database.CitiesDAO().getCities();
+
+    }
+
+    public List<BookMarksPojo> getCollectionC() {
+        String sql = "select  count(*) as count, * from bookmark group by header";
+        SimpleSQLiteQuery query = new SimpleSQLiteQuery(sql);
+        //  List<Book> result = booksDao.getBooks(query);
+       return    database.RawDao().getCollectionCount(query);
 
     }
 

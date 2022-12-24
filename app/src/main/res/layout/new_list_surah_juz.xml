@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:layout_marginTop="80dp"
         style="@style/Widget.Material3.AppBarLayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -82,13 +83,6 @@
                 android:text="@string/quick_links"
                 app:tabTextAppearance="@style/TabTextAppearance" />
 
-            <HorizontalScrollView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fillViewport="true"
-                android:fitsSystemWindows="true"
-                android:overScrollMode="never"
-                android:scrollbars="none">
 
                 <LinearLayout
                     android:id="@id/llQuickLinks"
@@ -144,7 +138,7 @@
                         android:contentDescription="Enter How Much Cookies You Want"
                         android:textSize="12.0sp" />
                 </LinearLayout>
-            </HorizontalScrollView>
+
 
             <LinearLayout
                 android:layout_width="fill_parent"
