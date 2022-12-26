@@ -110,8 +110,11 @@ public class CollectionShowAdapter extends RecyclerView.Adapter<CollectionShowAd
         }
         holder.pinicon.setVisibility(View.GONE);
         holder.collectionicon.setVisibility(View.VISIBLE);
-        holder.header.setText(    bookMark.getHeader().concat("(").concat(bookMark.getCount().concat(" aya;s").concat(")")));
-     //   holder.header.setText(bookMark.getHeader());
+        if(bookMark.getHeader()!=null) {
+            holder.header.setText(bookMark.getHeader().concat("(").concat(bookMark.getCount().concat(" aya;s").concat(")")));
+            //   holder.header.setText(bookMark.getHeader());
+
+        }
         holder.datestamp.setText(bookMark.getDatetime());
         holder.suraName.setText(bookMark.getSurahname());
         holder.chapterno.setText(bookMark.getChapterno());

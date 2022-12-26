@@ -128,11 +128,12 @@ public class CollectionFrag extends Fragment {
             @Override
             public void onItemClick(View v, int position) {
                 BookMarksPojo bmark = (BookMarksPojo) collectionShowAdapter.getItem(position);
-                //        ChaptersAnaEntity surah = (ChaptersAnaEntity) bookmarksShowAdapter.getItem(position);
+
                 Bundle dataBundle = new Bundle();
                 dataBundle.putInt(SURAH_ID, Integer.parseInt(bmark.getChapterno()));
                 dataBundle.putInt(AYAHNUMBER, Integer.parseInt(bmark.getVerseno()));
                 dataBundle.putString(SURAH_ARABIC_NAME, bmark.getSurahname());
+                dataBundle.putString("type",bmark.getHeader());
 //                dataBundle.putInt(VERSESCOUNT,bmark.getVersescount());
                 //VersesFragment frag = new VersesFragment();
                 //   frag.setArguments(dataBundle);
@@ -145,6 +146,7 @@ public class CollectionFrag extends Fragment {
                 readingintent.putExtra(CHAPTERORPART, true);
                 readingintent.putExtra(SURAH_ARABIC_NAME, bmark.getSurahname());
                 readingintent.putExtra(WBW, true);
+                readingintent.putExtra("type", bmark.getHeader());
                 startActivity(readingintent);
 
             }

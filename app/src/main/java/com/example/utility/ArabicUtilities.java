@@ -3,7 +3,7 @@ package com.example.utility;
 
 /*
  *	Date : 8th of June 2009
- *	the class is Arabic string reshaper Utilities, this class is targeting Android platform
+ *	the class is Arabic string reshaper HelperClass, this class is targeting Android platform
  *
  * 	By		: Amr Ismail Gawish
  *  E-Mail 	: amr.gawish@gmail.com
@@ -26,7 +26,7 @@ import android.widget.TextView;
 
 /**
  * This class is the main class that is responsible for Reshaping Arabic Sentences and Text
- * Utilities Class to make it easier to deal with Arabic Reshaper Class
+ * HelperClass Class to make it easier to deal with Arabic Reshaper Class
  * Wrapper for Arabic Reshaper Class
  * @author Amr Gawish
  */

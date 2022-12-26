@@ -105,7 +105,8 @@ public class BookmarCrateAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
            String aya="(aya's";
            if(null!=collections){
                itemholder.collectiondetails.setText(collections.getHeader().concat(collections.getCount().concat("-").concat("aya's)")));
-
+               itemholder.collectiondetails.setVisibility(View.VISIBLE);
+               itemholder.collectionimage.setVisibility(View.VISIBLE);
 
 
            }else {
