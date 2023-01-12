@@ -355,6 +355,8 @@
     <item name="surahiconcol" type="id" />
     <item name="containertwo" type="id" />
     <item name="done" type="id" />
+    <item name="colorizedmushaf" type="id" />
+    <item name="colormushaf" type="id" />
 
 
 </resources>

@@ -96,7 +96,7 @@ public class QuranTopicSearchActivity extends BaseActivity implements OnItemClic
         final int coloronbackground = ContextCompat.getColor(this, R.color.neutral0);
         if (isNightmode.equals("dark") || isNightmode.equals("blue")) {
             toolbar.setBackgroundColor(coloronbackground);
-            toolbar.setBackgroundColor(color);
+            toolbar.setBackgroundColor(color);+
         } else {
             toolbar.setBackgroundColor(colorsurface);
         }*/

@@ -1,25 +1,19 @@
 package com.example.mushafconsolidated.fragments;
 
-import android.content.SharedPreferences;
-import android.content.res.TypedArray;
+import android.app.Dialog;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RadioButton;
+import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,8 +22,8 @@ import com.example.mushafconsolidated.Entities.BookMarksPojo;
 import com.example.mushafconsolidated.R;
 import com.example.mushafconsolidated.Utils;
 import com.example.mushafconsolidated.intrface.OnItemClickListener;
-import com.example.utility.QuranGrammarApplication;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,9 +37,11 @@ import sj.hisnul.adapter.BookmarCrateAdapter;
  *     ThemeListPrefrence.newInstance(30).show(getSupportFragmentManager(), "dialog");
  * </pre>
  */
-public class BookMarkCreateFrag extends BottomSheetDialogFragment  {
+public class BookMarkCreateFrag extends BottomSheetDialogFragment {
     public static final String TAG = "opton";
-    private    RecyclerView recyclerView;
+    private RecyclerView recyclerView;
+    private String suraname;
+    private int chapter,verse;
 
 
     public BookMarkCreateFrag() {
@@ -59,17 +55,19 @@ public class BookMarkCreateFrag extends BottomSheetDialogFragment  {
     }
 
 
-
     // TODO: Customize parameter argument names
     private static final String ARG_OPTIONS_DATA = "item_count";
     OnItemClickListener mItemClickListener;
     RadioGroup radioGroup;
     private BookmarCrateAdapter bookmarCrateAdapter;
     RelativeLayout frameLayout;
+
     // TODO: Customize parameters
-    public static BookMarkCreateFrag newInstance() {
+    public static BookMarkCreateFrag newInstance(String[] data) {
         final BookMarkCreateFrag fragment = new BookMarkCreateFrag();
-;
+        final Bundle args = new Bundle();
+        args.putStringArray(ARG_OPTIONS_DATA, data);
+        fragment.setArguments(args);
         return fragment;
 
     }
@@ -85,12 +83,16 @@ public class BookMarkCreateFrag extends BottomSheetDialogFragment  {
                              @Nullable Bundle savedInstanceState) {
 
         super.onCreateView(inflater, container, savedInstanceState);
-        
+        Bundle bundle = this.getArguments();
+        assert bundle != null;
+        String[] stringArray = bundle.getStringArray(ARG_OPTIONS_DATA);
+        chapter = Integer.parseInt(stringArray[0]);
+        verse = Integer.parseInt(stringArray[1]);
+        suraname =  (stringArray[2]);
 
         return inflater.inflate(R.layout.quran_list_dialog, container, false);
 
     }
-
 
 
     @Override
@@ -99,27 +101,66 @@ public class BookMarkCreateFrag extends BottomSheetDialogFragment  {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         ArrayList<String> details = new ArrayList<>();
-        Utils utils=new Utils(getActivity());
+        Utils utils = new Utils(getActivity());
         ArrayList<BookMarks> bookMarks = utils.getBookMarks();
         List<BookMarksPojo> collectionC = utils.getCollectionC();
-        BookmarCrateAdapter      bookmarCrateAdapter=    new BookmarCrateAdapter(bookMarks,collectionC);
+        BookmarCrateAdapter bookmarCrateAdapter = new BookmarCrateAdapter(bookMarks, collectionC);
 
 
         recyclerView.setAdapter(bookmarCrateAdapter);
         bookmarCrateAdapter.SetOnItemClickListener(new BookmarCrateAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
-                Toast.makeText(getActivity(), "create collections", Toast.LENGTH_SHORT).show();
+                Object tag = v.getTag();
+                if (tag.equals("create")) {
+                    AlertDialog.Builder dialogPicker = new AlertDialog.Builder(getActivity());
+                    Dialog dlg = new Dialog(getActivity());
+                    //  AlertDialog dialog = builder.create();
+                    //      soraList = utils.getAllAnaChapters();
+                    LayoutInflater inflater = getActivity().getLayoutInflater();
+                    View view = inflater.inflate(R.layout.folder_bookmark, null);
+                    //  View view = inflater.inflate(R.layout.activity_wheel, null);
+                    dialogPicker.setView(view);
+                    EditText mTextView = view.findViewById(R.id.tvFolderName);
+                    dialogPicker.setPositiveButton("Done", (dialogInterface, i) -> {
+                        String str = String.valueOf(mTextView.getText());
+                        bookMarkSelected(position, str);
 
+                    });
+                    dialogPicker.setNegativeButton("Cancel", (dialogInterface, i) -> {
+                    });
+                    dialogPicker.show();
+
+
+                } else if (tag.equals("add")) {
+                    bookMarkSelected(position, "pins");
+                    Toast.makeText(getActivity(), "create collections", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+
+            private void bookMarkSelected(int position, String text) {
+                //  position = flowAyahWordAdapter.getAdapterposition();
+
+                BookMarks en = new BookMarks();
+                en.setHeader(text);
+                en.setChapterno(String.valueOf(chapter));
+                en.setVerseno(String.valueOf(verse));
+                en.setSurahname(suraname);
+                //     Utils utils = new Utils(ReadingSurahPartActivity.this);
+                utils.insertBookMark(en);
+                //     View view = findViewById(R.id.bookmark);
+                Snackbar snackbar = Snackbar
+                        .make(view, "BookMark Created", Snackbar.LENGTH_LONG);
+                snackbar.setActionTextColor(Color.BLUE);
+                snackbar.setTextColor(Color.CYAN);
+                snackbar.setBackgroundTint(Color.BLACK);
+                snackbar.show();
             }
         });
 
 
     }
-
-
-
-
 
 
 }

@@ -1,9 +1,11 @@
 package com.example.mushafconsolidated;
 
+import android.app.Application;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import androidx.room.Query;
 import androidx.sqlite.db.SimpleSQLiteQuery;
 
 import com.example.mushafconsolidated.Entities.AllahNamesDetails;
@@ -28,7 +30,9 @@ import com.example.mushafconsolidated.Entities.NewNasbEntity;
 import com.example.mushafconsolidated.Entities.NewShartEntity;
 import com.example.mushafconsolidated.Entities.NounCorpus;
 import com.example.mushafconsolidated.Entities.NounCorpusBreakup;
+import com.example.mushafconsolidated.Entities.Qari;
 import com.example.mushafconsolidated.Entities.QuranEntity;
+import com.example.mushafconsolidated.Entities.QuranMetaEntity;
 import com.example.mushafconsolidated.Entities.ShartPOJO;
 import com.example.mushafconsolidated.Entities.SifaEntity;
 import com.example.mushafconsolidated.Entities.SifaPOJO;
@@ -44,7 +48,9 @@ import com.example.mushafconsolidated.Entities.qurandictionary;
 import com.example.mushafconsolidated.Entities.quranexplorer;
 import com.example.mushafconsolidated.Entities.surahsummary;
 import com.example.mushafconsolidated.Entities.wbwentity;
+import com.example.utility.QuranGrammarApplication;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,6 +58,8 @@ import database.entity.AllahNames;
 import mm.prayer.muslimmate.entity.Cities;
 import mm.prayer.muslimmate.entity.Countries;
 import mm.prayer.muslimmate.ui.LocationInfo;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import sj.hisnul.entity.hcategory;
 import sj.hisnul.entity.hduadetails;
 import sj.hisnul.entity.hduanames;
@@ -60,7 +68,8 @@ import sj.hisnul.entity.hduanames;
 public class Utils {
     private static final String TAG = "Utils";
     private static QuranAppDatabase database;
-    final Context thiscontext;
+     Context thiscontext;
+    static Utils instance;
 
     public Utils(Context context) {
         database = QuranAppDatabase.getInstance(context);
@@ -68,6 +77,20 @@ public class Utils {
 
     }
 
+    public Utils() {
+
+    }
+
+    public static Utils getInstance(Application context) {
+        if (instance == null) {
+            instance = new Utils();
+            database = QuranAppDatabase.getInstance(context);
+
+
+
+        }
+        return instance;
+    }
     public static List<BookMarks> getBookMarksNew() {
         return database.BookMarkDao().getBookMarks();
 
@@ -129,6 +152,10 @@ public class Utils {
         return duat;
 
     }
+
+
+
+
 
     public ArrayList<surahsummary> getSurahSummary(int id) {
         ArrayList<surahsummary> dua = (ArrayList<surahsummary>) database.surahsummaryDao().getSurahSummary(id);
@@ -1047,6 +1074,101 @@ public class Utils {
         return database.CitiesDAO().getCityCode(code);
 
     }
+
+
+    public static List<QuranMetaEntity> getAyahsByPage(int i) {
+        return database.QuranMetaDao().getAyahsByPage(i);
+    }
+
+    public int getSuraStartpage(int index) {
+        return database.QuranMetaDao().getSuraStartpage(index);
+    }
+
+
+
+
+
+
+    // ayah db operation
+/*
+    public void addAyah( QuranMetaEntity item) {
+        database.QuranMetaDao().addAyah(item);
+    }
+*/
+
+    public int getTotlaAyahs() {
+        return database.QuranMetaDao().getAyahCount();
+    }
+
+    public List< QuranMetaEntity> getAyahsOfSura(int index) {
+        return database.QuranMetaDao().getAllAyahOfSurahIndex(index);
+    }
+
+    public List< QuranMetaEntity> getAyahSInRange(int start, int end) {
+        return database.QuranMetaDao().getAyahSInRange(start, end);
+    }
+
+    public List< QuranMetaEntity> getAyahByAyahText(String text) {
+        return database.QuranMetaDao().getAyahByAyahText(text);
+    }
+
+/*
+    public List<Integer> getAyahNumberNotAudioDownloaded() {
+        return database.QuranMetaDao().getAyahNumberNotAudioDownloaded();
+
+    }
+*/
+
+    public  QuranMetaEntity getAyahByInSurahIndex(int index, int ayahIndex) {
+        return database.QuranMetaDao().getAyahByInSurahIndex(index, ayahIndex);
+    }
+
+    public  QuranMetaEntity getAyahByIndex(int index) {
+        return database.QuranMetaDao().getAyahByIndex(index);
+    }
+    public List<Integer> getHizbQuaterStart() {
+        return database.QuranMetaDao().getHizbQuaterStart();
+    }
+    public int getPageFromSurahAndAyah(int surah, int ayah) {
+        return database.QuranMetaDao().getPageFromSurahAndAyah(surah, ayah);
+    }
+    public List<QuranMetaEntity> getPageAyat(int page) {
+        return database.QuranMetaDao().getPageAyat(page);
+    }
+    public int getPageFromJuz(int pos) {
+        return database.QuranMetaDao().getPageFromJuz(pos);
+    }
+
+    public List<Qari> getQaris(){
+        return database.QariDao().getQaris();
+    }
+/*
+    public void updateAyahItem( QuranMetaEntity item) {
+        database.QuranMetaDao().updateAyah(item);
+    }
+*/
+
+ /*   public int getLastDownloadedChapter() {
+        return database.QuranMetaDao().getLastChapter();
+    }
+
+    public int getLastDownloadedAyahAudio() {
+        return database.QuranMetaDao().getLastDownloadedAyahAudio();
+    }*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
 

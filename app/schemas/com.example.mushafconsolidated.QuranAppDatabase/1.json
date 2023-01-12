@@ -2,8 +2,132 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "563aa400b4ca4e7e3d4b24df368ef71d",
+    "identityHash": "9804fc2257a2f0aca4eb8eb877ace869",
     "entities": [
+      {
+        "tableName": "audio",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `name_english` TEXT NOT NULL, `audiotype` INTEGER NOT NULL, `url` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name_english",
+            "columnName": "name_english",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "audiotype",
+            "columnName": "audiotype",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "url",
+            "columnName": "url",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "quranmeta",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`ayahInSurahIndex` INTEGER NOT NULL, `ayahIndex` INTEGER NOT NULL, `hizbQuarter` INTEGER NOT NULL, `juz` INTEGER NOT NULL, `manzil` INTEGER NOT NULL, `pageNum` INTEGER NOT NULL, `sajda` TEXT NOT NULL, `surahIndex` INTEGER NOT NULL, `text` TEXT NOT NULL, `cleantext` TEXT NOT NULL, `id` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "ayahInSurahIndex",
+            "columnName": "ayahInSurahIndex",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ayahIndex",
+            "columnName": "ayahIndex",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hizbQuarter",
+            "columnName": "hizbQuarter",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "juz",
+            "columnName": "juz",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "manzil",
+            "columnName": "manzil",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pageNum",
+            "columnName": "pageNum",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sajda",
+            "columnName": "sajda",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "surahIndex",
+            "columnName": "surahIndex",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "text",
+            "columnName": "text",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cleantext",
+            "columnName": "cleantext",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
       {
         "tableName": "cityd",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`country` TEXT NOT NULL, `city` TEXT NOT NULL, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL, `time_zone` REAL NOT NULL, `locId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `Ar_Name` TEXT)",
@@ -1939,7 +2063,7 @@
       },
       {
         "tableName": "qurans",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`docid` INTEGER NOT NULL, `surah` INTEGER NOT NULL, `ayah` INTEGER NOT NULL, `qurantext` TEXT NOT NULL, `passage_no` INTEGER NOT NULL, `has_prostration` INTEGER NOT NULL, `translation` TEXT NOT NULL, `en_transliteration` TEXT NOT NULL, `en_jalalayn` TEXT NOT NULL, `en_arberry` TEXT NOT NULL, `ar_irab_two` TEXT, `ur_jalalayn` TEXT NOT NULL, `ur_junagarhi` TEXT NOT NULL, `tafsir_kathir` TEXT, PRIMARY KEY(`docid`), FOREIGN KEY(`surah`) REFERENCES `chaptersana`(`chapterid`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`docid` INTEGER NOT NULL, `surah` INTEGER NOT NULL, `ayah` INTEGER NOT NULL, `page` INTEGER NOT NULL, `quarter` INTEGER NOT NULL, `hizb` INTEGER NOT NULL, `juz` INTEGER NOT NULL, `qurantext` TEXT NOT NULL, `passage_no` INTEGER NOT NULL, `has_prostration` INTEGER NOT NULL, `translation` TEXT NOT NULL, `en_transliteration` TEXT NOT NULL, `en_jalalayn` TEXT NOT NULL, `en_arberry` TEXT NOT NULL, `ar_irab_two` TEXT, `ur_jalalayn` TEXT NOT NULL, `ur_junagarhi` TEXT NOT NULL, `tafsir_kathir` TEXT, PRIMARY KEY(`docid`), FOREIGN KEY(`surah`) REFERENCES `chaptersana`(`chapterid`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "docid",
@@ -1956,6 +2080,30 @@
           {
             "fieldPath": "ayah",
             "columnName": "ayah",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "page",
+            "columnName": "page",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "quarter",
+            "columnName": "quarter",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hizb",
+            "columnName": "hizb",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "juz",
+            "columnName": "juz",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -2470,7 +2618,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '563aa400b4ca4e7e3d4b24df368ef71d')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9804fc2257a2f0aca4eb8eb877ace869')"
     ]
   }
 }

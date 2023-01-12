@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,10 +20,16 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.window.layout.WindowMetrics;
 import androidx.window.layout.WindowMetricsCalculator;
 
+import com.example.mushafconsolidated.Adapters.PageAdapter;
+import com.example.mushafconsolidated.Entities.Page;
+import com.example.mushafconsolidated.Entities.QuranEntity;
 import com.example.mushafconsolidated.R;
+import com.example.mushafconsolidated.Utils;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -33,6 +40,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.zip.ZipEntry;
@@ -41,7 +50,8 @@ import java.util.zip.ZipInputStream;
 public class MainActivity extends BaseActivity {
     private static final int REQUEST_WRITE_STORAGE = 112;
     private File newquran;
-
+    RecyclerView recview;
+    private List<Page> fullQuranPages;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -55,6 +65,7 @@ public class MainActivity extends BaseActivity {
         computeWindowSizeClasses();
         //  setContentView(R.layout.fragment_reading);
         setContentView(R.layout.main_activity);
+      recview= findViewById(R.id.recycler_views);
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         int SPL = 1;
         if (sp.getInt("spl", 0) != SPL) {
@@ -133,9 +144,31 @@ public class MainActivity extends BaseActivity {
             CopyDatbases();
 
         } else {
-            Intent homeactivity = new Intent(MainActivity.this, QuranGrammarAct.class);
-            //   Intent homeactivity = new Intent(MainActivity.this, ReadingSurahPartActivity.class);
-            startActivity(homeactivity);
+      /*      LinearLayoutManager ln=new LinearLayoutManager(this);
+            recview.setLayoutManager(ln);
+                List<Page> pages = new ArrayList<>();
+                Page page;
+                Utils utils=new Utils(this);
+                List<QuranEntity> ayahItems;
+                for (int i = 1; i <= 604; i++) {
+                    ayahItems = utils.getAyahsByPage(i);
+                    if (ayahItems.size() > 0) {
+                        page = new Page();
+                        page.setAyahItems(ayahItems);
+                        page.setPageNum(i);
+                        page.setJuz(ayahItems.get(0).getJuz());
+                        pages.add(page);
+                    }
+                }
+
+                fullQuranPages = new ArrayList<>(pages);
+            PageAdapter pageAdapter=new PageAdapter(pages,this);
+            recview.setAdapter(pageAdapter);*/
+
+
+           Intent homeactivity = new Intent(MainActivity.this, QuranGrammarAct.class);
+
+          startActivity(homeactivity);
          //   MainActivity.this.finish();
             //   initnavigation();
         }

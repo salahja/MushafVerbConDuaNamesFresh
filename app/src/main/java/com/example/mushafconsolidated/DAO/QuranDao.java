@@ -24,4 +24,12 @@ public interface QuranDao {
     @Query("select * from qurans where docid  between :start and :end")
     List<QuranEntity> getVersesByPart(int start, int end);
 
+
+
+    @Query("select * from qurans where page = :i order by ayah")
+    List<QuranEntity> getAyahsByPage(int i);
+
+
+    @Query("select page from qurans where surah = :pos order by ayah limit 1 ")
+    int getSuraStartpage(int pos);
 }

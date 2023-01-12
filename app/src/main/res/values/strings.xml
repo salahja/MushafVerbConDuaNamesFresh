@@ -426,7 +426,7 @@
     <string name="share_text">Share Text</string>
     <string name="faboptions_fragment_info">Options</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 
     <!--    mullimmate-->
@@ -666,4 +666,97 @@
     <string name="pins">Add to Pins</string>
     <string name="ccreate_new">Create New</string>
     <string name="addbookmarks">Add Bmarks</string>
+    <string name="tafseerTap">Tafseer</string>
+    <string name="tv_no_quran_data">No quran</string>
+    <string name="juz_to_display">Juz %d</string>
+    <string name="hizb_to_display">Hizb %d</string>
+    <string name="part_to_display">%s Hizb %d</string>
+    <string name="download">Download</string>
+
+
+    ///
+
+    <string name="download_busy">Other downloads in progress</string>
+    <string name="download_complete">Download complete</string>
+    <string name="download_failed">Download failed</string>
+    <string name="success_download_canceled">Download canceled</string>
+    <string name="aya_copy">Verse copied</string>
+    <string name="translation_deleted">Translation file deleted</string>
+    <string name="mb">MB</string>
+    <string name="basmala">Basmalah</string>
+    <string name="error_page">Not a page in Quran</string>
+    <string name="qari_minshawi_murattal_gapless">Minshawi Murattal (gapless)</string>
+    <string name="qari_husary_gapless">Husary (gapless)</string>
+    <string name="qari_sudais_gapless">Abdurrahman As-Sudais (gapless)</string>
+    <string name="qari_qatami_gapless">Nasser Al Qatami (gapless)</string>
+    <string name="qari_abdulbaset">Abd Al-Basit</string>
+    <string name="qari_abdulbaset_mujawwad">Abd Al-Basit Mujawwad</string>
+    <string name="qari_basfar">Abdullah Basfar</string>
+    <string name="qari_suadis">Abdurrahmaan As-Sudais</string>
+    <string name="qari_shatri">Abu Bakr Ash-Shatri</string>
+    <string name="qari_afasy">Mishary Al-Afasy</string>
+    <string name="qari_saad_al_ghamdi">Saad Al-Ghamdi</string>
+    <string name="qari_walk">Ibrahim Walk (English Trans.)</string>
+    <string name="qari_hani_rifai">Hani Ar-Rifai</string>
+    <string name="qari_husary_mujawwad">Husary Mujawwad</string>
+    <string name="qari_hudhayfi">Ali Al-Hudhaify</string>
+    <string name="qari_muaiqly">Maher Al Muaiqly</string>
+    <string name="qari_minshawi_mujawwad">Minshawy Mujawwad</string>
+    <string name="qari_tablawy">Mohammad al Tablaway</string>
+    <string name="qari_ayyoub">Muhammad Ayyoub</string>
+    <string name="qari_jibreel">Muhammad Jibreel</string>
+    <string name="qari_shuraym">Saood Ash-Shuraym</string>
+    <string name="qari_dussary">Yasser Ad-Dussary</string>
+    <string name="qari_abdulbaset_gapless">Abd Al-Basit (gapless)</string>
+    <string name="qari_abdulbaset_mujawwad_gapless">Abd Al-Basit Mujawwad (gapless)</string>
+    <string name="qari_aziz_alili_gapless">Aziz Alili (gapless)</string>
+    <string name="qari_salah_budair_gapless">Salah Budair (gapless)</string>
+    <string name="qari_shuraym_gapless">Saood Ash-Shuraym (gapless)</string>
+    <string name="qari_yasser_dussary_gapless">Yasser Ad-Dussary (gapless)</string>
+    <string name="qari_mohammad_altablawi_gapless">Mohammad al Tablawy (gapless)</string>
+    <string name="qari_sahl_yaseen_gapless">Sahl Yaseen (gapless)</string>
+    <string name="qari_shatri_gapless">Abu Bakr Ash-Shatri (gapless)</string>
+    <string name="qari_ahmad_nauina_gapless">Ahmad Nauina (gapless)</string>
+    <string name="qari_akram_al_alaqmi">Akram Al-Alaqmi (gapless)</string>
+    <string name="qari_ali_hajjaj_alsouasi_gapless">Ali Hajjaj Alsouasi (gapless)</string>
+    <!--  TODO: Remove or change this placeholder text  -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_translation_aya">TranslationAyaActivity</string>
+    <!-- settings text resources -->
+    <string name="display">Display Settings</string>
+    <string name="arabic_mood">Arabic Mode</string>
+    <string name="arabic_mood_summary">Use Arabic mode for application</string>
+    <string name="navigation">Navigation</string>
+    <string name="lock_screen">Lock screen orientation</string>
+    <string name="night_mode">Night Mode</string>
+    <string name="lock_screen_summary">Adaptive to current orientation mode</string>
+    <string name="lock_screen_summary1">Use dark background and white fonts</string>
+    <string name="volume_key">Volume key navigation</string>
+    <string name="volume_key_summary">Navigation between pages using volume key</string>
+    <string name="translations_pref">Translations Preferences</string>
+    <string name="translations">Translations</string>
+    <string name="translations_summary">Download and manage translations</string>
+    <string name="ayah_translation">Ayah before translation</string>
+    <string name="ayah_translation_summary">Show ayah in arabic above the translation</string>
+    <string name="text_size">Text size</string>
+    <string name="Text_size_summary">Translation text size</string>
+    <string name="current_page">Current Page</string>
+    <string name="sura_bookmark">Page Bookmark</string>
+    <string name="audio">Audio Options</string>
+    <string name="stream">Streaming</string>
+    <string name="stream_summary">
+Stream audio when possible (non-gapless audio only)
+</string>
+    <string name="audio_manager">Audio manager</string>
+    <string name="audio_manger_summary">Manage and download audio</string>
+    <string name="small">Small</string>
+    <string name="medium">Medium</string>
+    <string name="large">large</string>
+
+    <string name="title_activity_translation_read">TranslationReadActivity</string>
+    <string name="hezb">Hezb</string>
+    <string name="no_internet_alert">No Internet</string>
+    <string name="app_name_main">The Quran</string>
+    <string name="sora">Surah</string>
+    <string name="aya">Aya</string>
 </resources>

@@ -849,7 +849,8 @@ public class VerbSarfKabeerAdapter extends RecyclerView.Adapter<VerbSarfKabeerAd
             ana = sarfSagheer.get(position).get(11).toString();
             nahnu = sarfSagheer.get(position).get(12).toString();
         }
-        String language = SharedPref.getLanguage();
+        SharedPreferences sharedPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(context);
+         String language =    sharedPreferences.getString("lan", "en");;
         String[] arrayheadings;
         if (language.equals("en"))
             arrayheadings = context.getResources().getStringArray(R.array.enverbheadings);

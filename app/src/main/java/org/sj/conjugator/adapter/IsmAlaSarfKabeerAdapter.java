@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 public class IsmAlaSarfKabeerAdapter extends RecyclerView.Adapter<IsmAlaSarfKabeerAdapter.ViewHolder> {
     private final Context context;
+    private  SharedPreferences sharedPreferences;
     int bookmarkpostion;
     OnItemClickListener mItemClickListener;
     //    private final Integer arabicTextColor;
@@ -42,6 +43,8 @@ public class IsmAlaSarfKabeerAdapter extends RecyclerView.Adapter<IsmAlaSarfKabe
     public IsmAlaSarfKabeerAdapter(ArrayList<ArrayList> lists, Context context) {
         this.context = context;
         this.sarfSagheer = lists;
+        sharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(context);
 
     }
 
@@ -94,7 +97,7 @@ public class IsmAlaSarfKabeerAdapter extends RecyclerView.Adapter<IsmAlaSarfKabe
 
     private void gcase(ViewHolder holder) {
         SharedPref sf = new SharedPref(context);
-        String language = SharedPref.getLanguage();
+         String language =    sharedPreferences.getString("lan", "en");;
         String[] array;
         if (language.equals("en")) {
             array = context.getResources().getStringArray(R.array.encase);
@@ -123,7 +126,7 @@ public class IsmAlaSarfKabeerAdapter extends RecyclerView.Adapter<IsmAlaSarfKabe
 
     private void ismalanumbers(ViewHolder holder) {
         SharedPref sf = new SharedPref(context);
-        String language = SharedPref.getLanguage();
+         String language =    sharedPreferences.getString("lan", "en");;
         String[] array;
         if (language.equals("en"))
             array = context.getResources().getStringArray(R.array.ennumbers);

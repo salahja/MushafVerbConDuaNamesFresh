@@ -130,7 +130,7 @@ public class FileUtility {
 
     }
 
-    private static void requestPermission() {
+    public static void requestPermission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) context, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             Toast.makeText((Activity) context, "Write External Storage permission allows us to create files. Please allow this permission in App Settings.", Toast.LENGTH_LONG).show();
         } else {
@@ -138,7 +138,7 @@ public class FileUtility {
         }
     }
 
-    private static boolean checkPermission() {
+    public static boolean checkPermission() {
         int result = ContextCompat.checkSelfPermission((Activity) context, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
         return result == PackageManager.PERMISSION_GRANTED;
     }

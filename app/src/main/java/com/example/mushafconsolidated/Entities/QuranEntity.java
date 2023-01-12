@@ -22,6 +22,15 @@ public class QuranEntity {
     private int surah;
     @NonNull
     private int ayah;
+
+    @NonNull
+    private int   page    ;
+    @NonNull
+    private int    quarter ;
+    @NonNull
+    private int   hizb    ;
+    @NonNull
+    private int  juz     ;
     @NonNull
     private String qurantext;
     @NonNull
@@ -43,10 +52,16 @@ public class QuranEntity {
     private String ur_junagarhi;
     private String tafsir_kathir;
 
-    public QuranEntity(int docid, int surah, int ayah, @NonNull String qurantext, int passage_no, int has_prostration, @NonNull String translation, @NonNull String en_transliteration, @NonNull String en_jalalayn, @NonNull String en_arberry, String ar_irab_two, @NonNull String ur_jalalayn, @NonNull String ur_junagarhi, String tafsir_kathir) {
+
+    public QuranEntity( int docid, int surah, int ayah, int page, int quarter, int hizb, int juz, @NonNull String qurantext, int passage_no, int has_prostration, @NonNull String translation, @NonNull String en_transliteration, @NonNull String en_jalalayn, @NonNull String en_arberry, String ar_irab_two, @NonNull String ur_jalalayn, @NonNull String ur_junagarhi, String tafsir_kathir) {
+
         this.docid = docid;
         this.surah = surah;
         this.ayah = ayah;
+        this.page = page;
+        this.quarter = quarter;
+        this.hizb = hizb;
+        this.juz = juz;
         this.qurantext = qurantext;
         this.passage_no = passage_no;
         this.has_prostration = has_prostration;
@@ -58,6 +73,44 @@ public class QuranEntity {
         this.ur_jalalayn = ur_jalalayn;
         this.ur_junagarhi = ur_junagarhi;
         this.tafsir_kathir = tafsir_kathir;
+    }
+@Ignore
+    public QuranEntity(int docid, int surah, int ayah) {
+        this.docid = docid;
+        this.surah = surah;
+        this.ayah = ayah;
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public int getQuarter() {
+        return quarter;
+    }
+
+    public void setQuarter(int quarter) {
+        this.quarter = quarter;
+    }
+
+    public int getHizb() {
+        return hizb;
+    }
+
+    public void setHizb(int hizb) {
+        this.hizb = hizb;
+    }
+
+    public int getJuz() {
+        return juz;
+    }
+
+    public void setJuz(int juz) {
+        this.juz = juz;
     }
 
     @NonNull

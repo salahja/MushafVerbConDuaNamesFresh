@@ -92,6 +92,7 @@ import static com.example.Constant.verbspanLight;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.preference.PreferenceManager;
@@ -126,6 +127,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CorpusUtilityorig {
 // --Commented out by Inspection START (26/04/22, 1:04 AM):
@@ -583,10 +586,34 @@ public class CorpusUtilityorig {
 
     }
 
-  
+    public static Spannable getSpannable(String text) {
 
-   
- 
+        Spannable spannable = new SpannableString(text);
+
+        String REGEX = "لل";
+        Pattern p = Pattern.compile(REGEX);
+        Matcher m = p.matcher(text);
+
+        int start, end;
+
+        //region allah match
+        while (m.find()) {
+            start = m.start();
+            while (text.charAt(start) != ' ' && start != 0) {
+                start--;
+            }
+            end = m.end();
+            while (text.charAt(end) != ' ') {
+                end++;
+            }
+            spannable.setSpan(new ForegroundColorSpan(Color.RED), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        }
+        //endregion
+
+        return spannable;
+    }
+
     public void SetMousufSifaDB(ArrayList<CorpusAyahWord> corpusayahWordArrayList, int surah_id) {
         Utils utils = new Utils(QuranGrammarApplication.getContext());
         final ArrayList<SifaEntity> surah = utils.getSifabySurah(surah_id);

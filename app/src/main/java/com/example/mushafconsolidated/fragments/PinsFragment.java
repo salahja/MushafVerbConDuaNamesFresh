@@ -83,7 +83,7 @@ import mm.prayer.muslimmate.ui.NumbersLocal;
  * Created by Dev. M. Hussein on 5/9/2017.
  */
 
-public class PinsFragment extends Fragment {
+public class PinsFragment extends Fragment  {
     CoordinatorLayout coordinatorLayout;
     RecyclerView.LayoutManager layoutManager;
     private BookmarksShowAdapter bookmarksShowAdapter;
@@ -101,6 +101,7 @@ public class PinsFragment extends Fragment {
     private Prayer arabEyesPrayerCalculator;
     private StandardMethod calmethod ;
 ListView listView;
+    private OnItemClickListener listner;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -108,6 +109,7 @@ ListView listView;
         View view = inflater.inflate(R.layout.fragment_bookmark, container, false);
         Utils utils = new Utils(getActivity());
         List<BookMarks> bookMarksNew = Utils.getBookMarksNew();
+
         //  List<BookMarks> bookmarks = new DatabaseAccess().getBookmarks();
         bookmarksShowAdapter = new BookmarksShowAdapter(getActivity());
         mRecview = view.findViewById(R.id.recyclerViewAdapterTranslation);
@@ -163,7 +165,7 @@ ListView listView;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        bookmarksShowAdapter.SetOnItemClickListener(new OnItemClickListener() {
+     bookmarksShowAdapter.SetOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
                 BookMarks bmark = (BookMarks) bookmarksShowAdapter.getItem(position);
@@ -191,9 +193,17 @@ ListView listView;
 
     }
 
+/*
+    @Override
+    public void onItemClick(View v, int position) {
+      Object tag=  v.getTag();
+      if(tag.equals("icon")) {
+          System.out.printf("check");
+      }
 
 
-    }
+    }*/
+}
 
 
 

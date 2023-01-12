@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 public class IsmFaelIsmMafoolSarfKabeerAdapter extends RecyclerView.Adapter<IsmFaelIsmMafoolSarfKabeerAdapter.ViewHolder> {
     private final Context context;
+    private  SharedPreferences sharedPreferences;
     int bookmarkpostion;
     OnItemClickListener mItemClickListener;
     //    private final Integer arabicTextColor;
@@ -53,6 +54,8 @@ public class IsmFaelIsmMafoolSarfKabeerAdapter extends RecyclerView.Adapter<IsmF
         this.sarfSagheer = sarfSagheer;
         this.mazeedregular = mazeedregular;
         sharedPref = new SharedPref(context);
+        sharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(context);
     }
 
     public IsmFaelIsmMafoolSarfKabeerAdapter(ArrayList<String> madhi, ArrayList<ArrayList> skabeer, FragmentActivity activity) {
@@ -100,7 +103,7 @@ public class IsmFaelIsmMafoolSarfKabeerAdapter extends RecyclerView.Adapter<IsmF
         //      FontSIzeSelection(holder);
         String[] array;
         SharedPref sf = new SharedPref(context);
-        String language = SharedPref.getLanguage();
+         String language =    sharedPreferences.getString("lan", "en");;
         if (language.equals("en")) {
             array = context.getResources().getStringArray(R.array.enismfaelmafoolheadings);
 
@@ -118,7 +121,7 @@ public class IsmFaelIsmMafoolSarfKabeerAdapter extends RecyclerView.Adapter<IsmF
 
     private void gcase(ViewHolder holder) {
         SharedPref sf = new SharedPref(context);
-        String language = SharedPref.getLanguage();
+         String language =    sharedPreferences.getString("lan", "en");;
         String[] array;
         if (language.equals("en"))
             array = context.getResources().getStringArray(R.array.encase);
@@ -148,7 +151,7 @@ public class IsmFaelIsmMafoolSarfKabeerAdapter extends RecyclerView.Adapter<IsmF
 
     private void ismfaelmafoolnumbers(ViewHolder holder) {
         SharedPref sf = new SharedPref(context);
-        String language = SharedPref.getLanguage();
+         String language =    sharedPreferences.getString("lan", "en");;
         String[] array;
         if (language.equals("en"))
             array = context.getResources().getStringArray(R.array.ennumbers);

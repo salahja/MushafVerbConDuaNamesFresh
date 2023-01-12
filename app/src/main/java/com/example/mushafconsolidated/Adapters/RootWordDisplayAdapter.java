@@ -84,6 +84,7 @@ public class RootWordDisplayAdapter extends RecyclerView.Adapter<RootWordDisplay
     private ArrayList<SarfSagheer> sarfsagheer;
     private ArrayList<MafoolMutlaqEnt> mutlaq;
     private ArrayList<LiajlihiEnt> liajlihi;
+    private SharedPreferences sharedPreferences;
 
     public RootWordDisplayAdapter(Context context) {
         this.context = context;
@@ -112,7 +113,7 @@ public class RootWordDisplayAdapter extends RecyclerView.Adapter<RootWordDisplay
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewAdapter holder, int position) {
-        SharedPreferences sharedPreferences =
+        sharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(context);
         String quranFont = sharedPreferences.getString("quranFont", "kitab.ttf");
         String theme = sharedPreferences.getString("themePref", "dark");
@@ -452,7 +453,8 @@ public class RootWordDisplayAdapter extends RecyclerView.Adapter<RootWordDisplay
             ismfaelmafoolnumbers(holder);
             FontSIzeSelection(holder);
             String[] array;
-            String language = SharedPref.getLanguage();
+            String language =    sharedPreferences.getString("lan", "en");
+
             if (language.equals("en")) {
                 array = QuranGrammarApplication.getContext().getResources().getStringArray(R.array.enismfaelmafoolheadings);
 
@@ -479,7 +481,11 @@ public class RootWordDisplayAdapter extends RecyclerView.Adapter<RootWordDisplay
     }
 
     private void gcase(ItemViewAdapter holder) {
-        String language = SharedPref.getLanguage();
+        SharedPreferences sharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.getContext());
+        //  String theme = sharedPreferences.getString("theme", 1);
+        String language = sharedPreferences.getString("lang", "en");
+   //     String language = SharedPref.getLanguage();
         boolean isTraditional = true;
         String[] array;
         if (language.equals("en"))
@@ -502,7 +508,7 @@ public class RootWordDisplayAdapter extends RecyclerView.Adapter<RootWordDisplay
     }
 
     private void ismfaelmafoolnumbers(ItemViewAdapter holder) {
-        String language = SharedPref.getLanguage();
+        String language =    sharedPreferences.getString("lan", "en");
         boolean isTraditional = true;
         String[] array;
         if (language.equals("en"))

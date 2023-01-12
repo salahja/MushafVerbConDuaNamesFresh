@@ -52,7 +52,8 @@ public class BookmarkFragmentorig extends Fragment implements AdapterView.OnItem
         Utils utils = new Utils(getActivity());
         List<BookMarks> bookMarksNew = Utils.getBookMarksNew();
         //  List<BookMarks> bookmarks = new DatabaseAccess().getBookmarks();
-        bookmarksShowAdapter = new BookmarksShowAdapter(getActivity());
+
+        bookmarksShowAdapter = new BookmarksShowAdapter(getActivity() );
         mRecview = view.findViewById(R.id.recyclerViewAdapterTranslation);
         coordinatorLayout = view.findViewById(R.id.coordinatorLayout);
         this.layoutManager = new LinearLayoutManager(getActivity());

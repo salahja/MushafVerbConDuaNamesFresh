@@ -56,7 +56,7 @@ import mm.prayer.muslimmate.fragments.WeatherFragment;
 /**
  * Bookmark fragment class
  */
-public class BookmarkFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class BookmarkFragment extends Fragment  {
     private static final int[] TAB_TITLES = new int[]{ R.string.pins ,R.string.collection};
     CoordinatorLayout coordinatorLayout;
     RecyclerView.LayoutManager layoutManager;
@@ -93,7 +93,7 @@ public class BookmarkFragment extends Fragment implements AdapterView.OnItemClic
             }
         });
 
-
+OnItemClickListener listener = null;
 
         //  List<BookMarks> bookmarks = new DatabaseAccess().getBookmarks();
         bookmarksShowAdapter = new BookmarksShowAdapter(getActivity());
@@ -151,9 +151,6 @@ public class BookmarkFragment extends Fragment implements AdapterView.OnItemClic
 
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

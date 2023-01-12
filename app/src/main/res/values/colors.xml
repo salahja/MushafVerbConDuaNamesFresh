@@ -318,7 +318,7 @@
     <color name="green">#00FF00</color>
     <color name="cyan">#00FFFF</color>
     <color name="hotpink">#DB006E</color>
-
+    <color name="bg_ayahs">#FCF4B1</color>
     <!--Color primary (dark)-->
     <!--Color primary (light)-->
     <!--Color primary variant (dark)-->
@@ -704,6 +704,25 @@
     <color name="streat_line">#AD2E24</color>
 
 
+    <color name="whiteTextColor">#fff</color>
+    <color name="primaryTextColor">#03A9F4</color>
+    <color name="loginBkColor">#f0f0f0</color>
+    <!--colros for card-->
+    <color name="whiteCardColor">#fff</color>
 
+
+    <color name="semi_black">#BBAFAF</color>
+    <color name="spin_color_ayahs">#03A9F4</color>
+    <color name="black_gradi">#747171</color>
+    <color name="tab_strip">#aaddaa</color>
+
+
+    <color name="bg_items">@color/colorPrimary</color>
+    <color name="tv_color">@color/whiteTextColor</color>
+    <color name="ayas_color_night_mode">#FFFFFF</color>
+    <color name="bg_ays_night_mode">#292829</color>
+    <color name="ayas_color">#000000</color>
+    <color name="footercolor">#B33E686A</color>
+    <color name="bgc">#f4faee</color>
 
 </resources>

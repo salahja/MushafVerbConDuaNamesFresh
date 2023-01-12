@@ -93,4 +93,29 @@ Constants {
     public static final String PREF_SURA_TRANSLATED_NAME = "suraTranslatedName";
     public static String FILEPATH = QuranGrammarApplication.getContext().getExternalFilesDir(null).
             getAbsolutePath() + "/" + QuranGrammarApplication.getContext().getResources().getString(R.string.app_folder_path);
+
+
+    int GREEN = 2;
+    int YELLOW = 1;
+    int WHITE = 0;
+
+    public static String SURAH_INDEX = "index";
+    public static String LAST_INDEX = "index_sura";
+    public static String LAST_INDEX_Scroll = "scroll";
+    public static String PERMISSION_STATE = "state";
+    public static String NightMode_STATE = "night mode ";
+    public static String BackColor_STATE = "bg_color";
+    public static String SCORE = "score";
+
+    public static String USERS_KEY = "users";
+    public static String REVIWES_KEY = "reviews";
+    public static String USER_NAME = "user_name";
+    public static String USER_UUID = "uuid";
+    public static String PAGE_INDEX = "pageIndex";
+    public static String JUZ_INDEX = "Juz";
+    public static String SURAH_GO_INDEX = "goSuraIndex";
+    public static String AYAH_GO_INDEX = "ayahGo";
+    int NA = -1;
+    public static String RECORD_ITEM = "record";
+    public static String AUDIO_ITEMS = "ayahitems";
 }

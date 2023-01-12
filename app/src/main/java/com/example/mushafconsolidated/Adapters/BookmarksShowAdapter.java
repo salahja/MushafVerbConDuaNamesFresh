@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mushafconsolidated.Entities.BookMarks;
@@ -44,9 +45,11 @@ public class BookmarksShowAdapter extends RecyclerView.Adapter<BookmarksShowAdap
     public BookmarksShowAdapter() {
     }
 
-    public BookmarksShowAdapter(Context context) {
+    public BookmarksShowAdapter(Context context ) {
         this.BookmarksShowAdapterContext = context;
+
     }
+
 
     public int getBookmarkpostion() {
         return bookmarkpostion;
@@ -85,7 +88,7 @@ public class BookmarksShowAdapter extends RecyclerView.Adapter<BookmarksShowAdap
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_bookmar_two, parent, false);
         //   sendVerseClick=(SendVerseClick) getActivity();
-        return new ViewHolder(view);
+        return new ViewHolder(view,viewType);
     }
 
     public void SetOnItemClickListener(final OnItemClickListener mItemClickListener) {
@@ -167,8 +170,10 @@ public class BookmarksShowAdapter extends RecyclerView.Adapter<BookmarksShowAdap
         final CardView cardView;
         public TextView chapterno,header;
 
-        public ViewHolder(View view) {
+        public ViewHolder(View view,int viewType) {
             super(view);
+            view.setTag(this);
+            itemView.setOnClickListener(this);
             header=view.findViewById(R.id.header);
             surahicon = view.findViewById(R.id.surahicon);
             cardView = view.findViewById(R.id.cardview);
@@ -177,6 +182,15 @@ public class BookmarksShowAdapter extends RecyclerView.Adapter<BookmarksShowAdap
             suraName = (TextView) view.findViewById(R.id.surahname);
             verseno = view.findViewById(R.id.verseno);
             chapterno = view.findViewById(R.id.chapterno);
+            surahicon.setTag("iocn");
+            surahicon.setOnClickListener(this);
+            chapterno.setTag("chapter");
+            chapterno.setOnClickListener(this);
+            suraName.setTag("surah");
+            suraName.setOnClickListener(this);
+
+            verseno.setTag("verse");
+            verseno.setOnClickListener(this);
             view.setOnClickListener(this); // current clickListerner
 
         }

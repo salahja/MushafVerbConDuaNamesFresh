@@ -3,6 +3,8 @@ package com.example.mushafconsolidated;
 import static com.example.mushafconsolidated.settings.Constants.DATABASENAME;
 import static com.example.mushafconsolidated.settings.Constants.FILEPATH;
 
+import static mm.prayer.muslimmate.ui.ApplicationContext.getContext;
+
 import android.content.Context;
 
 import androidx.annotation.NonNull;
@@ -26,8 +28,10 @@ import com.example.mushafconsolidated.DAO.NewMudhafDao;
 import com.example.mushafconsolidated.DAO.NewNasbDao;
 import com.example.mushafconsolidated.DAO.NewShartDAO;
 import com.example.mushafconsolidated.DAO.NounCorpusDao;
+import com.example.mushafconsolidated.DAO.QariDao;
 import com.example.mushafconsolidated.DAO.QuranDao;
 import com.example.mushafconsolidated.DAO.QuranExplorerDao;
+import com.example.mushafconsolidated.DAO.QuranMetaDao;
 import com.example.mushafconsolidated.DAO.RawDao;
 import com.example.mushafconsolidated.DAO.SifaDao;
 import com.example.mushafconsolidated.DAO.VerbCorpusDao;
@@ -53,7 +57,9 @@ import com.example.mushafconsolidated.Entities.NewMudhafEntity;
 import com.example.mushafconsolidated.Entities.NewNasbEntity;
 import com.example.mushafconsolidated.Entities.NewShartEntity;
 import com.example.mushafconsolidated.Entities.NounCorpus;
+import com.example.mushafconsolidated.Entities.Qari;
 import com.example.mushafconsolidated.Entities.QuranEntity;
+import com.example.mushafconsolidated.Entities.QuranMetaEntity;
 import com.example.mushafconsolidated.Entities.SifaEntity;
 import com.example.mushafconsolidated.Entities.TameezEnt;
 import com.example.mushafconsolidated.Entities.VerbCorpus;
@@ -64,6 +70,7 @@ import com.example.mushafconsolidated.Entities.qurandictionary;
 import com.example.mushafconsolidated.Entities.quranexplorer;
 import com.example.mushafconsolidated.Entities.surahsummary;
 import com.example.mushafconsolidated.Entities.wbwentity;
+import com.example.utility.QuranGrammarApplication;
 
 import java.io.File;
 
@@ -83,8 +90,10 @@ import sj.hisnul.entity.hduadetails;
 import sj.hisnul.entity.hduanames;
 
 //@Database(entities= {VerseEntit.class,ErabEntity.class,ChaptersAnaEntity.class},version= 1)
-@Database(entities = {Cities.class, Countries.class,hcategory.class, hduadetails.class, hduanames.class, surahsummary.class, quranexplorer.class, AllahNamesDetails.class, AllahNames.class, DuaGroup.class, DuaDetails.class, MafoolMutlaqEnt.class, BadalErabNotesEnt.class, HalEnt.class, MafoolBihi.class, LiajlihiEnt.class, TameezEnt.class, GrammarRules.class, hanslexicon.class, qurandictionary.class, lanelexicon.class, lughat.class, NewNasbEntity.class, NewShartEntity.class, NewKanaEntity.class, NewMudhafEntity.class, SifaEntity.class, wbwentity.class, NounCorpus.class, VerbCorpus.class, QuranEntity.class, CorpusEntity.class, BookMarks.class, ChaptersAnaEntity.class}, version = 1)
+@Database(entities = {Qari.class,QuranMetaEntity.class,Cities.class, Countries.class,hcategory.class, hduadetails.class, hduanames.class, surahsummary.class, quranexplorer.class, AllahNamesDetails.class, AllahNames.class, DuaGroup.class, DuaDetails.class, MafoolMutlaqEnt.class, BadalErabNotesEnt.class, HalEnt.class, MafoolBihi.class, LiajlihiEnt.class, TameezEnt.class, GrammarRules.class, hanslexicon.class, qurandictionary.class, lanelexicon.class, lughat.class, NewNasbEntity.class, NewShartEntity.class, NewKanaEntity.class, NewMudhafEntity.class, SifaEntity.class, wbwentity.class, NounCorpus.class, VerbCorpus.class, QuranEntity.class, CorpusEntity.class, BookMarks.class, ChaptersAnaEntity.class}, version = 1)
 public abstract class QuranAppDatabase extends RoomDatabase {
+
+
     //  public static Builder<QuranAppDatabase> quranAppDatabaseInstance;
     private static final RoomDatabase.Callback initialCallBack = new RoomDatabase.Callback() {
         @Override
@@ -101,23 +110,11 @@ public abstract class QuranAppDatabase extends RoomDatabase {
     }
 
     public static synchronized QuranAppDatabase getInstance(Context context) {
+        String FILEPATH = context.getExternalFilesDir(null).
+                getAbsolutePath() + "/" + context.getResources().getString(R.string.app_folder_path);
         if (null == quranAppDatabaseInstance) {
             File mainDatabase = new File(FILEPATH + "/" + DATABASENAME);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- quranAppDatabaseInstanceasset = Room.databaseBuilder(context, QuranAppDatabase.class, "qurangrammar.db")
+  quranAppDatabaseInstanceasset = Room.databaseBuilder(context, QuranAppDatabase.class, "qurangrammar.db")
                   .createFromAsset("databases/qurangrammar.db")
                     .fallbackToDestructiveMigration()
                     .addCallback(initialCallBack)
@@ -133,8 +130,8 @@ public abstract class QuranAppDatabase extends RoomDatabase {
                     .build();
 
         }
-        return quranAppDatabaseInstance;
-        // return quranAppDatabaseInstanceasset;
+     //   return quranAppDatabaseInstance;
+          return quranAppDatabaseInstanceasset;
     }
 
     public abstract AnaQuranChapterDao AnaQuranChapterDao();
@@ -147,6 +144,7 @@ public abstract class QuranAppDatabase extends RoomDatabase {
     public abstract CorpusExpandedDao CorpusExpandedDao();
 
     public abstract QuranDao QuranDao();
+    public abstract QuranMetaDao QuranMetaDao();
 
     public abstract VerbCorpusDao VerbCorpusDao();
 
@@ -207,6 +205,7 @@ public abstract class QuranAppDatabase extends RoomDatabase {
     public abstract CountryDao CountryDao();
 
     public abstract CitiesDAO CitiesDAO();
+    public abstract QariDao QariDao();
 
 
 

@@ -22,6 +22,7 @@ import com.example.mushafconsolidated.Entities.BookMarksPojo;
 import com.example.mushafconsolidated.R;
 import com.example.utility.QuranGrammarApplication;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.checkbox.MaterialCheckBox;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +51,7 @@ public class BookmarCrateAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         if (viewType == TYPE_HEADER) {
             //Inflating header view
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.bheader, parent, false);
-            return new FooterViewHolder(view);
+            return new  HeaderHolder(view);
         }else
 
         if (viewType == TYPE_FOOTER) {
@@ -83,7 +84,7 @@ public class BookmarCrateAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
            final BookMarks bookMark = bookMarks.get(position);
 
            try {
-                collections = collection.get(position);
+                collections = collection.get(position-1);
            } catch (IndexOutOfBoundsException e){
             collections=null;
            }
@@ -173,6 +174,9 @@ public class BookmarCrateAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         if(position==0){
             return TYPE_HEADER;
         }
+        if(position!=bookMarks.size() && position!=0){
+            return TYPE_ITEM;
+        }
 
 
         return super.getItemViewType(position);
@@ -187,8 +191,6 @@ public class BookmarCrateAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         void onItemClick(View v, int position);
 
     }
-
-
     private  class FooterViewHolder extends RecyclerView.ViewHolder   implements View.OnClickListener {
         final TextView footerText;
         MaterialButton create,addpin,done;
@@ -200,6 +202,11 @@ public class BookmarCrateAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             create=view.findViewById(R.id.collection);
             addpin=view.findViewById(R.id.addpin);
             done=view.findViewById(R.id.done);
+             addpin.setTag("add");
+              addpin.setOnClickListener(this);
+
+            done.setTag("done");
+            done.setOnClickListener(this);
             create.setTag("create");
             create.setOnClickListener(this);
 
@@ -215,12 +222,43 @@ public class BookmarCrateAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
+    private  class HeaderHolder extends RecyclerView.ViewHolder   implements View.OnClickListener {
+
+        MaterialButton create,addpin,done;
+        public HeaderHolder(View view) {
+            super(view);
+            view.setTag(this);
+            view.setOnClickListener(this);
+
+
+
+
+//            addpin.setTag("add");
+        //    addpin.setOnClickListener(this);
+
+
+
+
+
+        }
+
+
+
+        @Override
+        public void onClick(View v) {
+            if (mItemClickListener != null) {
+                mItemClickListener.onItemClick(v, getLayoutPosition());
+            }
+        }
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
             // current clickListerner
     {
 
         RadioButton purple,black,dark_blue, green,brown;
-        public   TextView datestamp,suraName,verseno,collectiondetails;
+        public   TextView datestamp,suraName,verseno;
+        public MaterialCheckBox collectiondetails;
       ;
       public  ImageView surahicon,collectionimage;
         CardView cardView;
@@ -232,7 +270,7 @@ public class BookmarCrateAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             collectionimage=view.findViewById(R.id.imgviewcol);
             frameLayout= itemView.findViewById(R.id.bottomSheet);
             itemView.setOnClickListener(this);
-            collectiondetails=view.findViewById(R.id.chapternocol);
+           collectiondetails=view.findViewById(R.id.checkbox);
             surahicon = itemView.findViewById(R.id.surahicon);
             cardView = itemView.findViewById(R.id.cardview);
             datestamp = itemView.findViewById(R.id.date);
