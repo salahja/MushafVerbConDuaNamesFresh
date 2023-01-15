@@ -146,6 +146,7 @@ public class MyServicebroadcast extends Service implements MediaPlayer.OnComplet
             handler.postDelayed(sendUpdatesToUI, 1000); // 1 second
         }
 
+
     private Runnable sendUpdatesToUI = new Runnable() {
         public void run() {
             // // Log.d(TAG, "entered sendUpdatesToUI");

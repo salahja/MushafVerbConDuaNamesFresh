@@ -14,6 +14,12 @@
         android:layout_marginBottom="105dp"
         android:visibility="visible"/>
 
+    <ListView
+        android:id="@+id/ayahlist"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ListView>
 
 
 
@@ -41,8 +47,18 @@
         android:animateLayoutChanges="true">
         <SeekBar
             android:id="@+id/SeekBar01"
+            android:visibility="visible"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/details"
+            android:layout_marginStart="100dp"
+            android:gravity="center_horizontal"
+            android:text="Ayah Details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </TextView>
 
     </RelativeLayout>
     <RelativeLayout
@@ -148,7 +164,7 @@
             android:layout_height="match_parent"
             android:id="@+id/footerplayer"
             android:orientation="horizontal"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <ImageButton
                 android:layout_width="match_parent"

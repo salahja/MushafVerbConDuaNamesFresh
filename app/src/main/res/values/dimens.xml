@@ -363,4 +363,7 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     <dimen name="_10sdp">10dp</dimen>
     <dimen name="ayahs_size">16sp</dimen>
     <dimen name="draw_number">8dp</dimen>
+    <dimen name="hiad_14_dp">14sp</dimen>
+    <dimen name="full_version_title_size">18sp</dimen>
+    <dimen name="hiad_non_wifi_play_button_h">26dp</dimen>
 </resources>

@@ -3,5 +3,13 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">quran.islam-db.com</domain>
         <domain includeSubdomains="true">mirrors.quranicaudio.com</domain>
+        <domain includeSubdomains="true">download.quranicaudio.com/</domain>
+
     </domain-config>
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
 </network-security-config>
+

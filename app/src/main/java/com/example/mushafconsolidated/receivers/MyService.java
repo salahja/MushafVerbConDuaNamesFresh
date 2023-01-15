@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.icu.util.TimeUnit;
 import android.media.AudioAttributes;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
@@ -13,7 +14,11 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
+import android.telephony.PhoneStateListener;
+import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,17 +39,22 @@ import java.util.TimerTask;
 
 public class MyService extends Service implements MediaPlayer.OnCompletionListener, MediaPlayer.OnPreparedListener,
         MediaPlayer.OnBufferingUpdateListener, MediaPlayer.OnInfoListener, MediaPlayer.OnSeekCompleteListener, MediaPlayer.OnErrorListener {
-
+    private TelephonyManager telephoneManger;
+    private PhoneStateListener phoneStateListener;
     public static final String BROADCAST_ACTION = "com.example.mushafconsolidated.Activity.sendseekbar";
-    private  boolean oneVersePlay;
-    private  List<String> paths;
-    private  List<QuranMetaEntity> ayat;
+    private boolean oneVersePlay;
+    private List<String> paths;
+    private List<QuranMetaEntity> ayat;
+    public boolean stopFlag;
     private MediaPlayer mediaPlayer;
+    int tracksingleayahduration=0;
+    int musliclistsize;
     private BroadcastReceiver OutgoingBroadcastReceiver;
     Intent seekIntent;
     int mediaPosition;
     int mediaMax;
     public boolean isLooping, finished, bigNotification, previousFlag;
+
     int AudioPosition;
     Timer timer;
     List<String> ayaLocations = new ArrayList<>();
@@ -64,11 +74,12 @@ public class MyService extends Service implements MediaPlayer.OnCompletionListen
     private final Handler handler = new Handler();
     private static int songEnded;
     private String surahAudioPath;
+    private List<QuranMetaEntity> verses;
+    private long totoDuration;
+    private ArrayList<String> totalDurationList;
 
     public MyService() {
     }
-
-
 
 
     @Override
@@ -89,7 +100,7 @@ public class MyService extends Service implements MediaPlayer.OnCompletionListen
         mediaPlayer.setOnInfoListener(this);
         mediaPlayer.setOnSeekCompleteListener(this);
         mediaPlayer.pause();
-         context = this;
+        context = this;
         //media player intents
         IntentFilter mediaPlayerFilter = new IntentFilter();
         mediaPlayerFilter.addAction(AudioAppConstants.MediaPlayer.PLAY);
@@ -123,7 +134,7 @@ public class MyService extends Service implements MediaPlayer.OnCompletionListen
                     isInCall = true;
 
                     if (isInCall == true) {
-                    //    smallMediaPlayer = SmallMediaPlayer.getInstance(context);
+                        //    smallMediaPlayer = SmallMediaPlayer.getInstance(context);
                         bigNotification = false;
                         pauseMedia();
                     }
@@ -141,8 +152,8 @@ public class MyService extends Service implements MediaPlayer.OnCompletionListen
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(mediaPlayer!=null){
-            if(mediaPlayer.isPlaying()){
+        if (mediaPlayer != null) {
+            if (mediaPlayer.isPlaying()) {
                 mediaPlayer.stop();
             }
 
@@ -150,7 +161,9 @@ public class MyService extends Service implements MediaPlayer.OnCompletionListen
         }
 
 
-
+      //  audioManager.finished = false;
+        unregisterReceiver(MediaPlayerBroadcast);
+        unregisterReceiver(MediaPlayerNotificationShow);
         // Unregister headsetReceiver
 
 
@@ -168,7 +181,7 @@ public class MyService extends Service implements MediaPlayer.OnCompletionListen
     public int onStartCommand(Intent intent, int flags, int startId) {
 
 
-        surahAudioPath=       intent.getStringExtra(AudioAppConstants.MediaPlayer.FULLSURAPATH);
+     //   surahAudioPath = intent.getStringExtra(AudioAppConstants.MediaPlayer.FULLSURAPATH);
 
         fromAya = intent.getIntExtra(AudioAppConstants.MediaPlayer.VERSE, -1);
         surahNumber = intent.getIntExtra(AudioAppConstants.MediaPlayer.SURAH, -1);
@@ -176,8 +189,11 @@ public class MyService extends Service implements MediaPlayer.OnCompletionListen
         AyaToPlay = intent.getIntExtra(AudioAppConstants.MediaPlayer.ONE_VERSE, -1);
         suraOfAya = intent.getIntExtra(AudioAppConstants.MediaPlayer.SURA, -1);
         streamURL = intent.getStringExtra(AudioAppConstants.MediaPlayer.STREAM_LINK);
-        playStoppedListener=(OnPlayStoppedListener) QuranGrammarApplication.appContext;
+        playStoppedListener = (OnPlayStoppedListener) QuranGrammarApplication.appContext;
 
+        registerReceiver(broadcastReceiver, new IntentFilter(
+                ShowMushafActivity.BROADCAST_SEEKBAR));
+        setupHandler();
         try {
             prepareVersesToPlay();
         } catch (IOException e) {
@@ -189,13 +205,85 @@ public class MyService extends Service implements MediaPlayer.OnCompletionListen
 
     }
 
+    private void setupHandler() {
+        handler.removeCallbacks(sendUpdatesToUI);
+        handler.postDelayed(sendUpdatesToUI, 1000); // 1 second
+    }
+
+    private boolean nextAyah = false;
+    private long currenttrack;
+    private Runnable sendUpdatesToUI = new Runnable() {
+        public void run() {
+            // // Log.d(TAG, "entered sendUpdatesToUI");
+
+            nextAyah = false;
+            LogMediaPosition();
 
 
+
+
+            handler.postDelayed(this, 500);
+
+
+        }
+
+        private void LogMediaPosition() {
+            // // Log.d(TAG, "entered LogMediaPosition");
+            int duration = mediaPlayer.getDuration();
+            int currentPosition = mediaPlayer.getCurrentPosition();
+
+    //  String durations=      totalDurationList.get(tracksingleayahduration);
+             //  currenttrack =currenttrack+ Long.parseLong(durations);
+          //  if(tracksingleayahduration<=totalDurationList.size()) {
+          //      tracksingleayahduration++;
+         //   }
+            mediaMax = mediaPlayer.getDuration();
+            if (mediaPlayer.isPlaying()) {
+                seekIntent.putExtra("ayaplaying", String.valueOf(AudioPosition-1 ));
+
+                seekIntent.putExtra("counter", String.valueOf(currentPosition));
+                seekIntent.putExtra("mediamax", String.valueOf(mediaMax));
+                seekIntent.putExtra("song_ended", String.valueOf(songEnded));
+                sendBroadcast(seekIntent);
+
+/*
+                mediaPosition = mediaPlayer.getCurrentPosition();
+                // if (mediaPosition < 1) {
+                // Toast.makeText(this, "Buffering...", Toast.LENGTH_SHORT).show();
+                // }
+                mediaMax = mediaPlayer.getDuration();
+                //seekIntent.putExtra("time", new Date().toLocaleString());
+                seekIntent.putExtra("counter", String.valueOf(verses.get(AudioPosition)));
+                seekIntent.putExtra("counter", String.valueOf(mediaPosition));
+                seekIntent.putExtra("mediamax", String.valueOf(mediaMax));
+                seekIntent.putExtra("song_ended", String.valueOf(songEnded));
+                sendBroadcast(seekIntent);*/
+            }
+
+        }
+
+    };
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            updateSeekPos(intent);
+        }
+
+        public void updateSeekPos(Intent intent) {
+            int seekPos = intent.getIntExtra("seekpos", 0);
+            if (!mediaPlayer.isPlaying()) {
+                handler.removeCallbacks(sendUpdatesToUI);
+                mediaPlayer.seekTo(seekPos);
+                setupHandler();
+            }
+
+        }
+    };
 
     public synchronized void prepareVersesToPlay() throws IOException {
         Utils util = new Utils(QuranGrammarApplication.getContext());
         //get page ayat
-        List<QuranMetaEntity> verses = util.getAyahsOfSura(surahNumber);
+        verses = util.getAyahsOfSura(surahNumber);
 
         //get current page user will play
         surahNumber = verses.get(0).getSurahIndex();
@@ -209,6 +297,8 @@ public class MyService extends Service implements MediaPlayer.OnCompletionListen
         for (QuranMetaEntity ayaItem : verses) {
             ayaLocations.add(FileManager.createAyaAudioLinkLocation(MyService.this, reader, ayaItem.getAyahInSurahIndex(), ayaItem.getSurahIndex()));
         }
+        getTotalDuration();
+        musliclistsize=ayaLocations.size();
         int current = 0;
         //modify aya list to add basmala between suras
         List<QuranMetaEntity> ayatWithBasmala = new ArrayList<>();
@@ -231,8 +321,7 @@ public class MyService extends Service implements MediaPlayer.OnCompletionListen
         }
 
 
-
-    nextAudio();
+        nextAudio();
 
  /*       if (!mediaPlayer.isPlaying()) {
 
@@ -253,6 +342,51 @@ public class MyService extends Service implements MediaPlayer.OnCompletionListen
 
     }
 
+    private void getTotalDuration() {
+
+
+        // load data file
+        MediaMetadataRetriever metaRetriever = new MediaMetadataRetriever();
+    totalDurationList=new ArrayList<>();
+      for(int i=0;i<ayaLocations.size();i++) {
+
+          metaRetriever.setDataSource(ayaLocations.get(i));
+
+          String out = "";
+          // get mp3 info
+
+          // convert duration to minute:seconds
+          String duration =
+                  metaRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
+          totalDurationList.add(duration);
+          Log.v("time", duration);
+          long dur = Long.parseLong(duration);
+          String seconds = String.valueOf((dur % 60000) / 1000);
+
+          Log.v("seconds", seconds);
+          String minutes = String.valueOf(dur / 60000);
+          out = minutes + ":" + seconds;
+          if (seconds.length() == 1) {
+              System.out.println("0" + minutes + ":0" + seconds);
+
+          } else {
+              System.out.println("0" + minutes + ":" + seconds);
+          }
+          Log.v("minutes", minutes);
+          // close object
+
+      }
+        metaRetriever.release();
+        for (String s : totalDurationList) {
+
+        Long     d = Long.parseLong(s);
+            totoDuration=totoDuration+d;
+            System.out.println(s);
+        }
+        System.out.println(totoDuration);
+
+
+    }
 
 
     @Override
@@ -302,83 +436,94 @@ public class MyService extends Service implements MediaPlayer.OnCompletionListen
                     connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTING ||
                     connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTED ) {*/
 
-                // if connected with internet
+        // if connected with internet
 
-                //reset media player
-                mediaPlayer.reset();
-
-                //HighlightImageView.selectionFromTouch = false;
-                AudioPosition++;
-                if (size<= AudioPosition) {
-
-                    //stop thread
-                    finished = false;
-
-                    if(size != 1){
-                        //send broadcast to the next page
-                        previousFlag = false;
-                        LocalBroadcastManager.getInstance(context)
-                                .sendBroadcast(new Intent(AudioAppConstants.MediaPlayer.INTENT)
-                                        .putExtra(AudioAppConstants.MediaPlayer.OTHER_PAGE, 1));
-
-                        //set the flag of next page false
-                        ShowMushafActivity.nextPage = false;
-                    }
+        //reset media player
+        mediaPlayer.reset();
 
 
-                    return;
 
-                }
+    /*    seekIntent.putExtra("ayaplaying", String.valueOf(verses.get(AudioPosition).getAyahIndex()));
 
-                Log.e("AUDIO_TAG", "size next: " + size);
-                Log.e("AUDIO_TAG", "pos next: " + AudioPosition);
-                //send broadcast to highlight image view
+        seekIntent.putExtra("counter", String.valueOf(mediaPosition));
+        seekIntent.putExtra("mediamax", String.valueOf(mediaMax));
+        seekIntent.putExtra("song_ended", String.valueOf(songEnded));
+        sendBroadcast(seekIntent);*/
 
-    //      int pos= Integer.parseInt(ayaLocations.get(AudioPosition));
-
-
-                //show information in large notification
+        //HighlightImageView.selectionFromTouch = false;
 
 
-                //check if stream or from path
+        if (size <= AudioPosition) {
 
-                    mediaPlayer.setDataSource(ayaLocations.get(AudioPosition));
+            //stop thread
+            finished = false;
+
+            if (size != 1) {
+                //send broadcast to the next page
+                previousFlag = false;
+                LocalBroadcastManager.getInstance(context)
+                        .sendBroadcast(new Intent(AudioAppConstants.MediaPlayer.INTENT)
+                                .putExtra(AudioAppConstants.MediaPlayer.OTHER_PAGE, 1));
+
+                //set the flag of next page false
+                ShowMushafActivity.nextPage = false;
+            }
 
 
-                //play mediaPlayer in other thread
+            return;
 
-                mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                    @Override
-                    public void onPrepared(MediaPlayer mediaPlayer) {
-                        mediaPlayer.start();
-                    }
-                });
+        }
+
+        Log.e("AUDIO_TAG", "size next: " + size);
+        Log.e("AUDIO_TAG", "pos next: " + AudioPosition);
+        //send broadcast to highlight image view
+
+        //      int pos= Integer.parseInt(ayaLocations.get(AudioPosition));
+
+
+        //show information in large notification
+
+
+        //check if stream or from path
+
+
+        mediaPlayer.setDataSource(ayaLocations.get(AudioPosition));
+        AudioPosition++;
+
+        //play mediaPlayer in other thread
+
+        mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mediaPlayer) {
+                mediaPlayer.start();
+            }
+        });
         mediaPlayer.prepareAsync();
 
-                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mp) {
-                        if (!isLooping) {
-                            try {
-                                nextAudio();
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            }
-                        } else if (ShowMushafActivity.repeatCounter != 0) {
-                            mediaPlayer.start();
-                            ShowMushafActivity.repeatCounter--;
-                        } else {
-                            try {
-                                nextAudio();
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            }
-                            ShowMushafActivity.repeatCounter = ShowMushafActivity.repeateValue;
-                        }
-
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                if (!isLooping) {
+                    try {
+                        nextAudio();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
                     }
-                });
-                //isToastShowing = false;
+                } else if (ShowMushafActivity.repeatCounter != 0) {
+                    mediaPlayer.start();
+                    ShowMushafActivity.repeatCounter--;
+                } else {
+                    try {
+                        nextAudio();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    ShowMushafActivity.repeatCounter = ShowMushafActivity.repeateValue;
+                }
+
+            }
+        });
+        //isToastShowing = false;
           /*  } else if (
                     connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.DISCONNECTED ||
                             connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.DISCONNECTED  ) {
@@ -410,8 +555,8 @@ public class MyService extends Service implements MediaPlayer.OnCompletionListen
 
     @Override
     public void onPrepared(MediaPlayer mp) {
-        if(!mediaPlayer.isPlaying()){
- mp.start();
+        if (!mediaPlayer.isPlaying()) {
+            mp.start();
         }
 
     }
@@ -423,7 +568,7 @@ public class MyService extends Service implements MediaPlayer.OnCompletionListen
 
     @Override
     public boolean onError(MediaPlayer mp, int what, int extra) {
-        switch (what){
+        switch (what) {
             case MediaPlayer.MEDIA_ERROR_NOT_VALID_FOR_PROGRESSIVE_PLAYBACK:
                 Toast.makeText(this, "no progressive", Toast.LENGTH_SHORT).show();
                 break;
@@ -444,24 +589,61 @@ public class MyService extends Service implements MediaPlayer.OnCompletionListen
         public void onReceive(Context context, Intent intent) {
 
             if (intent.getAction().equals(AudioAppConstants.MediaPlayer.PLAY)) {
-                appAudioManager.resumeMedia();
+                resumeMedia();
+                //  mediaPlayer.res();
                 mediaPaused = false;
             } else if (intent.getAction().equals(AudioAppConstants.MediaPlayer.PAUSE)) {
-                appAudioManager.pauseMedia();
+                //  appAudioManager.pauseMedia();
+                mediaPlayer.pause();
                 mediaPaused = true;
             } else if (intent.getAction().equals(AudioAppConstants.MediaPlayer.BACK)) {
-                appAudioManager.previousAudio();
+                //  appAudioManager.previousAudio();
             } else if (intent.getAction().equals(AudioAppConstants.MediaPlayer.FORWARD)) {
-                appAudioManager.nextAudio();
+                //    appAudioManager.nextAudio();
+                try {
+
+                    nextAudio();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             } else if (intent.getAction().equals(AudioAppConstants.MediaPlayer.STOP)) {
-                appAudioManager.stopFlag = true;
-                appAudioManager.stopMedia();
+                //  appAudioManager.stopFlag = true;
+                stopFlag = true;
+                stopMedia();
             } else if (intent.getAction().equals(AudioAppConstants.MediaPlayer.REPEAT_ON)) {
-                appAudioManager.isLooping = true;
+                //   appAudioManager.isLooping = true;
             } else if (intent.getAction().equals(AudioAppConstants.MediaPlayer.REPEAT_OFF)) {
-                appAudioManager.isLooping = false;
+                //  appAudioManager.isLooping = false;
             }
 
+        }
+
+        public synchronized void resumeMedia() {
+
+            Intent resumeMedia = new Intent(AudioAppConstants.MediaPlayer.INTENT);
+            resumeMedia.putExtra(AudioAppConstants.MediaPlayer.RESUME, false);
+            LocalBroadcastManager.getInstance(context).sendBroadcast(resumeMedia);
+
+            mediaPlayer.start();
+
+        }
+
+        private void stopMedia() {
+
+            Intent stopMedia = new Intent(AudioAppConstants.MediaPlayer.INTENT);
+            stopMedia.putExtra(AudioAppConstants.MediaPlayer.STOP, true);
+            LocalBroadcastManager.getInstance(context).sendBroadcast(stopMedia);
+            //cancelMediaPlayerNotification();
+
+            AppPreference.setSelectionVerse(null);
+            finished = false;
+            if (telephoneManger != null)
+                telephoneManger.listen(phoneStateListener, PhoneStateListener.LISTEN_NONE);
+
+            if (mediaPlayer.isPlaying()) {
+                mediaPlayer.stop();
+            }
+            playStoppedListener.onStopped();
         }
     };
 
@@ -487,4 +669,9 @@ public class MyService extends Service implements MediaPlayer.OnCompletionListen
         }
     };
 
+    public void pause() {
+        mediaPlayer.pause();
+      //  audioManager.pauseMedia();
+        mediaPaused = true;
+    }
 }

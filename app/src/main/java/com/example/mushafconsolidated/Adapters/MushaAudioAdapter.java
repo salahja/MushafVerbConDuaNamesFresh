@@ -108,7 +108,7 @@ public class MushaAudioAdapter extends RecyclerView.Adapter<MushaAudioAdapter.It
     @Override
     public int getItemViewType(int position) {
         if (position == 0) {
-            return TYPE_HEADER;
+            return TYPE_ITEM;
         } else {
             return TYPE_ITEM;
         }
@@ -119,15 +119,12 @@ public class MushaAudioAdapter extends RecyclerView.Adapter<MushaAudioAdapter.It
         return allofQuran.size();
         //     return  quran.size();
     }
-
     @Override
     public long getItemId(int position) {
-
-        QuranEntity quranEntity = allofQuran.get(position);
-        return quranEntity.getAyah();
-
-
+        return allofQuran.get(position).getAyah();
     }
+
+
 
     @NonNull
     @Override
@@ -236,13 +233,13 @@ public class MushaAudioAdapter extends RecyclerView.Adapter<MushaAudioAdapter.It
             }
 
         } else {
-            displayAyats(showrootkey, holder, position - 1, sharedPreferences, custom_font, showErab, showWordColor, showTransliteration, showJalalayn, showTranslation, showWordByword, whichtranslation, showKathir);
+            displayAyats(showrootkey, holder, position   , sharedPreferences, custom_font, showErab, showWordColor, showTransliteration, showJalalayn, showTranslation, showWordByword, whichtranslation, showKathir);
 
         }
 
     }
 
-    private void displayAyats(boolean showrootkey, MushaAudioAdapter.ItemViewAdapter holder, int position, SharedPreferences sharedPreferences, Typeface custom_font, boolean showErab, boolean showWordColor, boolean showTransliteration, boolean showJalalayn, boolean showTranslation, boolean showWordByword, String whichtranslation, boolean showKathir) {
+    public void displayAyats(boolean showrootkey, MushaAudioAdapter.ItemViewAdapter holder, int position, SharedPreferences sharedPreferences, Typeface custom_font, boolean showErab, boolean showWordColor, boolean showTransliteration, boolean showJalalayn, boolean showTranslation, boolean showWordByword, String whichtranslation, boolean showKathir) {
         //   holder.flowwbw.setBackgroundColor(R.style.Theme_DarkBlue);
         QuranEntity entity = null;
 
@@ -268,43 +265,9 @@ public class MushaAudioAdapter extends RecyclerView.Adapter<MushaAudioAdapter.It
         context.registerReceiver(broadcastReceiver, new IntentFilter(MyService.BROADCAST_ACTION));
         System.out.println("Position"+position);
 
-        QuranEntity finalEntity = entity;
-        broadcastReceiver = new BroadcastReceiver() {
-            final boolean[] isFirst = {true};
-            @Override
-            public void onReceive(Context context, Intent serviceIntent) {
-                updateUI(serviceIntent);
-            }
-
-            private void updateUI(Intent serviceIntent) {
-                int i = holder.getLayoutPosition() - 1;
-                if(isFirst[0]) {
-                    isFirst[0] =false;
-                    String ayahplaying = serviceIntent.getStringExtra("ayaplaying");
-
-                    String counter = serviceIntent.getStringExtra("counter");
-                    String mediamax = serviceIntent.getStringExtra("mediamax");
-                    String strSongEnded = serviceIntent.getStringExtra("song_ended");
-                    int seekProgress = Integer.parseInt(ayahplaying);
-                    //    holder. quran_textView.setText(   allofQuran.get(position).getQurantext());
-                    //    holder. quran_textView.setText(allofQuran.get(Integer.parseInt(ayahplaying)).getQurantext());
-                    notifyItemChanged(Integer.parseInt(ayahplaying));
-                //    Object selectedPos = getLayoutPosition();
-                   
-                    holder.quran_textView.setBackgroundColor(CYANLIGHT);
-                    notifyItemChanged(Integer.parseInt(ayahplaying));
-                             ;
-                  //  holder.quran_textView.setText( allofQuran.get(Integer.parseInt(ayahplaying)).getQurantext());
-
-                }
-                // ayadet.setText("Playing"+ayahplaying);
-
-            }
-
-        };
 
 
-     //   setChapterInfo(holder, entity);
+
 
 
 
@@ -370,16 +333,6 @@ public class MushaAudioAdapter extends RecyclerView.Adapter<MushaAudioAdapter.It
 
     }
 
-    private void setUpMafoolbihistring(SpannableStringBuilder mf) {
-        SpannableStringBuilder mfspan;
-        mf.append(BIHIHEADER);
-        mfspan = SpannableStringBuilder.valueOf(SpannableString.valueOf(mf.toString()));
-        int indexOfbihi = mfspan.toString().indexOf(BIHI);
-        mfspan.setSpan(new ForegroundColorSpan(headercolor), indexOfbihi, BIHI.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        mfspan.setSpan(new RelativeSizeSpan(1f), indexOfbihi, BIHI.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        mfspan.setSpan(Typeface.DEFAULT_BOLD, indexOfbihi, BIHI.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        mfspan.append("\n");
-    }
 
 
 

@@ -1,0 +1,39 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/container"
+    android:orientation="vertical">
+
+
+
+
+
+    <TextView
+        android:id="@+id/arabic_textView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5.0dip"
+        android:fontFamily="cursive"
+        android:paddingStart="5.0dip"
+        android:paddingEnd="5.0dip"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textSize="16.0sp" />
+
+    <TextView
+        android:id="@+id/quran_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="cursive"
+        android:hint="@string/arabic_font_style"
+        android:lineSpacingExtra="@dimen/lineSpacingExtra"
+        android:padding="@dimen/textViewPadding"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:visibility="visible" />
+
+
+
+
+
+</LinearLayout>

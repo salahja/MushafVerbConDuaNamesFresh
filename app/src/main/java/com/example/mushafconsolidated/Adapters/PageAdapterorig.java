@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.graphics.text.LineBreaker;
 import android.os.Build;
-import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +19,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mushafconsolidated.Activity.ShowMushafActivity;
 import com.example.mushafconsolidated.Entities.Page;
 import com.example.mushafconsolidated.Entities.QuranMetaEntity;
 import com.example.mushafconsolidated.R;
@@ -31,7 +29,7 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PageAdapter extends RecyclerView.Adapter<PageAdapter.ViewHolder> {
+public class PageAdapterorig extends RecyclerView.Adapter<PageAdapterorig.ViewHolder> {
 
     private static final String TAG = "PageAdapter";
 
@@ -46,7 +44,7 @@ public class PageAdapter extends RecyclerView.Adapter<PageAdapter.ViewHolder> {
     private IBookmark iBookmark;
     Context context;
 
-    public PageAdapter(Typeface typeface, int ayahsColor, int scrollColor, Context context) {
+    public PageAdapterorig(Typeface typeface, int ayahsColor, int scrollColor, Context context) {
         this.typeface = typeface;
         this.ayahsColora = ayahsColor;
         this.scrollColora = scrollColor;
@@ -56,7 +54,7 @@ public class PageAdapter extends RecyclerView.Adapter<PageAdapter.ViewHolder> {
 
     }
 
-    public PageAdapter(List<Page> pageList, Context context) {
+    public PageAdapterorig(List<Page> pageList, Context context) {
         this.list=pageList;
         ayahsColor = context.getColor(R.color.ayas_color);
         scrollColor = context.getColor(R.color.bg_ayahs);
@@ -121,11 +119,39 @@ public class PageAdapter extends RecyclerView.Adapter<PageAdapter.ViewHolder> {
 
         String tempSuraName;
         boolean isFirst = true;
+        for (QuranMetaEntity ayahItem : item.getAyahItems()) {
+            aya = ayahItem.getText();
+            // add sura name
+            if (ayahItem.getAyahInSurahIndex() == 1) {
+                tempSuraName = getSuraNameFromIndex(ayahItem.getSurahIndex());
 
+                if (isFirst) {
+                    // handle first name in page that not need a previous new line
+                    builder.append(tempSuraName + "\n");
+                } else {
+                    builder.append("\n" + tempSuraName + "\n");
+                }
 
+                // AlFatiha(index = 1 ) has a Basmallah in first ayah.
+                if (ayahItem.getSurahIndex() != 1) {
+                    int pos = aya.indexOf("ٱلرَّحِيم");
+                    Log.d(TAG, "onBindViewHolder: pos " + pos);
+                    pos += (new String("ٱلرَّحِيم").length());
+                    Log.d(TAG, "onBindViewHolder: last text after bsmallah " + aya.substring(pos));
+                    // insert  البسملة
+                    builder.append(aya.substring(0, pos + 1)); // +1 as substring upper bound is excluded
+                    builder.append("\n");
+                    // cute ayah
+                    aya = aya.substring(pos+1); // +1 to start with new character after البسملة
+                }
+            }
+            isFirst = false;
+            builder.append(MessageFormat.format("{0} ﴿ {1} ﴾ ", aya, ayahItem.getAyahInSurahIndex()));
+          //  builder.append(MessageFormat.format("{0} ﴿ {1} ﴾ ", aya, ayahItem.getAyah()));
+        }
         //</editor-fold>
 
-      holder.tvAyahs.setText((CharSequence) item.getAyahItems().get(0).getCleantext());
+      holder.tvAyahs.setText(CorpusUtilityorig.getSpannable(builder.toString()), TextView.BufferType.SPANNABLE);
         holder.tvAyahs.setTypeface(custom_font);
 
         // text justifivation

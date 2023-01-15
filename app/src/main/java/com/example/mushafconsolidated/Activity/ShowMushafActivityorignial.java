@@ -3,7 +3,6 @@ package com.example.mushafconsolidated.Activity;
 
 import android.animation.ObjectAnimator;
 import android.app.PendingIntent;
-import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -17,7 +16,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.media.ToneGenerator;
 import android.os.Bundle;
 import android.os.Environment;
@@ -31,7 +29,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
@@ -50,7 +47,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mushafconsolidated.Adapters.Data;
 import com.example.mushafconsolidated.Adapters.IOnClick;
-import com.example.mushafconsolidated.Adapters.MushaAudioAdapter;
 import com.example.mushafconsolidated.Adapters.PageAdapter;
 import com.example.mushafconsolidated.Entities.ChaptersAnaEntity;
 import com.example.mushafconsolidated.Entities.Page;
@@ -59,12 +55,10 @@ import com.example.mushafconsolidated.Entities.QuranEntity;
 import com.example.mushafconsolidated.Entities.QuranMetaEntity;
 import com.example.mushafconsolidated.R;
 import com.example.mushafconsolidated.Utils;
-import com.example.mushafconsolidated.intrface.OnItemClickListenerOnLong;
 import com.example.mushafconsolidated.receivers.AppPreference;
 import com.example.mushafconsolidated.receivers.AudioAppConstants;
 import com.example.mushafconsolidated.receivers.AudioService;
 import com.example.mushafconsolidated.receivers.DownloadService;
-import com.example.mushafconsolidated.receivers.MyAudioRecever;
 import com.example.mushafconsolidated.receivers.MyService;
 import com.example.mushafconsolidated.receivers.OnPlayStoppedListener;
 import com.example.mushafconsolidated.receivers.QuranValidateSources;
@@ -73,7 +67,6 @@ import com.example.mushafconsolidated.settings.Constants;
 import com.example.utility.QuranGrammarApplication;
 
 import java.io.File;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -81,7 +74,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ShowMushafActivity extends AppCompatActivity implements OnItemClickListenerOnLong,View.OnClickListener, OnPlayStoppedListener, SeekBar.OnSeekBarChangeListener {
+public class ShowMushafActivityorignial extends AppCompatActivity implements View.OnClickListener, OnPlayStoppedListener, SeekBar.OnSeekBarChangeListener {
 
     public static final String BROADCAST_SEEKBAR = "com.example.mushafconsolidated.Activity.sendseekbar";
     public static int selectPage, readerID, repeatCounter, repeateValue;
@@ -94,25 +87,10 @@ public class ShowMushafActivity extends AppCompatActivity implements OnItemClick
     private  TextView ayadet;
     private SeekBar seekBar;
     int surahselected, versescount;
-
-    @Override
-    public void onBackPressed() {
-
-        LocalBroadcastManager.getInstance(ShowMushafActivity.this).unregisterReceiver(MediaPlayer);
-        //unregister broadcast for download ayat
-        LocalBroadcastManager.getInstance(ShowMushafActivity.this).unregisterReceiver(downloadPageAya);
-        //stop flag of auto start
-        startBeforeDownload = false;
-        finish();
-        super.onBackPressed();
-    }
-
     boolean isMusicplaying = false;
     private boolean musicplaying;
     private Intent intent;
     private boolean everyayah;
-    private int surah;
-    private ListView listView;
 
     public int getSurahselected() {
         return surahselected;
@@ -130,7 +108,7 @@ public class ShowMushafActivity extends AppCompatActivity implements OnItemClick
 
 
     Utils repository;
-    MushaAudioAdapter pageAdapter;
+    PageAdapter pageAdapter;
     Typeface typeface;
     int pos;
     Handler handler;
@@ -189,19 +167,24 @@ public class ShowMushafActivity extends AppCompatActivity implements OnItemClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_ayahs);
         ButterKnife.bind(this);
-        QuranGrammarApplication.appContext = ShowMushafActivity.this;
+        QuranGrammarApplication.appContext = ShowMushafActivityorignial.this;
         intentmyservice = new Intent(this, MyService.class);
         intent = new Intent(BROADCAST_SEEKBAR);
-
+        //  MaterialToolbar materialToolbar = findViewById(R.id.toolbarmain);
+        //  setSupportActionBar(materialToolbar);
+        //  getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        // if (materialToolbar != null) {
+        //   setSupportActionBar(materialToolbar);
+//            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        // }
         repository = Utils.getInstance(getApplication());
         typeface = Typeface.createFromAsset(getAssets(), "me_quran.ttf");
         pos = getIntent().getIntExtra(Constants.SURAH_INDEX, 1);
         pos = getStartPageFromIndex(pos);
 
         //region Description
-        if (getIntent().hasExtra(Constants.SURAH_INDEX)) {
-            surah =        getIntent().getIntExtra(Constants.SURAH_INDEX, 1);
-        //   getIntent().getIntExtra(Constants.SURAH_GO_INDEX, 1);
+        if (getIntent().hasExtra(Constants.SURAH_GO_INDEX)) {
+            int surah = getIntent().getIntExtra(Constants.SURAH_GO_INDEX, 1);
             int ayah = getIntent().getIntExtra(Constants.AYAH_GO_INDEX, 1);
             Log.d(TAG, "onCreate: ayah  " + ayah);
             pos = getPosFromSurahAndAyah(surah, ayah);
@@ -222,6 +205,29 @@ public class ShowMushafActivity extends AppCompatActivity implements OnItemClick
         initRV();
 
 
+        handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                //region handle
+                if (pageList != null) {
+                    if (pageList.size() > 0) {
+                        rvAyahsPages.setVisibility(View.VISIBLE);
+                        tvNoQuranData.setVisibility(View.GONE);
+                        pageAdapter.setPageList(pageList);
+                        rvAyahsPages.scrollToPosition(pos - 1);
+                        // pos represent Mushaf representation (i.e start from 1)
+                        //addToReadLog(pos);
+                        foundState();
+                    } else {
+                        notFound();
+                    }
+                } else {
+                    finish();
+                }
+                //endregion
+            }
+        };
     }
 
 /*
@@ -243,9 +249,6 @@ public class ShowMushafActivity extends AppCompatActivity implements OnItemClick
     }
 
     private void initRV() {
-
-        listView = (ListView) findViewById(R.id.ayahlist);
-
 
         //   myToolbarContainer = (RelativeLayout) findViewById(R.id.appbar);
         seekBar = findViewById(R.id.SeekBar01);
@@ -294,23 +297,10 @@ public class ShowMushafActivity extends AppCompatActivity implements OnItemClick
         //prepareColors();
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
-        List<QuranEntity> quranbySurah = Utils.getQuranbySurah(surah);
-        ArrayList<ChaptersAnaEntity> chapter = repository.getSingleChapter(surah);
-      //  initlistview(quranbySurah, chapter);
-
-
-
-
-       OnItemClickListenerOnLong listener = this;
-        ArrayList<String> header = new ArrayList<>();
-        header.add(String.valueOf(chapter.get(0).getRukucount()));
-        header.add(String.valueOf(chapter.get(0).getVersescount()));
-        header.add(String.valueOf(chapter.get(0).getChapterid()));;
-        header.add(chapter.get(0).getAbjadname());
 
         rvAyahsPages.setLayoutManager(manager);
         rvAyahsPages.setHasFixedSize(true);
-        pageAdapter = new MushaAudioAdapter(this,quranbySurah,listener,chapter.get(0).getChapterid(),chapter.get(0).getNamearabic(),chapter.get(0).getIsmakki(),header);
+        pageAdapter = new PageAdapter(typeface, ayahsColor, scrollorColor, this);
         rvAyahsPages.setAdapter(pageAdapter);
         rvAyahsPages.setItemAnimator(new DefaultItemAnimator());
         readers.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -343,7 +333,7 @@ public class ShowMushafActivity extends AppCompatActivity implements OnItemClick
                 }
 
                 //add custom spinner adapter for readers
-                ArrayAdapter<String> spinnerReaderAdapter = new ArrayAdapter<String>(ShowMushafActivity
+                ArrayAdapter<String> spinnerReaderAdapter = new ArrayAdapter<String>(ShowMushafActivityorignial
                         .this, R.layout.spinner_layout_larg, R.id.spinnerText, readersNames);
                 readers.setAdapter(spinnerReaderAdapter);
                 readers.setSelection(10);
@@ -364,7 +354,40 @@ public class ShowMushafActivity extends AppCompatActivity implements OnItemClick
                 translationBooks.setAdapter(spinnerBooksAdapter);*/
             }
         });
+        pageAdapter.setPageShown(new PageAdapter.PageShown() {
+            @Override
+            public void onDiplayed(int pos, PageAdapter.ViewHolder holder) {
+                // items start from 0 increase 1 to get real page num,
+                // will be used in bookmark
+                lastpageShown = pos + 1;
+                // add page to read log
+                //addToReadLog(lastpageShown);
 
+                //    holder.topLinear.setVisibility(View.INVISIBLE);
+                //  holder.BottomLinear.setVisibility(View.INVISIBLE);
+
+                // calculate Hizb info.
+                Page page = pageAdapter.getPage(pos);
+                if (quraterSStart.contains(page.getPageNum())) {
+                    // get last ayah to extract info from it
+                    QuranMetaEntity ayahItem = page.getAyahItems().get(page.getAyahItems().size() - 1);
+                    int rub3Num = ayahItem.getHizbQuarter();
+                    rub3Num--; // as first one must be 0
+                    if (rub3Num % 8 == 0) {
+                        showMessage(getString(R.string.juz_to_display, ayahItem.getJuz()));
+                    } else if (rub3Num % 4 == 0) {
+                        showMessage(getString(R.string.hizb_to_display, rub3Num / 4));
+                    } else {
+                        int part = rub3Num % 4;
+                        part--; // 1/4 is first element which is 0
+                        String[] parts = getResources().getStringArray(R.array.parts);
+                        showMessage(getString(R.string.part_to_display, parts[part], (rub3Num / 4) + 1));
+                    }
+                }
+
+
+            }
+        });
 /*
         pageAdapter.setiBookmark(new PageAdapter.IBookmark() {
             @Override
@@ -388,24 +411,16 @@ public class ShowMushafActivity extends AppCompatActivity implements OnItemClick
         // to preserver quran direction from right to left
         rvAyahsPages.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
 
-   ;
+        pageAdapter.setiOnClick(new IOnClick() {
+            @Override
+            public void onClick(int pos) {
+                // pos represent page and need to be updated by 1 to be as recyclerview
+                // +2 to be as Mushaf
+                rvAyahsPages.scrollToPosition(pos + 1);
+                //   addToReadLog(pos + 2);
+            }
+        });
 
-    }
-
-    private void initlistview(List<QuranEntity> quranbySurah, ArrayList<ChaptersAnaEntity> chapter) {
-        String[] verserarray=new String[chapter.get(0).getVersescount()];
-        int i=0;
-        for (QuranEntity entity : quranbySurah) {
-            StringBuilder builder=new StringBuilder();
-            builder.append(entity.getQurantext());
-            builder.append(MessageFormat.format("{0} ﴿ {1} ﴾ ", "", entity.getAyah()));
-            verserarray[i++] = builder.toString();
-        }
-
-
-        ArrayAdapter adapter = new ArrayAdapter<String>(this,
-                R.layout.activity_listview, verserarray);
-        listView.setAdapter(adapter);
     }
 
     public void getReaderAudioLink(String readerName) {
@@ -488,7 +503,7 @@ public class ShowMushafActivity extends AppCompatActivity implements OnItemClick
     @Override
     protected void onResume() {
         super.onResume();
-
+        loadData();
         LocalBroadcastManager.getInstance(this).registerReceiver(MediaPlayer, new IntentFilter(AudioAppConstants.MediaPlayer.INTENT));
         //register broadcast for download ayat
         LocalBroadcastManager.getInstance(this).registerReceiver(downloadPageAya, new IntentFilter(AudioAppConstants.Download.INTENT));
@@ -608,7 +623,7 @@ public class ShowMushafActivity extends AppCompatActivity implements OnItemClick
                         normalFooter.setVisibility(View.GONE);
                         playerFooter.setVisibility(View.VISIBLE);
 
-                        startService(new Intent(ShowMushafActivity.this, AudioService.class)
+                        startService(new Intent(ShowMushafActivityorignial.this, AudioService.class)
                                 .putExtra(AudioAppConstants.MediaPlayer.SURAH, getSurahselected())
                                 .putExtra(AudioAppConstants.MediaPlayer.READER, readerID));
                     } else {
@@ -753,7 +768,7 @@ public class ShowMushafActivity extends AppCompatActivity implements OnItemClick
 
                         startBeforeDownload = true;
 
-                        Intent intent = new Intent(ShowMushafActivity.this, DownloadService.class);
+                        Intent intent = new Intent(ShowMushafActivityorignial.this, DownloadService.class);
                         intent.putStringArrayListExtra(AudioAppConstants.Download.DOWNLOAD_LINKS, (ArrayList<String>) Links);
                         intent.putExtra(AudioAppConstants.Download.DOWNLOAD_LOCATION, app_folder_path);
                         startService(intent);
@@ -805,7 +820,7 @@ public class ShowMushafActivity extends AppCompatActivity implements OnItemClick
     }
 
     public boolean checkPermission() {
-        int result = ContextCompat.checkSelfPermission((ShowMushafActivity.this), android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int result = ContextCompat.checkSelfPermission((ShowMushafActivityorignial.this), android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
         return result == PackageManager.PERMISSION_GRANTED;
     }
 
@@ -849,11 +864,11 @@ public class ShowMushafActivity extends AppCompatActivity implements OnItemClick
     }
 
     public List<String> createDownloadLinks() {
-        List<ChaptersAnaEntity> chap = repository.getSingleChapter(surah);
+        List<ChaptersAnaEntity> chap = repository.getSingleChapter(pageList.get(pos - 1).getAyahItems().get(0).getSurahIndex());
         int versescount = chap.get(0).getVersescount();
 
-        List<QuranEntity> quranbySurah = repository.getQuranbySurah(surah);
-        setSurahselected(surah);
+        List<QuranEntity> quranbySurah = repository.getQuranbySurah(pageList.get(pos - 1).getAyahItems().get(0).getSurahIndex());
+        setSurahselected(pageList.get(pos - 1).getAyahItems().get(0).getSurahIndex());
         //   int ayaID=0;
         int counter = 0;
         //   quranbySurah.add(0, new QuranEntity(1, 1, 1));
@@ -896,7 +911,36 @@ public class ShowMushafActivity extends AppCompatActivity implements OnItemClick
         return downloadLinks;
     }
 
+    private void loadData() {
+        pageList = ((QuranGrammarApplication) getApplication()).getFullQuranPages();
+        if (pageList != null && pageList.size() >= 50) {
+            handler.sendEmptyMessage(0);
+            Log.d(TAG, "loadData: %%% ");
+        } else {
+            Log.d(TAG, "loadData: @@@@");
+            new Thread(() -> {
+                List<Page> pages = new ArrayList<>();
+                Page page;
+                List<QuranMetaEntity> ayahItems;
+                for (int i = 1; i <= 604; i++) {
+                    ayahItems = repository.getAyahsByPage(i);
+                    if (ayahItems.size() > 0) {
+                        page = new Page();
+                        page.setAyahItems(ayahItems);
+                        page.setPageNum(i);
+                        page.setJuz(ayahItems.get(0).getJuz());
+                        pages.add(page);
+                    }
+                }
 
+                pageList = new ArrayList<>(pages);
+
+                handler.sendEmptyMessage(0);
+
+            }).start();
+        }
+        new Thread(this::generateListOfPagesStartWithHizbQurater).start();
+    }
 
 /*    private void loadPagesReadLoge() {
         currentDate = DateOperation.getCurrentDateExact().getTime();
@@ -1112,59 +1156,24 @@ public class ShowMushafActivity extends AppCompatActivity implements OnItemClick
 
         private void updateUI(Intent serviceIntent) {
 
-
             String ayahplaying = serviceIntent.getStringExtra("ayaplaying");
-      int position= Integer.parseInt(ayahplaying);
-            RecyclerView.ViewHolder holder = (RecyclerView.ViewHolder) rvAyahsPages.findViewHolderForAdapterPosition(position);
-            if (null != holder) {
-                holder.itemView.findViewById(R.id.quran_textView).setBackgroundColor(Color.CYAN);
-            }
-            pageAdapter.getItemId(Integer.parseInt(ayahplaying));
-
 
             String counter = serviceIntent.getStringExtra("counter");
             String mediamax = serviceIntent.getStringExtra("mediamax");
             String strSongEnded = serviceIntent.getStringExtra("song_ended");
-            long seekProgress = Long.parseLong(ayahplaying);
-          //  seekProgress=1272539-seekProgress;
+            int seekProgress = Integer.parseInt(ayahplaying);
             seekMax = Integer.parseInt(mediamax);
             songEnded = Integer.parseInt(strSongEnded);
             seekBar.setMax(seekMax);
             ayadet.setText("Playing"+ayahplaying);
-            seekBar.setProgress(Integer.parseInt(counter));
-            rvAyahsPages.post(() -> rvAyahsPages.scrollToPosition(Integer.parseInt(ayahplaying)));
-            QuranEntity entity= (QuranEntity) pageAdapter.getItem(Integer.parseInt(ayahplaying));
-        //   entity.getQurantext();
-       //    pageAdapter.notifyItemInserted(Integer.parseInt(ayahplaying));
-
-            // listscroll(ayahplaying);
-
-
+            seekBar.setProgress(seekProgress);
             if (songEnded == 1) {
                 playiv.setBackgroundResource(R.drawable.ic_play);
             }
         }
 
-
-    private void listscroll(String ayahplaying) {
-            int anInt = Integer.parseInt(ayahplaying);
-            //  listView.setSelection(Integer.parseInt(ayahplaying));
-
-            listView.getChildAt((anInt-2)).setBackgroundColor(Color.CYAN  );
-            listView.smoothScrollToPosition(anInt+4);
-        }
-
     };
 
 
-    @Override
-    public void onItemClick(View v, int position) {
-
-    }
-
-    @Override
-    public void onItemLongClick(int position, View v) {
-
-    }
 }
 
