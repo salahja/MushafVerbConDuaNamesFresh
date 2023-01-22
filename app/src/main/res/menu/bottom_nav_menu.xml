@@ -31,7 +31,7 @@
 
     <item
         android:id="@+id/audio"
-        android:icon="@drawable/audio_settings"
+        android:icon="@drawable/baseline_audio_file_24"
         android:orderInCategory="100"
         android:title="Quran Audio" />
 

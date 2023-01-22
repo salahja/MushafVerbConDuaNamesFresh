@@ -143,7 +143,7 @@ public class ShowMushafActivityEXTENDEDFAB extends BaseActivity implements
 
     protected StyledPlayerControlView playerView;
 
-    //  protected  StyledPlayerView playerView;
+   //   protected  StyledPlayerView playerView;
     protected LinearLayout debugRootView;
     protected TextView debugTextView;
     protected @Nullable ExoPlayer player;
@@ -367,10 +367,13 @@ public class ShowMushafActivityEXTENDEDFAB extends BaseActivity implements
         mAddFab = findViewById(R.id.add_fab);
         // FAB button
         resetfb = findViewById(R.id.resetfb);
+
         playlistfb = findViewById(R.id.playlistfb);
 
         // Also register the action name text, of all the
         // FABs. except parent FAB action name text
+        resetfb.setOnClickListener(this);;
+        playlistfb.setOnClickListener(this);
         resetfbtxt = findViewById(R.id.resetfbtxt);
         playlistfbtxt = findViewById(R.id.playlistfbtxt);
 
@@ -390,6 +393,28 @@ public class ShowMushafActivityEXTENDEDFAB extends BaseActivity implements
         // shrinked state initially
         mAddFab.shrink();
 
+
+        playlistfb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(  playerFooter.getVisibility()==View.GONE){
+                    playerFooter.setVisibility(View.VISIBLE);
+                }else{
+                    playerFooter.setVisibility(View.GONE);
+                }
+            }
+        });
+        resetfb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               RefreshActivity();
+            }
+        });
+
+
+
+
+
         // We will make all the FABs and action name texts
         // visible only when Parent FAB button is clicked So
         // we have to handle the Parent FAB button first, by
@@ -403,10 +428,14 @@ public class ShowMushafActivityEXTENDEDFAB extends BaseActivity implements
                             // when isAllFabsVisible becomes
                             // true make all the action name
                             // texts and FABs VISIBLE.
-                            resetfb.show();
-                            playlistfb.show();
+
+                            resetfb.animate().rotation(180);
+
+                            playlistfb.animate().rotation(180);
                             resetfbtxt.setVisibility(View.VISIBLE);
                             playlistfbtxt.setVisibility(View.VISIBLE);
+                            resetfb.show();
+                            playlistfb.show();
 
                             // Now extend the parent FAB, as
                             // user clicks on the shrinked
@@ -422,6 +451,10 @@ public class ShowMushafActivityEXTENDEDFAB extends BaseActivity implements
                             // when isAllFabsVisible becomes
                             // true make all the action name
                             // texts and FABs GONE.
+
+                            resetfb.animate().rotation(180);
+
+                            playlistfb.animate().rotation(180);
                             resetfb.hide();
                             playlistfb.hide();
                             resetfbtxt.setVisibility(View.GONE);
@@ -438,6 +471,21 @@ public class ShowMushafActivityEXTENDEDFAB extends BaseActivity implements
                         }
                     }
                 });
+
+
+    }
+
+    private void RefreshActivity() {
+        Log.e(TAG, "onClick called");
+        final Intent intent = this.getIntent();
+      //  surah = getIntent().getIntExtra(Constants.SURAH_INDEX, 1);
+        String parentActivityRef = intent.getStringExtra("PARENT_ACTIVITY_REF");
+
+        intent.putExtra(Constants.SURAH_INDEX,surah);
+        this.overridePendingTransition(0, 0);
+        startActivity(intent);
+        this.finish();
+        this.overridePendingTransition(android.R.anim.slide_out_right, android.R.anim.slide_in_left);
 
     }
 

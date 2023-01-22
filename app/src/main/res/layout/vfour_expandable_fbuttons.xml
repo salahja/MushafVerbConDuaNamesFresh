@@ -60,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:text="Add Alarm"
+            android:text="Reset Player"
             app:layout_constraintBottom_toBottomOf="@+id/resetfb"
             app:layout_constraintEnd_toStartOf="@+id/resetfb"
             app:layout_constraintTop_toTopOf="@+id/resetfb" />
@@ -92,7 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:text="Add Person"
+            android:text="Select Reciter"
             app:layout_constraintBottom_toBottomOf="@+id/playlistfb"
             app:layout_constraintEnd_toStartOf="@+id/playlistfb"
             app:layout_constraintTop_toTopOf="@+id/playlistfb" />
