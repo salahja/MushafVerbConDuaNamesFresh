@@ -1,34 +1,29 @@
 package com.example.mushafconsolidated.Activity;
 
 
-import android.animation.ObjectAnimator;
-import android.app.PendingIntent;
-import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.media.ToneGenerator;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
-import android.view.KeyEvent;
+import android.util.Pair;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -39,71 +34,191 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.collection.ArraySet;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mushafconsolidated.Adapters.Data;
-import com.example.mushafconsolidated.Adapters.IOnClick;
+import com.bullhead.equalizer.EqualizerFragment;
+import com.bullhead.equalizer.Settings;
+import com.example.Constant;
+import com.example.mushafconsolidated.Adapters.FlowMushaAudioAdapter;
 import com.example.mushafconsolidated.Adapters.MushaAudioAdapter;
-import com.example.mushafconsolidated.Adapters.PageAdapter;
 import com.example.mushafconsolidated.Entities.ChaptersAnaEntity;
 import com.example.mushafconsolidated.Entities.Page;
 import com.example.mushafconsolidated.Entities.Qari;
 import com.example.mushafconsolidated.Entities.QuranEntity;
-import com.example.mushafconsolidated.Entities.QuranMetaEntity;
 import com.example.mushafconsolidated.R;
 import com.example.mushafconsolidated.Utils;
 import com.example.mushafconsolidated.intrface.OnItemClickListenerOnLong;
-import com.example.mushafconsolidated.receivers.AppPreference;
 import com.example.mushafconsolidated.receivers.AudioAppConstants;
-import com.example.mushafconsolidated.receivers.AudioService;
 import com.example.mushafconsolidated.receivers.DownloadService;
-import com.example.mushafconsolidated.receivers.MyAudioRecever;
-import com.example.mushafconsolidated.receivers.MyService;
-import com.example.mushafconsolidated.receivers.OnPlayStoppedListener;
+import com.example.mushafconsolidated.receivers.FileManager;
 import com.example.mushafconsolidated.receivers.QuranValidateSources;
 import com.example.mushafconsolidated.receivers.Settingsss;
 import com.example.mushafconsolidated.settings.Constants;
+import com.example.utility.FlowLayout;
+import com.example.utility.MovableFloatingActionButton;
 import com.example.utility.QuranGrammarApplication;
+import com.google.android.exoplayer2.C;
+import com.google.android.exoplayer2.ExoPlayer;
+import com.google.android.exoplayer2.MediaItem;
+import com.google.android.exoplayer2.PlaybackException;
+import com.google.android.exoplayer2.Player;
+import com.google.android.exoplayer2.Tracks;
+import com.google.android.exoplayer2.audio.AudioAttributes;
+import com.google.android.exoplayer2.mediacodec.MediaCodecRenderer;
+import com.google.android.exoplayer2.mediacodec.MediaCodecUtil;
+import com.google.android.exoplayer2.trackselection.TrackSelectionParameters;
+import com.google.android.exoplayer2.ui.StyledPlayerControlView;
+import com.google.android.exoplayer2.ui.StyledPlayerView;
+import com.google.android.exoplayer2.upstream.DataSource;
+import com.google.android.exoplayer2.util.DebugTextViewHelper;
+import com.google.android.exoplayer2.util.ErrorMessageProvider;
+import com.google.android.exoplayer2.util.EventLogger;
+import com.google.android.flexbox.FlexDirection;
+import com.google.android.flexbox.FlexWrap;
+import com.google.android.flexbox.FlexboxLayoutManager;
+import com.google.android.flexbox.JustifyContent;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.File;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ShowMushafActivity extends AppCompatActivity implements OnItemClickListenerOnLong,View.OnClickListener, OnPlayStoppedListener, SeekBar.OnSeekBarChangeListener {
+public class ShowMushafActivity extends BaseActivity implements
 
+        OnItemClickListenerOnLong, View.OnClickListener, StyledPlayerView.FullscreenButtonClickListener {
+    private static final String KEY_TRACK_SELECTION_PARAMETERS = "track_selection_parameters";
+    private static final String KEY_SERVER_SIDE_ADS_LOADER_STATE = "server_side_ads_loader_state";
+    private static final String KEY_ITEM_INDEX = "item_index";
+    private static final String KEY_POSITION = "position";
+    private int ayah;
+
+    int audioType;
+    String prevqari="";
+    private final Handler handler = new Handler();
+    private static final String KEY_AUTO_PLAY = "auto_play";
+    private List<MediaItem> marray;
+    private String singleverse;
+
+
+    private boolean isSingle=false;
+    private List<QuranEntity> quranbySurahadapter;
+    private MaterialButton resetplayer;
+    private FloatingActionButton fab1,fab2;
+    private LinearLayout  fabLayout1,fabLayout2;
+    private   MovableFloatingActionButton  fab;
+
+
+    public String getPrevqari() {
+        return prevqari;
+    }
+
+    public void setPrevqari(String prevqari) {
+        this.prevqari = prevqari;
+    }
+
+    private RelativeLayout bottomsheet;
+    FrameLayout eqContainer;
+
+    public int getAudioType() {
+        return audioType;
+    }
+
+    public void setAudioType(int audioType) {
+        this.audioType = audioType;
+    }
+//  protected StyledPlayerView playerView;
+
+    protected StyledPlayerControlView playerView;
+
+    //  protected  StyledPlayerView playerView;
+    protected LinearLayout debugRootView;
+    protected TextView debugTextView;
+    protected @Nullable ExoPlayer player;
+
+    private boolean isShowingTrackSelectionDialog;
+    private Button selectTracksButton;
+    private DataSource.Factory dataSourceFactory;
+    private List<MediaItem> mediaItems;
+    private TrackSelectionParameters trackSelectionParameters;
+    private DebugTextViewHelper debugViewHelper;
+    private Tracks lastSeenTracks;
+    private boolean startAutoPlay;
+    private int startItemIndex;
+    private long startPosition;
+    private int currentItem = 0;
+    private long playbackPosition = 0L;
+    ImageView playiv;
+    // For ad playback only.
     public static final String BROADCAST_SEEKBAR = "com.example.mushafconsolidated.Activity.sendseekbar";
     public static int selectPage, readerID, repeatCounter, repeateValue;
     private boolean flagHideShowTool, tafseerMood, pausePlayFlag, repeatNotRepeat;
     public static String lastSoraName, downloadLink, readerName;
     public static boolean startBeforeDownload, nextPage;
-    private Intent player;
+
     private static final String TAG = "ShowMushafActivity";
     private Intent intentmyservice;
-    private  TextView ayadet;
+    private TextView ayadet;
     private SeekBar seekBar;
-    int surahselected, versescount;
+    int surahselected, verselected;
+    private String isNightmode;
+   // LinearLayout fabLayout1, fabLayout2,fabLayout3;
+
+
+  //  FloatingActionButton fab, fab1, fab2, fab3;
+    FloatingActionButton resetfb, playlistfb;
+
+    // Use the ExtendedFloatingActionButton to handle the
+    // parent FAB
+    ExtendedFloatingActionButton mAddFab;
+
+    // These TextViews are taken to make visible and
+    // invisible along with FABs except parent FAB's action
+    // name
+    TextView resetfbtxt, playlistfbtxt;
+
+    // to check whether sub FABs are visible or not
+    Boolean isAllFabsVisible;
+
+    boolean isFABOpen = false;
+    public int getVerselected() {
+        return verselected;
+    }
+
+    public void setVerselected(int verselected) {
+        this.verselected = verselected;
+    }
 
     @Override
     public void onBackPressed() {
 
-        LocalBroadcastManager.getInstance(ShowMushafActivity.this).unregisterReceiver(MediaPlayer);
         //unregister broadcast for download ayat
         LocalBroadcastManager.getInstance(ShowMushafActivity.this).unregisterReceiver(downloadPageAya);
         //stop flag of auto start
         startBeforeDownload = false;
-        finish();
+
+        if (player != null) {
+            player.release();
+        }
+
+        // finish();
         super.onBackPressed();
     }
 
@@ -124,16 +239,17 @@ public class ShowMushafActivity extends AppCompatActivity implements OnItemClick
 
     @BindView(R.id.rvAyahsPages)
     RecyclerView rvAyahsPages;
-    @BindView(R.id.tv_no_quran_data)
-    TextView tvNoQuranData;
+
     private RelativeLayout myToolbarContainer, footerContainer;
 
 
     Utils repository;
-    MushaAudioAdapter pageAdapter;
+    FlowMushaAudioAdapter flowMushaAudioAdapter;
+    MushaAudioAdapter mushaAudioAdapter;
     Typeface typeface;
+    TextView txtView;
     int pos;
-    Handler handler;
+
     List<Page> pageList;
     int ayahsColor, scrollorColor;
     private int lastpageShown = 1;
@@ -162,37 +278,33 @@ public class ShowMushafActivity extends AppCompatActivity implements OnItemClick
     private String currentDateStr;
 
     private Spinner translationBooks, readers;
-    private LinearLayout normalFooter, downloadFooter, playerFooter;
+    private ConstraintLayout  downloadFooter;
+    private  LinearLayout normalFooter;
+    private RelativeLayout playerFooter;
     private List<String> bookNames;
     private List<Integer> bookIDs;
     //  private List<TranslationBook> booksInfo;
     private List<Qari> readersList;
     private static final int REQUEST_WRITE_Settings = 113;
-    private Intent playForward, pause, playBack, play, stop, repeat, notRepeat;
-    private ImageView playForwardiv, pauseiv, playBackiv, playiv, stopiv, repeativ, notRepeativ;
+
+
     private AudioManager audioManager;
     private int screenHeight;
     private ProgressBar mediaPlayerDownloadProgress;
-    private List<QuranMetaEntity> ayaList;
-    ObjectAnimator toolbarAnimY;
-    private PendingIntent notificationPending;
-    private boolean aboveLollipopFlag;
-    /**
-     * hold current readLog item used to retrive pages and also with updating
-     */
-    // private ReadLog readLog;
-    Toast toast;
-
+    private BottomSheetBehavior mBottomSheetBehavior;
+    FloatingActionButton resetfab,playlistfab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_ayahs);
+        setContentView(R.layout.newactivity_show_ayahs);
         ButterKnife.bind(this);
         QuranGrammarApplication.appContext = ShowMushafActivity.this;
-        intentmyservice = new Intent(this, MyService.class);
+        //  intentmyservice = new Intent(this, AudioService.class);
         intent = new Intent(BROADCAST_SEEKBAR);
-
+        SharedPreferences sharedPreferences =
+                androidx.preference.PreferenceManager.getDefaultSharedPreferences(this);
+        isNightmode = sharedPreferences.getString("themepref", "dark");
         repository = Utils.getInstance(getApplication());
         typeface = Typeface.createFromAsset(getAssets(), "me_quran.ttf");
         pos = getIntent().getIntExtra(Constants.SURAH_INDEX, 1);
@@ -200,8 +312,9 @@ public class ShowMushafActivity extends AppCompatActivity implements OnItemClick
 
         //region Description
         if (getIntent().hasExtra(Constants.SURAH_INDEX)) {
-            surah =        getIntent().getIntExtra(Constants.SURAH_INDEX, 1);
-        //   getIntent().getIntExtra(Constants.SURAH_GO_INDEX, 1);
+            surah = getIntent().getIntExtra(Constants.SURAH_INDEX, 1);
+            setSurahselected(surah);
+            //   getIntent().getIntExtra(Constants.SURAH_GO_INDEX, 1);
             int ayah = getIntent().getIntExtra(Constants.AYAH_GO_INDEX, 1);
             Log.d(TAG, "onCreate: ayah  " + ayah);
             pos = getPosFromSurahAndAyah(surah, ayah);
@@ -218,12 +331,470 @@ public class ShowMushafActivity extends AppCompatActivity implements OnItemClick
         //endregion
 
         Log.d(TAG, "onCreate: " + pos);
+        // debugRootView = findViewById(R.id.controls_root);
+        // debugTextView = findViewById(R.id.debug_text_view);
+        // selectTracksButton = findViewById(R.id.select_tracks_button);
+        //  selectTracksButton.setOnClickListener(this);
+
+        playerView = findViewById(R.id.player_view);
+        //  playerView.setControllerVisibilityListener((StyledPlayerView.ControllerVisibilityListener) this);
+        // playerView.setErrorMessageProvider(new ShowMushafActivity.PlayerErrorMessageProvider());
+
+        playerView.requestFocus();
+
+
+        if (savedInstanceState != null) {
+            trackSelectionParameters =
+                    TrackSelectionParameters.fromBundle(
+                            savedInstanceState.getBundle(KEY_TRACK_SELECTION_PARAMETERS));
+            startAutoPlay = savedInstanceState.getBoolean(KEY_AUTO_PLAY);
+            startItemIndex = savedInstanceState.getInt(KEY_ITEM_INDEX);
+            startPosition = savedInstanceState.getLong(KEY_POSITION);
+
+        } else {
+            trackSelectionParameters = new TrackSelectionParameters.Builder(/* context= */ this).build();
+            clearStartPosition();
+        }
+        bottomsheet = findViewById(R.id.footerplayer);
+        mBottomSheetBehavior = BottomSheetBehavior.from(bottomsheet);
+        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+
 
         initRV();
+        initfabmenu();
 
 
     }
 
+    private void initfabmenu() {
+        fabLayout1 = (LinearLayout) findViewById(R.id.fabLayout1);
+         fabLayout2 = (LinearLayout) findViewById(R.id.fabLayout2);
+
+
+
+      fab =  findViewById(R.id.fab);
+      
+        fab1 = (FloatingActionButton) findViewById(R.id.resetfab);
+        fab2= (FloatingActionButton) findViewById(R.id.playlistfab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!isFABOpen){
+                    showFABMenu();
+                }else{
+                    closeFABMenu();
+                }
+            }
+        });
+
+    }
+    private void showFABMenu(){
+
+
+
+        isFABOpen = true;
+        fabLayout1.setVisibility(View.VISIBLE);
+        fabLayout2.setVisibility(View.VISIBLE);
+
+
+        fab.animate().rotationBy(180);
+        fabLayout1.animate().translationY(-getResources().getDimension(R.dimen.vstandard_55));
+        fabLayout2.animate().translationY(-getResources().getDimension(R.dimen.vstandard_145));
+
+
+    }
+
+    private void closeFABMenu(){
+
+
+        isFABOpen = false;
+
+
+        fab.animate().rotation(0);
+        fabLayout1.animate().translationY(0);
+        fabLayout2.animate().translationY(0);
+        fabLayout1.setVisibility(View.GONE);
+        fabLayout2.setVisibility(View.GONE);
+
+
+
+/*        fabLayout2.animate().translationY(0).setListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                if (!isFABOpen) {
+
+                    fabLayout1.setVisibility(View.GONE);
+                    fabLayout2.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+
+            }
+        });*/
+
+
+
+
+
+    }
+    private Runnable sendUpdatesToUI = new Runnable() {
+        public void run() {
+
+
+            RecyclerView.ViewHolder holder = (RecyclerView.ViewHolder) rvAyahsPages.findViewHolderForAdapterPosition(ayah);
+      /*      if(position!=1) {
+                RecyclerView.ViewHolder holderp = (RecyclerView.ViewHolder) rvAyahsPages.findViewHolderForAdapterPosition(position - 1);
+
+                if (null != holderp) {
+                    int drawingCacheBackgroundColor = holderp.itemView.getDrawingCacheBackgroundColor();
+                    holderp.itemView.findViewById(R.id.quran_textView).setBackgroundColor(Color.CYAN);
+                }
+            }
+*/
+            //     ((FlowMushaAudioAdapter.ItemViewAdapter) holder).flow_word_by_word.findViewById(R.id.word_arabic_textView).mText
+            if (null != holder) {
+                try {
+                    if (holder.itemView.findViewById(R.id.quran_textView) != null) {
+                        if (isNightmode.equals("brown"))
+
+                            holder.itemView.findViewById(R.id.quran_textView).setBackgroundColor(Color.CYAN);
+                        else {
+                            holder.itemView.findViewById(R.id.quran_textView).setBackgroundColor(Constant.MUSLIMMATE);
+                        }
+
+                    }
+                } catch (NullPointerException exception) {
+                    Toast.makeText(ShowMushafActivity.this, "null pointer udapte", Toast.LENGTH_SHORT).show();
+                }
+            }
+            RecyclerView.ViewHolder holderp = (RecyclerView.ViewHolder) rvAyahsPages.findViewHolderForAdapterPosition(ayah - 1);
+            if (ayah > 1) {
+                if (null != holderp) {
+                    try {
+                        ArrayList<String> arrayList = new ArrayList<>();
+                        FlowLayout fl = new FlowLayout(ShowMushafActivity.this, arrayList);
+                        ArrayList<String> arrayList1 = fl.getArrayList();
+                        fl.getChildAt(ayah);
+                        int drawingCacheBackgroundColor = holderp.itemView.findViewById(R.id.quran_textView).getDrawingCacheBackgroundColor();
+
+                        if (holderp.itemView.findViewById(R.id.quran_textView) != null) {
+                            //    holder.itemView.findViewById(R.id.quran_textView).setBackgroundColor(Color.CYAN);
+                            holderp.itemView.findViewById(R.id.quran_textView).setBackgroundColor(drawingCacheBackgroundColor);
+
+                        }
+                    } catch (NullPointerException exception) {
+                        Toast.makeText(ShowMushafActivity.this, "UPDATE HIGHLIGHTED", Toast.LENGTH_SHORT).show();
+                    }
+
+
+                }
+
+            }
+
+
+            rvAyahsPages.post(() -> rvAyahsPages.scrollToPosition((ayah)));
+
+
+            handler.postDelayed(this, 500);
+
+
+        }
+
+
+    };
+
+    private void setupHandler() {
+        handler.removeCallbacks(sendUpdatesToUI);
+        handler.postDelayed(sendUpdatesToUI, 1000);
+    }
+
+    protected void releasePlayer() {
+        if (player != null) {
+            updateTrackSelectorParameters();
+            updateStartPosition();
+            //   releaseServerSideAdsLoader();
+            //   debugViewHelper.stop();
+            //  debugViewHelper = null;
+            player.release();
+            player = null;
+            playerView.setPlayer(/* player= */ null);
+            mediaItems = Collections.emptyList();
+        }
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (Build.VERSION.SDK_INT > 23) {
+            if (playerView != null) {
+                //  playerView.onPause();
+
+
+            }
+            releasePlayer();
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (Build.VERSION.SDK_INT > 23) {
+            //    initializePlayer(isSingle);
+            if (playerView != null) {
+                //   playerView.onResume();
+            }
+        }
+    }
+
+    protected boolean initializePlayer(boolean isSingle) {
+        if(isMusicplaying){
+            releasePlayer();
+        }
+        if (player == null) {
+            Intent intent = getIntent();
+            playerFooter.setVisibility(View.VISIBLE);
+            normalFooter.setVisibility(View.GONE);
+            downloadFooter.setVisibility(View.GONE);
+
+
+
+                marray = createMediaItems();
+
+                if (marray.isEmpty()) {
+                    return false;
+                }
+
+            player = new ExoPlayer.Builder(this).build();
+            lastSeenTracks = Tracks.EMPTY;
+
+
+            player.addListener(new ShowMushafActivity.PlayerEventListener());
+            player.setTrackSelectionParameters(trackSelectionParameters);
+            player.addListener(new ShowMushafActivity.PlayerEventListener());
+            player.addAnalyticsListener(new EventLogger());
+            player.setAudioAttributes(AudioAttributes.DEFAULT, /* handleAudioFocus= */ true);
+            player.setPlayWhenReady(startAutoPlay);
+            player.setRepeatMode(Player.REPEAT_MODE_ALL);
+
+            AudioAttributes audioAttributes = player.getAudioAttributes();
+            player.seekTo(currentItem, playbackPosition);
+
+            playerView.setPlayer(player);
+            AudioAttributes audioAttributess = player.getAudioAttributes();
+            player.addListener(new Player.Listener() {
+                @Override
+                public void onPlaybackStateChanged(int playbackState) {
+                    if (player.getPlayWhenReady() && playbackState == Player.STATE_READY) {
+                        isMusicplaying=true;// media actually playing
+                    } else if (player.getPlayWhenReady()) {
+                        isMusicplaying=false;
+                        // might be idle (plays after prepare()),
+                        // buffering (plays when data available)
+                        // or ended (plays when seek away from end)
+                    } else {
+                        pausePlayFlag=true;
+                        // player paused in any state
+                    }
+                    Player.Listener.super.onPlaybackStateChanged(playbackState);
+                }
+            });
+
+            //   debugViewHelper = new DebugTextViewHelper(player, debugTextView);
+            //   debugViewHelper.start();
+        }
+        boolean haveStartPosition = startItemIndex != C.INDEX_UNSET;
+        if (haveStartPosition) {
+            player.seekTo(startItemIndex, startPosition);
+        }
+
+            player.setMediaItems(marray, /* resetPosition= */ !haveStartPosition);
+            player.prepare();
+            setupHandler();
+
+        //updateButtonVisibility();
+        return true;
+    }
+
+    private List<MediaItem> createMediaItems() {
+        Utils repository = new Utils(this);
+        List<ChaptersAnaEntity> chap = repository.getSingleChapter(getSurahselected());
+
+
+        List<String> ayaLocations = new ArrayList<>();
+
+        marray = new ArrayList<>();
+
+
+        if(isSingle) {
+            List<QuranEntity> sngleverseplay = repository.getsurahayahVerses(getSurahselected(), getVerselected());
+            //Create files locations for the all page ayas
+            for (QuranEntity ayaItem : sngleverseplay) {
+                ayaLocations.add(FileManager.createAyaAudioLinkLocation(this, readerID, ayaItem.getAyah(), ayaItem.getSurah()));
+                String location = FileManager.createAyaAudioLinkLocation(this, readerID, ayaItem.getAyah(), ayaItem.getSurah());
+                marray.add(MediaItem.fromUri(location));
+
+            }
+
+        }else{
+            List<QuranEntity> quranbySurah = repository.getQuranbySurah(getSurahselected());
+            for (QuranEntity ayaItem : quranbySurah) {
+                ayaLocations.add(FileManager.createAyaAudioLinkLocation(this, readerID, ayaItem.getAyah(), ayaItem.getSurah()));
+                String location = FileManager.createAyaAudioLinkLocation(this, readerID, ayaItem.getAyah(), ayaItem.getSurah());
+                marray.add(MediaItem.fromUri(location));
+
+            }
+        }
+
+
+
+
+
+        return marray;
+    }
+
+
+    private void updateTrackSelectorParameters() {
+        if (player != null) {
+            trackSelectionParameters = player.getTrackSelectionParameters();
+        }
+    }
+
+    private void updateStartPosition() {
+        if (player != null) {
+            startAutoPlay = player.getPlayWhenReady();
+            startItemIndex = player.getCurrentMediaItemIndex();
+            startPosition = Math.max(0, player.getContentPosition());
+        }
+    }
+
+    @Override
+    public void onFullscreenButtonClick(boolean isFullScreen) {
+
+    }
+
+
+    private class PlayerEventListener implements Player.Listener {
+
+
+        @Override
+        public void onPlaybackStateChanged(@Player.State int playbackState) {
+            if (playbackState == Player.STATE_ENDED) {
+                System.out.println("playbackstate");
+            }
+            //     updateButtonVisibility();
+        }
+
+        @Override
+        public void onPlayerError(PlaybackException error) {
+            if (error.errorCode == PlaybackException.ERROR_CODE_BEHIND_LIVE_WINDOW) {
+                player.seekToDefaultPosition();
+                player.prepare();
+            } else {
+                //     updateButtonVisibility();
+                //showControls();
+            }
+        }
+
+
+        @Override
+        public void onMediaItemTransition(
+                @Nullable MediaItem mediaItem, @Player.MediaItemTransitionReason int reason) {
+            //  listener.onMediaItemTransition(mediaItem, reason);
+            System.out.println("check");
+        }
+
+        @Override
+        public void onPositionDiscontinuity(
+                Player.PositionInfo oldPosition, Player.PositionInfo newPosition, @Player.DiscontinuityReason int reason) {
+            //  listener.onPositionDiscontinuity(oldPosition, newPosition, reason);
+// ayah=newPosition.mediaItemIndex;
+// sendUpdatesToUI.run();
+            System.out.println("oldpostion" + " " + oldPosition + "newpostion " + " " + newPosition + "reason" + " " + reason);
+            System.out.println("check");
+        }
+
+
+        @Override
+        @SuppressWarnings("ReferenceEquality")
+        public void onTracksChanged(Tracks tracks) {
+            //   updateButtonVisibility();
+            Tracks currentTracks = player.getCurrentTracks();
+            ayah = player.getCurrentMediaItemIndex();
+            System.out.println("Ayah" + "" + ayah);
+            ayah++;
+            if (ayah >= 1) {
+                sendUpdatesToUI.run();
+            }
+            if (tracks == lastSeenTracks) {
+                return;
+            }
+
+            if (tracks.containsType(C.TRACK_TYPE_AUDIO)
+                    && !tracks.isTypeSupported(C.TRACK_TYPE_AUDIO, /* allowExceedsCapabilities= */ true)) {
+                showToast(R.string.error_unsupported_audio);
+            }
+            lastSeenTracks = tracks;
+        }
+    }
+
+    private void showToast(int messageId) {
+        showToast(getString(messageId));
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+    }
+
+    protected void clearStartPosition() {
+        startAutoPlay = true;
+        startItemIndex = C.INDEX_UNSET;
+        startPosition = C.TIME_UNSET;
+    }
+
+    private class PlayerErrorMessageProvider implements ErrorMessageProvider<PlaybackException> {
+
+        @Override
+        public Pair<Integer, String> getErrorMessage(PlaybackException e) {
+            String errorString = getString(R.string.error_generic);
+            Throwable cause = e.getCause();
+            if (cause instanceof MediaCodecRenderer.DecoderInitializationException) {
+                // Special case for decoder initialization failures.
+                MediaCodecRenderer.DecoderInitializationException decoderInitializationException =
+                        (MediaCodecRenderer.DecoderInitializationException) cause;
+                if (decoderInitializationException.codecInfo == null) {
+                    if (decoderInitializationException.getCause() instanceof MediaCodecUtil.DecoderQueryException) {
+                        errorString = getString(R.string.error_querying_decoders);
+                    } else if (decoderInitializationException.secureDecoderRequired) {
+                        errorString =
+                                getString(
+                                        R.string.error_no_secure_decoder, decoderInitializationException.mimeType);
+                    } else {
+                        errorString =
+                                getString(R.string.error_no_decoder, decoderInitializationException.mimeType);
+                    }
+                } else {
+                    errorString =
+                            getString(
+                                    R.string.error_instantiating_decoder,
+                                    decoderInitializationException.codecInfo.name);
+                }
+            }
+            return Pair.create(0, errorString);
+        }
+    }
 /*
     private void addToReadLog(int pos) {
         pagesReadLogNumber.add(pos);
@@ -244,81 +815,134 @@ public class ShowMushafActivity extends AppCompatActivity implements OnItemClick
 
     private void initRV() {
 
-        listView = (ListView) findViewById(R.id.ayahlist);
+        Animation openfab =    AnimationUtils.loadAnimation(this, R.anim.rotate_open_animation) ;
+        Animation closefab = AnimationUtils.loadAnimation(this, R.anim.rotate_close_animation);
+        Animation frombottomfab =      AnimationUtils.loadAnimation(this, R.anim.from_bottom_animation);
+        Animation fromtopfab =         AnimationUtils.loadAnimation(this, R.anim.to_bottom_animation);
 
+
+
+
+
+
+
+
+
+
+
+
+       //  resetplayer = findViewById(R.id.resetplayer);
+
+
+
+
+
+        eqContainer = findViewById(R.id.eqFrame);
+        listView = (ListView) findViewById(R.id.ayahlist);
+        playiv = (ImageView) findViewById(R.id.play);
+        playiv.setOnClickListener(this);
+        ;
 
         //   myToolbarContainer = (RelativeLayout) findViewById(R.id.appbar);
         seekBar = findViewById(R.id.SeekBar01);
-        ayadet= (TextView) findViewById(R.id.details);
+        //   ayadet = (TextView) findViewById(R.id.details);
         footerContainer = (RelativeLayout) findViewById(R.id.footerbar);
-        playForward = new Intent(AudioAppConstants.MediaPlayer.FORWARD);
-        pause = new Intent(AudioAppConstants.MediaPlayer.PAUSE);
-        playBack = new Intent(AudioAppConstants.MediaPlayer.BACK);
-        playiv = (ImageView) findViewById(R.id.play);
-        pauseiv = (ImageView) findViewById(R.id.pause_play);
-        playBackiv = (ImageView) findViewById(R.id.before);
-        playForwardiv = (ImageView) findViewById(R.id.forward);
-        stopiv = (ImageView) findViewById(R.id.stop);
-        repeativ = (ImageView) findViewById(R.id.repeat);
-        seekBar.setOnSeekBarChangeListener(this);
-        playiv.setOnClickListener(this);
-        pauseiv.setOnClickListener(this);
-        playBackiv.setOnClickListener(this);
-        playForwardiv.setOnClickListener(this);
-        stopiv.setOnClickListener(this);
-        repeativ.setOnClickListener(this);
 
 
-        //   playForwardiv, pauseiv, playBackiv, playiv, stopiv, repeativ, notRepeativ;
-        play = new Intent(AudioAppConstants.MediaPlayer.PLAY);
-        stop = new Intent(AudioAppConstants.MediaPlayer.STOP);
-        repeat = new Intent(AudioAppConstants.MediaPlayer.REPEAT_ON);
-        notRepeat = new Intent(AudioAppConstants.MediaPlayer.REPEAT_OFF);
-
-        //   sorahTitle = (TextView) findViewById(R.id.soraTitle);
-        //  back = (ImageView) findViewById(R.id.back);
-//        check1=(CheckBox)findViewById(R.id.check2);
-        //   soraName = (TextView) findViewById(R.id.textView15);
-        //  partNumber = (TextView) findViewById(R.id.textView14);
-        // pageNumber = (TextView) findViewById(R.id.pageNumber);
         normalFooter = (LinearLayout) findViewById(R.id.normalfooter);
-        downloadFooter = (LinearLayout) findViewById(R.id.footerdownload);
-        playerFooter = (LinearLayout) findViewById(R.id.footerplayer);
-        // translationBooks = (Spinner) findViewById(R.id.tafaseer);
+        downloadFooter = (ConstraintLayout) findViewById(R.id.footerdownload);
+        playerFooter = (RelativeLayout) findViewById(R.id.footerplayer);
+
         readers = (Spinner) findViewById(R.id.selectReader);
-        // sorahInfo = (TextView) findViewById(R.id.soraInfo);
+
         mediaPlayerDownloadProgress = (ProgressBar) findViewById(R.id.downloadProgress);
-        //    Typeface type = Typeface.createFromAsset(getAssets(), "simple.otf");
-        //  flagHideShowTool = false;
-        //   tafseerMood = false;
-        //prepareColors();
+        FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(this);
+
+
+        layoutManager.setFlexDirection(FlexDirection.ROW);
+        //   layoutManager.setAlignItems(AlignItems.STRETCH);
+
+        layoutManager.setJustifyContent(JustifyContent.FLEX_START);
+
+
+        layoutManager.setFlexWrap(FlexWrap.WRAP);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
-        List<QuranEntity> quranbySurah = Utils.getQuranbySurah(surah);
+        quranbySurahadapter = Utils.getQuranbySurah(surah);
         ArrayList<ChaptersAnaEntity> chapter = repository.getSingleChapter(surah);
-      //  initlistview(quranbySurah, chapter);
+        //  initlistview(quranbySurah, chapter);
 
 
-
-
-       OnItemClickListenerOnLong listener = this;
+        OnItemClickListenerOnLong listener = this;
         ArrayList<String> header = new ArrayList<>();
         header.add(String.valueOf(chapter.get(0).getRukucount()));
         header.add(String.valueOf(chapter.get(0).getVersescount()));
-        header.add(String.valueOf(chapter.get(0).getChapterid()));;
+        header.add(String.valueOf(chapter.get(0).getChapterid()));
         header.add(chapter.get(0).getAbjadname());
-
+        eqContainer.setVisibility(View.GONE);
         rvAyahsPages.setLayoutManager(manager);
+        GridLayoutManager mLayoutManager = new GridLayoutManager(this, 2);
+        //  rvAyahsPages.setLayoutManager(mLayoutManager);
+
+        //  rvAyahsPages.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         rvAyahsPages.setHasFixedSize(true);
-        pageAdapter = new MushaAudioAdapter(this,quranbySurah,listener,chapter.get(0).getChapterid(),chapter.get(0).getNamearabic(),chapter.get(0).getIsmakki(),header);
-        rvAyahsPages.setAdapter(pageAdapter);
+        boolean flow = false;
+        if (flow) {
+            flowMushaAudioAdapter = new FlowMushaAudioAdapter(this, quranbySurahadapter, listener, chapter.get(0).getChapterid(), chapter.get(0).getNamearabic(), chapter.get(0).getIsmakki(), header);
+            rvAyahsPages.setAdapter(flowMushaAudioAdapter);
+
+        } else {
+            mushaAudioAdapter = new MushaAudioAdapter(this, quranbySurahadapter, listener, chapter.get(0).getChapterid(), chapter.get(0).getNamearabic(), chapter.get(0).getIsmakki(), header);
+            rvAyahsPages.setAdapter(mushaAudioAdapter);
+        }
+
+
         rvAyahsPages.setItemAnimator(new DefaultItemAnimator());
+/*
+
+        resetfab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                releasePlayer();
+
+            }
+        });
+        resetfab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+           //    releasePlayer();
+               player.stop();
+            //   initializePlayer(false);
+                Toast.makeText(ShowMushafActivity.this, "PlayList Reset done", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        playlistfab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isMusicplaying) {
+
+                    playerFooter.setVisibility(View.GONE);
+                    normalFooter.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+*/
+
+
+
+
+
+
         readers.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 readerName = readers.getSelectedItem().toString();
+                setPrevqari(readerName);
                 getReaderAudioLink(readerName);
+
+
             }
 
             @Override
@@ -331,79 +955,51 @@ public class ShowMushafActivity extends AppCompatActivity implements OnItemClick
             public void run() {
 
                 //check language to load readers arabic or english
-                List<String> readersNames = new ArrayList<String>();
+                List<String> readersNames = new ArrayList<>();
                 readersList = repository.getQaris();
                 for (Qari reader : readersList) {
-                    if (reader.getAudiotype() == 0) {
-                        if (Locale.getDefault().getDisplayLanguage().equals("العربية"))
-                            readersNames.add(reader.getName());
-                        else
-                            readersNames.add(reader.getName_english());
-                    }
+                    if (reader.getAudiotype() == 0 || reader.getAudiotype() == 2) {
+                        readersNames.add(reader.getName_english());
+
+
+
+                    } /*else {
+                        readersNames.add(reader.getName_english());
+
+
+                    }*/
                 }
 
                 //add custom spinner adapter for readers
-                ArrayAdapter<String> spinnerReaderAdapter = new ArrayAdapter<String>(ShowMushafActivity
+                ArrayAdapter<String> spinnerReaderAdapter = new ArrayAdapter<>(ShowMushafActivity
                         .this, R.layout.spinner_layout_larg, R.id.spinnerText, readersNames);
                 readers.setAdapter(spinnerReaderAdapter);
-                readers.setSelection(10);
-    /*
-                //load books names
-                bookNames = new ArrayList<String>();
-                bookIDs = QuranValidateSources.getDownloadedTransaltions();
-                booksInfo = new DatabaseAccess().getAllTranslations();
-                for (int bookID : bookIDs) {
-                    for (TranslationBook bookInfo : booksInfo) {
-                        if (bookID == bookInfo.bookID) bookNames.add(bookInfo.bookName);
-                    }
-                }
 
-                //add custom spinner adapter for books
-                ArrayAdapter<String> spinnerBooksAdapter = new ArrayAdapter<String>(QuranPageReadActivity
-                        .this, R.layout.spinner_layout, R.id.spinnerText, bookNames);
-                translationBooks.setAdapter(spinnerBooksAdapter);*/
+                // readers.setSelection(10);
+
             }
         });
 
-/*
-        pageAdapter.setiBookmark(new PageAdapter.IBookmark() {
-            @Override
-            public void onBookmarkClicked(Page item) {
-                BookmarkItem bookmarkItem = new BookmarkItem();
-
-                bookmarkItem.setTimemills(new Date().getTime());
-                // get ayah to retrieve info from it
-                AyahItem ayahItem = item.getAyahItems().get(0);
-                bookmarkItem.setSuraName(getSuraNameFromIndex(ayahItem.getSurahIndex()));
-                bookmarkItem.setPageNum(item.getPageNum());
-                Log.d(TAG, "onBookmarkClicked: " + bookmarkItem.getPageNum());
-
-
-                repository.addBookmark(bookmarkItem);
-
-                showMessage("Saved");
-            }
-        });*/
 
         // to preserver quran direction from right to left
         rvAyahsPages.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
 
-   ;
-
     }
 
+
+
     private void initlistview(List<QuranEntity> quranbySurah, ArrayList<ChaptersAnaEntity> chapter) {
-        String[] verserarray=new String[chapter.get(0).getVersescount()];
-        int i=0;
+        String[] verserarray = new String[chapter.get(0).getVersescount()];
+        int i = 0;
         for (QuranEntity entity : quranbySurah) {
-            StringBuilder builder=new StringBuilder();
+            StringBuilder builder = new StringBuilder();
             builder.append(entity.getQurantext());
             builder.append(MessageFormat.format("{0} ﴿ {1} ﴾ ", "", entity.getAyah()));
             verserarray[i++] = builder.toString();
         }
 
 
-        ArrayAdapter adapter = new ArrayAdapter<String>(this,
+        ArrayAdapter adapter = new ArrayAdapter<>(this,
                 R.layout.activity_listview, verserarray);
         listView.setAdapter(adapter);
     }
@@ -414,6 +1010,7 @@ public class ShowMushafActivity extends AppCompatActivity implements OnItemClick
             if (reader.getName_english() == readerName && Locale.getDefault().getDisplayLanguage().equals("العربية")) {
                 downloadLink = reader.getUrl();
                 readerID = reader.getId();
+                audioType = reader.getAudiotype();
                 break;
             } else if (reader.getName_english() == readerName) {
                 downloadLink = reader.getUrl();
@@ -423,23 +1020,13 @@ public class ShowMushafActivity extends AppCompatActivity implements OnItemClick
 
         }
     }
-    //</editor-fold>
 
-    /**
-     * @param surahIndex in quran
-     * @return
-     */
-    private String getSuraNameFromIndex(int surahIndex) {
-        return Data.SURA_NAMES[surahIndex - 1];
-    }
 
     @Override
     protected void onPause() {
 //        mSensorManager.unregisterListener(this);
         super.onPause();
-//        sendBroadcast(stop);
-        //unregister broadcast for media player
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(MediaPlayer);
+
         //unregister broadcast for download ayat
         LocalBroadcastManager.getInstance(this).unregisterReceiver(downloadPageAya);
         //stop flag of auto start
@@ -447,54 +1034,17 @@ public class ShowMushafActivity extends AppCompatActivity implements OnItemClick
 
     }
 
-    @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
-        //volume down and check volume key for navigation
-        if ((keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) && AppPreference.isVolumeKeyNavigation()) {
-            if (selectPage > 604) selectPage = 604;
-            //  mViewPager.setCurrentItem((604 - (++selectPage)), true);
-            //generate silent tone to disable volume sound
-            ToneGenerator toneGen = new ToneGenerator(AudioManager.STREAM_MUSIC, 0);
-            toneGen.startTone(ToneGenerator.TONE_CDMA_PIP, 150);
-            //volume up and check volume key for navigation
-        } else if (keyCode == KeyEvent.KEYCODE_VOLUME_UP && AppPreference.isVolumeKeyNavigation()) {
-            if (selectPage < 0) selectPage = 1;
-            //  mViewPager.setCurrentItem((604 - (--selectPage)), true);
-            //generate silent tone to disable volume sound
-            ToneGenerator toneGen = new ToneGenerator(AudioManager.STREAM_MUSIC, 0);
-            toneGen.startTone(ToneGenerator.TONE_CDMA_PIP, 150);
-        }
-
-        return super.onKeyUp(keyCode, event);
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            //call on back button
-            onBackPressed();
-
-        } else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN && !AppPreference.isVolumeKeyNavigation()) {
-            //volume down
-            audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_LOWER, 1);
-        } else if (keyCode == KeyEvent.KEYCODE_VOLUME_UP && !AppPreference.isVolumeKeyNavigation()) {
-            //volume up
-            audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_RAISE, 1);
-        }
-        return true;
-    }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        LocalBroadcastManager.getInstance(this).registerReceiver(MediaPlayer, new IntentFilter(AudioAppConstants.MediaPlayer.INTENT));
+
         //register broadcast for download ayat
         LocalBroadcastManager.getInstance(this).registerReceiver(downloadPageAya, new IntentFilter(AudioAppConstants.Download.INTENT));
 
         //make footer change to normal if audio end in pause
-        if (!Settingsss.isMyServiceRunning(this, AudioService.class)) {
+        if (!Settingsss.isMyServiceRunning(this, DownloadService.class)) {
             playerFooter.setVisibility(View.GONE);
             normalFooter.setVisibility(View.VISIBLE);
         } else {
@@ -506,82 +1056,12 @@ public class ShowMushafActivity extends AppCompatActivity implements OnItemClick
             normalFooter.setVisibility(View.GONE);
         }
 
-        //check if the service paused in background
-        if (Settingsss.isMyServiceRunning(this, AudioService.class) && AudioService.mediaPaused == true) {
-            ((ImageButton) findViewById(R.id.pause_play)).setImageResource(R.drawable.ic_play);
-            pausePlayFlag = true;
-        }
 
-        //check the selected page
-        if (Settingsss.isMyServiceRunning(this, AudioService.class) && AudioService.pageNumber != 0) {
-            //    mViewPager.setCurrentItem(604 - (AudioService.pageNumber));
-        }
-
-
-        switch (repeatCounter) {
-
-            case 1:
-                repeatNotRepeat = true;
-                sendBroadcast(repeat);
-                ((ImageButton) findViewById(R.id.repeat)).setImageBitmap(drawNumbers("1"));
-
-                break;
-            case 2:
-                repeatNotRepeat = true;
-                sendBroadcast(repeat);
-                ((ImageButton) findViewById(R.id.repeat)).setImageBitmap(drawNumbers("2"));
-
-
-                break;
-            case 3:
-                repeatNotRepeat = true;
-                sendBroadcast(repeat);
-                ((ImageButton) findViewById(R.id.repeat)).setImageBitmap(drawNumbers("3"));
-
-                break;
-            case 4:
-                repeatNotRepeat = true;
-                sendBroadcast(repeat);
-                ((ImageButton) findViewById(R.id.repeat)).setImageBitmap(drawNumbers("∞"));
-
-                repeatCounter = -1;
-                break;
-            default:
-                repeatNotRepeat = false;
-                sendBroadcast(notRepeat);
-                ((ImageButton) findViewById(R.id.repeat)).setImageResource(R.drawable.ic_repeat);
-
-
-                repeatCounter = 0;
-                break;
-        }
         //loadPagesReadLoge();
     }
 
 
-    public Bitmap drawNumbers(String number) {
-        //Toast.makeText(QuranPageReadActivity.this,number,Toast.LENGTH_LONG).show();
-        //GlobalAttributeUtil.setRepeatCounter(getApplicationContext(), number);
-        final String numbers;
-        numbers = number;
-
-//        final MyApplication globalVariable = (MyApplication) getApplicationContext();
-        float fontAndPadding = getResources().getDimension(R.dimen.draw_number);
-        Paint paint = new Paint();
-        paint.setTextSize(fontAndPadding);
-        paint.setColor(Color.WHITE);
-        paint.setAntiAlias(true);
-        paint.setFilterBitmap(true);
-        paint.setDither(true);
-        paint.setFakeBoldText(true);
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_repeat);
-        Bitmap mutableBitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true);
-        Canvas canvas = new Canvas(mutableBitmap);
-        canvas.drawText(numbers, bitmap.getWidth() - fontAndPadding, fontAndPadding, paint);
-        return mutableBitmap;
-    }
-
-    private BroadcastReceiver downloadPageAya = new BroadcastReceiver() {
+    private final BroadcastReceiver downloadPageAya = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             int value = (int) intent.getLongExtra(AudioAppConstants.Download.NUMBER, 0);
@@ -607,10 +1087,8 @@ public class ShowMushafActivity extends AppCompatActivity implements OnItemClick
                         downloadFooter.setVisibility(View.GONE);
                         normalFooter.setVisibility(View.GONE);
                         playerFooter.setVisibility(View.VISIBLE);
+                        initializePlayer(isSingle);
 
-                        startService(new Intent(ShowMushafActivity.this, AudioService.class)
-                                .putExtra(AudioAppConstants.MediaPlayer.SURAH, getSurahselected())
-                                .putExtra(AudioAppConstants.MediaPlayer.READER, readerID));
                     } else {
                         downloadFooter.setVisibility(View.GONE);
                         normalFooter.setVisibility(View.VISIBLE);
@@ -623,186 +1101,6 @@ public class ShowMushafActivity extends AppCompatActivity implements OnItemClick
         }
     };
 
-    private BroadcastReceiver MediaPlayer = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-
-            //media player intent receive
-            if (intent.getBooleanExtra(AudioAppConstants.MediaPlayer.STOP, false) == true) {
-                ((ImageButton) findViewById(R.id.pause_play)).setImageResource(R.drawable.ic_pause);
-                ((ImageButton) findViewById(R.id.repeat)).setImageResource(R.drawable.ic_repeat);
-                playerFooter.setVisibility(View.GONE);
-                normalFooter.setVisibility(View.VISIBLE);
-            } else if (intent.getBooleanExtra(AudioAppConstants.MediaPlayer.PLAY, true) == true) {
-                normalFooter.setVisibility(View.GONE);
-                playerFooter.setVisibility(View.VISIBLE);
-            } else if (intent.getBooleanExtra(AudioAppConstants.MediaPlayer.PAUSE, false) == true) {
-                ((ImageButton) findViewById(R.id.pause_play)).setImageResource(R.drawable.ic_play);
-            } else if (intent.getBooleanExtra(AudioAppConstants.MediaPlayer.RESUME, false) == false) {
-                ((ImageButton) findViewById(R.id.pause_play)).setImageResource(R.drawable.ic_pause);
-            }
-/*
-            if (intent.getIntExtra(AudioAppConstants.MediaPlayer.OTHER_PAGE, -1) == 1) {
-                int currentPage = mViewPager.getCurrentItem();
-                mViewPager.setCurrentItem(--currentPage);
-            } else if (intent.getIntExtra(AudioAppConstants.MediaPlayer.OTHER_PAGE, -1) == 0) {
-                int currentPage = mViewPager.getCurrentItem();
-                mViewPager.setCurrentItem(++currentPage);
-            } else if (intent.getIntExtra(AudioAppConstants.MediaPlayer.OTHER_PAGE, -1) == 2) {
-                mViewPager.setCurrentItem(604);
-            } else if (intent.getIntExtra(AudioAppConstants.MediaPlayer.OTHER_PAGE, -1) == 3) {
-                mViewPager.setCurrentItem(0);
-            }*/
-
-        }
-    };
-
-    private void footerPlay() throws PendingIntent.CanceledException {
-        String filePath = "";
-        //check if other instance of Audio service run
-        if (Settingsss.isMyServiceRunning(this, AudioService.class)) return;
-
-        //get all ayat information of the page
-        //  ayaList = new DatabaseAccess().getPageAyat((604 - mViewPager.getCurrentItem()));
-        //       pageList.get(surai)
-
-        //check the internet statue
-        int internetStatus = Settingsss.checkInternetStatus(this);
-        if (AppPreference.isStreamMood()) {
-            //check internet is opened or not to start stream
-            if (internetStatus <= 0) {
-                AlertDialog.Builder builder =
-                        new AlertDialog.Builder(this, R.style.MaterialAlertDialog_Material3);
-                builder.setCancelable(false);
-                builder.setTitle(getResources().getString(R.string.Alert));
-                builder.setMessage(getResources().getString(R.string.no_internet_alert));
-                builder.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-                builder.show();
-            } else {
-                //start stream mood
-                normalFooter.setVisibility(View.GONE);
-                playerFooter.setVisibility(View.VISIBLE);
-                Intent player = new Intent(this, MyService.class);
-                player.putExtra("streamLink", downloadLink);
-                player.putExtra(AudioAppConstants.MediaPlayer.SURAH, getSurahselected());
-                player.putExtra(AudioAppConstants.MediaPlayer.READER, readerID);
-                startService(player);
-
-
-            }
-
-        } else {
-//https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/
-            //check if there is other download in progress
-            if (!Settingsss.isMyServiceRunning(this, DownloadService.class)) {
-                //internal media play
-                List<String> Links = new ArrayList<>();
-                everyayah = true;
-                if (everyayah) {
-                    Links = createDownloadLinks();
-                } else {
-                    Links = createDownloadLink();
-                }
-
-                if (Links.size() != 0) {
-                    //check if the internet is opened
-                    if (internetStatus <= 0) {
-                        AlertDialog.Builder builder =
-                                new AlertDialog.Builder(this, R.style.MyAlertDialogStyle);
-                        builder.setCancelable(false);
-                        builder.setTitle(getResources().getString(R.string.Alert));
-                        builder.setMessage(getResources().getString(R.string.no_internet_alert));
-                        builder.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-                        builder.show();
-                    } else {
-                        //change view of footer to media
-                        normalFooter.setVisibility(View.GONE);
-                        playerFooter.setVisibility(View.GONE);
-                        downloadFooter.setVisibility(View.VISIBLE);
-
-                        //check audio folders
-                        filePath = Environment
-                                .getExternalStorageDirectory()
-                                .getAbsolutePath()
-                                + getString(R.string.app_folder_path)
-                                + "/Audio/" + readerID;
-
-
-                        // String app_folder_path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString() + "/Audio/" + readerID;
-                        String app_folder_path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).toString() + "/audio/" + readerID;
-
-
-                        File f = new File(app_folder_path);
-                        //   File f = new File(Environment.getExternalStoragePublicDirectory
-                        //     (Environment.DIRECTORY_DOCUMENTS), "audio/"+readerID);
-                        String path = f.getAbsolutePath();
-                        File file = new File(path);
-
-
-                        if (!file.exists())
-                            file.mkdirs();
-
-
-                        startBeforeDownload = true;
-
-                        Intent intent = new Intent(ShowMushafActivity.this, DownloadService.class);
-                        intent.putStringArrayListExtra(AudioAppConstants.Download.DOWNLOAD_LINKS, (ArrayList<String>) Links);
-                        intent.putExtra(AudioAppConstants.Download.DOWNLOAD_LOCATION, app_folder_path);
-                        startService(intent);
-
-
-                        //start download service
-                  /*      startService(new Intent(ShowMushafActivity.this, DownloadService.class)
-                                .putStringArrayListExtra(AudioAppConstants.Download.DOWNLOAD_LINKS, (ArrayList<String>) Links)
-                                .putExtra(AudioAppConstants.Download.DOWNLOAD_LOCATION, app_folder_path));*/
-                    }
-
-                } else {
-                    //Start media player service
-          /*          registerReceiver(broadcastReceiver, new IntentFilter(
-                            MyService.BROADCAST_ACTION));
-               AudioService ad=new AudioService(ShowMushafActivity.this);
-               startService(new Intent(ShowMushafActivity.this, AudioService.class)
-                            .putExtra(AudioAppConstants.MediaPlayer.SURAH, getSurahselected())
-                            .putExtra(AudioAppConstants.MediaPlayer.READER, readerID));
-*/
-
-                  /*  startService(new Intent(ShowMushafActivity.this, MyAudioRecever.class)
-                            .putExtra(AudioAppConstants.MediaPlayer.SURAH, getSurahselected())
-                            .putExtra(AudioAppConstants.MediaPlayer.READER, readerID));
-
-
-*/
-                    //  MyService ms=new MyService(this);
-                   registerReceiver(broadcastReceiver, new IntentFilter(
-                            MyService.BROADCAST_ACTION));
-
-                    mBroadcastIsRegistered = true;
-                    normalFooter.setVisibility(View.GONE);
-                    playerFooter.setVisibility(View.VISIBLE);
-                    intentmyservice.putExtra(AudioAppConstants.MediaPlayer.SURAH, getSurahselected());
-                    intentmyservice.putExtra(AudioAppConstants.MediaPlayer.READER, readerID);
-                    if (!everyayah) {
-                        intentmyservice.putExtra(AudioAppConstants.MediaPlayer.FULLSURAPATH, "surah");
-                    }
-                    startService(intentmyservice);
-
-
-                }
-            } else {
-                //Other thing in download
-                Toast.makeText(this, getString(R.string.download_busy), Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
 
     public boolean checkPermission() {
         int result = ContextCompat.checkSelfPermission((ShowMushafActivity.this), android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -810,11 +1108,11 @@ public class ShowMushafActivity extends AppCompatActivity implements OnItemClick
     }
 
     public List<String> createDownloadLink() {
-        List<ChaptersAnaEntity> chap = repository.getSingleChapter(pageList.get(pos - 1).getAyahItems().get(0).getSurahIndex());
+        List<ChaptersAnaEntity> chap = repository.getSingleChapter(surah);
         int versescount = chap.get(0).getVersescount();
 
-        List<QuranEntity> quranbySurah = repository.getQuranbySurah(pageList.get(pos - 1).getAyahItems().get(0).getSurahIndex());
-        setSurahselected(pageList.get(pos - 1).getAyahItems().get(0).getSurahIndex());
+        List<QuranEntity> quranbySurah = Utils.getQuranbySurah(surah);
+        setSurahselected(surah);
         //   int ayaID=0;
         int counter = 0;
         //   quranbySurah.add(0, new QuranEntity(1, 1, 1));
@@ -825,6 +1123,7 @@ public class ShowMushafActivity extends AppCompatActivity implements OnItemClick
         if (!QuranValidateSources.validateSurahAudio(this, readerID, getSurahselected())) {
 
             //create aya link
+
             int suraLength = String.valueOf(chap.get(0).getChapterid()).trim().length();
             String suraID = chap.get(0).getChapterid() + "";
 
@@ -852,7 +1151,7 @@ public class ShowMushafActivity extends AppCompatActivity implements OnItemClick
         List<ChaptersAnaEntity> chap = repository.getSingleChapter(surah);
         int versescount = chap.get(0).getVersescount();
 
-        List<QuranEntity> quranbySurah = repository.getQuranbySurah(surah);
+        List<QuranEntity> quranbySurah = Utils.getQuranbySurah(surah);
         setSurahselected(surah);
         //   int ayaID=0;
         int counter = 0;
@@ -897,25 +1196,6 @@ public class ShowMushafActivity extends AppCompatActivity implements OnItemClick
     }
 
 
-
-/*    private void loadPagesReadLoge() {
-        currentDate = DateOperation.getCurrentDateExact().getTime();
-        currentDateStr = DateOperation.getCurrentDateAsString();
-
-        readLog = repository.getLReadLogByDate(currentDateStr);
-        if (readLog == null) {
-            readLog = new ReadLog();
-            readLog.setDate(currentDate);
-            readLog.setStrDate(currentDateStr);
-            readLog.setPages(new ArraySet<>());
-        }
-        pagesReadLogNumber = readLog.getPages();
-
-        for (Integer integer : pagesReadLogNumber) {
-            Log.d(TAG, "loadPagesReadLoge: " + integer);
-        }
-    }*/
-
     /**
      * retrieve list of pages that contain start of hizb Quaters.
      */
@@ -924,187 +1204,121 @@ public class ShowMushafActivity extends AppCompatActivity implements OnItemClick
         // logData(quraterSStart);
     }
 
-    private void foundState() {
-        //  spShowAyahs.setVisibility(View.GONE);
-        tvNoQuranData.setVisibility(View.GONE);
-        rvAyahsPages.setVisibility(View.VISIBLE);
-    }
-
-    private void notFound() {
-        //   spShowAyahs.setVisibility(View.GONE);
-        tvNoQuranData.setVisibility(View.VISIBLE);
-        rvAyahsPages.setVisibility(View.GONE);
-    }
-
-    private void logData(List<Integer> quraterSStart) {
-        for (Integer integer : quraterSStart) {
-            Log.d(TAG, "logData: " + integer);
-        }
-    }
-
-    private void showMessage(String message) {
-        if (toast != null) {
-            toast.cancel();
-        }
-        toast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
-        toast.show();
-
-    }
 
     @Override
     public void onClick(View v) {
         if (v == findViewById(R.id.play)) {
-            try {
-                footerPlay();
-            } catch (PendingIntent.CanceledException e) {
-                throw new RuntimeException(e);
+
+            DownloadIfnotPlay();
+        }
+        if (v == findViewById(R.id.eqFrame)) {
+            if (eqContainer.getVisibility() == View.GONE) {
+                eqContainer.setVisibility(View.VISIBLE);
+                final int sessionId = player.getAudioSessionId();
+                Settings.isEditing = false;
+                EqualizerFragment equalizerFragment = EqualizerFragment.newBuilder().setAccentColor(Color.CYAN)
+                        .setAudioSessionId(sessionId).build();
+                getSupportFragmentManager().beginTransaction().replace(R.id.eqFrame, equalizerFragment).commit();
+
+
             }
-        } else if (v == findViewById(R.id.stop)) {
-            //Stop media player
-            ((ImageButton) findViewById(R.id.pause_play)).setImageResource(R.drawable.ic_pause);
-            playerFooter.setVisibility(View.GONE);
-            normalFooter.setVisibility(View.VISIBLE);
-            sendBroadcast(stop);
-
-        } else if (v == findViewById(R.id.pause_play)) {
-            //Pause and play media
-            if (pausePlayFlag != true) {
-                ((ImageButton) findViewById(R.id.pause_play))
-                        .setImageResource(R.drawable.ic_play);
+        }
 
 
-                sendBroadcast(pause);
-                pausePlayFlag = true;
+    }
+
+    private void DownloadIfnotPlay() {
+
+        String filePath = "";
+
+        int internetStatus = Settingsss.checkInternetStatus(this);
+
+//https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/
+        //check if there is other download in progress
+        if (!Settingsss.isMyServiceRunning(this, DownloadService.class)) {
+            //internal media play
+            List<String> Links = new ArrayList<>();
+            everyayah = true;
+            if (everyayah && !(audioType == 2)) {
+                Links = createDownloadLinks();
             } else {
-                ((ImageButton) findViewById(R.id.pause_play))
-                        .setImageResource(R.drawable.ic_pause);
-                sendBroadcast(play);
-                pausePlayFlag = false;
-            }
-        } else if (v == findViewById(R.id.repeat)) {
-
-            repeatCounter++;
-            repeateValue = repeatCounter;
-
-            switch (repeatCounter) {
-
-                case 1:
-                    repeatNotRepeat = true;
-                    sendBroadcast(repeat);
-                    ((ImageButton) findViewById(R.id.repeat)).setImageBitmap(drawNumbers("1"));
-                    break;
-                case 2:
-                    repeatNotRepeat = true;
-                    sendBroadcast(repeat);
-                    ((ImageButton) findViewById(R.id.repeat)).setImageBitmap(drawNumbers("2"));
-
-                    break;
-                case 3:
-                    repeatNotRepeat = true;
-                    sendBroadcast(repeat);
-                    ((ImageButton) findViewById(R.id.repeat)).setImageBitmap(drawNumbers("3"));
-
-                    break;
-                case 4:
-                    repeatNotRepeat = true;
-                    sendBroadcast(repeat);
-                    ((ImageButton) findViewById(R.id.repeat)).setImageBitmap(drawNumbers("∞"));
-
-                    repeatCounter = -1;
-                    break;
-                default:
-                    repeatNotRepeat = false;
-                    sendBroadcast(notRepeat);
-                    ((ImageButton) findViewById(R.id.repeat)).setImageResource(R.drawable.ic_repeat);
-
-                    repeatCounter = 0;
-                    break;
+                Links = createDownloadLink();
             }
 
+            if (Links.size() != 0) {
+                //check if the internet is opened
+                DownLoadIfNot(internetStatus, (ArrayList<String>) Links);
 
-        } else if (v == findViewById(R.id.before)) {
-            //play the before aya
-            sendBroadcast(playBack);
-        } else if (v == findViewById(R.id.forward)) {
-            //play forward aya
-            sendBroadcast(playForward);
-        } else if (v == findViewById(R.id.canceldownload)) {
-            downloadFooter.setVisibility(View.GONE);
-            normalFooter.setVisibility(View.VISIBLE);
-            //stop flag of auto start audio after download
-            startBeforeDownload = false;
-            //stop download service
-            stopService(new Intent(this, DownloadService.class));
-        }
+            } else {
+                initializePlayer(isSingle);
 
-    }
+                playerFooter.setVisibility(View.VISIBLE);
 
 
-    private void stopService() {
 
-        if (mBroadcastIsRegistered) {
-            try {
-                unregisterReceiver(broadcastReceiver);
-                mBroadcastIsRegistered = false;
-            } catch (Exception e) {
-                // Log.e(TAG, "Error in Activity", e);
-                // TODO Auto-generated catch block
-
-                e.printStackTrace();
-                Toast.makeText(
-
-                        getApplicationContext(),
-
-                        e.getClass().getName() + " " + e.getMessage(),
-
-                        Toast.LENGTH_LONG).show();
             }
-        }
-
-
-        try {
-            stopService(intentmyservice);
-        } catch (SecurityException e) {
-            Toast.makeText(this, "security", Toast.LENGTH_SHORT).show();
+        } else {
+            //Other thing in download
+            Toast.makeText(this, getString(R.string.download_busy), Toast.LENGTH_SHORT).show();
         }
 
     }
 
-    @Override
-    public void onStopped() {
-        playiv.setImageResource(R.drawable.ic_play);
-        musicplaying = false;
+    private void DownLoadIfNot(int internetStatus, ArrayList<String> Links) {
+        String filePath;
+        if (internetStatus <= 0) {
+            AlertDialog.Builder builder =
+                    new AlertDialog.Builder(this, R.style.MyAlertDialogStyle);
+            builder.setCancelable(false);
+            builder.setTitle(getResources().getString(R.string.Alert));
+            builder.setMessage(getResources().getString(R.string.no_internet_alert));
+            builder.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.cancel();
+                }
+            });
+            builder.show();
+        } else {
+            //change view of footer to media
+      //      footerContainer.setVisibility(View.VISIBLE);
+            playerFooter.setVisibility(View.GONE);
+            //  mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+            downloadFooter.setVisibility(View.VISIBLE);
 
-    }
+            //check audio folders
+            filePath = Environment
+                    .getExternalStorageDirectory()
+                    .getAbsolutePath()
+                    + getString(R.string.app_folder_path)
+                    + "/Audio/" + readerID;
 
-    @Override
-    public void onPauseMlayer(android.media.MediaPlayer mediaPlayer) {
 
-        mediaPlayer.pause();
-    }
+            // String app_folder_path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString() + "/Audio/" + readerID;
+            String app_folder_path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).toString() + "/audio/" + readerID;
 
-    @Override
-    public void onProgressChanged(SeekBar sb, int progress, boolean fromUser) {
-        // TODO Auto-generated method stub
-        if (fromUser) {
-            int seekPos = sb.getProgress();
-            intent.putExtra("seekpos", seekPos);
-            sendBroadcast(intent);
+
+            File f = new File(app_folder_path);
+            //   File f = new File(Environment.getExternalStoragePublicDirectory
+            //     (Environment.DIRECTORY_DOCUMENTS), "audio/"+readerID);
+            String path = f.getAbsolutePath();
+            File file = new File(path);
+
+
+            if (!file.exists())
+                file.mkdirs();
+
+
+            startBeforeDownload = true;
+
+            Intent intent = new Intent(ShowMushafActivity.this, DownloadService.class);
+            intent.putStringArrayListExtra(AudioAppConstants.Download.DOWNLOAD_LINKS, Links);
+            intent.putExtra(AudioAppConstants.Download.DOWNLOAD_LOCATION, app_folder_path);
+            startService(intent);
+
         }
     }
 
-
-    @Override
-    public void onStartTrackingTouch(SeekBar seekBar) {
-
-    }
-
-    @Override
-    public void onStopTrackingTouch(SeekBar seekBar) {
-
-    }
-
-    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent serviceIntent) {
             updateUI(serviceIntent);
@@ -1114,51 +1328,58 @@ public class ShowMushafActivity extends AppCompatActivity implements OnItemClick
 
 
             String ayahplaying = serviceIntent.getStringExtra("ayaplaying");
-      int position= Integer.parseInt(ayahplaying);
+            int position = Integer.parseInt(ayahplaying);
             RecyclerView.ViewHolder holder = (RecyclerView.ViewHolder) rvAyahsPages.findViewHolderForAdapterPosition(position);
+
             if (null != holder) {
                 holder.itemView.findViewById(R.id.quran_textView).setBackgroundColor(Color.CYAN);
+
+
             }
-            pageAdapter.getItemId(Integer.parseInt(ayahplaying));
+            if (position != 0) {
+                RecyclerView.ViewHolder holderp = (RecyclerView.ViewHolder) rvAyahsPages.findViewHolderForAdapterPosition(position - 1);
+                int drawingCacheBackgroundColor = holderp.itemView.findViewById(R.id.quran_textView).getDrawingCacheBackgroundColor();
+                holderp.itemView.findViewById(R.id.quran_textView).setBackgroundColor(drawingCacheBackgroundColor);
+
+            }
+            mushaAudioAdapter.getItemId(Integer.parseInt(ayahplaying));
 
 
             String counter = serviceIntent.getStringExtra("counter");
             String mediamax = serviceIntent.getStringExtra("mediamax");
             String strSongEnded = serviceIntent.getStringExtra("song_ended");
             long seekProgress = Long.parseLong(ayahplaying);
-          //  seekProgress=1272539-seekProgress;
+            //  seekProgress=1272539-seekProgress;
             seekMax = Integer.parseInt(mediamax);
             songEnded = Integer.parseInt(strSongEnded);
             seekBar.setMax(seekMax);
-            ayadet.setText("Playing"+ayahplaying);
+            // ayadet.setText("Playing"+ayahplaying);
             seekBar.setProgress(Integer.parseInt(counter));
-            rvAyahsPages.post(() -> rvAyahsPages.scrollToPosition(Integer.parseInt(ayahplaying)));
-            QuranEntity entity= (QuranEntity) pageAdapter.getItem(Integer.parseInt(ayahplaying));
-        //   entity.getQurantext();
-       //    pageAdapter.notifyItemInserted(Integer.parseInt(ayahplaying));
+            rvAyahsPages.post(() -> rvAyahsPages.scrollToPosition(Integer.parseInt(ayahplaying + 2)));
+            QuranEntity entity = (QuranEntity) mushaAudioAdapter.getItem(Integer.parseInt(ayahplaying));
+            //   entity.getQurantext();
+            //    pageAdapter.notifyItemInserted(Integer.parseInt(ayahplaying));
 
             // listscroll(ayahplaying);
 
 
-            if (songEnded == 1) {
-                playiv.setBackgroundResource(R.drawable.ic_play);
-            }
         }
 
-
-    private void listscroll(String ayahplaying) {
-            int anInt = Integer.parseInt(ayahplaying);
-            //  listView.setSelection(Integer.parseInt(ayahplaying));
-
-            listView.getChildAt((anInt-2)).setBackgroundColor(Color.CYAN  );
-            listView.smoothScrollToPosition(anInt+4);
-        }
 
     };
 
 
     @Override
     public void onItemClick(View v, int position) {
+     Object istag=   v.getTag();
+    if(istag.equals("verse")){
+
+        int ayah1 = quranbySurahadapter.get(position).getAyah();
+        isSingle=true;
+        setVerselected(ayah1-1);
+        DownloadIfnotPlay();
+
+    }
 
     }
 
@@ -1166,5 +1387,7 @@ public class ShowMushafActivity extends AppCompatActivity implements OnItemClick
     public void onItemLongClick(int position, View v) {
 
     }
+
+
 }
 

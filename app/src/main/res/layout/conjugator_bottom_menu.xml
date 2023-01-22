@@ -9,7 +9,7 @@
     android:layout_centerHorizontal="true"
 
     app:behavior_hideable="false"
-    app:behavior_peekHeight="0dp"
+    app:behavior_peekHeight="10dp"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
 

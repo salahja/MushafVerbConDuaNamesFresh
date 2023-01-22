@@ -40,21 +40,10 @@
 
         tools:replace="android:allowBackup">
         <service
-            android:name=".receivers.MyService"
+            android:name=".receivers.DownloadService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="false" />
 
-        <receiver
-            android:name=".NewAppWidget"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/new_app_widget_info" />
-        </receiver>
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -68,14 +57,6 @@
 
         <service
             android:name=".receivers.DownloadService"
-            android:enabled="true"
-            android:exported="false" />
-        <service
-            android:name=".receivers.MyAudioRecever"
-            android:enabled="true"
-            android:exported="false" />
-        <service
-            android:name=".receivers.AudioService"
             android:enabled="true"
             android:exported="false" />
 
@@ -98,6 +79,32 @@
         </activity>
         <activity
             android:name="sj.hisnul.activity.HisnulBottomACT"
+            android:parentActivityName=".Activity.MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mushafconsolidated.Activity.MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".Activity.ShowMushafActivityEXTENDEDFAB"
+            android:parentActivityName=".Activity.MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mushafconsolidated.Activity.MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".Activity.PlayerActivity"
+            android:parentActivityName=".Activity.MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mushafconsolidated.Activity.MainActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.ExoPlayerNewShowMushafActivity"
             android:parentActivityName=".Activity.MainActivity"
             android:screenOrientation="portrait">
             <meta-data
@@ -312,16 +319,6 @@
                 android:value="mm.prayer.muslimmate.Activity.MainTwoActivityPrayer" />
         </activity>
 
-        <receiver
-            android:name=".receivers.IncommingCallReceiver"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.PHONE_STATE" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
-            </intent-filter>
-        </receiver>
     </application>
 
 </manifest>

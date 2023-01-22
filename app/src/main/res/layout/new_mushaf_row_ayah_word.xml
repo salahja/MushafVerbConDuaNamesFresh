@@ -1,0 +1,62 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints">
+
+        <androidx.constraintlayout.helper.widget.Flow
+            android:id="@+id/flow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+                app:constraint_referenced_ids="quran_textView,arabic_textView,sajda"
+            app:flow_horizontalAlign="start"
+            app:flow_horizontalBias="1"
+            app:flow_maxElementsWrap="3"
+            app:flow_verticalBias="0"
+            app:flow_verticalGap="0dp"
+            app:flow_wrapMode="chain"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/quran_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="User Detail"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/arabic_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+
+            android:padding="12dp"
+
+            tools:text="User" />
+
+        <ImageView
+            android:id="@+id/sajda"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+
+            android:padding="12dp"
+            android:text="Last"
+            android:textColor="@android:color/black" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

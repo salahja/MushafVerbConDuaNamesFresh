@@ -357,6 +357,24 @@
     <item name="done" type="id" />
     <item name="colorizedmushaf" type="id" />
     <item name="colormushaf" type="id" />
+    <item name="songTitle" type="id" />
+    <item name="artistName" type="id" />
+    <item name="leftTime" type="id" />
+    <item name="rightTime" type="id" />
+    <item name="pre_button" type="id" />
+    <item name="next_button" type="id" />
+    <item name="seekBar2" type="id" />
+    <item name="exo_rewind" type="id" />
+    <item name="debug_text_view" type="id" />
+    <item name="controls_root" type="id" />
+    <item name="select_tracks_button" type="id" />
+    <item name="tvFirstName" type="id" />
+
+    <item name="tvLastName" type="id" />
+    <item name="tvPhone" type="id" />
+    <item name="resetplayer" type="id" />
+    <item name="playlist" type="id" />
+    <item name="playlistfbtxt" type="id" />
 
 
 </resources>

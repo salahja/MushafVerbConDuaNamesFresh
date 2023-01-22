@@ -6,7 +6,13 @@
     android:id="@+id/footerplayer"
     android:focusable="false"
     android:clickable="false"
-    android:layout_width="match_parent"
+    app:behavior_hideable="false"
+    app:behavior_peekHeight="5dp"
+
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+
+
+   android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentLeft="true"
     android:layout_alignParentBottom="true">
@@ -16,7 +22,8 @@
     <LinearLayout
         android:orientation="vertical"
         android:id="@+id/main_player_bar"
-        android:background="#000000"
+
+     android:background="@color/even_item_bg_dark_blue"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:paddingBottom="16dp"
@@ -43,7 +50,7 @@
                 android:src="@drawable/ic_settings" />
 
             <androidx.appcompat.widget.AppCompatSpinner
-
+                  style="@style/spinner_styles_blue"
                 android:id="@+id/selectReader"
                 android:entries="@array/quran_readers_name"
                 android:layout_width="223dp"
@@ -57,7 +64,7 @@
                 android:scrollHorizontally="true"
                 android:singleLine="true"
                 android:text="Reciter Name"
-                android:textColor="@android:color/white"
+
                 android:textSize="@dimen/full_version_title_size" />
             /&gt;
             <androidx.appcompat.widget.AppCompatImageView
@@ -164,7 +171,7 @@
                     android:scaleType="centerCrop" />
 
                 <ProgressBar
-
+                  android:tag="stopped"
                     android:layout_gravity="center"
                     android:id="@+id/progressWheelMp"
                     android:visibility="visible"

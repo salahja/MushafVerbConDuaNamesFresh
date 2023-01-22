@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 
 import com.example.mushafconsolidated.R;
 
+import java.util.ArrayList;
+
 public class FlowLayout extends ViewGroup {
     public static final int HORIZONTAL = 0;
     public static final int VERTICAL = 1;
@@ -15,12 +17,21 @@ public class FlowLayout extends ViewGroup {
     private int verticalSpacing = 0;
     private int orientation = 0;
     private boolean rtl = true;
+    ArrayList<String> arrayList=new ArrayList<>();
+
+    public ArrayList<String> getArrayList() {
+        return arrayList;
+    }
 
     public FlowLayout(Context context) {
         super(context);
         this.readStyleParameters(context, null);
     }
 
+    public FlowLayout(Context context, ArrayList<String> arrayList) {
+        super(context);
+        this.arrayList=arrayList;
+    }
     public FlowLayout(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
         this.readStyleParameters(context, attributeSet);
@@ -31,12 +42,19 @@ public class FlowLayout extends ViewGroup {
         this.readStyleParameters(context, attributeSet);
     }
 
+ 
     private void realignBottom(int start, int end, int height) {
+        StringBuilder sb=new StringBuilder();
+        sb.append(start).append(end);
+        arrayList.add(sb.toString());
         for (int i = start; i < end; i++) {
+
             final View child = getChildAt(i);
+
             if (child.getVisibility() == GONE) {
                 continue;
             }
+
             LayoutParams lp = (LayoutParams) child.getLayoutParams();
             int childHeight = child.getMeasuredHeight();
             lp.y += height - childHeight;

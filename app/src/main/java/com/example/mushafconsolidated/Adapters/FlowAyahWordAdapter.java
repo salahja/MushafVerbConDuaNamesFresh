@@ -936,17 +936,21 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
 
                         isFABOpen = true;
                         fabmenu.animate().rotationBy(180);
+
                         tafsir.setVisibility(View.VISIBLE);
                         tafsir.animate().translationX(- getInstance().getResources().getDimension(R.dimen.standard_55));
                         tafsir.animate().rotationBy(360);
                         tafsir.animate().setDuration(1500);
+
                         jumptofb.setVisibility(View.VISIBLE);
                         jumptofb.animate().translationX(-getInstance().getResources().getDimension(R.dimen.standard_105));
                         jumptofb.animate().rotationBy(360);
+
                         bookmarfb.setVisibility(View.VISIBLE);
                         bookmarfb.animate().translationX(-getInstance().getResources().getDimension(R.dimen.standard_155));
                         bookmarfb.animate().rotationBy(360);
                         bookmarfb.animate().setDuration(600);
+
                         summbaryfb.setVisibility(View.VISIBLE);
                         summbaryfb.animate().translationX(-getInstance().getResources().getDimension(R.dimen.standard_205));
                         summbaryfb.animate().rotationBy(360);

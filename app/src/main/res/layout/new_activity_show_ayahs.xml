@@ -11,7 +11,7 @@
         android:id="@+id/rvAyahsPages"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="105dp"
+        android:layout_marginBottom="10dp"
         android:visibility="visible"/>
 
     <ListView
@@ -35,17 +35,26 @@
         android:visibility="gone" />
 
     <!--start play-->
-    <include layout="@layout/bottom_app_player"
-        android:id="@+id/footerplayer"
-        android:layout_marginBottom="70dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+ <androidx.coordinatorlayout.widget.CoordinatorLayout
+
+     android:layout_gravity="bottom"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content">
+
+     <include layout="@layout/bottom_app_player"
+         android:layout_gravity="bottom"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+
+         android:visibility="visible"
+  />
+ </androidx.coordinatorlayout.widget.CoordinatorLayout>
     <RelativeLayout
 
         android:layout_gravity="bottom"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:visibility="visible"
+        android:visibility="gone"
         android:background="@color/footercolor"
         android:id="@+id/footerbar"
         android:layout_alignParentBottom="true"

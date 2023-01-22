@@ -14,7 +14,7 @@
 ~ limitations under the License.
 -->
 
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name"></string>
 
     <!--Main-->
@@ -759,4 +759,26 @@ Stream audio when possible (non-gapless audio only)
     <string name="app_name_main">The Quran</string>
     <string name="sora">Surah</string>
     <string name="aya">Aya</string>
+    <string name="rightTime">Duration</string>
+    <string name="leftTime">current</string>
+    <string name="artistName">Qari</string>
+    <string name="songTitle">Title</string>
+    <string name="track_selection_title">Select tracks</string>
+    <string name="error_unsupported_audio">not supported</string>
+    <string name="error_generic">generic error</string>
+    <string name="error_querying_decoders">decoder error</string>
+
+
+    <string name="error_no_decoder">This device does not provide a decoder for <xliff:g id="mime_type">%1$s</xliff:g></string>
+
+    <string name="error_no_secure_decoder">This device does not provide a secure decoder for <xliff:g id="mime_type">%1$s</xliff:g></string>
+    <string name="error_instantiating_decoder">Unable to instantiate decoder <xliff:g id="decoder_name">%1$s</xliff:g></string>
+    <string name="storage_permission_denied">denied</string>
+    <string name="repeatof">Repeat Button</string>>
+    <string name="play">Play Button</string>>
+    <string name="nextbtn">Next Button</string>>
+    <string name="previousbtn">Previous Button</string>>
+
+
+
 </resources>

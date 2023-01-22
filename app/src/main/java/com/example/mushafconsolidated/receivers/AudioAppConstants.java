@@ -38,7 +38,7 @@ public interface AudioAppConstants {
      * Media player constants
      */
     interface MediaPlayer {
-        String INTENT = "ShowMushafActivity",
+        String INTENT = "NewShowMushafActivity",
                 PLAY = "play",
                 PAUSE = "pause",
                 STOP = "stop",
@@ -56,6 +56,7 @@ public interface AudioAppConstants {
                 PAGE = "page",
                 SURAH="surah",
                 READER = "reader",
+                EVRYAYA="evryayah",
                 ONE_VERSE = "one_verse",
                 FULLSURAPATH="fullsurah",
                 SURA = "sura";

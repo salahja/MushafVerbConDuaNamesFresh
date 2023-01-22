@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/footerplayer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="false">
+
+    <!--Widget for exoplayer view-->
+    <com.google.android.exoplayer2.ui.PlayerControlView
+        android:id="@+id/player_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:controller_layout_id="@layout/custom_xo_player"
+        app:hide_on_touch="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:resize_mode="fill"
+        app:show_timeout="0" >
+
+
+    </com.google.android.exoplayer2.ui.PlayerControlView>
+
+
+
+    <LinearLayout
+        android:id="@+id/bottomController"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="#42000000"
+        android:gravity="end|bottom"
+        android:orientation="horizontal">
+        <ImageButton
+            android:id="@+id/exo_close"
+            style="@style/ExoMediaButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/stop_24"
+            android:backgroundTint="@color/transparent"
+            app:tint="@color/white">
+
+        </ImageButton>
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/transparent"
+            android:src="@drawable/exo_controls_repeat_off"
+            android:contentDescription="@string/repeatof"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+
+            app:tint="@color/white"/>
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/transparent"
+            android:src="@drawable/previous_24"
+            android:contentDescription="@string/previousbtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+
+            app:tint="@color/white"/>
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/transparent"
+            android:src="@drawable/next_icon_24"
+            android:contentDescription="@string/next"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+
+            app:tint="@color/white">
+
+        </ImageButton>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

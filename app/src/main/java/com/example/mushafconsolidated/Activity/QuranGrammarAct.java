@@ -494,20 +494,26 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
 
 
                        break;
-                   case id.Names:
+                   case id.audio:
 
-                       materialToolbar.setTitle("Settings");
+                       materialToolbar.setTitle("Quran Audio");
 
-                       Intent settingint = new Intent(QuranGrammarAct.this, ShowMushafActivity.class);
+                       Intent settingint = new Intent(QuranGrammarAct.this, PlayerActivity.class);
                        settingint.putExtra(Constants.SURAH_INDEX, getChapterno());
                        startActivity(settingint);
                        navigationView.setCheckedItem(id.duanav);
                        break;
-                   case id.prayers:
+                   case id.mushafview:
                        materialToolbar.setTitle("Topics");
-                       Intent searchs = new Intent(QuranGrammarAct.this, MainTwoActivityPrayer.class);
+                    //   Intent searchs = new Intent(QuranGrammarAct.this, MainTwoActivityPrayer.class);
 
-                       startActivity(searchs);
+                     //  startActivity(searchs);
+
+                       Intent settingints = new Intent(QuranGrammarAct.this, ShowMushafActivityEXTENDEDFAB.class);
+                       settingints.putExtra(Constants.SURAH_INDEX, getChapterno());
+                       startActivity(settingints);
+
+
 
 
 

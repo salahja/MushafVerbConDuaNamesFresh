@@ -724,5 +724,6 @@
     <color name="ayas_color">#000000</color>
     <color name="footercolor">#B33E686A</color>
     <color name="bgc">#f4faee</color>
+    <color name="colorTransBg">#26000000</color>
 
 </resources>

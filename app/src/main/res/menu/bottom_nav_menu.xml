@@ -20,9 +20,9 @@
 
 
     <item
-        android:id="@+id/prayers"
+        android:id="@+id/mushafview"
         android:contentDescription="@string/search"
-        android:icon="@drawable/baseline_mosque_36"
+        android:icon="@drawable/ic_book"
         android:title="@string/topicsearch"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
 
@@ -30,10 +30,10 @@
 
 
     <item
-        android:id="@+id/Names"
-        android:icon="@drawable/ic_name"
+        android:id="@+id/audio"
+        android:icon="@drawable/audio_settings"
         android:orderInCategory="100"
-        android:title="Allah(SWT)-Names" />
+        android:title="Quran Audio" />
 
 
     <item
