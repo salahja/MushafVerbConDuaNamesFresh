@@ -138,6 +138,7 @@ public class ShowMushafActivity extends BaseActivity implements
     private MaterialButton resetplayer;
     private SharedPreferences sharedPreferences;
     private int ayahtrack;
+    private String selectedqari;
 
     public String getPrevqari() {
         return prevqari;
@@ -331,6 +332,7 @@ public class ShowMushafActivity extends BaseActivity implements
         isNightmode = sharedPreferences.getString("themepref", "dark");
         repository = Utils.getInstance(getApplication());
         typeface = Typeface.createFromAsset(getAssets(), "me_quran.ttf");
+   selectedqari=     sharedPreferences.getString("qari","35");
         pos = getIntent().getIntExtra(Constants.SURAH_INDEX, 1);
         pos = getStartPageFromIndex(pos);
 
@@ -623,6 +625,7 @@ jumpfb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (normalFooter.getVisibility() == View.GONE) {
+                 //   player.pause();
                     normalFooter.setVisibility(View.VISIBLE);
                     mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                 } else {
@@ -1271,6 +1274,22 @@ jumpfb.setOnClickListener(new View.OnClickListener() {
                         .this, R.layout.spinner_layout_larg, R.id.spinnerText, readersNames);
                 readers.setAdapter(spinnerReaderAdapter);
 
+                for(int counter=0;counter<readersNames.size();counter++)
+
+                {
+                    if(readersNames.get(counter).trim().equals(selectedqari.trim())){
+
+                        readers.setSelection(counter);
+                        break;
+
+                    }
+
+
+                }
+
+
+
+          //      readersList.get(0).getId();
                 // readers.setSelection(10);
 
             }

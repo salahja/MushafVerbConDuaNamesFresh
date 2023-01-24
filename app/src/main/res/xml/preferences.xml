@@ -129,6 +129,20 @@
         android:key="@string/prefs_grammar_sentence"
         android:title="Grammitica Analysis-Sentence wise    " />
 
+    <PreferenceCategory
+
+
+        app:title="Reciters">
+        <ListPreference
+
+            android:defaultValue="Mishary"
+            android:entries="@array/qarinames"
+            android:entryValues="@array/qarientryarry"
+            android:key="qari"
+            android:title="@string/qari" />
+
+
+    </PreferenceCategory>
 
     <PreferenceCategory
         app:key="arabic_font_category"

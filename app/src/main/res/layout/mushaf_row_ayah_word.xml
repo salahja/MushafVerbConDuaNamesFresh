@@ -51,6 +51,34 @@
         android:marqueeRepeatLimit="marquee_forever"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:visibility="visible" />
+    <TextView
+        android:id="@+id/translate_textViewnote"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="cursive"
+        android:lineSpacingExtra="@dimen/lineSpacingExtra"
+        android:layout_below="@+id/quran_textView"
+        android:padding="@dimen/textViewPadding"
+        android:text="@string/sahi_international"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:visibility="gone" />
+    <TextView
+        android:id="@+id/translate_textView"
+
+        android:layout_below="@id/translate_textViewnote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="this is arabic text"
+        android:layout_marginEnd="100dp"
+        android:hint="@string/arabic_font_style"
+        android:lineSpacingExtra="@dimen/lineSpacingExtra"
+        android:padding="@dimen/textViewPadding"
+        app:layout_flexGrow="2"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:visibility="visible" />
 
     <View
         android:id="@+id/rukuview"

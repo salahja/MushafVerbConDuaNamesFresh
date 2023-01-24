@@ -459,6 +459,51 @@
         d"
     </integer-array>
 
+<string-array name="qarinames">
+    <item>Abd Al-Basit</item>
+    <item>Abd Al-Basit Mujawwad</item>
+    <item>Abd Al-Rahman Al-Sudais</item>
+    <item>Abdullah Basfar</item>
+    <item>Abu Bakr Al-Shatri</item>
+    <item>Ali Abd Al-Rahman Al-Huthaify</item>
+    <item>Hani Al-Rifai</item>
+    <item>Ibrahim Walk (English)</item>
+    <item>Maher Al-Muaiqly</item>
+    <item>Mahmood Khaleel Al-Husary (Mujawwad)</item>
+    <item>Mishary</item>
+    <item>Mishary Rashed Al-Afasy</item>
+    <item>Mohamed Ayyoub</item>
+    <item>Mohamed Jibreel</item>
+    <item>Mohammad Al-Tablawi</item>
+    <item>Mohammed Al-Minshawi (Mujawwad)</item>
+    <item>Saad Al Ghamadi</item>
+    <item>Saood Al-Shuraym</item>
+    <item>Yasser Al-Dussary</item>
+
+
+</string-array>
+
+    <string-array name="qarientryarry">
+        <item>Abd Al-Basit</item>
+        <item>Abd Al-Basit Mujawwad</item>
+        <item>Abd Al-Rahman Al-Sudais</item>
+        <item>Abdullah Basfar</item>
+        <item>Abu Bakr Al-Shatri</item>
+        <item>Ali Abd Al-Rahman Al-Huthaify</item>
+        <item>Hani Al-Rifai</item>
+        <item>Ibrahim Walk (English)</item>
+        <item>Maher Al-Muaiqly</item>
+        <item>Mahmood Khaleel Al-Husary (Mujawwad)</item>
+        <item>Mishary</item>
+        <item>Mishary Rashed Al-Afasy</item>
+        <item>Mohamed Ayyoub</item>
+        <item>Mohamed Jibreel</item>
+        <item>Mohammad Al-Tablawi</item>
+        <item>Mohammed Al-Minshawi (Mujawwad)</item>
+        <item>Saad Al Ghamadi</item>
+        <item>Saood Al-Shuraym</item>
+        <item>Yasser Al-Dussary</item>
+    </string-array>
 
     <string-array name="themeListArray">
         <item>Purple Dark</item>

@@ -777,7 +777,8 @@ Stream audio when possible (non-gapless audio only)
     <string name="repeatof">Repeat Button</string>>
     <string name="play">Play Button</string>>
     <string name="nextbtn">Next Button</string>>
-    <string name="previousbtn">Previous Button</string>>
+    <string name="previousbtn">Previous Button</string>
+    <string name="qari">Reciter Names</string>>
 
 
 

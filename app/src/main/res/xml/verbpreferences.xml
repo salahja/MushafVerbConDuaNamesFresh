@@ -10,19 +10,11 @@
         app:title="Theme">
         <ListPreference
 
-            android:defaultValue="en"
+            android:defaultValue="35"
             android:entries="@array/lang_names"
-            android:entryValues="@array/lang_codes"
-            android:key="lang"
-            android:title="@string/lang" />
-        <ListPreference
-            app:defaultValue="dark"
-            app:dialogTitle="Choose theme"
-            app:entries="@array/themeListArray"
-            app:entryValues="@array/themeEntryArray"
-            app:key="themePref"
-            app:title="Choose theme"
-            app:useSimpleSummaryProvider="true" />
+            android:entryValues="@array/qarientryarry"
+            android:key="Qari"
+            android:title="@string/qari" />
 
     </PreferenceCategory>
 

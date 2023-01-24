@@ -271,7 +271,7 @@ public class MushaAudioAdapter extends RecyclerView.Adapter<MushaAudioAdapter.It
             holder.quran_textView.setText(entity.getQurantext().concat(s));
             holder.quran_textView.setTextSize(arabicfontSize);
             holder.quran_textView.setTypeface(custom_font);
-
+            holder.translate_textView.setText(entity.getTranslation());
 
           //  holder.sajdaverse.setImageResource(R.drawable.ruku_new);
 
