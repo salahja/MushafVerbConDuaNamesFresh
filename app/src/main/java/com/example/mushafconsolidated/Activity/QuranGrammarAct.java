@@ -84,14 +84,12 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.JustJava.InputFilterMinMax;
 import com.example.mushafconsolidated.Adapters.FlowAyahWordAdapter;
 import com.example.mushafconsolidated.Adapters.FlowAyahWordAdapterPassage;
-import com.example.mushafconsolidated.Adapters.PageAdapter;
 import com.example.mushafconsolidated.Entities.BadalErabNotesEnt;
 import com.example.mushafconsolidated.Entities.BookMarks;
 import com.example.mushafconsolidated.Entities.ChaptersAnaEntity;
@@ -148,8 +146,6 @@ import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import database.GridImageAct;
-import mm.prayer.muslimmate.Activity.MainTwoActivityPrayer;
 import sj.hisnul.activity.HisnulBottomACT;
 import wheel.OnWheelChangedListener;
 import wheel.WheelView;
@@ -509,7 +505,7 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
 
                      //  startActivity(searchs);
 
-                       Intent settingints = new Intent(QuranGrammarAct.this, ShowMushafActivityEXTENDEDFAB.class);
+                       Intent settingints = new Intent(QuranGrammarAct.this, ShowMushafActivity.class);
                        settingints.putExtra(Constants.SURAH_INDEX, getChapterno());
                        startActivity(settingints);
 

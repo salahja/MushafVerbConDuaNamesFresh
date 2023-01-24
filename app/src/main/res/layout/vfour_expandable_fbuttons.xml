@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.ShowMushafActivity"
+    tools:context=".Activity.ShowMushafActivityorig"
     tools:ignore="HardcodedText">
 
         <!--This will be the parent Floating Action Button-->
@@ -33,7 +33,7 @@
             android:layout_gravity="start"
             android:layout_marginEnd="4dp"
 
-            android:layout_marginBottom="196dp"
+            android:layout_marginBottom="120dp"
 
             android:src="@drawable/rotatewheel"
             android:text="Actions"
@@ -46,7 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
-          
+
             app:fabSize="normal"
             app:layout_constraintBottom_toTopOf="@+id/add_fab"
             app:layout_constraintEnd_toEndOf="@+id/add_fab"
@@ -72,6 +72,7 @@
              the entire application color-->
         <!--because after changing the base application theme
              the color of the FAB is set Blue as default-->
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/playlistfb"
             android:layout_width="wrap_content"
@@ -96,5 +97,28 @@
             app:layout_constraintBottom_toBottomOf="@+id/playlistfb"
             app:layout_constraintEnd_toStartOf="@+id/playlistfb"
             app:layout_constraintTop_toTopOf="@+id/playlistfb" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/jumptofb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+
+            app:fabSize="normal"
+            app:layout_constraintBottom_toTopOf="@+id/playlistfb"
+            app:layout_constraintEnd_toEndOf="@+id/playlistfb"
+            app:layout_constraintStart_toStartOf="@+id/playlistfb"
+            app:srcCompat="@drawable/ic_baseline_open_in_browser_24" />
+
+        <TextView
+            android:id="@+id/jumptv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="Surah Selection"
+            app:layout_constraintBottom_toBottomOf="@+id/jumptofb"
+            app:layout_constraintEnd_toStartOf="@+id/jumptofb"
+            app:layout_constraintTop_toTopOf="@+id/jumptofb" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -36,14 +36,17 @@ import com.example.mushafconsolidated.Entities.QuranEntity;
 import com.example.mushafconsolidated.R;
 import com.example.mushafconsolidated.intrface.OnItemClickListenerOnLong;
 import com.example.mushafconsolidated.model.CorpusAyahWord;
+import com.example.mushafconsolidated.model.CorpusWbwWord;
 import com.example.utility.QuranGrammarApplication;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.MessageFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 //import com.example.mushafconsolidated.Entities.JoinVersesTranslationDataTranslation;
 //public class CustomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements OnItemClickListenerOnLong {
@@ -255,19 +258,29 @@ public class MushaAudioAdapter extends RecyclerView.Adapter<MushaAudioAdapter.It
         if(entity.getPassage_no()!=0){
             StringBuilder builder = new StringBuilder();
             builder.append(entity.getQurantext());
+            String s="";
             builder.append(MessageFormat.format("{0} ﴿ {1} ﴾ {2}", aya, entity.getAyah(),R.drawable.ruku_new));
+            if(entity.getPassage_no()>0){
+                CorpusWbwWord words = new CorpusWbwWord();
+                NumberFormat nf = NumberFormat.getInstance(Locale.forLanguageTag("AR"));
+                 s = "\uFD3E" + "\0639" + "\uFD3F";
+                s = "\uFD3F"+ "\u0639" + "\uFD3E";
+            }
             //     builder.append("۩");
-            holder.quran_textView.setText(entity.getQurantext());
+
+            holder.quran_textView.setText(entity.getQurantext().concat(s));
             holder.quran_textView.setTextSize(arabicfontSize);
             holder.quran_textView.setTypeface(custom_font);
-            if (lp instanceof FlexboxLayoutManager.LayoutParams) {
-                FlexboxLayoutManager.LayoutParams flexboxLp =
-                        (FlexboxLayoutManager.LayoutParams) holder.quran_textView.getLayoutParams();
-                flexboxLp.setFlexGrow(2.0f);
-            }
+
+
           //  holder.sajdaverse.setImageResource(R.drawable.ruku_new);
 
         }
+        if(entity.getPassage_no()>0) {
+            holder.rukuview.setVisibility(View.VISIBLE);
+
+        }
+
 
         if(entity.getHas_prostration()==1) {
 
@@ -288,12 +301,12 @@ public class MushaAudioAdapter extends RecyclerView.Adapter<MushaAudioAdapter.It
             holder.quran_textView.setTypeface(custom_font);
         }
 
-        if(entity.getPassage_no()!=0){
+   /*     if(entity.getPassage_no()!=0){
            holder.sajdaverse.setVisibility(View.VISIBLE);
        }else {
             holder.sajdaverse.setVisibility(View.GONE);
         }
-
+*/
 
         System.out.println("Position"+position);
 
@@ -425,6 +438,7 @@ public class MushaAudioAdapter extends RecyclerView.Adapter<MushaAudioAdapter.It
         public ImageView expandImageButton, ivBismillah, erabexpand, erab_notes_expand;
         TextView tvSura, tvRukus, tvVerses;
         AppCompatTextView quran_textView;
+        View rukuview;
         public  ImageView sajdaverse;
         ImageView ivSurahIcon, ivLocationmakki, ivLocationmadani, ivhelp, ivoverflow, ivoverflow2,arrowforward, arrowback;
         //  public   com.nex3z.flowlayout.FlowLayout  flow_word_by_word;
@@ -457,7 +471,7 @@ public class MushaAudioAdapter extends RecyclerView.Adapter<MushaAudioAdapter.It
 
 
 
-
+                rukuview=view.findViewById(R.id.rukuview);
 
 
                sajdaverse=view.findViewById(R.id.sajda);

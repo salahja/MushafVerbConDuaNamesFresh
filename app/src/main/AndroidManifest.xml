@@ -87,7 +87,7 @@
         </activity>
 
         <activity
-            android:name=".Activity.ShowMushafActivityEXTENDEDFAB"
+            android:name=".Activity.ShowMushafActivity"
             android:parentActivityName=".Activity.MainActivity"
             android:screenOrientation="portrait">
             <meta-data
@@ -112,7 +112,7 @@
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
         </activity>
         <activity
-            android:name=".Activity.ShowMushafActivity"
+            android:name=".Activity.ShowMushafActivityorig"
             android:parentActivityName=".Activity.MainActivity"
             android:screenOrientation="portrait">
             <meta-data

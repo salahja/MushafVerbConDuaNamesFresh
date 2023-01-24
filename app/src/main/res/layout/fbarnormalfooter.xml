@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="80dp"
     android:layout_gravity="bottom"
     android:id="@+id/normalfooter"
-    android:background="?android:colorBackground"
 
-    app:cardBackgroundColor="@android:color/transparent"
+
+
     android:orientation="horizontal">
 
 
@@ -19,7 +19,7 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="80dp"
 
                 android:layout_weight="6"
                 android:id="@+id/play"
@@ -33,15 +33,16 @@
                 android:layout_height="wrap_content"
                 android:background="#FFFFFF"/>
 
-            <androidx.appcompat.widget.AppCompatSpinner
-                android:background="@color/lighter_gray"
+            <Spinner
+                android:background="@color/mdgreen_theme_dark_inversePrimary"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+
                 android:id="@+id/selectReader"
                 android:entries="@array/quran_readers_name"
                 style="@style/spinner_style">
-            </androidx.appcompat.widget.AppCompatSpinner>
+            </Spinner>
 
 
 

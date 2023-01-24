@@ -90,11 +90,15 @@ import static com.example.Constant.verbalnounspanLight;
 import static com.example.Constant.verbspanDark;
 import static com.example.Constant.verbspanLight;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
+import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -103,16 +107,25 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
-import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 
 import com.example.Constant;
 import com.example.JustJava.FrameSpan;
 import com.example.JustJava.TextBorderSpan;
+import com.example.mushafconsolidated.Activity.ShowMushafActivity;
+import com.example.mushafconsolidated.Entities.ChaptersAnaEntity;
 import com.example.mushafconsolidated.Entities.MousufSifa;
 import com.example.mushafconsolidated.Entities.NewKanaEntity;
 import com.example.mushafconsolidated.Entities.NewMudhafEntity;
@@ -129,6 +142,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import wheel.OnWheelChangedListener;
+import wheel.WheelView;
 
 public class CorpusUtilityorig {
 // --Commented out by Inspection START (26/04/22, 1:04 AM):
@@ -150,9 +166,23 @@ public class CorpusUtilityorig {
 
     final ArrayList<MousufSifa> NEWmousufSifaArrayList = new ArrayList<>();
     private final String preferences;
-    private final Context context;
+    private   Context context;
     private static  boolean dark=true;
+Activity activity;
 
+
+    public CorpusUtilityorig(ShowMushafActivity activity) {
+        this.activity = activity;
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
+        preferences = prefs.getString("theme", "dark");
+
+        String preferences = prefs.getString("theme", "dark");
+        dark = preferences.equals("dark")
+                || preferences.equals("blue")
+                || preferences.equals("purple")
+                || preferences.equals("green");
+
+    }
 
     public CorpusUtilityorig(Context context) {
         this.context = context;
@@ -613,6 +643,180 @@ public class CorpusUtilityorig {
 
         return spannable;
     }
+
+    public  ArrayList<Integer> SurahAyahPicker() {
+ ArrayList<Integer> arrayList=new ArrayList<>();
+        TextView mTextView;
+        WheelView chapterArray, versesArray, wvDay;
+        Utils utils=new Utils(activity);
+        final String[][] mYear = {new String[1]};
+        String[] mMonth = new String[1];
+        final String[] nyear = {""};
+        final String[] nmonth = {""};
+        final ArrayList<String>[] current = new ArrayList[]{new ArrayList<>()};
+        int mDay;
+        final int[] chapterno = new int[1];
+        final int[] verseno = new int[1];
+        final String[] surahArrays = activity.getResources().getStringArray(R.array.surahdetails);
+        final String[] versearrays = activity.getResources().getStringArray(R.array.versescounts);
+        final int[] intarrays = activity.getResources().getIntArray(R.array.versescount);
+        //     final AlertDialog.Builder dialogPicker = new AlertDialog.Builder(this);
+        AlertDialog.Builder dialogPicker = new AlertDialog.Builder(activity);
+        AlertDialog alertDialog = dialogPicker.create();
+        Dialog dlg = new Dialog(activity);
+        //  AlertDialog dialog = builder.create();
+        ArrayList<ChaptersAnaEntity> soraList= utils.getAllAnaChapters();
+        LayoutInflater inflater =   alertDialog.getLayoutInflater();
+
+        View view = inflater.inflate(R.layout.activity_wheel_t, null);
+        //  View view = inflater.inflate(R.layout.activity_wheel, null);
+        dialogPicker.setView(view);
+        mTextView = view.findViewById(R.id.textView2);
+        chapterArray = view.findViewById(R.id.wv_year);
+        versesArray = view.findViewById(R.id.wv_month);
+//        wvDay = (WheelView) view.findViewById(R.id.wv_day);
+        final String[] currentsurahVersescount = null;
+        chapterArray.setEntries(surahArrays);
+        int vcount = Integer.parseInt(versearrays[1]);
+        versesArray.setEntries("7");
+        for (int i = 1; i <= 7; i++) {
+            current[0].add(String.valueOf(i));
+        }
+
+        versesArray.setEntries(current[0]);
+
+        dialogPicker.setPositiveButton("Done", (dialogInterface, i) -> {
+
+
+           arrayList.add(Integer.valueOf(String.valueOf(soraList.get(chapterno[0] - 1).getChapterid())));
+           arrayList.add(verseno[0]);
+
+         //   RefreshActivity(String.valueOf(soraList.get(chapterno[0] - 1).getChapterid()));
+
+
+        });
+
+        dialogPicker.setNegativeButton("Cancel", (dialogInterface, i) -> {
+        });
+
+
+
+
+      //  String preferences = sharedPreferences.getString("themepref", "dark");
+        int db = ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.odd_item_bg_dark_blue_light);
+
+        if(preferences.equals("purple")) {
+            alertDialog.getWindow().setBackgroundDrawableResource(R.color.md_theme_dark_onSecondary);
+            //   alertDialog.getWindow().setBackgroundDrawableResource(R.color.md_theme_dark_onTertiary);
+
+            //
+        }else   if(preferences.equals("brown")) {
+            alertDialog.getWindow().setBackgroundDrawableResource(R.color.background_color_light_brown);
+            //  cardview.setCardBackgroundColor(ORANGE100);
+        }else   if(preferences.equals("blue")){
+            alertDialog.getWindow().setBackgroundDrawableResource(R.color.prussianblue);
+            //  cardview.setCardBackgroundColor(db);
+        }else   if(preferences.equals("green")){
+            alertDialog.getWindow().setBackgroundDrawableResource(R.color.mdgreen_theme_dark_onPrimary);
+            //  cardview.setCardBackgroundColor(MUSLIMMATE);
+        }
+
+
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(alertDialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+
+        //
+        alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        WindowManager.LayoutParams wmlp = alertDialog.getWindow().getAttributes();
+
+                alertDialog.show();
+
+
+        alertDialog.show();
+        Button buttonPositive = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+        buttonPositive.setTextColor(ContextCompat.getColor(activity, R.color.green));
+        Button buttonNegative = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+        buttonNegative.setTextColor(ContextCompat.getColor(activity, R.color.red));
+        if(preferences.equals("purple")) {
+            buttonPositive.setTextColor(ContextCompat.getColor(activity, R.color.yellow));
+            buttonNegative.setTextColor(ContextCompat.getColor(activity, R.color.Goldenrod));
+
+        }else   if(preferences.equals("brown")) {
+            buttonPositive.setTextColor(ContextCompat.getColor(activity, R.color.colorMuslimMate));
+            buttonNegative.setTextColor(ContextCompat.getColor(activity, R.color.red));
+            //  cardview.setCardBackgroundColor(ORANGE100);
+        }else   if(preferences.equals("blue")){
+            buttonPositive.setTextColor(ContextCompat.getColor(activity, R.color.yellow));
+            buttonNegative.setTextColor(ContextCompat.getColor(activity, R.color.Goldenrod));
+            //  cardview.setCardBackgroundColor(db);
+        }else   if(preferences.equals("green")){
+            buttonPositive.setTextColor(ContextCompat.getColor(activity, R.color.yellow));
+            buttonNegative.setTextColor(ContextCompat.getColor(activity, R.color.cyan_light));
+            //  cardview.setCardBackgroundColor(MUSLIMMATE);
+        }
+
+        //  wmlp.gravity = Gravity.TOP | Gravity.CENTER;
+        alertDialog.getWindow().setAttributes(lp);
+        alertDialog.getWindow().setGravity(Gravity.TOP);
+
+
+
+        chapterArray.setOnWheelChangedListener(new OnWheelChangedListener() {
+            @Override
+            public void onChanged(WheelView wheel, int oldIndex, int newIndex) {
+                String text = (String) chapterArray.getItem(newIndex);
+                nyear[0] = (text);
+                String[] chapno = text.split(" ");
+                chapterno[0] = Integer.parseInt(chapno[0]);
+                verseno[0] =1;
+
+
+                updateVerses(newIndex);
+                updateTextView();
+                //    updateTextView();
+            }
+
+            private void updateVerses(int newIndex) {
+                current[0] = new ArrayList<>();
+                int intarray;
+                if (newIndex != 0) {
+                    intarray = intarrays[newIndex ];
+                } else {
+                    intarray=7;
+                }
+                for (int i = 1; i <= intarray; i++) {
+                    current[0].add(String.valueOf(i));
+                }
+
+                versesArray.setEntries(current[0]);
+                updateTextView();
+
+
+            }
+
+            private void updateTextView() {
+                String text = nyear[0].concat("/").concat(nmonth[0]);
+                //   = mYear[0]+ mMonth[0];
+                mTextView.setText(text);
+            }
+        });
+        versesArray.setOnWheelChangedListener(new OnWheelChangedListener() {
+            @Override
+            public void onChanged(WheelView wheel, int oldIndex, int newIndex) {
+                String text = (String) versesArray.getItem(newIndex);
+                nmonth[0] = (text);
+                verseno[0] = Integer.parseInt(text);
+            }
+        });
+        return arrayList;
+    }
+
+
+
+
+
 
     public void SetMousufSifaDB(ArrayList<CorpusAyahWord> corpusayahWordArrayList, int surah_id) {
         Utils utils = new Utils(QuranGrammarApplication.getContext());

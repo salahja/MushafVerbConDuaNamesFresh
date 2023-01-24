@@ -100,6 +100,7 @@ Constants {
     int WHITE = 0;
 
     public static String SURAH_INDEX = "index";
+
     public static String LAST_INDEX = "index_sura";
     public static String LAST_INDEX_Scroll = "scroll";
     public static String PERMISSION_STATE = "state";

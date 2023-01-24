@@ -1184,7 +1184,7 @@
 
 
     <style name="spinner_style" parent="Base.Widget.AppCompat.DropDownItem.Spinner">
-        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textColor">@color/white</item>
 
         <item name="android:dividerHeight">5dp</item>
         <item name="android:scrollbarAlwaysDrawVerticalTrack">true</item>

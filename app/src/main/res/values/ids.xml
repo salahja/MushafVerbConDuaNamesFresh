@@ -375,6 +375,7 @@
     <item name="resetplayer" type="id" />
     <item name="playlist" type="id" />
     <item name="playlistfbtxt" type="id" />
+    <item name="surahid" type="id" />
 
 
 </resources>

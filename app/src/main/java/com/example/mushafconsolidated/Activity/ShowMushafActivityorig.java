@@ -1,7 +1,6 @@
 package com.example.mushafconsolidated.Activity;
 
 
-import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -16,9 +15,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.util.Pair;
 import android.view.View;
@@ -54,7 +50,6 @@ import com.bullhead.equalizer.Settings;
 import com.example.Constant;
 import com.example.mushafconsolidated.Adapters.FlowMushaAudioAdapter;
 import com.example.mushafconsolidated.Adapters.MushaAudioAdapter;
-import com.example.mushafconsolidated.Adapters.vtwoMushaAudioAdapter;
 import com.example.mushafconsolidated.Entities.ChaptersAnaEntity;
 import com.example.mushafconsolidated.Entities.Page;
 import com.example.mushafconsolidated.Entities.Qari;
@@ -62,7 +57,6 @@ import com.example.mushafconsolidated.Entities.QuranEntity;
 import com.example.mushafconsolidated.R;
 import com.example.mushafconsolidated.Utils;
 import com.example.mushafconsolidated.intrface.OnItemClickListenerOnLong;
-import com.example.mushafconsolidated.model.CorpusWbwWord;
 import com.example.mushafconsolidated.receivers.AudioAppConstants;
 import com.example.mushafconsolidated.receivers.DownloadService;
 import com.example.mushafconsolidated.receivers.FileManager;
@@ -70,6 +64,7 @@ import com.example.mushafconsolidated.receivers.QuranValidateSources;
 import com.example.mushafconsolidated.receivers.Settingsss;
 import com.example.mushafconsolidated.settings.Constants;
 import com.example.utility.FlowLayout;
+import com.example.utility.MovableFloatingActionButton;
 import com.example.utility.QuranGrammarApplication;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlayer;
@@ -100,14 +95,13 @@ import java.io.File;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ShowMushafActivityEXTENDEDFAB extends BaseActivity implements
+public class ShowMushafActivityorig extends BaseActivity implements
 
         OnItemClickListenerOnLong, View.OnClickListener, StyledPlayerView.FullscreenButtonClickListener {
     private static final String KEY_TRACK_SELECTION_PARAMETERS = "track_selection_parameters";
@@ -115,18 +109,22 @@ public class ShowMushafActivityEXTENDEDFAB extends BaseActivity implements
     private static final String KEY_ITEM_INDEX = "item_index";
     private static final String KEY_POSITION = "position";
     private int ayah;
-    private final LinkedHashMap<Integer, String> passage = new LinkedHashMap<>();
+
     int audioType;
-    String prevqari = "";
+    String prevqari="";
     private final Handler handler = new Handler();
     private static final String KEY_AUTO_PLAY = "auto_play";
     private List<MediaItem> marray;
     private String singleverse;
 
 
-    private boolean isSingle = false;
+    private boolean isSingle=false;
     private List<QuranEntity> quranbySurahadapter;
     private MaterialButton resetplayer;
+    private FloatingActionButton fab1,fab2;
+    private LinearLayout  fabLayout1,fabLayout2;
+    private   MovableFloatingActionButton  fab;
+
 
     public String getPrevqari() {
         return prevqari;
@@ -150,7 +148,7 @@ public class ShowMushafActivityEXTENDEDFAB extends BaseActivity implements
 
     protected StyledPlayerControlView playerView;
 
-    //   protected  StyledPlayerView playerView;
+    //  protected  StyledPlayerView playerView;
     protected LinearLayout debugRootView;
     protected TextView debugTextView;
     protected @Nullable ExoPlayer player;
@@ -181,10 +179,10 @@ public class ShowMushafActivityEXTENDEDFAB extends BaseActivity implements
     private SeekBar seekBar;
     int surahselected, verselected;
     private String isNightmode;
-    // LinearLayout fabLayout1, fabLayout2,fabLayout3;
+   // LinearLayout fabLayout1, fabLayout2,fabLayout3;
 
 
-    //  FloatingActionButton fab, fab1, fab2, fab3;
+  //  FloatingActionButton fab, fab1, fab2, fab3;
     FloatingActionButton resetfb, playlistfb;
 
     // Use the ExtendedFloatingActionButton to handle the
@@ -200,7 +198,6 @@ public class ShowMushafActivityEXTENDEDFAB extends BaseActivity implements
     Boolean isAllFabsVisible;
 
     boolean isFABOpen = false;
-
     public int getVerselected() {
         return verselected;
     }
@@ -213,7 +210,7 @@ public class ShowMushafActivityEXTENDEDFAB extends BaseActivity implements
     public void onBackPressed() {
 
         //unregister broadcast for download ayat
-        LocalBroadcastManager.getInstance(ShowMushafActivityEXTENDEDFAB.this).unregisterReceiver(downloadPageAya);
+        LocalBroadcastManager.getInstance(ShowMushafActivityorig.this).unregisterReceiver(downloadPageAya);
         //stop flag of auto start
         startBeforeDownload = false;
 
@@ -249,7 +246,6 @@ public class ShowMushafActivityEXTENDEDFAB extends BaseActivity implements
     Utils repository;
     FlowMushaAudioAdapter flowMushaAudioAdapter;
     MushaAudioAdapter mushaAudioAdapter;
-    vtwoMushaAudioAdapter vtwoMushaAudioAdapter ;
     Typeface typeface;
     TextView txtView;
     int pos;
@@ -282,8 +278,8 @@ public class ShowMushafActivityEXTENDEDFAB extends BaseActivity implements
     private String currentDateStr;
 
     private Spinner translationBooks, readers;
-    private ConstraintLayout downloadFooter;
-    private LinearLayout normalFooter;
+    private ConstraintLayout  downloadFooter;
+    private  LinearLayout normalFooter;
     private RelativeLayout playerFooter;
     private List<String> bookNames;
     private List<Integer> bookIDs;
@@ -296,14 +292,14 @@ public class ShowMushafActivityEXTENDEDFAB extends BaseActivity implements
     private int screenHeight;
     private ProgressBar mediaPlayerDownloadProgress;
     private BottomSheetBehavior mBottomSheetBehavior;
-    FloatingActionButton resetfab, playlistfab;
+    FloatingActionButton resetfab,playlistfab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.vfour_expandable_newactivity_show_ayahs);
+        setContentView(R.layout.newactivity_show_ayahs);
         ButterKnife.bind(this);
-        QuranGrammarApplication.appContext = ShowMushafActivityEXTENDEDFAB.this;
+        QuranGrammarApplication.appContext = ShowMushafActivityorig.this;
         //  intentmyservice = new Intent(this, AudioService.class);
         intent = new Intent(BROADCAST_SEEKBAR);
         SharedPreferences sharedPreferences =
@@ -332,8 +328,6 @@ public class ShowMushafActivityEXTENDEDFAB extends BaseActivity implements
             pos = getIntent().getIntExtra(Constants.JUZ_INDEX, 1);
             pos = getPageFromJuz(pos);
         }
-
-
         //endregion
 
         Log.d(TAG, "onCreate: " + pos);
@@ -373,133 +367,88 @@ public class ShowMushafActivityEXTENDEDFAB extends BaseActivity implements
     }
 
     private void initfabmenu() {
-
-        // This FAB button is the Parent
-        mAddFab = findViewById(R.id.add_fab);
-        // FAB button
-        resetfb = findViewById(R.id.resetfb);
-
-        playlistfb = findViewById(R.id.playlistfb);
-
-        // Also register the action name text, of all the
-        // FABs. except parent FAB action name text
-        resetfb.setOnClickListener(this);
-        ;
-        playlistfb.setOnClickListener(this);
-        resetfbtxt = findViewById(R.id.resetfbtxt);
-        playlistfbtxt = findViewById(R.id.playlistfbtxt);
-
-        // Now set all the FABs and all the action name
-        // texts as GONE
-        resetfb.setVisibility(View.GONE);
-        playlistfb.setVisibility(View.GONE);
-        resetfbtxt.setVisibility(View.GONE);
-        playlistfbtxt.setVisibility(View.GONE);
-
-        // make the boolean variable as false, as all the
-        // action name texts and all the sub FABs are
-        // invisible
-        isAllFabsVisible = false;
-        mAddFab.setVisibility(View.VISIBLE);
-        // Set the Extended floating action button to
-        // shrinked state initially
-        mAddFab.shrink();
+        fabLayout1 = (LinearLayout) findViewById(R.id.fabLayout1);
+         fabLayout2 = (LinearLayout) findViewById(R.id.fabLayout2);
 
 
-        playlistfb.setOnClickListener(new View.OnClickListener() {
+
+      fab =  findViewById(R.id.fab);
+      
+        fab1 = (FloatingActionButton) findViewById(R.id.resetfab);
+        fab2= (FloatingActionButton) findViewById(R.id.playlistfab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                if (normalFooter.getVisibility() == View.GONE) {
-                    normalFooter.setVisibility(View.VISIBLE);
-                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                } else {
-
-                    normalFooter.setVisibility(View.GONE);
+            public void onClick(View view) {
+                if(!isFABOpen){
+                    showFABMenu();
+                }else{
+                    closeFABMenu();
                 }
             }
         });
-        resetfb.setOnClickListener(new View.OnClickListener() {
+
+    }
+    private void showFABMenu(){
+
+
+
+        isFABOpen = true;
+        fabLayout1.setVisibility(View.VISIBLE);
+        fabLayout2.setVisibility(View.VISIBLE);
+
+
+        fab.animate().rotationBy(180);
+        fabLayout1.animate().translationY(-getResources().getDimension(R.dimen.vstandard_55));
+        fabLayout2.animate().translationY(-getResources().getDimension(R.dimen.vstandard_145));
+
+
+    }
+
+    private void closeFABMenu(){
+
+
+        isFABOpen = false;
+
+
+        fab.animate().rotation(0);
+        fabLayout1.animate().translationY(0);
+        fabLayout2.animate().translationY(0);
+        fabLayout1.setVisibility(View.GONE);
+        fabLayout2.setVisibility(View.GONE);
+
+
+
+/*        fabLayout2.animate().translationY(0).setListener(new Animator.AnimatorListener() {
             @Override
-            public void onClick(View v) {
-                RefreshActivity();
+            public void onAnimationStart(Animator animator) {
+
             }
-        });
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                if (!isFABOpen) {
+
+                    fabLayout1.setVisibility(View.GONE);
+                    fabLayout2.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+
+            }
+        });*/
 
 
-        // We will make all the FABs and action name texts
-        // visible only when Parent FAB button is clicked So
-        // we have to handle the Parent FAB button first, by
-        // using setOnClickListener you can see below
-        mAddFab.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (!isAllFabsVisible) {
 
-                            // when isAllFabsVisible becomes
-                            // true make all the action name
-                            // texts and FABs VISIBLE.
-
-                            resetfb.animate().rotation(180);
-
-                            playlistfb.animate().rotation(180);
-                            resetfbtxt.setVisibility(View.VISIBLE);
-                            playlistfbtxt.setVisibility(View.VISIBLE);
-                            resetfb.show();
-                            playlistfb.show();
-
-                            // Now extend the parent FAB, as
-                            // user clicks on the shrinked
-                            // parent FAB
-                            mAddFab.extend();
-
-                            // make the boolean variable true as
-                            // we have set the sub FABs
-                            // visibility to GONE
-                            isAllFabsVisible = true;
-                        } else {
-
-                            // when isAllFabsVisible becomes
-                            // true make all the action name
-                            // texts and FABs GONE.
-
-                            resetfb.animate().rotation(180);
-
-                            playlistfb.animate().rotation(180);
-                            resetfb.hide();
-                            playlistfb.hide();
-                            resetfbtxt.setVisibility(View.GONE);
-                            playlistfbtxt.setVisibility(View.GONE);
-
-                            // Set the FAB to shrink after user
-                            // closes all the sub FABs
-                            mAddFab.shrink();
-
-                            // make the boolean variable false
-                            // as we have set the sub FABs
-                            // visibility to GONE
-                            isAllFabsVisible = false;
-                        }
-                    }
-                });
 
 
     }
-
-    private void RefreshActivity() {
-        Log.e(TAG, "onClick called");
-        final Intent intent = this.getIntent();
-        //  surah = getIntent().getIntExtra(Constants.SURAH_INDEX, 1);
-        String parentActivityRef = intent.getStringExtra("PARENT_ACTIVITY_REF");
-
-        intent.putExtra(Constants.SURAH_INDEX, surah);
-        this.overridePendingTransition(0, 0);
-        startActivity(intent);
-        this.finish();
-        this.overridePendingTransition(android.R.anim.slide_out_right, android.R.anim.slide_in_left);
-
-    }
-
     private Runnable sendUpdatesToUI = new Runnable() {
         public void run() {
 
@@ -522,17 +471,12 @@ public class ShowMushafActivityEXTENDEDFAB extends BaseActivity implements
 
                             holder.itemView.findViewById(R.id.quran_textView).setBackgroundColor(Color.CYAN);
                         else {
-                            TextView textView = holder.itemView.findViewById(R.id.quran_textView);
-
-                            //for vtwoadapter
-                          //  Highlightverse(textView);
-
                             holder.itemView.findViewById(R.id.quran_textView).setBackgroundColor(Constant.MUSLIMMATE);
                         }
 
                     }
                 } catch (NullPointerException exception) {
-                    Toast.makeText(ShowMushafActivityEXTENDEDFAB.this, "null pointer udapte", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ShowMushafActivityorig.this, "null pointer udapte", Toast.LENGTH_SHORT).show();
                 }
             }
             RecyclerView.ViewHolder holderp = (RecyclerView.ViewHolder) rvAyahsPages.findViewHolderForAdapterPosition(ayah - 1);
@@ -540,7 +484,7 @@ public class ShowMushafActivityEXTENDEDFAB extends BaseActivity implements
                 if (null != holderp) {
                     try {
                         ArrayList<String> arrayList = new ArrayList<>();
-                        FlowLayout fl = new FlowLayout(ShowMushafActivityEXTENDEDFAB.this, arrayList);
+                        FlowLayout fl = new FlowLayout(ShowMushafActivityorig.this, arrayList);
                         ArrayList<String> arrayList1 = fl.getArrayList();
                         fl.getChildAt(ayah);
                         int drawingCacheBackgroundColor = holderp.itemView.findViewById(R.id.quran_textView).getDrawingCacheBackgroundColor();
@@ -551,7 +495,7 @@ public class ShowMushafActivityEXTENDEDFAB extends BaseActivity implements
 
                         }
                     } catch (NullPointerException exception) {
-                        Toast.makeText(ShowMushafActivityEXTENDEDFAB.this, "UPDATE HIGHLIGHTED", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ShowMushafActivityorig.this, "UPDATE HIGHLIGHTED", Toast.LENGTH_SHORT).show();
                     }
 
 
@@ -566,26 +510,6 @@ public class ShowMushafActivityEXTENDEDFAB extends BaseActivity implements
             handler.postDelayed(this, 500);
 
 
-        }
-
-        private void Highlightverse(TextView textView) {
-            String str = String.valueOf(textView.getText());
-            String[] split1 = str.split("﴿");
-            String s1 = split1[ayah];
-            int substringlen = s1.length();
-            int fullstrlength = str.length();
-            SpannableStringBuilder span = new SpannableStringBuilder(str);
-            String starta = String.valueOf(ayah);
-            String endb = String.valueOf(ayah + 1);
-            int start = str.indexOf(starta);
-            int end = str.indexOf(endb);
-            try {
-                span.setSpan(new ForegroundColorSpan(Color.RED), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                textView.setText(span);
-                String[] split = str.split("\n");
-            } catch (IndexOutOfBoundsException exception) {
-                System.out.println(exception.toString());
-            }
         }
 
 
@@ -636,7 +560,7 @@ public class ShowMushafActivityEXTENDEDFAB extends BaseActivity implements
     }
 
     protected boolean initializePlayer(boolean isSingle) {
-        if (isMusicplaying) {
+        if(isMusicplaying){
             releasePlayer();
         }
         if (player == null) {
@@ -646,19 +570,20 @@ public class ShowMushafActivityEXTENDEDFAB extends BaseActivity implements
             downloadFooter.setVisibility(View.GONE);
 
 
-            marray = createMediaItems();
 
-            if (marray.isEmpty()) {
-                return false;
-            }
+                marray = createMediaItems();
+
+                if (marray.isEmpty()) {
+                    return false;
+                }
 
             player = new ExoPlayer.Builder(this).build();
             lastSeenTracks = Tracks.EMPTY;
 
 
-            player.addListener(new ShowMushafActivityEXTENDEDFAB.PlayerEventListener());
+            player.addListener(new ShowMushafActivityorig.PlayerEventListener());
             player.setTrackSelectionParameters(trackSelectionParameters);
-            player.addListener(new ShowMushafActivityEXTENDEDFAB.PlayerEventListener());
+            player.addListener(new ShowMushafActivityorig.PlayerEventListener());
             player.addAnalyticsListener(new EventLogger());
             player.setAudioAttributes(AudioAttributes.DEFAULT, /* handleAudioFocus= */ true);
             player.setPlayWhenReady(startAutoPlay);
@@ -673,14 +598,14 @@ public class ShowMushafActivityEXTENDEDFAB extends BaseActivity implements
                 @Override
                 public void onPlaybackStateChanged(int playbackState) {
                     if (player.getPlayWhenReady() && playbackState == Player.STATE_READY) {
-                        isMusicplaying = true;// media actually playing
+                        isMusicplaying=true;// media actually playing
                     } else if (player.getPlayWhenReady()) {
-                        isMusicplaying = false;
+                        isMusicplaying=false;
                         // might be idle (plays after prepare()),
                         // buffering (plays when data available)
                         // or ended (plays when seek away from end)
                     } else {
-                        pausePlayFlag = true;
+                        pausePlayFlag=true;
                         // player paused in any state
                     }
                     Player.Listener.super.onPlaybackStateChanged(playbackState);
@@ -695,9 +620,9 @@ public class ShowMushafActivityEXTENDEDFAB extends BaseActivity implements
             player.seekTo(startItemIndex, startPosition);
         }
 
-        player.setMediaItems(marray, /* resetPosition= */ !haveStartPosition);
-        player.prepare();
-        setupHandler();
+            player.setMediaItems(marray, /* resetPosition= */ !haveStartPosition);
+            player.prepare();
+            setupHandler();
 
         //updateButtonVisibility();
         return true;
@@ -713,7 +638,7 @@ public class ShowMushafActivityEXTENDEDFAB extends BaseActivity implements
         marray = new ArrayList<>();
 
 
-        if (isSingle) {
+        if(isSingle) {
             List<QuranEntity> sngleverseplay = repository.getsurahayahVerses(getSurahselected(), getVerselected());
             //Create files locations for the all page ayas
             for (QuranEntity ayaItem : sngleverseplay) {
@@ -723,7 +648,7 @@ public class ShowMushafActivityEXTENDEDFAB extends BaseActivity implements
 
             }
 
-        } else {
+        }else{
             List<QuranEntity> quranbySurah = repository.getQuranbySurah(getSurahselected());
             for (QuranEntity ayaItem : quranbySurah) {
                 ayaLocations.add(FileManager.createAyaAudioLinkLocation(this, readerID, ayaItem.getAyah(), ayaItem.getSurah()));
@@ -732,6 +657,9 @@ public class ShowMushafActivityEXTENDEDFAB extends BaseActivity implements
 
             }
         }
+
+
+
 
 
         return marray;
@@ -887,13 +815,26 @@ public class ShowMushafActivityEXTENDEDFAB extends BaseActivity implements
 
     private void initRV() {
 
-        Animation openfab = AnimationUtils.loadAnimation(this, R.anim.rotate_open_animation);
+        Animation openfab =    AnimationUtils.loadAnimation(this, R.anim.rotate_open_animation) ;
         Animation closefab = AnimationUtils.loadAnimation(this, R.anim.rotate_close_animation);
-        Animation frombottomfab = AnimationUtils.loadAnimation(this, R.anim.from_bottom_animation);
-        Animation fromtopfab = AnimationUtils.loadAnimation(this, R.anim.to_bottom_animation);
+        Animation frombottomfab =      AnimationUtils.loadAnimation(this, R.anim.from_bottom_animation);
+        Animation fromtopfab =         AnimationUtils.loadAnimation(this, R.anim.to_bottom_animation);
 
 
-        //  resetplayer = findViewById(R.id.resetplayer);
+
+
+
+
+
+
+
+
+
+
+       //  resetplayer = findViewById(R.id.resetplayer);
+
+
+
 
 
         eqContainer = findViewById(R.id.eqFrame);
@@ -928,21 +869,6 @@ public class ShowMushafActivityEXTENDEDFAB extends BaseActivity implements
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         quranbySurahadapter = Utils.getQuranbySurah(surah);
-        StringBuilder sb=new StringBuilder();
-        for (QuranEntity entity : quranbySurahadapter) {
-            if(entity.getPassage_no()!=0){
-                sb.append(entity.getQurantext()).append("﴿").append(entity.getAyah()).append("﴾");
-                
-            }else{
-                
-                passage.put(entity.getPassage_no(),sb.toString());
-                sb=new StringBuilder();
-            }
-            
-
-        }
-
-
         ArrayList<ChaptersAnaEntity> chapter = repository.getSingleChapter(surah);
         //  initlistview(quranbySurah, chapter);
 
@@ -967,10 +893,7 @@ public class ShowMushafActivityEXTENDEDFAB extends BaseActivity implements
 
         } else {
             mushaAudioAdapter = new MushaAudioAdapter(this, quranbySurahadapter, listener, chapter.get(0).getChapterid(), chapter.get(0).getNamearabic(), chapter.get(0).getIsmakki(), header);
-           rvAyahsPages.setAdapter(mushaAudioAdapter);
-       //  vtwoMushaAudioAdapter = new vtwoMushaAudioAdapter(this, quranbySurahadapter, listener, chapter.get(0).getChapterid(), chapter.get(0).getNamearabic(), chapter.get(0).getIsmakki(), header);
-        //    rvAyahsPages.setAdapter(vtwoMushaAudioAdapter);
-
+            rvAyahsPages.setAdapter(mushaAudioAdapter);
         }
 
 
@@ -1007,6 +930,10 @@ public class ShowMushafActivityEXTENDEDFAB extends BaseActivity implements
 */
 
 
+
+
+
+
         readers.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -1035,6 +962,7 @@ public class ShowMushafActivityEXTENDEDFAB extends BaseActivity implements
                         readersNames.add(reader.getName_english());
 
 
+
                     } /*else {
                         readersNames.add(reader.getName_english());
 
@@ -1043,7 +971,7 @@ public class ShowMushafActivityEXTENDEDFAB extends BaseActivity implements
                 }
 
                 //add custom spinner adapter for readers
-                ArrayAdapter<String> spinnerReaderAdapter = new ArrayAdapter<>(ShowMushafActivityEXTENDEDFAB
+                ArrayAdapter<String> spinnerReaderAdapter = new ArrayAdapter<>(ShowMushafActivityorig
                         .this, R.layout.spinner_layout_larg, R.id.spinnerText, readersNames);
                 readers.setAdapter(spinnerReaderAdapter);
 
@@ -1057,6 +985,7 @@ public class ShowMushafActivityEXTENDEDFAB extends BaseActivity implements
         rvAyahsPages.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
 
     }
+
 
 
     private void initlistview(List<QuranEntity> quranbySurah, ArrayList<ChaptersAnaEntity> chapter) {
@@ -1174,7 +1103,7 @@ public class ShowMushafActivityEXTENDEDFAB extends BaseActivity implements
 
 
     public boolean checkPermission() {
-        int result = ContextCompat.checkSelfPermission((ShowMushafActivityEXTENDEDFAB.this), android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int result = ContextCompat.checkSelfPermission((ShowMushafActivityorig.this), android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
         return result == PackageManager.PERMISSION_GRANTED;
     }
 
@@ -1326,6 +1255,7 @@ public class ShowMushafActivityEXTENDEDFAB extends BaseActivity implements
                 playerFooter.setVisibility(View.VISIBLE);
 
 
+
             }
         } else {
             //Other thing in download
@@ -1350,7 +1280,7 @@ public class ShowMushafActivityEXTENDEDFAB extends BaseActivity implements
             builder.show();
         } else {
             //change view of footer to media
-            //      footerContainer.setVisibility(View.VISIBLE);
+      //      footerContainer.setVisibility(View.VISIBLE);
             playerFooter.setVisibility(View.GONE);
             //  mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
             downloadFooter.setVisibility(View.VISIBLE);
@@ -1380,7 +1310,7 @@ public class ShowMushafActivityEXTENDEDFAB extends BaseActivity implements
 
             startBeforeDownload = true;
 
-            Intent intent = new Intent(ShowMushafActivityEXTENDEDFAB.this, DownloadService.class);
+            Intent intent = new Intent(ShowMushafActivityorig.this, DownloadService.class);
             intent.putStringArrayListExtra(AudioAppConstants.Download.DOWNLOAD_LINKS, Links);
             intent.putExtra(AudioAppConstants.Download.DOWNLOAD_LOCATION, app_folder_path);
             startService(intent);
@@ -1441,15 +1371,15 @@ public class ShowMushafActivityEXTENDEDFAB extends BaseActivity implements
 
     @Override
     public void onItemClick(View v, int position) {
-        Object istag = v.getTag();
-        if (istag.equals("verse")) {
+     Object istag=   v.getTag();
+    if(istag.equals("verse")){
 
-            int ayah1 = quranbySurahadapter.get(position).getAyah();
-            isSingle = true;
-            setVerselected(ayah1 - 1);
-            DownloadIfnotPlay();
+        int ayah1 = quranbySurahadapter.get(position).getAyah();
+        isSingle=true;
+        setVerselected(ayah1-1);
+        DownloadIfnotPlay();
 
-        }
+    }
 
     }
 

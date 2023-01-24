@@ -45,7 +45,8 @@ public class IsmFaelIsmMafoolSarfKabeerAdapter extends RecyclerView.Adapter<IsmF
         this.context = context;
         this.sarfSagheer = lists;
         this.newsarf = newsarf;
-        sharedPref = new SharedPref(context);
+        sharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(context);
 
     }
 
@@ -120,7 +121,7 @@ public class IsmFaelIsmMafoolSarfKabeerAdapter extends RecyclerView.Adapter<IsmF
     }
 
     private void gcase(ViewHolder holder) {
-        SharedPref sf = new SharedPref(context);
+
          String language =    sharedPreferences.getString("lan", "en");;
         String[] array;
         if (language.equals("en"))

@@ -343,7 +343,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:$PROJECT_DIR$/../../Android/Sdk/icons/material/materialicons/audio_file/baseline_audio_file_24.xml" />
+                                      <entry key="url" value="file:$PROJECT_DIR$/../../Android/Sdk/icons/material/materialicons/open_in_new/baseline_open_in_new_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -354,7 +354,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="0e0d0d" />
-                            <entry key="outputName" value="baseline_audio_file_24" />
+                            <entry key="outputName" value="baseline_open_in_new_24" />
                             <entry key="sourceFile" value="$USER_HOME$/Documents/red-compass-4-hi.svg" />
                           </map>
                         </option>

@@ -31,17 +31,7 @@
         android:paddingEnd="5.0dip"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textSize="16.0sp" />
-    <com.google.android.flexbox.FlexboxLayout
-        android:id="@+id/flex7"
-        app:layout_wrapBefore="false"
 
-        app:alignContent="flex_start"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        app:justifyContent="center"
-
-         >
 
 
 
@@ -61,7 +51,19 @@
         android:marqueeRepeatLimit="marquee_forever"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:visibility="visible" />
-    </com.google.android.flexbox.FlexboxLayout>
+
+    <View
+        android:id="@+id/rukuview"
+        android:visibility="gone"
+        android:layout_below="@+id/quran_textView"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_marginTop="05dp"
+        android:background="#A80C0C">
+
+    </View>
+
+
     <ImageView
         android:autofillHints="sajda"
         android:visibility="gone"

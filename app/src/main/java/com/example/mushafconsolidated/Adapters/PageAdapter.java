@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.graphics.text.LineBreaker;
 import android.os.Build;
-import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,14 +19,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mushafconsolidated.Activity.ShowMushafActivity;
 import com.example.mushafconsolidated.Entities.Page;
-import com.example.mushafconsolidated.Entities.QuranMetaEntity;
 import com.example.mushafconsolidated.R;
-import com.example.utility.CorpusUtilityorig;
 import com.google.android.material.button.MaterialButton;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
