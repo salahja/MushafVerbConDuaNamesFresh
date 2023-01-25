@@ -105,7 +105,13 @@ public class Utils {
         return database.QuranDao().getQuranVersesBySurah(id);
 
     }
+    public static List<QuranEntity> getQuranbySurahAyahrange(int surahid,int from,int to) {
+        return database.QuranDao().getQuranbySurahAyahrange(surahid,from,to);
 
+    }
+
+
+    //select * from qurans where ayah>=50 and ayah<=78 and surah=9
     public static List<QuranEntity> getQuran() {
         return database.QuranDao().getAllQuran();
 

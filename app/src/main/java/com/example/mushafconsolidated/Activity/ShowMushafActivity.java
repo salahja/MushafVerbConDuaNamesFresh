@@ -28,8 +28,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -75,6 +73,7 @@ import com.example.mushafconsolidated.receivers.QuranValidateSources;
 import com.example.mushafconsolidated.receivers.Settingsss;
 import com.example.mushafconsolidated.settings.Constants;
 import com.example.utility.FlowLayout;
+import com.example.utility.MovableExtendedFloatingActionButton;
 import com.example.utility.QuranGrammarApplication;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlayer;
@@ -86,7 +85,7 @@ import com.google.android.exoplayer2.audio.AudioAttributes;
 import com.google.android.exoplayer2.mediacodec.MediaCodecRenderer;
 import com.google.android.exoplayer2.mediacodec.MediaCodecUtil;
 import com.google.android.exoplayer2.trackselection.TrackSelectionParameters;
-import com.google.android.exoplayer2.ui.StyledPlayerControlView;
+import com.google.android.exoplayer2.ui.PlayerControlView;
 import com.google.android.exoplayer2.ui.StyledPlayerView;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.util.DebugTextViewHelper;
@@ -98,7 +97,6 @@ import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.File;
@@ -123,6 +121,35 @@ public class ShowMushafActivity extends BaseActivity implements
     private static final String KEY_SERVER_SIDE_ADS_LOADER_STATE = "server_side_ads_loader_state";
     private static final String KEY_ITEM_INDEX = "item_index";
     private static final String KEY_POSITION = "position";
+    private String[] surahWheelDisplayData;
+    private String[] ayahWheelDisplayData;
+    private MaterialButton playbutton;
+    int versestartrange, verseendrange;
+
+    public int getVersestartrange() {
+        return versestartrange;
+    }
+
+    public void setVersestartrange(int versestartrange) {
+        this.versestartrange = versestartrange;
+    }
+
+    public int getVerseendrange() {
+        return verseendrange;
+    }
+
+    public void setVerseendrange(int verseendrange) {
+        this.verseendrange = verseendrange;
+    }
+
+    public int getAyah() {
+        return ayah;
+    }
+
+    public void setAyah(int ayah) {
+        this.ayah = ayah;
+    }
+
     private int ayah;
     private final LinkedHashMap<Integer, String> passage = new LinkedHashMap<>();
     int audioType;
@@ -139,6 +166,7 @@ public class ShowMushafActivity extends BaseActivity implements
     private SharedPreferences sharedPreferences;
     private int ayahtrack;
     private String selectedqari;
+    private ArrayList<String> header = new ArrayList<>();
 
     public String getPrevqari() {
         return prevqari;
@@ -160,9 +188,9 @@ public class ShowMushafActivity extends BaseActivity implements
     }
 //  protected StyledPlayerView playerView;
 
-    protected StyledPlayerControlView playerView;
+    //  protected StyledPlayerControlView playerView;
 
-    //   protected  StyledPlayerView playerView;
+    protected PlayerControlView playerView;
     protected LinearLayout debugRootView;
     protected TextView debugTextView;
     protected @Nullable ExoPlayer player;
@@ -191,22 +219,39 @@ public class ShowMushafActivity extends BaseActivity implements
     private Intent intentmyservice;
     private TextView ayadet;
     private SeekBar seekBar;
-    int surahselected, verselected;
+    int surahselected, verselected, versescount;
+    String surahName;
     private String isNightmode;
-    // LinearLayout fabLayout1, fabLayout2,fabLayout3;
+
+    public int getVersescount() {
+        return versescount;
+    }
+
+    public void setVersescount(int versescount) {
+        this.versescount = versescount;
+    }
+
+    public String getSurahName() {
+        return surahName;
+    }
+
+    public void setSurahName(String surahName) {
+        this.surahName = surahName;
+    }
+// LinearLayout fabLayout1, fabLayout2,fabLayout3;
 
 
     //  FloatingActionButton fab, fab1, fab2, fab3;
-    FloatingActionButton resetfb, playlistfb,jumpfb;
+    FloatingActionButton resetfb, playlistfb, jumpfb, playfb;
 
     // Use the ExtendedFloatingActionButton to handle the
     // parent FAB
-    ExtendedFloatingActionButton mAddFab;
+    MovableExtendedFloatingActionButton mAddFab;
 
     // These TextViews are taken to make visible and
     // invisible along with FABs except parent FAB's action
     // name
-    TextView resetfbtxt, playlistfbtxt,jumptv;
+    TextView resetfbtxt, playlistfbtxt, jumptv, playtxt;
 
     // to check whether sub FABs are visible or not
     Boolean isAllFabsVisible;
@@ -261,7 +306,7 @@ public class ShowMushafActivity extends BaseActivity implements
     Utils repository;
     FlowMushaAudioAdapter flowMushaAudioAdapter;
     MushaAudioAdapter mushaAudioAdapter;
-    vtwoMushaAudioAdapter vtwoMushaAudioAdapter ;
+    vtwoMushaAudioAdapter vtwoMushaAudioAdapter;
     Typeface typeface;
     TextView txtView;
     int pos;
@@ -294,11 +339,12 @@ public class ShowMushafActivity extends BaseActivity implements
     private String currentDateStr;
 
     private Spinner translationBooks, readers;
-    private ConstraintLayout downloadFooter;
+    private ConstraintLayout downloadFooter, audio_settings_bottom;
     private LinearLayout normalFooter;
     private RelativeLayout playerFooter;
     private List<String> bookNames;
     private List<Integer> bookIDs;
+    TextView startrange, endrange, startname, endname, qarilabel, qariname;
 
     public long getStartPosition() {
         return startPosition;
@@ -332,7 +378,7 @@ public class ShowMushafActivity extends BaseActivity implements
         isNightmode = sharedPreferences.getString("themepref", "dark");
         repository = Utils.getInstance(getApplication());
         typeface = Typeface.createFromAsset(getAssets(), "me_quran.ttf");
-   selectedqari=     sharedPreferences.getString("qari","35");
+        selectedqari = sharedPreferences.getString("qari", "35");
         pos = getIntent().getIntExtra(Constants.SURAH_INDEX, 1);
         pos = getStartPageFromIndex(pos);
 
@@ -341,11 +387,11 @@ public class ShowMushafActivity extends BaseActivity implements
             surah = getIntent().getIntExtra(Constants.SURAH_INDEX, 1);
             setSurahselected(surah);
             //   getIntent().getIntExtra(Constants.SURAH_GO_INDEX, 1);
-             ayahtrack = getIntent().getIntExtra(Constants.AYAH_GO_INDEX, 0);
-             if(ayahtrack>0){
-                 currentItem=ayahtrack;
-                 setStartPosition(ayahtrack);
-             }
+            ayahtrack = getIntent().getIntExtra(Constants.AYAH_GO_INDEX, 0);
+            if (ayahtrack > 0) {
+                currentItem = ayahtrack;
+                setStartPosition(ayahtrack);
+            }
             Log.d(TAG, "onCreate: ayah  " + ayah);
             pos = getPosFromSurahAndAyah(surah, ayah);
             //       showMessage(String.valueOf(pos));D
@@ -393,34 +439,16 @@ public class ShowMushafActivity extends BaseActivity implements
 
 
         initRV();
-        initfabmenu();
+        registerFabmenu();
+        initFabmenu();
 
 
     }
 
-    private void initfabmenu() {
+    private void initFabmenu() {
 
-        // This FAB button is the Parent
-        mAddFab = findViewById(R.id.add_fab);
-        // FAB button
-        resetfb = findViewById(R.id.resetfb);
-        playlistfb = findViewById(R.id.playlistfb);
-        jumpfb=findViewById(R.id.jumptofb);
-        jumpfb.setOnClickListener(this);
-
-
-
-        // Also register the action name text, of all the
-        // FABs. except parent FAB action name text
-        resetfb.setOnClickListener(this);
-        ;
-        playlistfb.setOnClickListener(this);
-        resetfbtxt = findViewById(R.id.resetfbtxt);
-        playlistfbtxt = findViewById(R.id.playlistfbtxt);
-        jumptv= (TextView) findViewById(R.id.jumptv);
-
-        // Now set all the FABs and all the action name
-        // texts as GONE
+        playfb.setVisibility(View.GONE);
+        playerFooter.setVisibility(View.GONE);
         jumpfb.setVisibility(View.GONE);
         resetfb.setVisibility(View.GONE);
         playlistfb.setVisibility(View.GONE);
@@ -437,195 +465,23 @@ public class ShowMushafActivity extends BaseActivity implements
         // shrinked state initially
         mAddFab.shrink();
 
-jumpfb.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-      ExecutorService ex = Executors.newSingleThreadExecutor();
-
-     SurahAyahPicker();
-
-
-
-    }
-
-    public void SurahAyahPicker() {
-        TextView mTextView;
-        WheelView chapterArray, versesArray, wvDay;
-    Utils utils=new Utils(ShowMushafActivity.this);
-        final String[][] mYear = {new String[1]};
-        String[] mMonth = new String[1];
-        final String[] nyear = {""};
-        final String[] nmonth = {""};
-        final ArrayList<String>[] current = new ArrayList[]{new ArrayList<>()};
-        int mDay;
-        final int[] chapterno = new int[1];
-        final int[] verseno = new int[1];
-        final String[] surahArrays = getResources().getStringArray(R.array.surahdetails);
-        final String[] versearrays = getResources().getStringArray(R.array.versescounts);
-        final int[] intarrays = getResources().getIntArray(R.array.versescount);
-        //     final AlertDialog.Builder dialogPicker = new AlertDialog.Builder(this);
-        AlertDialog.Builder dialogPicker = new AlertDialog.Builder(ShowMushafActivity.this);
-        Dialog dlg = new Dialog(ShowMushafActivity.this);
-        //  AlertDialog dialog = builder.create();
-        ArrayList<ChaptersAnaEntity> soraList= utils.getAllAnaChapters();
-        LayoutInflater inflater = ShowMushafActivity.this.getLayoutInflater();
-        View view = inflater.inflate(R.layout.activity_wheel_t, null);
-        //  View view = inflater.inflate(R.layout.activity_wheel, null);
-        dialogPicker.setView(view);
-        mTextView = view.findViewById(R.id.textView2);
-        chapterArray = view.findViewById(R.id.wv_year);
-        versesArray = view.findViewById(R.id.wv_month);
-//        wvDay = (WheelView) view.findViewById(R.id.wv_day);
-        final String[] currentsurahVersescount = null;
-        chapterArray.setEntries(surahArrays);
-        int vcount = Integer.parseInt(versearrays[1]);
-        versesArray.setEntries("7");
-        for (int i = 1; i <= 7; i++) {
-            current[0].add(String.valueOf(i));
-        }
-
-        versesArray.setEntries(current[0]);
-
-        dialogPicker.setPositiveButton("Done", (dialogInterface, i) -> {
-
-
-
-
-            //   setSurahArabicName(suraNumber + "-" + soraList.get(suraNumber - 1).getNameenglish() + "-" + soraList.get(suraNumber - 1).getAbjadname());
-
-              ;
-
-
-       String sura=     String.valueOf(soraList.get(chapterno[0] - 1).getChapterid());
-       String aya=String.valueOf(verseno[0]);
-
-
-
-
-
-            RefreshActivity(sura,aya);
-
-
-        });
-
-        dialogPicker.setNegativeButton("Cancel", (dialogInterface, i) -> {
-        });
-
-
-
-        AlertDialog alertDialog = dialogPicker.create();
-        String preferences = sharedPreferences.getString("themepref", "dark");
-        int db = ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.odd_item_bg_dark_blue_light);
-
-        if(preferences.equals("purple")) {
-            alertDialog.getWindow().setBackgroundDrawableResource(R.color.md_theme_dark_onSecondary);
-            //   alertDialog.getWindow().setBackgroundDrawableResource(R.color.md_theme_dark_onTertiary);
-
-            //
-        }else   if(preferences.equals("brown")) {
-            alertDialog.getWindow().setBackgroundDrawableResource(R.color.background_color_light_brown);
-            //  cardview.setCardBackgroundColor(ORANGE100);
-        }else   if(preferences.equals("blue")){
-            alertDialog.getWindow().setBackgroundDrawableResource(R.color.prussianblue);
-            //  cardview.setCardBackgroundColor(db);
-        }else   if(preferences.equals("green")){
-            alertDialog.getWindow().setBackgroundDrawableResource(R.color.mdgreen_theme_dark_onPrimary);
-            //  cardview.setCardBackgroundColor(MUSLIMMATE);
-        }
-
-
-        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-        lp.copyFrom(alertDialog.getWindow().getAttributes());
-        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-
-        //   alertDialog.show();
-        alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        WindowManager.LayoutParams wmlp = alertDialog.getWindow().getAttributes();
-
-        alertDialog.show();
-        Button buttonPositive = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
-        buttonPositive.setTextColor(ContextCompat.getColor(ShowMushafActivity.this, R.color.green));
-        Button buttonNegative = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
-        buttonNegative.setTextColor(ContextCompat.getColor(ShowMushafActivity.this, R.color.red));
-        if(preferences.equals("purple")) {
-            buttonPositive.setTextColor(ContextCompat.getColor(ShowMushafActivity.this, R.color.yellow));
-            buttonNegative.setTextColor(ContextCompat.getColor(ShowMushafActivity.this, R.color.Goldenrod));
-
-        }else   if(preferences.equals("brown")) {
-            buttonPositive.setTextColor(ContextCompat.getColor(ShowMushafActivity.this, R.color.colorMuslimMate));
-            buttonNegative.setTextColor(ContextCompat.getColor(ShowMushafActivity.this, R.color.red));
-            //  cardview.setCardBackgroundColor(ORANGE100);
-        }else   if(preferences.equals("blue")){
-            buttonPositive.setTextColor(ContextCompat.getColor(ShowMushafActivity.this, R.color.yellow));
-            buttonNegative.setTextColor(ContextCompat.getColor(ShowMushafActivity.this, R.color.Goldenrod));
-            //  cardview.setCardBackgroundColor(db);
-        }else   if(preferences.equals("green")){
-            buttonPositive.setTextColor(ContextCompat.getColor(ShowMushafActivity.this, R.color.yellow));
-            buttonNegative.setTextColor(ContextCompat.getColor(ShowMushafActivity.this, R.color.cyan_light));
-            //  cardview.setCardBackgroundColor(MUSLIMMATE);
-        }
-
-        //  wmlp.gravity = Gravity.TOP | Gravity.CENTER;
-        alertDialog.getWindow().setAttributes(lp);
-        alertDialog.getWindow().setGravity(Gravity.TOP);
-
-
-
-        chapterArray.setOnWheelChangedListener(new OnWheelChangedListener() {
+        jumpfb.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onChanged(WheelView wheel, int oldIndex, int newIndex) {
-                String text = (String) chapterArray.getItem(newIndex);
-                nyear[0] = (text);
-                String[] chapno = text.split(" ");
-                chapterno[0] = Integer.parseInt(chapno[0]);
-                verseno[0] =1;
+            public void onClick(View v) {
+                ExecutorService ex = Executors.newSingleThreadExecutor();
 
-
-                updateVerses(newIndex);
-                updateTextView();
-                //    updateTextView();
-            }
-
-            private void updateVerses(int newIndex) {
-                current[0] = new ArrayList<>();
-                int intarray;
-                if (newIndex != 0) {
-                    intarray = intarrays[newIndex ];
-                } else {
-                    intarray=7;
-                }
-                for (int i = 1; i <= intarray; i++) {
-                    current[0].add(String.valueOf(i));
-                }
-
-                versesArray.setEntries(current[0]);
-                updateTextView();
+                SurahAyahPicker(true, true);
 
 
             }
 
-            private void updateTextView() {
-                String text = nyear[0].concat("/").concat(nmonth[0]);
-                //   = mYear[0]+ mMonth[0];
-                mTextView.setText(text);
-            }
+
         });
-        versesArray.setOnWheelChangedListener(new OnWheelChangedListener() {
-            @Override
-            public void onChanged(WheelView wheel, int oldIndex, int newIndex) {
-                String text = (String) versesArray.getItem(newIndex);
-                nmonth[0] = (text);
-                verseno[0] = Integer.parseInt(text);
-            }
-        });
-    }
-});
         playlistfb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (normalFooter.getVisibility() == View.GONE) {
-                 //   player.pause();
+                    //   player.pause();
                     normalFooter.setVisibility(View.VISIBLE);
                     mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                 } else {
@@ -638,6 +494,62 @@ jumpfb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 RefreshActivity("", " ");
+            }
+        });
+        playfb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                audio_settings_bottom.setVisibility(View.VISIBLE);
+                startname.setText("Start Range");
+
+                startrange.setText("Start Range");
+                endrange.setText("End Range");
+                StringBuilder st = new StringBuilder();
+                StringBuilder stt = new StringBuilder();
+                st.append(getSurahName()).append("-").append(getSurahselected()).append(":").append("1");
+                stt.append(getSurahName()).append("-").append(getSurahselected()).append(":").append(getVersescount());
+                startname.setText(st.toString());
+                endname.setText(stt.toString());
+                qarilabel.setText("qari");
+                qariname.setText(selectedqari);
+
+                startname.setOnClickListener(new View.OnClickListener() {
+                    boolean starttrue = true;
+
+                    @Override
+                    public void onClick(View v) {
+                        SurahAyahPicker(false, starttrue);
+
+
+                    }
+                });
+
+                endname.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        boolean starttrue = false;
+                        SurahAyahPicker(false, starttrue);
+
+
+                    }
+                });
+
+
+
+
+            /*    audioplaysetting item = new audioplaysetting();
+                Bundle bundle = new Bundle();
+
+                bundle.putInt(Constants.SURAH_INDEX,surah);
+                bundle.putString("qari",selectedqari);
+                bundle.putInt(VERSESCOUNT, Integer.parseInt(header.get(1)));
+                bundle.putString(SURAHNAME, header.get(4));
+                //    item.setdata(rootWordMeanings,wbwRootwords,grammarRootsCombined);
+                FragmentManager fragmentManager = ShowMushafActivity.this.getSupportFragmentManager();
+                item.setArguments(bundle);
+                item.show(fragmentManager,"audio");*/
+
+
             }
         });
 
@@ -662,8 +574,11 @@ jumpfb.setOnClickListener(new View.OnClickListener() {
                             jumptv.setVisibility(View.VISIBLE);
                             resetfbtxt.setVisibility(View.VISIBLE);
                             playlistfbtxt.setVisibility(View.VISIBLE);
+                            playtxt.setVisibility(View.VISIBLE);
                             resetfb.show();
                             playlistfb.show();
+                            playfb.show();
+
                             jumpfb.show();
 
                             // Now extend the parent FAB, as
@@ -687,6 +602,8 @@ jumpfb.setOnClickListener(new View.OnClickListener() {
                             resetfb.hide();
                             playlistfb.hide();
                             jumpfb.hide();
+                            playfb.hide();
+                            playtxt.setVisibility(View.GONE);
                             resetfbtxt.setVisibility(View.GONE);
                             playlistfbtxt.setVisibility(View.GONE);
                             jumptv.setVisibility(View.GONE);
@@ -703,6 +620,275 @@ jumpfb.setOnClickListener(new View.OnClickListener() {
                     }
                 });
 
+    }
+
+    private void registerFabmenu() {
+
+        // This FAB button is the Parent
+        mAddFab = findViewById(R.id.add_fab);
+
+        // FAB button
+        resetfb = findViewById(R.id.resetfb);
+        playlistfb = findViewById(R.id.playlistfb);
+        jumpfb = findViewById(R.id.jumptofb);
+        jumpfb.setOnClickListener(this);
+
+        playfb = findViewById(R.id.playfb);
+        playfb.setOnClickListener(this);
+
+        // Also register the action name text, of all the
+        // FABs. except parent FAB action name text
+        resetfb.setOnClickListener(this);
+        ;
+        playlistfb.setOnClickListener(this);
+        resetfbtxt = findViewById(R.id.resetfbtxt);
+        playlistfbtxt = findViewById(R.id.playlistfbtxt);
+        jumptv = (TextView) findViewById(R.id.jumptv);
+        playtxt = (TextView) findViewById(R.id.playtv);
+        // Now set all the FABs and all the action name
+        // texts as GONE
+
+
+    }
+
+    public void SurahAyahPicker(boolean isrefresh, boolean starttrue) {
+        TextView mTextView;
+        WheelView chapterWheel, verseWheel, wvDay;
+        Utils utils = new Utils(ShowMushafActivity.this);
+        final String[][] mYear = {new String[1]};
+        String[] mMonth = new String[1];
+        surahWheelDisplayData = new String[]{""};
+        ayahWheelDisplayData = new String[]{""};
+        final ArrayList<String>[] current = new ArrayList[]{new ArrayList<>()};
+        int mDay;
+        final int[] chapterno = new int[1];
+        final int[] verseno = new int[1];
+        final String[] surahArrays = getResources().getStringArray(R.array.surahdetails);
+        final String[] versearrays = getResources().getStringArray(R.array.versescounts);
+        final int[] intarrays = getResources().getIntArray(R.array.versescount);
+        //     final AlertDialog.Builder dialogPicker = new AlertDialog.Builder(this);
+        AlertDialog.Builder dialogPicker = new AlertDialog.Builder(ShowMushafActivity.this);
+        Dialog dlg = new Dialog(ShowMushafActivity.this);
+        //  AlertDialog dialog = builder.create();
+        ArrayList<ChaptersAnaEntity> soraList = utils.getAllAnaChapters();
+        LayoutInflater inflater = ShowMushafActivity.this.getLayoutInflater();
+        View view = inflater.inflate(R.layout.activity_wheel_t, null);
+        //  View view = inflater.inflate(R.layout.activity_wheel, null);
+        dialogPicker.setView(view);
+        mTextView = view.findViewById(R.id.textView2);
+        chapterWheel = view.findViewById(R.id.wv_year);
+        verseWheel = view.findViewById(R.id.wv_month);
+        chapterWheel.setEntries(surahArrays);
+        chapterWheel.setCurrentIndex(getSurahselected() - 1);
+        //set wheel initial state
+        boolean initial = true;
+        if (initial) {
+            initial = false;
+            String text = (String) chapterWheel.getItem(getSurahselected() - 1);
+            surahWheelDisplayData[0] = (text);
+            String[] chapno = text.split(" ");
+            chapterno[0] = Integer.parseInt(chapno[0]);
+            verseno[0] = 1;
+            current[0] = new ArrayList<>();
+            int intarray;
+            if (getSurahselected() != 0) {
+                intarray = intarrays[getSurahselected() - 1];
+            } else {
+                intarray = 7;
+            }
+            for (int i = 1; i <= intarray; i++) {
+                current[0].add(String.valueOf(i));
+            }
+
+            verseWheel.setEntries(current[0]);
+            String texts = surahWheelDisplayData[0].concat("/").concat(ayahWheelDisplayData[0]);
+            //   = mYear[0]+ mMonth[0];
+            mTextView.setText(texts);
+
+
+        }
+
+//        wvDay = (WheelView) view.findViewById(R.id.wv_day);
+        final String[] currentsurahVersescount = null;
+
+        int vcount = Integer.parseInt(versearrays[getSurahselected() - 1]);
+
+
+        for (int i = 1; i <= vcount; i++) {
+            current[0].add(String.valueOf(i));
+        }
+
+        verseWheel.setEntries(current[0]);
+        verseWheel.setCurrentIndex(getAyah());
+
+        dialogPicker.setPositiveButton("Done", (dialogInterface, i) -> {
+
+            String sura = "";
+
+
+            //   setSurahArabicName(suraNumber + "-" + soraList.get(suraNumber - 1).getNameenglish() + "-" + soraList.get(suraNumber - 1).getAbjadname());
+            if (chapterno[0] == 0) {
+                setSurahselected(surah);
+
+            } else {
+                sura = String.valueOf(soraList.get(chapterno[0] - 1).getChapterid());
+
+                setSurahselected(soraList.get(chapterno[0] - 1).getChapterid());
+                setSurahName(soraList.get(chapterno[0] - 1).getNameenglish());
+            }
+
+
+            int verse = verseno[0];
+
+            // setSurahselected(Integer.parseInt(sura));
+            setAyah(verse);
+
+            String aya = String.valueOf(verseno[0]);
+
+            if (isrefresh && starttrue) {
+
+
+                RefreshActivity(sura, aya);
+            } else if (starttrue) {
+                updateStartRange(verse);
+            } else {
+                updateEndRange(verse);
+            }
+
+
+        });
+
+        dialogPicker.setNegativeButton("Cancel", (dialogInterface, i) -> {
+        });
+
+
+        AlertDialog alertDialog = dialogPicker.create();
+        String preferences = sharedPreferences.getString("themepref", "dark");
+        int db = ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.odd_item_bg_dark_blue_light);
+
+        if (preferences.equals("purple")) {
+            alertDialog.getWindow().setBackgroundDrawableResource(R.color.md_theme_dark_onSecondary);
+            //   alertDialog.getWindow().setBackgroundDrawableResource(R.color.md_theme_dark_onTertiary);
+
+            //
+        } else if (preferences.equals("brown")) {
+            alertDialog.getWindow().setBackgroundDrawableResource(R.color.background_color_light_brown);
+            //  cardview.setCardBackgroundColor(ORANGE100);
+        } else if (preferences.equals("blue")) {
+            alertDialog.getWindow().setBackgroundDrawableResource(R.color.prussianblue);
+            //  cardview.setCardBackgroundColor(db);
+        } else if (preferences.equals("green")) {
+            alertDialog.getWindow().setBackgroundDrawableResource(R.color.mdgreen_theme_dark_onPrimary);
+            //  cardview.setCardBackgroundColor(MUSLIMMATE);
+        }
+
+
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(alertDialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+
+        //   alertDialog.show();
+        alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        WindowManager.LayoutParams wmlp = alertDialog.getWindow().getAttributes();
+
+        alertDialog.show();
+        Button buttonPositive = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+        buttonPositive.setTextColor(ContextCompat.getColor(ShowMushafActivity.this, R.color.green));
+        Button buttonNegative = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+        buttonNegative.setTextColor(ContextCompat.getColor(ShowMushafActivity.this, R.color.red));
+        if (preferences.equals("purple")) {
+            buttonPositive.setTextColor(ContextCompat.getColor(ShowMushafActivity.this, R.color.yellow));
+            buttonNegative.setTextColor(ContextCompat.getColor(ShowMushafActivity.this, R.color.Goldenrod));
+
+        } else if (preferences.equals("brown")) {
+            buttonPositive.setTextColor(ContextCompat.getColor(ShowMushafActivity.this, R.color.colorMuslimMate));
+            buttonNegative.setTextColor(ContextCompat.getColor(ShowMushafActivity.this, R.color.red));
+            //  cardview.setCardBackgroundColor(ORANGE100);
+        } else if (preferences.equals("blue")) {
+            buttonPositive.setTextColor(ContextCompat.getColor(ShowMushafActivity.this, R.color.yellow));
+            buttonNegative.setTextColor(ContextCompat.getColor(ShowMushafActivity.this, R.color.Goldenrod));
+            //  cardview.setCardBackgroundColor(db);
+        } else if (preferences.equals("green")) {
+            buttonPositive.setTextColor(ContextCompat.getColor(ShowMushafActivity.this, R.color.yellow));
+            buttonNegative.setTextColor(ContextCompat.getColor(ShowMushafActivity.this, R.color.cyan_light));
+            //  cardview.setCardBackgroundColor(MUSLIMMATE);
+        }
+
+        //  wmlp.gravity = Gravity.TOP | Gravity.CENTER;
+        alertDialog.getWindow().setAttributes(lp);
+        alertDialog.getWindow().setGravity(Gravity.TOP);
+
+
+        chapterWheel.setOnWheelChangedListener(new OnWheelChangedListener() {
+            @Override
+            public void onChanged(WheelView wheel, int oldIndex, int newIndex) {
+                String text = (String) chapterWheel.getItem(newIndex);
+                surahWheelDisplayData[0] = (text);
+                String[] chapno = text.split(" ");
+                chapterno[0] = Integer.parseInt(chapno[0]);
+                verseno[0] = 1;
+
+
+                updateVerses(newIndex);
+                updateTextView();
+                //    updateTextView();
+            }
+
+            private void updateVerses(int newIndex) {
+                current[0] = new ArrayList<>();
+                int intarray;
+                if (newIndex != 0) {
+                    intarray = intarrays[newIndex];
+                } else {
+                    intarray = 7;
+                }
+                for (int i = 1; i <= intarray; i++) {
+                    current[0].add(String.valueOf(i));
+                }
+
+                verseWheel.setEntries(current[0]);
+                updateTextView();
+
+
+            }
+
+            private void updateTextView() {
+                String text = surahWheelDisplayData[0].concat("/").concat(ayahWheelDisplayData[0]);
+                //   = mYear[0]+ mMonth[0];
+                mTextView.setText(text);
+            }
+        });
+        verseWheel.setOnWheelChangedListener(new OnWheelChangedListener() {
+            @Override
+            public void onChanged(WheelView wheel, int oldIndex, int newIndex) {
+                String text = (String) verseWheel.getItem(newIndex);
+                ayahWheelDisplayData[0] = (text);
+                verseno[0] = Integer.parseInt(text);
+            }
+        });
+    }
+
+    private void updateEndRange(int verse) {
+
+
+        StringBuilder st = new StringBuilder();
+
+        st.append(getSurahName()).append("-").append(getSurahselected()).append(":").append(getAyah());
+        setVerseendrange(verse);
+        endname.setText(st.toString());
+
+    }
+
+    private void updateStartRange(int verse) {
+        startname.setText("Start Range");
+
+
+        StringBuilder st = new StringBuilder();
+        StringBuilder stt = new StringBuilder();
+        st.append(getSurahName()).append("-").append(getSurahselected()).append(":").append(getAyah());
+        setVersestartrange(verse);
+        startname.setText(st.toString());
 
     }
 
@@ -711,13 +897,13 @@ jumpfb.setOnClickListener(new View.OnClickListener() {
         final Intent intent = this.getIntent();
         //  surah = getIntent().getIntExtra(Constants.SURAH_INDEX, 1);
         String parentActivityRef = intent.getStringExtra("PARENT_ACTIVITY_REF");
-       if(s.isEmpty()) {
-           intent.putExtra(Constants.SURAH_INDEX, surah);
-       }else{
-           intent.putExtra(Constants.SURAH_INDEX, Integer.parseInt(s));
-           intent.putExtra(Constants.AYAH_GO_INDEX, Integer.parseInt(aya));
+        if (s.isEmpty()) {
+            intent.putExtra(Constants.SURAH_INDEX, surah);
+        } else {
+            intent.putExtra(Constants.SURAH_INDEX, Integer.parseInt(s));
+            intent.putExtra(Constants.AYAH_GO_INDEX, Integer.parseInt(aya));
 
-       }
+        }
         this.overridePendingTransition(0, 0);
         startActivity(intent);
         this.finish();
@@ -727,7 +913,7 @@ jumpfb.setOnClickListener(new View.OnClickListener() {
 
     private Runnable sendUpdatesToUI = new Runnable() {
         public void run() {
-
+          //  rvAyahsPages.post(() -> rvAyahsPages.scrollToPosition((ayah)));
 
             RecyclerView.ViewHolder holder = (RecyclerView.ViewHolder) rvAyahsPages.findViewHolderForAdapterPosition(ayah);
       /*      if(position!=1) {
@@ -750,7 +936,7 @@ jumpfb.setOnClickListener(new View.OnClickListener() {
                             TextView textView = holder.itemView.findViewById(R.id.quran_textView);
 
                             //for vtwoadapter
-                          //  Highlightverse(textView);
+                            //  Highlightverse(textView);
 
                             holder.itemView.findViewById(R.id.quran_textView).setBackgroundColor(Constant.MUSLIMMATE);
                         }
@@ -873,6 +1059,7 @@ jumpfb.setOnClickListener(new View.OnClickListener() {
 
             marray = createMediaItems();
 
+
             if (marray.isEmpty()) {
                 return false;
             }
@@ -891,7 +1078,10 @@ jumpfb.setOnClickListener(new View.OnClickListener() {
 
             playerView.setRepeatToggleModes(REPEAT_TOGGLE_MODE_ONE);
             AudioAttributes audioAttributes = player.getAudioAttributes();
-            player.seekTo(currentItem, playbackPosition);
+
+            player.seekTo(getAyah(), playbackPosition);
+            setAyah(getVersestartrange());
+
 
             playerView.setPlayer(player);
             AudioAttributes audioAttributess = player.getAudioAttributes();
@@ -933,13 +1123,19 @@ jumpfb.setOnClickListener(new View.OnClickListener() {
         Utils repository = new Utils(this);
         List<ChaptersAnaEntity> chap = repository.getSingleChapter(getSurahselected());
 
-
+        System.out.println(getVersestartrange() + " " + getVerseendrange());
         List<String> ayaLocations = new ArrayList<>();
 
         marray = new ArrayList<>();
+        if (getVersestartrange() != 0 && getVerseendrange() != 0) {
+            List<QuranEntity> quranbySurah = Utils.getQuranbySurahAyahrange(surah, getVersestartrange(), getVerseendrange());
+            for (QuranEntity ayaItem : quranbySurah) {
+                ayaLocations.add(FileManager.createAyaAudioLinkLocation(this, readerID, ayaItem.getAyah(), ayaItem.getSurah()));
+                String location = FileManager.createAyaAudioLinkLocation(this, readerID, ayaItem.getAyah(), ayaItem.getSurah());
+                marray.add(MediaItem.fromUri(location));
 
-
-        if (isSingle) {
+            }
+        } else if (isSingle) {
             List<QuranEntity> sngleverseplay = repository.getsurahayahVerses(getSurahselected(), getVerselected());
             //Create files locations for the all page ayas
             for (QuranEntity ayaItem : sngleverseplay) {
@@ -1112,15 +1308,23 @@ jumpfb.setOnClickListener(new View.OnClickListener() {
     }
 
     private void initRV() {
+        playbutton = findViewById(R.id.playbutton);
+        playbutton.setOnClickListener(this);
+        ;
 
-        Animation openfab = AnimationUtils.loadAnimation(this, R.anim.rotate_open_animation);
-        Animation closefab = AnimationUtils.loadAnimation(this, R.anim.rotate_close_animation);
-        Animation frombottomfab = AnimationUtils.loadAnimation(this, R.anim.from_bottom_animation);
-        Animation fromtopfab = AnimationUtils.loadAnimation(this, R.anim.to_bottom_animation);
+        startrange = findViewById(R.id.start_range);
+        endrange = findViewById(R.id.endrange);
+        startname = findViewById(R.id.startname);
+        endname = findViewById(R.id.endname);
+        qarilabel = findViewById(R.id.qarilable);
+        qariname = findViewById(R.id.qariname);
+        startrange.setOnClickListener(this);
 
-
-        //  resetplayer = findViewById(R.id.resetplayer);
-
+        endrange.setOnClickListener(this);
+        startname.setOnClickListener(this);
+        endname.setOnClickListener(this);
+        qarilabel.setOnClickListener(this);
+        qariname.setOnClickListener(this);
 
         eqContainer = findViewById(R.id.eqFrame);
         listView = (ListView) findViewById(R.id.ayahlist);
@@ -1133,7 +1337,7 @@ jumpfb.setOnClickListener(new View.OnClickListener() {
         //   ayadet = (TextView) findViewById(R.id.details);
         footerContainer = (RelativeLayout) findViewById(R.id.footerbar);
 
-
+        audio_settings_bottom = findViewById(R.id.audio_settings_bottom);
         normalFooter = (LinearLayout) findViewById(R.id.normalfooter);
         downloadFooter = (ConstraintLayout) findViewById(R.id.footerdownload);
         playerFooter = (RelativeLayout) findViewById(R.id.footerplayer);
@@ -1154,17 +1358,17 @@ jumpfb.setOnClickListener(new View.OnClickListener() {
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         quranbySurahadapter = Utils.getQuranbySurah(surah);
-        StringBuilder sb=new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         for (QuranEntity entity : quranbySurahadapter) {
-            if(entity.getPassage_no()!=0){
+            if (entity.getPassage_no() != 0) {
                 sb.append(entity.getQurantext()).append("﴿").append(entity.getAyah()).append("﴾");
-                
-            }else{
-                
-                passage.put(entity.getPassage_no(),sb.toString());
-                sb=new StringBuilder();
+
+            } else {
+
+                passage.put(entity.getPassage_no(), sb.toString());
+                sb = new StringBuilder();
             }
-            
+
 
         }
 
@@ -1174,11 +1378,14 @@ jumpfb.setOnClickListener(new View.OnClickListener() {
 
 
         OnItemClickListenerOnLong listener = this;
-        ArrayList<String> header = new ArrayList<>();
+        header = new ArrayList<>();
         header.add(String.valueOf(chapter.get(0).getRukucount()));
         header.add(String.valueOf(chapter.get(0).getVersescount()));
         header.add(String.valueOf(chapter.get(0).getChapterid()));
         header.add(chapter.get(0).getAbjadname());
+        header.add(chapter.get(0).getNameenglish());
+        setVersescount(chapter.get(0).getVersescount());
+        setSurahName(chapter.get(0).getNameenglish());
         eqContainer.setVisibility(View.GONE);
         rvAyahsPages.setLayoutManager(manager);
         GridLayoutManager mLayoutManager = new GridLayoutManager(this, 2);
@@ -1193,15 +1400,24 @@ jumpfb.setOnClickListener(new View.OnClickListener() {
 
         } else {
             mushaAudioAdapter = new MushaAudioAdapter(this, quranbySurahadapter, listener, chapter.get(0).getChapterid(), chapter.get(0).getNamearabic(), chapter.get(0).getIsmakki(), header);
-           rvAyahsPages.setAdapter(mushaAudioAdapter);
+            rvAyahsPages.setAdapter(mushaAudioAdapter);
             rvAyahsPages.post(() -> rvAyahsPages.scrollToPosition(ayah));
-       //  vtwoMushaAudioAdapter = new vtwoMushaAudioAdapter(this, quranbySurahadapter, listener, chapter.get(0).getChapterid(), chapter.get(0).getNamearabic(), chapter.get(0).getIsmakki(), header);
-        //    rvAyahsPages.setAdapter(vtwoMushaAudioAdapter);
+            //  vtwoMushaAudioAdapter = new vtwoMushaAudioAdapter(this, quranbySurahadapter, listener, chapter.get(0).getChapterid(), chapter.get(0).getNamearabic(), chapter.get(0).getIsmakki(), header);
+            //    rvAyahsPages.setAdapter(vtwoMushaAudioAdapter);
 
         }
 
 
         rvAyahsPages.setItemAnimator(new DefaultItemAnimator());
+
+        playbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initFabmenu();
+                DownloadIfnotPlay();
+            }
+        });
+
 /*
 
         resetfab.setOnClickListener(new View.OnClickListener() {
@@ -1274,10 +1490,8 @@ jumpfb.setOnClickListener(new View.OnClickListener() {
                         .this, R.layout.spinner_layout_larg, R.id.spinnerText, readersNames);
                 readers.setAdapter(spinnerReaderAdapter);
 
-                for(int counter=0;counter<readersNames.size();counter++)
-
-                {
-                    if(readersNames.get(counter).trim().equals(selectedqari.trim())){
+                for (int counter = 0; counter < readersNames.size(); counter++) {
+                    if (readersNames.get(counter).trim().equals(selectedqari.trim())) {
 
                         readers.setSelection(counter);
                         break;
@@ -1288,8 +1502,7 @@ jumpfb.setOnClickListener(new View.OnClickListener() {
                 }
 
 
-
-          //      readersList.get(0).getId();
+                //      readersList.get(0).getId();
                 // readers.setSelection(10);
 
             }
@@ -1430,7 +1643,7 @@ jumpfb.setOnClickListener(new View.OnClickListener() {
         //   int ayaID=0;
         int counter = 0;
         //   quranbySurah.add(0, new QuranEntity(1, 1, 1));
-        List<String> downloadLinks = new ArrayList<>();
+        List<String> downloadLin = new ArrayList<>();
 
 
         //validate if aya download or not
@@ -1449,16 +1662,16 @@ jumpfb.setOnClickListener(new View.OnClickListener() {
                 suraID = "0" + chap.get(0).getChapterid();
 
             counter++;
+            String s = downloadLink + chap.get(0).getChapterid() + AudioAppConstants.Extensions.MP3;
 
-
-            downloadLinks.add(downloadLink + chap.get(0).getChapterid() + AudioAppConstants.Extensions.MP3);
+            downloadLin.add(s);
             Log.d("DownloadLinks", downloadLink + suraID + AudioAppConstants.Extensions.MP3);
 
 
         }
         //    ayaList.remove(0);
         //    quranbySurah.remove(0);
-        return downloadLinks;
+        return downloadLin;
     }
 
     public List<String> createDownloadLinks() {
@@ -1466,6 +1679,8 @@ jumpfb.setOnClickListener(new View.OnClickListener() {
         int versescount = chap.get(0).getVersescount();
 
         List<QuranEntity> quranbySurah = Utils.getQuranbySurah(surah);
+
+
         setSurahselected(surah);
         //   int ayaID=0;
         int counter = 0;
@@ -1564,9 +1779,20 @@ jumpfb.setOnClickListener(new View.OnClickListener() {
                 DownLoadIfNot(internetStatus, (ArrayList<String>) Links);
 
             } else {
+               //
+              //  rvAyahsPages.post(() -> rvAyahsPages.smoothScrollToPosition(getVersestartrange()));
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        rvAyahsPages.post(() -> rvAyahsPages.smoothScrollToPosition(getVersestartrange()));
+                    }
+                }, 200);
                 initializePlayer(isSingle);
-
+              //  rvAyahsPages.post(() -> rvAyahsPages.scrollToPosition(getVersestartrange()));
+              //  mushaAudioAdapter.notifyDataSetChanged();
                 playerFooter.setVisibility(View.VISIBLE);
+                audio_settings_bottom.setVisibility(View.GONE);
+                mAddFab.shrink();
 
 
             }
@@ -1630,56 +1856,6 @@ jumpfb.setOnClickListener(new View.OnClickListener() {
 
         }
     }
-
-    private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent serviceIntent) {
-            updateUI(serviceIntent);
-        }
-
-        private void updateUI(Intent serviceIntent) {
-
-
-            String ayahplaying = serviceIntent.getStringExtra("ayaplaying");
-            int position = Integer.parseInt(ayahplaying);
-            RecyclerView.ViewHolder holder = (RecyclerView.ViewHolder) rvAyahsPages.findViewHolderForAdapterPosition(position);
-
-            if (null != holder) {
-                holder.itemView.findViewById(R.id.quran_textView).setBackgroundColor(Color.CYAN);
-
-
-            }
-            if (position != 0) {
-                RecyclerView.ViewHolder holderp = (RecyclerView.ViewHolder) rvAyahsPages.findViewHolderForAdapterPosition(position - 1);
-                int drawingCacheBackgroundColor = holderp.itemView.findViewById(R.id.quran_textView).getDrawingCacheBackgroundColor();
-                holderp.itemView.findViewById(R.id.quran_textView).setBackgroundColor(drawingCacheBackgroundColor);
-
-            }
-            mushaAudioAdapter.getItemId(Integer.parseInt(ayahplaying));
-
-
-            String counter = serviceIntent.getStringExtra("counter");
-            String mediamax = serviceIntent.getStringExtra("mediamax");
-            String strSongEnded = serviceIntent.getStringExtra("song_ended");
-            long seekProgress = Long.parseLong(ayahplaying);
-            //  seekProgress=1272539-seekProgress;
-            seekMax = Integer.parseInt(mediamax);
-            songEnded = Integer.parseInt(strSongEnded);
-            seekBar.setMax(seekMax);
-            // ayadet.setText("Playing"+ayahplaying);
-            seekBar.setProgress(Integer.parseInt(counter));
-            rvAyahsPages.post(() -> rvAyahsPages.scrollToPosition(Integer.parseInt(ayahplaying + 2)));
-            QuranEntity entity = (QuranEntity) mushaAudioAdapter.getItem(Integer.parseInt(ayahplaying));
-            //   entity.getQurantext();
-            //    pageAdapter.notifyItemInserted(Integer.parseInt(ayahplaying));
-
-            // listscroll(ayahplaying);
-
-
-        }
-
-
-    };
 
 
     @Override

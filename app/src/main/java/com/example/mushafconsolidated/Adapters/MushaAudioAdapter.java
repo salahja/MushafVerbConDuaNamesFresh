@@ -271,7 +271,63 @@ public class MushaAudioAdapter extends RecyclerView.Adapter<MushaAudioAdapter.It
             holder.quran_textView.setText(entity.getQurantext().concat(s));
             holder.quran_textView.setTextSize(arabicfontSize);
             holder.quran_textView.setTypeface(custom_font);
-            holder.translate_textView.setText(entity.getTranslation());
+            if (showTranslation) {
+                if (whichtranslation.equals("en_arberry")) {
+                    if (entity != null) {
+                        holder.translate_textView.setText(entity.getEn_arberry());
+                    }
+                    holder.translate_textViewnote.setText(R.string.arberry);
+                    holder.translate_textView.setTextSize(translationfontsize);
+                    holder.translate_textView.setTextSize(translationfontsize);
+                    holder.translate_textView.setVisibility(View.VISIBLE);
+                    holder.translate_textViewnote.setVisibility(View.VISIBLE);
+                }
+                if (whichtranslation.equals("en_sahih")) {
+                    if (entity != null) {
+                        holder.translate_textView.setText(entity.getTranslation());
+                    }
+                    holder.translate_textViewnote.setText(R.string.ensahih);
+                    holder.translate_textView.setTextSize(translationfontsize);
+                    holder.translate_textView.setTextSize(translationfontsize);
+                    holder.translate_textView.setVisibility(View.VISIBLE);
+                    holder.translate_textViewnote.setVisibility(View.VISIBLE);
+                }
+                if (whichtranslation.equals("en_jalalayn")) {
+                    if (entity != null) {
+                        holder.translate_textView.setText(entity.getEn_jalalayn());
+                    }
+                    holder.translate_textViewnote.setText(R.string.enjalalayn);
+                    holder.translate_textView.setTextSize(translationfontsize);
+                    holder.translate_textView.setTextSize(translationfontsize);
+                    holder.translate_textView.setVisibility(View.VISIBLE);
+                    holder.translate_textViewnote.setVisibility(View.VISIBLE);
+                }
+                if (whichtranslation.equals("ur_jalalayn")) {
+                    if (entity != null) {
+                        holder.translate_textView.setText(entity.getUr_jalalayn());
+                    }
+                    holder.translate_textViewnote.setText(R.string.enjalalayn);
+                    holder.translate_textView.setTextSize(translationfontsize);
+                    holder.translate_textView.setTextSize(translationfontsize);
+                    holder.translate_textView.setVisibility(View.VISIBLE);
+                    holder.translate_textViewnote.setVisibility(View.VISIBLE);
+                }
+                if (whichtranslation.equals("ur_junagarhi")) {
+                    if (entity != null) {
+                        holder.translate_textView.setText(entity.getUr_junagarhi());
+                    }
+                    holder.translate_textViewnote.setText(R.string.urjunagadi);
+                    holder.translate_textView.setTextSize(translationfontsize);
+                    holder.translate_textView.setTextSize(translationfontsize);
+                    holder.translate_textView.setVisibility(View.VISIBLE);
+                    holder.translate_textViewnote.setVisibility(View.VISIBLE);
+                }
+                holder.translate_textView.setTextSize(translationfontsize);
+                holder.translate_textView.setTextSize(translationfontsize);
+                holder.translate_textView.setVisibility(View.VISIBLE);
+                holder.translate_textViewnote.setVisibility(View.VISIBLE);
+
+            }
 
           //  holder.sajdaverse.setImageResource(R.drawable.ruku_new);
 

@@ -25,6 +25,12 @@
 
         android:visibility="gone"
         />
+    <include layout="@layout/audio_setting"
+
+
+
+        android:visibility="gone"
+        />
     <include layout="@layout/vfour_expandable_fbuttons"
 
         android:layout_gravity="bottom"

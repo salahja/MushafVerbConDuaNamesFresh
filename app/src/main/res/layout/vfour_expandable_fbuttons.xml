@@ -26,7 +26,7 @@
         <!--because after changing the base application theme the color
              of the FAB is set Blue as default-->
 
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        <com.example.utility.MovableExtendedFloatingActionButton
             android:id="@+id/add_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -120,5 +120,25 @@
             app:layout_constraintEnd_toStartOf="@+id/jumptofb"
             app:layout_constraintTop_toTopOf="@+id/jumptofb" />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/playfb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
 
+            app:fabSize="normal"
+            app:layout_constraintBottom_toTopOf="@+id/jumptofb"
+            app:layout_constraintEnd_toEndOf="@+id/jumptofb"
+            app:layout_constraintStart_toStartOf="@+id/jumptofb"
+            app:srcCompat="@drawable/ic_baseline_open_in_browser_24" />
+
+        <TextView
+            android:id="@+id/playtv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="Play"
+            app:layout_constraintBottom_toBottomOf="@+id/playfb"
+            app:layout_constraintEnd_toStartOf="@+id/playfb"
+            app:layout_constraintTop_toTopOf="@+id/playfb" />
 </androidx.constraintlayout.widget.ConstraintLayout>

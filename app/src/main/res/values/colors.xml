@@ -209,7 +209,7 @@
     <color name="odd_item_bg_green">#fff0f5f0</color>
     <color name="odd_item_bg_white">#fff8fafc</color>
     <color name="preference_fallback_accent_color">#ff008577</color>
-    <color name="colorPrimaryBlack">#ff4592cf</color>
+    <color name="colorPrimaryBlack">#344C68</color>
     <color name="colorPrimaryBlackDark">#ff3176ba</color>
     <color name="colorPrimaryBlackLight">#664592cf</color>
     <color name="odd_item_bg_dark_blue_light">#263549</color>
@@ -217,7 +217,7 @@
     <color name="colorPrimaryBrown">#ff795548</color>
     <color name="colorPrimaryBrownDark">#ff5e342e</color>
     <color name="colorPrimaryBrownLight">#668e8380</color>
-    <color name="colorPrimaryDarkBlue">#428DC9</color>
+    <color name="colorPrimaryDarkBlue">#243343</color>
     <color name="colorPrimaryDarkBlueDark">#ff3176ba</color>
     <color name="colorPrimaryDarkBlueLight">#662f6c9d</color>
 

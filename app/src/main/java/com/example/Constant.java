@@ -138,6 +138,7 @@ public class Constant {
     public static final String MUFRADATFRAGTAG = "mufrad";
     public static final String READINGSURAHPART = "readingsurahpart";
     public static final String VERSESCOUNT = "versescount";
+    public static final String SURAHNAME = "suraname";
     public static final String RUKUCOUNT = "rukucount";
     public static final String WBW = "wbw";
     public static final String AYAHNUMBER = "aya";

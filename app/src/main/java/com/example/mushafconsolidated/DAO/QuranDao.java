@@ -30,6 +30,15 @@ public interface QuranDao {
     List<QuranEntity> getAyahsByPage(int i);
 
 
+    @Query("select * from qurans where surah = :surahid and ayah>=:from and ayah<=:toid order by ayah  ")
+    List<QuranEntity> getQuranbySurahAyahrange(int surahid,int from,int toid);
+
+  //getQuranbySurahAyahrange
+    //select * from qurans where ayah>=50 and ayah<=78 and surah=9
+
+
     @Query("select page from qurans where surah = :pos order by ayah limit 1 ")
     int getSuraStartpage(int pos);
+
+
 }
