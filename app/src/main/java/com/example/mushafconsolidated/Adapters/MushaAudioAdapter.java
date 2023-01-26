@@ -551,6 +551,7 @@ public class MushaAudioAdapter extends RecyclerView.Adapter<MushaAudioAdapter.It
                 view.setOnClickListener(this);
                 view.setOnLongClickListener(this);
                 quran_textView.setOnClickListener(this);
+                quran_textView.setOnLongClickListener(this);
                 quran_textView.setTag("verse");
                 SharedPreferences shared = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getContext());
                 boolean colortag = shared.getBoolean("colortag", true);

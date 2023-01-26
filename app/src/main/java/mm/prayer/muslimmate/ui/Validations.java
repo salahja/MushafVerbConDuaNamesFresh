@@ -67,8 +67,12 @@ public class Validations {
     }
 
     public static boolean isNetworkAvailable(final Context context) {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) context.getApplicationContext()
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         boolean state = activeNetworkInfo != null && activeNetworkInfo.isConnected();
         if (!state) {

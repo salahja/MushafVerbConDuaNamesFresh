@@ -17,7 +17,7 @@
     <include layout="@layout/fbarnormalfooter"
 
 
-        android:visibility="visible"
+        android:visibility="gone"
         />
     <include layout="@layout/downloadfooter"
 
@@ -25,12 +25,32 @@
 
         android:visibility="gone"
         />
-    <include layout="@layout/audio_setting"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+            android:id="@+id/audio_settings_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:visibility="visible"
+            app:behavior_peekHeight="30dp"
+            android:gravity="bottom"
+            android:layout_gravity="bottom">
 
 
 
-        android:visibility="gone"
+
+
+    <include layout="@layout/vtwoaudio"
+        android:visibility="visible"
         />
+        </RelativeLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
     <include layout="@layout/vfour_expandable_fbuttons"
 
         android:layout_gravity="bottom"

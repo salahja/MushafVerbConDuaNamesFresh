@@ -376,6 +376,7 @@
     <item name="playlist" type="id" />
     <item name="playlistfbtxt" type="id" />
     <item name="surahid" type="id" />
+    <item name="qariimage" type="id" />
 
 
 </resources>

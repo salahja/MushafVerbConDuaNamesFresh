@@ -5,7 +5,7 @@
     android:layout_gravity="bottom"
     android:layout_width="match_parent"
     android:background="?android:colorSecondary"
-    android:id="@+id/audio_settings_bottom"
+
     android:layout_height="wrap_content">
 
 
