@@ -238,6 +238,7 @@ public class passagevtwoMushaAudioAdapter extends RecyclerView.Adapter<passagevt
                 holder.quran_textView.setTypeface(custom_font);
                 System.out.println(s);
                 holder.quran_textView.setVisibility(View.VISIBLE);
+                holder.rukuview.setVisibility(View.VISIBLE);
         //    }
 
 
