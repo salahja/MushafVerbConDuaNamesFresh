@@ -46,7 +46,7 @@
 
 
 
-    <include layout="@layout/vtwoaudio"
+    <include layout="@layout/dialog_audio_panel"
         android:visibility="visible"
         />
         </RelativeLayout>

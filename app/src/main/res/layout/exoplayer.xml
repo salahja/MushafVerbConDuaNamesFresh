@@ -4,17 +4,19 @@
     android:layout_alignParentBottom="true"
 
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="170dp"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
 
     >
 
     <!--Widget for exoplayer view-->
-    <com.google.android.exoplayer2.ui.PlayerControlView
+<!--    <com.google.android.exoplayer2.ui.PlayerControlView-->
+    <com.google.android.exoplayer2.ui.StyledPlayerControlView
         android:visibility="visible"
         app:show_timeout="0"
         app:hide_on_touch="false"
-        app:resize_mode="fixed_height"
+        app:bar_gravity="bottom"
+
         android:id="@+id/player_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent" />

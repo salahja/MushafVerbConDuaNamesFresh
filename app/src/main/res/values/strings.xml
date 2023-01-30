@@ -778,7 +778,13 @@ Stream audio when possible (non-gapless audio only)
     <string name="play">Play Button</string>>
     <string name="nextbtn">Next Button</string>>
     <string name="previousbtn">Previous Button</string>
-    <string name="qari">Reciter Names</string>>
+    <string name="qari">Reciter Names</string>
+    <string name="advanced_settings">Advanced Settings</string>
+    <string name="apply">Apply</string>
+    <string name="repeat_each_verse">Repeat Each Verse</string>
+    <string name="repeat_range">Repeat Range</string>
+    <string name="end_range">End Range</string>
+    <string name="start_range">Start Range</string>>
 
 
 

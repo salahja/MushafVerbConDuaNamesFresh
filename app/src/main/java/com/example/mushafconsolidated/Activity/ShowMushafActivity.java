@@ -53,8 +53,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bullhead.equalizer.EqualizerFragment;
-import com.bullhead.equalizer.Settings;
+
 import com.example.mushafconsolidated.Adapters.FlowMushaAudioAdapter;
 import com.example.mushafconsolidated.Adapters.MushaAudioAdapter;
 import com.example.mushafconsolidated.Adapters.passagevtwoMushaAudioAdapter;
@@ -86,15 +85,16 @@ import com.google.android.exoplayer2.mediacodec.MediaCodecRenderer;
 import com.google.android.exoplayer2.mediacodec.MediaCodecUtil;
 import com.google.android.exoplayer2.trackselection.TrackSelectionParameters;
 import com.google.android.exoplayer2.ui.PlayerControlView;
+import com.google.android.exoplayer2.ui.StyledPlayerControlView;
 import com.google.android.exoplayer2.ui.StyledPlayerView;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.util.DebugTextViewHelper;
 import com.google.android.exoplayer2.util.ErrorMessageProvider;
 import com.google.android.exoplayer2.util.EventLogger;
-import com.google.android.flexbox.FlexDirection;
-import com.google.android.flexbox.FlexWrap;
-import com.google.android.flexbox.FlexboxLayoutManager;
-import com.google.android.flexbox.JustifyContent;
+
+
+
+
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -196,9 +196,9 @@ public class ShowMushafActivity extends BaseActivity implements
     }
 //  protected StyledPlayerView playerView;
 
-    //  protected StyledPlayerControlView playerView;
+     protected StyledPlayerControlView playerView;
 
-    protected PlayerControlView playerView;
+  // protected PlayerControlView playerView;
     protected LinearLayout debugRootView;
     protected TextView debugTextView;
     protected @Nullable ExoPlayer player;
@@ -352,7 +352,7 @@ public class ShowMushafActivity extends BaseActivity implements
     private RelativeLayout playerFooter, audio_settings_bottom;
     private List<String> bookNames;
     private List<Integer> bookIDs;
-    TextView startrange, startimage, endrange, endimage, qariname, qariimage;
+    TextView startrange, startimage, endrange, endimage;
 
     public long getStartPosition() {
         return startPosition;
@@ -448,10 +448,88 @@ public class ShowMushafActivity extends BaseActivity implements
         playerbottomsheet = findViewById(R.id.audio_settings_bottom);
         playerBottomsheetBehaviour = BottomSheetBehavior.from(playerbottomsheet);
         playerBottomsheetBehaviour.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        initSpinner();
       initpassage();
         initRV();
         registerFabmenu();
         initFabmenu();
+
+
+    }
+
+    private void initSpinner() {
+        readers = (Spinner) findViewById(R.id.selectReaders);
+
+        readers.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                readerName = readers.getSelectedItem().toString();
+                getReaderAudioLink(readerName);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        readers.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                readerName = readers.getSelectedItem().toString();
+                getReaderAudioLink(readerName);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                //check language to load readers arabic or english
+                List<String> readersNames = new ArrayList<>();
+                readersList = repository.getQaris();
+                for (Qari reader : readersList) {
+                    if (reader.getAudiotype() == 0 || reader.getAudiotype() == 2) {
+                        readersNames.add(reader.getName_english());
+
+
+                    } /*else {
+                        readersNames.add(reader.getName_english());
+
+
+                    }*/
+                }
+
+                //add custom spinner adapter for readers
+                ArrayAdapter<String> spinnerReaderAdapter = new ArrayAdapter<>(ShowMushafActivity
+                        .this, R.layout.spinner_layout_larg, R.id.spinnerText, readersNames);
+                readers.setAdapter(spinnerReaderAdapter);
+
+                for (int counter = 0; counter < readersNames.size(); counter++) {
+                    if (readersNames.get(counter).trim().equals(selectedqari.trim())) {
+
+                        readers.setSelection(counter);
+                        break;
+
+                    }
+
+
+                }
+
+
+                //      readersList.get(0).getId();
+                // readers.setSelection(10);
+
+            }
+        });
+
+
+
 
 
     }
@@ -560,7 +638,6 @@ public class ShowMushafActivity extends BaseActivity implements
                 startrange.setText(st.toString());
                 startrange.setText(stt.toString());
 
-                qariname.setText(selectedqari);
 
                 startrange.setOnClickListener(new View.OnClickListener() {
                     boolean starttrue = true;
@@ -1100,29 +1177,16 @@ public class ShowMushafActivity extends BaseActivity implements
                 try {
                     int drawingCacheBackgroundColor = holder.itemView.findViewById(R.id.rukuview).getDrawingCacheBackgroundColor();
                     if (holder.itemView.findViewById(R.id.quran_textView) != null) {
-                        if (isNightmode.equals("brown"))
+                        if (isNightmode.equals("brown")) {
 
-                            holder.itemView.findViewById(R.id.quran_textView).setBackgroundColor(Color.CYAN);
-                        else {
+                        //    holder.itemView.findViewById(R.id.quran_textView).setBackgroundColor(Color.CYAN);
                             TextView textView = holder.itemView.findViewById(R.id.quran_textView);
 
+                            setVerseHighLight(textView, Color.BLUE);
+                        }  else {
+                            TextView textView = holder.itemView.findViewById(R.id.quran_textView);
 
-                            //    Highlightverse(textView);
-
-                            String str = String.valueOf(textView.getText());
-                            SpannableStringBuilder span = new SpannableStringBuilder(str);
-                            try {
-
-                                //     ArrayList<AyahCoordinate> cc  =                       hlights.get(currenttrack);
-                                //  System.out.println(span.subSequence(start, end));
-                             //   span.setSpan(new ForegroundColorSpan(Color.CYAN), hlights.get(0).get(currenttrack - 1).getStart(), hlights.get(0).get(currenttrack - 1).getEnd(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                                span.setSpan(new ForegroundColorSpan(Color.CYAN), hlights.get(currenttrack).get(0).getStart(), hlights.get(currenttrack).get(0).getEnd(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-                                textView.setText(span);
-                                String[] split = str.split("\n");
-                            } catch (IndexOutOfBoundsException exception) {
-                                System.out.println(exception.toString());
-                            }
+                            setVerseHighLight(textView, Color.CYAN);
 
                             //   holder.itemView.findViewById(R.id.quran_textView).setBackgroundColor(Constant.MUSLIMMATE);
                         }
@@ -1168,6 +1232,20 @@ public class ShowMushafActivity extends BaseActivity implements
             handler.postDelayed(this, 1500);
 
 
+        }
+
+        private void setVerseHighLight(TextView textView, int foreGroundcoloer) {
+            String str = String.valueOf(textView.getText());
+            SpannableStringBuilder span = new SpannableStringBuilder(str);
+            try {
+
+                span.setSpan(new ForegroundColorSpan(foreGroundcoloer), hlights.get(currenttrack).get(0).getStart(), hlights.get(currenttrack).get(0).getEnd(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                textView.setText(span);
+                String[] split = str.split("\n");
+            } catch (IndexOutOfBoundsException exception) {
+                System.out.println(exception.toString());
+            }
         }
 
         private void Highlightverse(TextView textView) {
@@ -1668,18 +1746,18 @@ public class ShowMushafActivity extends BaseActivity implements
 
         startrange = findViewById(R.id.start_range);
         endrange = findViewById(R.id.endrange);
-        qariname = findViewById(R.id.qariname);
+
         startimage = findViewById(R.id.startimage);
         endimage = findViewById(R.id.endimage);
-        qariname = findViewById(R.id.qariname);
+
 
         startrange.setOnClickListener(this);
 
         endrange.setOnClickListener(this);
-        qariname.setOnClickListener(this);
+
         startimage.setOnClickListener(this);
         endimage.setOnClickListener(this);
-        qariname.setOnClickListener(this);
+
 
         eqContainer = findViewById(R.id.eqFrame);
         listView = (ListView) findViewById(R.id.ayahlist);
@@ -1697,19 +1775,16 @@ public class ShowMushafActivity extends BaseActivity implements
         downloadFooter = (ConstraintLayout) findViewById(R.id.footerdownload);
         playerFooter = (RelativeLayout) findViewById(R.id.footerplayer);
 
-        readers = (Spinner) findViewById(R.id.selectReader);
+
 
         mediaPlayerDownloadProgress = (ProgressBar) findViewById(R.id.downloadProgress);
-        FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(this);
 
 
-        layoutManager.setFlexDirection(FlexDirection.ROW);
-        //   layoutManager.setAlignItems(AlignItems.STRETCH);
-
-        layoutManager.setJustifyContent(JustifyContent.FLEX_START);
 
 
-        layoutManager.setFlexWrap(FlexWrap.WRAP);
+
+
+
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         quranbySurahadapter = Utils.getQuranbySurah(surah);
@@ -1774,95 +1849,9 @@ public class ShowMushafActivity extends BaseActivity implements
             }
         });
 
-/*
-
-        resetfab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                releasePlayer();
-
-            }
-        });
-        resetfab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-           //    releasePlayer();
-               player.stop();
-            //   initializePlayer(false);
-                Toast.makeText(ShowMushafActivity.this, "PlayList Reset done", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        playlistfab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(isMusicplaying) {
-
-                    playerFooter.setVisibility(View.GONE);
-                    normalFooter.setVisibility(View.GONE);
-                }
-            }
-        });
-*/
 
 
-        readers.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                readerName = readers.getSelectedItem().toString();
-                setPrevqari(readerName);
-                getReaderAudioLink(readerName);
-
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-
-                //check language to load readers arabic or english
-                List<String> readersNames = new ArrayList<>();
-                readersList = repository.getQaris();
-                for (Qari reader : readersList) {
-                    if (reader.getAudiotype() == 0 || reader.getAudiotype() == 2) {
-                        readersNames.add(reader.getName_english());
-
-
-                    } /*else {
-                        readersNames.add(reader.getName_english());
-
-
-                    }*/
-                }
-
-                //add custom spinner adapter for readers
-                ArrayAdapter<String> spinnerReaderAdapter = new ArrayAdapter<>(ShowMushafActivity
-                        .this, R.layout.spinner_layout_larg, R.id.spinnerText, readersNames);
-                readers.setAdapter(spinnerReaderAdapter);
-
-                for (int counter = 0; counter < readersNames.size(); counter++) {
-                    if (readersNames.get(counter).trim().equals(selectedqari.trim())) {
-
-                        readers.setSelection(counter);
-                        break;
-
-                    }
-
-
-                }
-
-
-                //      readersList.get(0).getId();
-                // readers.setSelection(10);
-
-            }
-        });
 
 
         // to preserver quran direction from right to left
@@ -2049,6 +2038,7 @@ public class ShowMushafActivity extends BaseActivity implements
             for (Qari qari : readersList) {
                 if (qari.getName_english().equals(selectedqari)) {
                     readerID = qari.getId();
+                    downloadLink=qari.getUrl();
                     break;
                 }
 
@@ -2080,6 +2070,7 @@ public class ShowMushafActivity extends BaseActivity implements
                 }
                 counter++;
                 //add aya link to list
+                //chec
 
                 downloadLinks.add(downloadLink + suraID + ayaID + AudioAppConstants.Extensions.MP3);
                 Log.d("DownloadLinks", downloadLink + suraID + ayaID + AudioAppConstants.Extensions.MP3);
@@ -2107,18 +2098,7 @@ public class ShowMushafActivity extends BaseActivity implements
 
             DownloadIfnotPlay();
         }
-        if (v == findViewById(R.id.eqFrame)) {
-            if (eqContainer.getVisibility() == View.GONE) {
-                eqContainer.setVisibility(View.VISIBLE);
-                final int sessionId = player.getAudioSessionId();
-                Settings.isEditing = false;
-                EqualizerFragment equalizerFragment = EqualizerFragment.newBuilder().setAccentColor(Color.CYAN)
-                        .setAudioSessionId(sessionId).build();
-                getSupportFragmentManager().beginTransaction().replace(R.id.eqFrame, equalizerFragment).commit();
 
-
-            }
-        }
 
 
     }
@@ -2181,6 +2161,8 @@ public class ShowMushafActivity extends BaseActivity implements
             //change view of footer to media
             //      footerContainer.setVisibility(View.VISIBLE);
             playerFooter.setVisibility(View.GONE);
+
+            playerBottomsheetBehaviour.setState(BottomSheetBehavior.STATE_COLLAPSED);
             //  mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
             downloadFooter.setVisibility(View.VISIBLE);
 

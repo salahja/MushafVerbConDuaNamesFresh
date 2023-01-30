@@ -45,8 +45,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bullhead.equalizer.EqualizerFragment;
-import com.bullhead.equalizer.Settings;
+
 import com.example.Constant;
 import com.example.mushafconsolidated.Adapters.FlowMushaAudioAdapter;
 import com.example.mushafconsolidated.Adapters.MushaAudioAdapter;
@@ -1210,18 +1209,6 @@ public class ShowMushafActivityorig extends BaseActivity implements
         if (v == findViewById(R.id.play)) {
 
             DownloadIfnotPlay();
-        }
-        if (v == findViewById(R.id.eqFrame)) {
-            if (eqContainer.getVisibility() == View.GONE) {
-                eqContainer.setVisibility(View.VISIBLE);
-                final int sessionId = player.getAudioSessionId();
-                Settings.isEditing = false;
-                EqualizerFragment equalizerFragment = EqualizerFragment.newBuilder().setAccentColor(Color.CYAN)
-                        .setAudioSessionId(sessionId).build();
-                getSupportFragmentManager().beginTransaction().replace(R.id.eqFrame, equalizerFragment).commit();
-
-
-            }
         }
 
 

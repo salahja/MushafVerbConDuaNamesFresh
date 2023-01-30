@@ -377,6 +377,17 @@
     <item name="playlistfbtxt" type="id" />
     <item name="surahid" type="id" />
     <item name="qariimage" type="id" />
+    <item name="tvAdvancedSetting" type="id" />
+    <item name="tvRepeatVerse" type="id" />
+    <item name="llRepeatVerse" type="id" />
+    <item name="tvRepeatSelection" type="id" />
+    <item name="llRepeatSelection" type="id" />
+    <item name="tvQari" type="id" />
+    <item name="llQari" type="id" />
+    <item name="tvEndRange" type="id" />
+    <item name="llEndRange" type="id" />
+    <item name="tvStartRange" type="id" />
+    <item name="llStartRange" type="id" />
 
 
 </resources>
