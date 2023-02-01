@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+
+    android:background="@drawable/xldrounded_shape"
+    android:orientation="vertical"
+    app:cardBackgroundColor="@android:color/transparent"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content">
 
@@ -33,7 +38,7 @@
                 android:textStyle="bold"
                 app:drawableLeftCompat="@drawable/ic_first_page_black_24dp"
                 app:drawableStartCompat="@drawable/ic_first_page_black_24dp"
-                app:drawableTint="?textColorLight" />
+                  />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@id/start_range"
@@ -44,7 +49,7 @@
                 android:textStyle="bold"
                 app:drawableEndCompat="@drawable/ic_arrow_drop_down"
                 app:drawableRightCompat="@drawable/ic_arrow_drop_down"
-                app:drawableTint="?textColorLight" />
+                  />
         </LinearLayout>
 
         <LinearLayout
@@ -56,6 +61,7 @@
             android:padding="@dimen/space_3">
 
             <com.google.android.material.textview.MaterialTextView
+
                 android:layout_width="0.0dip"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -67,7 +73,7 @@
                 android:textStyle="bold"
                 app:drawableLeftCompat="@drawable/ic_last_page_black_24dp"
                 app:drawableStartCompat="@drawable/ic_last_page_black_24dp"
-                app:drawableTint="?textColorLight" />
+                  />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@id/endrange"
@@ -78,7 +84,7 @@
                 android:textStyle="bold"
                 app:drawableEndCompat="@drawable/ic_arrow_drop_down"
                 app:drawableRightCompat="@drawable/ic_arrow_drop_down"
-                app:drawableTint="?textColorLight" />
+                  />
         </LinearLayout>
 
         <LinearLayout
@@ -101,7 +107,7 @@
                 android:textStyle="bold"
                 app:drawableLeftCompat="@drawable/ic_people_black_24dp"
                 app:drawableStartCompat="@drawable/ic_people_black_24dp"
-                app:drawableTint="?textColorLight" />
+                  />
 
             <Spinner
                 android:id="@id/selectReaders"
@@ -114,7 +120,7 @@
                 android:textStyle="bold"
                 app:drawableEndCompat="@drawable/ic_keyboard_arrow_right_black_24dp"
                 app:drawableRightCompat="@drawable/ic_keyboard_arrow_right_black_24dp"
-                app:drawableTint="?textColorLight" />
+                  />
         </LinearLayout>
 
         <LinearLayout
@@ -138,7 +144,7 @@
                 android:textStyle="bold"
                 app:drawableLeftCompat="@drawable/ic_loop_black_24dp"
                 app:drawableStartCompat="@drawable/ic_loop_black_24dp"
-                app:drawableTint="?textColorLight" />
+                  />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@id/tvRepeatSelection"
@@ -149,7 +155,7 @@
                 android:textStyle="bold"
                 app:drawableEndCompat="@drawable/ic_arrow_drop_down"
                 app:drawableRightCompat="@drawable/ic_arrow_drop_down"
-                app:drawableTint="?textColorLight" />
+                  />
         </LinearLayout>
 
         <LinearLayout
@@ -173,7 +179,7 @@
                 android:textStyle="bold"
                 app:drawableLeftCompat="@drawable/ic_repeat"
                 app:drawableStartCompat="@drawable/ic_repeat"
-                app:drawableTint="?textColorLight" />
+                  />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@id/tvRepeatVerse"
@@ -184,7 +190,7 @@
                 android:textStyle="bold"
                 app:drawableEndCompat="@drawable/ic_arrow_drop_down"
                 app:drawableRightCompat="@drawable/ic_arrow_drop_down"
-                app:drawableTint="?textColorLight" />
+                  />
         </LinearLayout>
 
         <com.google.android.material.textview.MaterialTextView
@@ -202,10 +208,10 @@
             app:drawableLeftCompat="@drawable/ic_settings"
             app:drawableRightCompat="@drawable/ic_keyboard_arrow_right_black_24dp"
             app:drawableStartCompat="@drawable/ic_settings"
-            app:drawableTint="?textColorLight" />
+              />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@id/pplaybutton"
+            android:id="@id/playbutton"
             style="@style/Widget.MaterialComponents.Button.Icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

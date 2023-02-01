@@ -3,6 +3,7 @@ package com.example.mushafconsolidated.Activity;
 
 import static com.google.android.exoplayer2.util.RepeatModeUtil.REPEAT_TOGGLE_MODE_ONE;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -31,7 +32,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -47,6 +48,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.collection.ArraySet;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -64,6 +67,8 @@ import com.example.mushafconsolidated.Entities.Qari;
 import com.example.mushafconsolidated.Entities.QuranEntity;
 import com.example.mushafconsolidated.R;
 import com.example.mushafconsolidated.Utils;
+import com.example.mushafconsolidated.fragments.ThemeListPrefrence;
+import com.example.mushafconsolidated.fragments.WordAnalysisBottomSheet;
 import com.example.mushafconsolidated.intrface.OnItemClickListenerOnLong;
 import com.example.mushafconsolidated.receivers.AudioAppConstants;
 import com.example.mushafconsolidated.receivers.DownloadService;
@@ -85,7 +90,6 @@ import com.google.android.exoplayer2.mediacodec.MediaCodecRenderer;
 import com.google.android.exoplayer2.mediacodec.MediaCodecUtil;
 import com.google.android.exoplayer2.trackselection.TrackSelectionParameters;
 import com.google.android.exoplayer2.ui.PlayerControlView;
-import com.google.android.exoplayer2.ui.StyledPlayerControlView;
 import com.google.android.exoplayer2.ui.StyledPlayerView;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.util.DebugTextViewHelper;
@@ -98,6 +102,7 @@ import com.google.android.exoplayer2.util.EventLogger;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textview.MaterialTextView;
 
 import java.io.File;
 import java.text.MessageFormat;
@@ -119,11 +124,13 @@ public class ShowMushafActivity extends BaseActivity implements
         OnItemClickListenerOnLong, View.OnClickListener, StyledPlayerView.FullscreenButtonClickListener {
     private static final String KEY_TRACK_SELECTION_PARAMETERS = "track_selection_parameters";
     private static final String KEY_SERVER_SIDE_ADS_LOADER_STATE = "server_side_ads_loader_state";
+    ImageButton exo_settings,exo_close,exo_bottom_bar;
     private static final String KEY_ITEM_INDEX = "item_index";
     private static final String KEY_POSITION = "position";
     private String[] surahWheelDisplayData;
     private String[] ayahWheelDisplayData;
-    private ImageView playbutton;
+  //  private ImageView playbutton;
+    private MaterialButton playbutton;
     int versestartrange, verseendrange;
     private int currenttrack;
     private boolean onClickOrRange = false;
@@ -185,7 +192,7 @@ public class ShowMushafActivity extends BaseActivity implements
     }
 
     private RelativeLayout bottomsheetexoplayer, playerbottomsheet;
-    FrameLayout eqContainer;
+  //  FrameLayout eqContainer;
 
     public int getAudioType() {
         return audioType;
@@ -194,11 +201,11 @@ public class ShowMushafActivity extends BaseActivity implements
     public void setAudioType(int audioType) {
         this.audioType = audioType;
     }
-//  protected StyledPlayerView playerView;
+  // protected StyledPlayerView playerView;
 
-     protected StyledPlayerControlView playerView;
+ //    protected StyledPlayerControlView playerView;
 
-  // protected PlayerControlView playerView;
+  protected PlayerControlView playerView;
     protected LinearLayout debugRootView;
     protected TextView debugTextView;
     protected @Nullable ExoPlayer player;
@@ -352,8 +359,8 @@ public class ShowMushafActivity extends BaseActivity implements
     private RelativeLayout playerFooter, audio_settings_bottom;
     private List<String> bookNames;
     private List<Integer> bookIDs;
-    TextView startrange, startimage, endrange, endimage;
-
+  //  TextView startrange, startimage, endrange, endimage;
+  MaterialTextView startrange, endrange;
     public long getStartPosition() {
         return startPosition;
     }
@@ -370,7 +377,7 @@ public class ShowMushafActivity extends BaseActivity implements
     private AudioManager audioManager;
     private int screenHeight;
     private ProgressBar mediaPlayerDownloadProgress;
-    private BottomSheetBehavior footerBottomSheetBehavior, playerBottomsheetBehaviour;
+    private BottomSheetBehavior exoplayerBottomBehaviour, audioSettingBottomBehaviour;
     FloatingActionButton resetfab, playlistfab;
 
     @Override
@@ -413,7 +420,6 @@ public class ShowMushafActivity extends BaseActivity implements
             pos = getPageFromJuz(pos);
         }
 
-
         //endregion
 
         Log.d(TAG, "onCreate: " + pos);
@@ -442,12 +448,12 @@ public class ShowMushafActivity extends BaseActivity implements
             clearStartPosition();
         }
         bottomsheetexoplayer = findViewById(R.id.footerplayer);
-        footerBottomSheetBehavior = BottomSheetBehavior.from(bottomsheetexoplayer);
-        footerBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        exoplayerBottomBehaviour = BottomSheetBehavior.from(bottomsheetexoplayer);
+        exoplayerBottomBehaviour.setState(BottomSheetBehavior.STATE_EXPANDED);
 
         playerbottomsheet = findViewById(R.id.audio_settings_bottom);
-        playerBottomsheetBehaviour = BottomSheetBehavior.from(playerbottomsheet);
-        playerBottomsheetBehaviour.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        audioSettingBottomBehaviour = BottomSheetBehavior.from(playerbottomsheet);
+        audioSettingBottomBehaviour.setState(BottomSheetBehavior.STATE_COLLAPSED);
         initSpinner();
       initpassage();
         initRV();
@@ -600,7 +606,7 @@ public class ShowMushafActivity extends BaseActivity implements
                 if (normalFooter.getVisibility() == View.GONE) {
                     //   player.pause();
                     normalFooter.setVisibility(View.GONE);
-                    footerBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                    exoplayerBottomBehaviour.setState(BottomSheetBehavior.STATE_COLLAPSED);
                 } else {
 
                     normalFooter.setVisibility(View.GONE);
@@ -616,12 +622,12 @@ public class ShowMushafActivity extends BaseActivity implements
         playfb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (playerBottomsheetBehaviour.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
-                    playerBottomsheetBehaviour.setState(BottomSheetBehavior.STATE_EXPANDED);
+                if (audioSettingBottomBehaviour.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
+                    audioSettingBottomBehaviour.setState(BottomSheetBehavior.STATE_EXPANDED);
                     if (player != null)
                         player.pause();
-                    if (footerBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
-                        footerBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                    if (exoplayerBottomBehaviour.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+                        exoplayerBottomBehaviour.setState(BottomSheetBehavior.STATE_COLLAPSED);
                     }
                 }
 
@@ -629,8 +635,8 @@ public class ShowMushafActivity extends BaseActivity implements
                 audio_settings_bottom.setVisibility(View.VISIBLE);
 
 
-                startrange.setText("Start Range");
-                endrange.setText("End Range");
+              //  startrange.setText("Start Range");
+              //  endrange.setText("End Range");
                 StringBuilder st = new StringBuilder();
                 StringBuilder stt = new StringBuilder();
                 st.append(getSurahName()).append("-").append(getSurahselected()).append(":").append("1");
@@ -1369,13 +1375,6 @@ public class ShowMushafActivity extends BaseActivity implements
             if (getVersestartrange() != 0) {
                 setAyah(getVersestartrange());
             }
-            if (playerBottomsheetBehaviour.getState() == BottomSheetBehavior.STATE_EXPANDED) {
-                playerBottomsheetBehaviour.setState(BottomSheetBehavior.STATE_COLLAPSED);
-            }
-            if (footerBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
-                playerBottomsheetBehaviour.setState(BottomSheetBehavior.STATE_EXPANDED);
-                player.play();
-            }
 
 
             playerView.setPlayer(player);
@@ -1409,6 +1408,13 @@ public class ShowMushafActivity extends BaseActivity implements
         player.setMediaItems(marray, /* resetPosition= */ !haveStartPosition);
         player.prepare();
         setupHandler();
+        if (audioSettingBottomBehaviour.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+            audioSettingBottomBehaviour.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        }
+        if (exoplayerBottomBehaviour.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
+            audioSettingBottomBehaviour.setState(BottomSheetBehavior.STATE_EXPANDED);
+            player.play();
+        }
 
         //updateButtonVisibility();
         return true;
@@ -1739,27 +1745,34 @@ public class ShowMushafActivity extends BaseActivity implements
         return repository.getSuraStartpage(pos);
     }
 
+    @SuppressLint("WrongViewCast")
     private void initRV() {
-        playbutton = findViewById(R.id.pplaybutton);
+        exo_settings=findViewById(R.id.exo_settings);
+        exo_settings.setOnClickListener(this);
+        exo_close= (ImageButton) findViewById(R.id.exo_close);
+        exo_bottom_bar= (ImageButton) findViewById(R.id.exo_bottom_bar);
+        playbutton = findViewById(R.id.playbutton);
+        exo_close.setOnClickListener(this);
         playbutton.setOnClickListener(this);
+        exo_bottom_bar.setOnClickListener(this);
         ;
 
         startrange = findViewById(R.id.start_range);
         endrange = findViewById(R.id.endrange);
 
-        startimage = findViewById(R.id.startimage);
-        endimage = findViewById(R.id.endimage);
+    //    startimage = findViewById(R.id.startimage);
+     //   endimage = findViewById(R.id.endimage);
 
 
         startrange.setOnClickListener(this);
 
         endrange.setOnClickListener(this);
 
-        startimage.setOnClickListener(this);
-        endimage.setOnClickListener(this);
+      //  startimage.setOnClickListener(this);
+      //  endimage.setOnClickListener(this);
 
 
-        eqContainer = findViewById(R.id.eqFrame);
+      //  eqContainer = findViewById(R.id.eqFrame);
         listView = (ListView) findViewById(R.id.ayahlist);
         playiv = (ImageView) findViewById(R.id.play);
         playiv.setOnClickListener(this);
@@ -1816,7 +1829,7 @@ public class ShowMushafActivity extends BaseActivity implements
         header.add(chapter.get(0).getNameenglish());
         setVersescount(chapter.get(0).getVersescount());
         setSurahName(chapter.get(0).getNameenglish());
-        eqContainer.setVisibility(View.GONE);
+       // eqContainer.setVisibility(View.GONE);
         rvAyahsPages.setLayoutManager(manager);
         GridLayoutManager mLayoutManager = new GridLayoutManager(this, 2);
         //  rvAyahsPages.setLayoutManager(mLayoutManager);
@@ -1841,6 +1854,47 @@ public class ShowMushafActivity extends BaseActivity implements
 
         rvAyahsPages.setItemAnimator(new DefaultItemAnimator());
 
+        exo_bottom_bar.setOnClickListener(new View.OnClickListener() {
+            @Override
+           public void onClick(View v) {
+                SurahAyahPicker(true, true);
+            }
+        });
+        exo_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            //    player.stop();
+                RefreshActivity("", " ");
+
+            }
+        });
+        exo_settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (audioSettingBottomBehaviour.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
+                    audioSettingBottomBehaviour.setState(BottomSheetBehavior.STATE_EXPANDED);
+                    audio_settings_bottom.setVisibility(View.VISIBLE);
+                }else{
+                    audioSettingBottomBehaviour.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                //    audio_settings_bottom.setVisibility(View.GONE);
+                }
+                if (exoplayerBottomBehaviour.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
+                    exoplayerBottomBehaviour.setState(BottomSheetBehavior.STATE_EXPANDED);
+                    player.play();
+                }else{
+                    player.pause();
+                    exoplayerBottomBehaviour.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                }
+         /*       ThemeListPrefrence item = new ThemeListPrefrence();
+                FragmentManager fragmentManager = ShowMushafActivity.this.getSupportFragmentManager();
+
+
+                FragmentTransaction transactions = fragmentManager.beginTransaction().setCustomAnimations(R.anim.abc_slide_in_top, android.R.anim.fade_out);
+                transactions.show(item);
+                ThemeListPrefrence.newInstance().show(ShowMushafActivity.this.getSupportFragmentManager(), WordAnalysisBottomSheet.TAG);*/
+
+            }
+        });
         playbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -2131,7 +2185,7 @@ public class ShowMushafActivity extends BaseActivity implements
                 //  rvAyahsPages.post(() -> rvAyahsPages.scrollToPosition(getVersestartrange()));
                 //  mushaAudioAdapter.notifyDataSetChanged();
                 playerFooter.setVisibility(View.VISIBLE);
-                audio_settings_bottom.setVisibility(View.GONE);
+              //  audio_settings_bottom.setVisibility(View.GONE);
                 mAddFab.shrink();
 
 
@@ -2162,7 +2216,7 @@ public class ShowMushafActivity extends BaseActivity implements
             //      footerContainer.setVisibility(View.VISIBLE);
             playerFooter.setVisibility(View.GONE);
 
-            playerBottomsheetBehaviour.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            audioSettingBottomBehaviour.setState(BottomSheetBehavior.STATE_COLLAPSED);
             //  mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
             downloadFooter.setVisibility(View.VISIBLE);
 

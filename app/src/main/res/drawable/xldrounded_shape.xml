@@ -4,8 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:dist="http://schemas.android.com/apk/distribution"
     android:shape="rectangle">
-    <solid android:alpha="1.00" android:color="?attr/colorOnSurface"
-        android:state_checkable="true" android:state_checked="true" android:state_enabled="true" />
+    <solid android:alpha="1.00" android:color="?attr/colorSecondary"
+        android:state_checkable="true" android:state_checked="true"
+        android:state_enabled="true" />
 
     <stroke
         android:width="3dp"
@@ -17,5 +18,7 @@
         android:left="5dp"
         android:right="5dp"
         android:top="2dp" />
-    <corners android:radius="50dp" />
+    <corners android:topLeftRadius="30dp"
+        android:topRightRadius="30dp"
+  />
 </shape>

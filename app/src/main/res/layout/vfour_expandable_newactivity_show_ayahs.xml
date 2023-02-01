@@ -26,7 +26,7 @@
         android:visibility="gone"
         />
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        
+
         android:layout_gravity="bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -62,23 +62,23 @@
 
         android:layout_gravity="bottom"
         android:layout_width="match_parent"
-        android:layout_height="200dp">
+        android:layout_height="250dp">
         <RelativeLayout
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
             android:id="@+id/footerplayer"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="40dp"
             android:visibility="visible"
-            app:behavior_peekHeight="20dp"
+
             android:gravity="bottom"
-            android:layout_gravity="bottom"
+
 
             >
 
             <include layout="@layout/exoplayer"
                 android:layout_gravity="bottom"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="250dp"
 
                 android:visibility="visible"
                 />

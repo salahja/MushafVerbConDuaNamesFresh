@@ -836,7 +836,7 @@ public class ShowMushafActivityorig extends BaseActivity implements
 
 
 
-        eqContainer = findViewById(R.id.eqFrame);
+
         listView = (ListView) findViewById(R.id.ayahlist);
         playiv = (ImageView) findViewById(R.id.play);
         playiv.setOnClickListener(this);

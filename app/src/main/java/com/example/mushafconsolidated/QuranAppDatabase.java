@@ -114,6 +114,7 @@ public abstract class QuranAppDatabase extends RoomDatabase {
                 getAbsolutePath() + "/" + context.getResources().getString(R.string.app_folder_path);
         if (null == quranAppDatabaseInstance) {
             File mainDatabase = new File(FILEPATH + "/" + DATABASENAME);
+/*
 
   quranAppDatabaseInstanceasset = Room.databaseBuilder(context, QuranAppDatabase.class, "qurangrammar.db")
                   .createFromAsset("databases/qurangrammar.db")
@@ -122,6 +123,7 @@ public abstract class QuranAppDatabase extends RoomDatabase {
                     .allowMainThreadQueries()
               //   .openHelperFactory(factory)
                      .build();
+*/
 
 
             quranAppDatabaseInstance = Room.databaseBuilder(context, QuranAppDatabase.class, "qurangrammar.db")
@@ -132,8 +134,8 @@ public abstract class QuranAppDatabase extends RoomDatabase {
                     .build();
 
         }
-    //   return quranAppDatabaseInstance;
-        return quranAppDatabaseInstanceasset;
+       return quranAppDatabaseInstance;
+   //     return quranAppDatabaseInstanceasset;
     }
 
     public abstract AnaQuranChapterDao AnaQuranChapterDao();

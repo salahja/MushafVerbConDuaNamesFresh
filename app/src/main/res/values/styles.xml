@@ -1191,5 +1191,13 @@
         <item name="android:popupBackground">#395e60</item>
     </style>
 
+    <style name="TopSheet_DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_down</item>
+        <item name="android:windowExitAnimation">@anim/slide_up</item>
+    </style>
 
+    <style name="exoplayerSetting">
+        <item name="android:src">@drawable/audio_settings</item>
+        <item name="android:contentDescription">@string/exo_controls_vr_description</item>
+    </style>
 </resources>
