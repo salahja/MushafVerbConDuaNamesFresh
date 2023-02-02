@@ -103,6 +103,8 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textview.MaterialTextView;
+import com.example.utility.MovableFloatingActionButton;
+
 
 import java.io.File;
 import java.text.MessageFormat;
@@ -257,11 +259,10 @@ public class ShowMushafActivity extends BaseActivity implements
 
 
     //  FloatingActionButton fab, fab1, fab2, fab3;
-    FloatingActionButton resetfb, playlistfb, jumpfb, playfb;
+    MovableFloatingActionButton   playfb;
 
     // Use the ExtendedFloatingActionButton to handle the
-    // parent FAB
-    MovableExtendedFloatingActionButton mAddFab;
+
 
     // These TextViews are taken to make visible and
     // invisible along with FABs except parent FAB's action
@@ -371,11 +372,10 @@ public class ShowMushafActivity extends BaseActivity implements
 
     //  private List<TranslationBook> booksInfo;
     private List<Qari> readersList;
-    private static final int REQUEST_WRITE_Settings = 113;
 
 
-    private AudioManager audioManager;
-    private int screenHeight;
+
+
     private ProgressBar mediaPlayerDownloadProgress;
     private BottomSheetBehavior exoplayerBottomBehaviour, audioSettingBottomBehaviour;
     FloatingActionButton resetfab, playlistfab;
@@ -454,13 +454,79 @@ public class ShowMushafActivity extends BaseActivity implements
         playerbottomsheet = findViewById(R.id.audio_settings_bottom);
         audioSettingBottomBehaviour = BottomSheetBehavior.from(playerbottomsheet);
         audioSettingBottomBehaviour.setState(BottomSheetBehavior.STATE_COLLAPSED);
+
         initSpinner();
       initpassage();
+      //  initQuranPages();
         initRV();
-        registerFabmenu();
-        initFabmenu();
 
 
+
+
+    }
+
+    private void initQuranPages() {
+//todo
+        List<QuranEntity> quranEntities= Utils.getQuranbySurah(surah);
+
+        StringBuilder builder = new StringBuilder();
+        ArrayList<Integer> ayahmat=new ArrayList<>();
+        int counter=1;
+        int outerloop=0;
+        int pageloop;
+        int nextpage;
+        int indexsize=quranEntities.size();
+        for(;outerloop<=quranEntities.size();){
+             int page=quranEntities.get(outerloop).getPage();
+            // try {
+                   nextpage=quranEntities.get(outerloop+1).getPage();
+         //    } catch (IndexOutOfBoundsException e){
+          //       break;
+          //   }
+
+             boolean whileloop=false;
+
+
+            do {
+
+                String aya = quranEntities.get(outerloop).getQurantext();
+                builder.append(aya).append("﴿ { ").append(quranEntities.get(outerloop).getAyah()).append("} ﴾");
+
+                aya = quranEntities.get(outerloop+1).getQurantext();
+                builder.append(aya).append("﴿ { ").append(quranEntities.get(outerloop+1).getAyah()).append("} ﴾");
+                outerloop++;
+                whileloop=true;
+                try {
+                    boolean b = page == quranEntities.get(outerloop + 1).getPage();
+                }catch (IndexOutOfBoundsException e){
+                    break;
+                }
+
+            } while(page==quranEntities.get(outerloop+1).getPage());
+     /*        while (page==quranEntities.get(outerloop+1).getPage()){
+                 String aya = quranEntities.get(outerloop).getQurantext();
+                 builder.append(aya).append("﴿ { ").append(quranEntities.get(outerloop).getAyah()).append("} ﴾");
+
+                     aya = quranEntities.get(outerloop+1).getQurantext();
+                     builder.append(aya).append("﴿ { ").append(quranEntities.get(outerloop+1).getAyah()).append("} ﴾");
+                 outerloop++;
+                 whileloop=true;
+
+            }*/
+
+                 outerloop++;
+
+             if(builder.toString().trim().length()!=0) {
+                 passage.put(page, builder.toString());
+             }
+        //    preparehighlightsNew(   quranEntities.get(outerloop).getPage()-1,builder, ayahmat);
+            ayahmat=new ArrayList<>();
+            builder=new StringBuilder();
+        }
+
+
+
+        System.out.println("CHECK");
     }
 
     private void initSpinner() {
@@ -568,220 +634,7 @@ public class ShowMushafActivity extends BaseActivity implements
         System.out.println("CHECK");
     }
 
-    private void initFabmenu() {
 
-        playfb.setVisibility(View.GONE);
-        playerFooter.setVisibility(View.GONE);
-        jumpfb.setVisibility(View.GONE);
-        resetfb.setVisibility(View.GONE);
-        playlistfb.setVisibility(View.GONE);
-        resetfbtxt.setVisibility(View.GONE);
-        playlistfbtxt.setVisibility(View.GONE);
-        jumptv.setVisibility(View.GONE);
-
-        // make the boolean variable as false, as all the
-        // action name texts and all the sub FABs are
-        // invisible
-        isAllFabsVisible = false;
-        mAddFab.setVisibility(View.VISIBLE);
-        // Set the Extended floating action button to
-        // shrinked state initially
-        mAddFab.shrink();
-
-        jumpfb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ExecutorService ex = Executors.newSingleThreadExecutor();
-
-                SurahAyahPicker(true, true);
-
-
-            }
-
-
-        });
-        playlistfb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (normalFooter.getVisibility() == View.GONE) {
-                    //   player.pause();
-                    normalFooter.setVisibility(View.GONE);
-                    exoplayerBottomBehaviour.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                } else {
-
-                    normalFooter.setVisibility(View.GONE);
-                }
-            }
-        });
-        resetfb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                RefreshActivity("", " ");
-            }
-        });
-        playfb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (audioSettingBottomBehaviour.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
-                    audioSettingBottomBehaviour.setState(BottomSheetBehavior.STATE_EXPANDED);
-                    if (player != null)
-                        player.pause();
-                    if (exoplayerBottomBehaviour.getState() == BottomSheetBehavior.STATE_EXPANDED) {
-                        exoplayerBottomBehaviour.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                    }
-                }
-
-
-                audio_settings_bottom.setVisibility(View.VISIBLE);
-
-
-              //  startrange.setText("Start Range");
-              //  endrange.setText("End Range");
-                StringBuilder st = new StringBuilder();
-                StringBuilder stt = new StringBuilder();
-                st.append(getSurahName()).append("-").append(getSurahselected()).append(":").append("1");
-                stt.append(getSurahName()).append("-").append(getSurahselected()).append(":").append(getVersescount());
-                startrange.setText(st.toString());
-                startrange.setText(stt.toString());
-
-
-                startrange.setOnClickListener(new View.OnClickListener() {
-                    boolean starttrue = true;
-
-                    @Override
-                    public void onClick(View v) {
-                        SurahAyahPicker(false, starttrue);
-
-
-                    }
-                });
-
-                endrange.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        boolean starttrue = false;
-                        SurahAyahPicker(false, starttrue);
-
-
-                    }
-                });
-
-
-
-
-            /*    audioplaysetting item = new audioplaysetting();
-                Bundle bundle = new Bundle();
-
-                bundle.putInt(Constants.SURAH_INDEX,surah);
-                bundle.putString("qari",selectedqari);
-                bundle.putInt(VERSESCOUNT, Integer.parseInt(header.get(1)));
-                bundle.putString(SURAHNAME, header.get(4));
-                //    item.setdata(rootWordMeanings,wbwRootwords,grammarRootsCombined);
-                FragmentManager fragmentManager = ShowMushafActivity.this.getSupportFragmentManager();
-                item.setArguments(bundle);
-                item.show(fragmentManager,"audio");*/
-
-
-            }
-        });
-
-
-        // We will make all the FABs and action name texts
-        // visible only when Parent FAB button is clicked So
-        // we have to handle the Parent FAB button first, by
-        // using setOnClickListener you can see below
-        mAddFab.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (!isAllFabsVisible) {
-
-                            // when isAllFabsVisible becomes
-                            // true make all the action name
-                            // texts and FABs VISIBLE.
-                            jumpfb.animate().rotation(180);
-                            resetfb.animate().rotation(180);
-
-                            playlistfb.animate().rotation(180);
-                            jumptv.setVisibility(View.VISIBLE);
-                            resetfbtxt.setVisibility(View.VISIBLE);
-                            playlistfbtxt.setVisibility(View.VISIBLE);
-                            playtxt.setVisibility(View.VISIBLE);
-                            resetfb.show();
-                            playlistfb.show();
-                            playfb.show();
-
-                            jumpfb.show();
-
-                            // Now extend the parent FAB, as
-                            // user clicks on the shrinked
-                            // parent FAB
-                            mAddFab.extend();
-
-                            // make the boolean variable true as
-                            // we have set the sub FABs
-                            // visibility to GONE
-                            isAllFabsVisible = true;
-                        } else {
-
-                            // when isAllFabsVisible becomes
-                            // true make all the action name
-                            // texts and FABs GONE.
-
-                            resetfb.animate().rotation(180);
-
-                            playlistfb.animate().rotation(180);
-                            resetfb.hide();
-                            playlistfb.hide();
-                            jumpfb.hide();
-                            playfb.hide();
-                            playtxt.setVisibility(View.GONE);
-                            resetfbtxt.setVisibility(View.GONE);
-                            playlistfbtxt.setVisibility(View.GONE);
-                            jumptv.setVisibility(View.GONE);
-
-                            // Set the FAB to shrink after user
-                            // closes all the sub FABs
-                            mAddFab.shrink();
-
-                            // make the boolean variable false
-                            // as we have set the sub FABs
-                            // visibility to GONE
-                            isAllFabsVisible = false;
-                        }
-                    }
-                });
-
-    }
-
-    private void registerFabmenu() {
-
-        // This FAB button is the Parent
-        mAddFab = findViewById(R.id.add_fab);
-
-        // FAB button
-        resetfb = findViewById(R.id.resetfb);
-        playlistfb = findViewById(R.id.playlistfb);
-        jumpfb = findViewById(R.id.jumptofb);
-        jumpfb.setOnClickListener(this);
-
-        playfb = findViewById(R.id.playfb);
-        playfb.setOnClickListener(this);
-
-        // Also register the action name text, of all the
-        // FABs. except parent FAB action name text
-        resetfb.setOnClickListener(this);
-        ;
-        playlistfb.setOnClickListener(this);
-        resetfbtxt = findViewById(R.id.resetfbtxt);
-        playlistfbtxt = findViewById(R.id.playlistfbtxt);
-        jumptv = (TextView) findViewById(R.id.jumptv);
-        playtxt = (TextView) findViewById(R.id.playtv);
-        // Now set all the FABs and all the action name
-        // texts as GONE
-
-
-    }
 
     public void SurahAyahPicker(boolean isrefresh, boolean starttrue) {
         TextView mTextView;
@@ -1747,6 +1600,8 @@ public class ShowMushafActivity extends BaseActivity implements
 
     @SuppressLint("WrongViewCast")
     private void initRV() {
+        playfb= (MovableFloatingActionButton) findViewById(R.id.playfb);
+        playfb.setOnClickListener(this);
         exo_settings=findViewById(R.id.exo_settings);
         exo_settings.setOnClickListener(this);
         exo_close= (ImageButton) findViewById(R.id.exo_close);
@@ -1760,27 +1615,17 @@ public class ShowMushafActivity extends BaseActivity implements
         startrange = findViewById(R.id.start_range);
         endrange = findViewById(R.id.endrange);
 
-    //    startimage = findViewById(R.id.startimage);
-     //   endimage = findViewById(R.id.endimage);
-
 
         startrange.setOnClickListener(this);
 
         endrange.setOnClickListener(this);
 
-      //  startimage.setOnClickListener(this);
-      //  endimage.setOnClickListener(this);
-
-
-      //  eqContainer = findViewById(R.id.eqFrame);
         listView = (ListView) findViewById(R.id.ayahlist);
         playiv = (ImageView) findViewById(R.id.play);
         playiv.setOnClickListener(this);
-        ;
 
-        //   myToolbarContainer = (RelativeLayout) findViewById(R.id.appbar);
         seekBar = findViewById(R.id.SeekBar01);
-        //   ayadet = (TextView) findViewById(R.id.details);
+
         footerContainer = (RelativeLayout) findViewById(R.id.footerbar);
 
         audio_settings_bottom = findViewById(R.id.audio_settings_bottom);
@@ -1791,7 +1636,48 @@ public class ShowMushafActivity extends BaseActivity implements
 
 
         mediaPlayerDownloadProgress = (ProgressBar) findViewById(R.id.downloadProgress);
+        startrange.setOnClickListener(new View.OnClickListener() {
+            boolean starttrue = true;
 
+            @Override
+            public void onClick(View v) {
+                SurahAyahPicker(false, starttrue);
+
+
+            }
+        });
+
+        endrange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean starttrue = false;
+                SurahAyahPicker(false, starttrue);
+
+
+            }
+        });
+        playfb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (audioSettingBottomBehaviour.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
+                    audioSettingBottomBehaviour.setState(BottomSheetBehavior.STATE_EXPANDED);
+                //    audio_settings_bottom.setVisibility(View.VISIBLE);
+                }else{
+                    audioSettingBottomBehaviour.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                    //    audio_settings_bottom.setVisibility(View.GONE);
+                }
+                StringBuilder st = new StringBuilder();
+                StringBuilder stt = new StringBuilder();
+                st.append(getSurahName()).append("-").append(getSurahselected()).append(":").append("1");
+                stt.append(getSurahName()).append("-").append(getSurahselected()).append(":").append(getVersescount());
+                startrange.setText(st.toString());
+                startrange.setText(stt.toString());
+
+
+
+            }
+
+        });
 
 
 
@@ -1898,7 +1784,7 @@ public class ShowMushafActivity extends BaseActivity implements
         playbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                initFabmenu();
+
                 DownloadIfnotPlay();
             }
         });
@@ -2186,7 +2072,7 @@ public class ShowMushafActivity extends BaseActivity implements
                 //  mushaAudioAdapter.notifyDataSetChanged();
                 playerFooter.setVisibility(View.VISIBLE);
               //  audio_settings_bottom.setVisibility(View.GONE);
-                mAddFab.shrink();
+
 
 
             }

@@ -36,7 +36,7 @@
             android:id="@+id/audio_settings_bottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+            android:background="@color/colorPrimary"
             android:visibility="visible"
             app:behavior_peekHeight="30dp"
             android:gravity="bottom"
@@ -47,16 +47,12 @@
 
 
     <include layout="@layout/dialog_audio_panel"
+
         android:visibility="visible"
         />
         </RelativeLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-    <include layout="@layout/vfour_expandable_fbuttons"
 
-        android:layout_gravity="bottom"
-         android:layout_marginBottom="100dp"
-        android:layout_width="wrap_content"
-        android:layout_height="500dp" />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
 
@@ -93,6 +89,15 @@
 
         </RelativeLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <com.example.utility.MovableFloatingActionButton
+        android:id="@+id/playfb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="200dp"
+        android:src="@drawable/rotatewheel"
+        app:fabSize="normal"/>
 <!--    <include layout="@layout/expandable_fbuttons"
 
          android:layout_gravity="bottom"
