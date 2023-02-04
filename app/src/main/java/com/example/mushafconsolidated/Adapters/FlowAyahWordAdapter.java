@@ -484,18 +484,7 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
         setChapterInfo(holder, ayahWord);
         //  setAdapterposition(position);
         wordBywordWithTranslation(showrootkey, holder, custom_font, showWordColor, wbw, ayahWord, showWordByword);
-        if (showKathir) {
-            //   holder.expandImageButton.setVisibility(View.VISIBLE);
-            if (entity != null) {
-                String first = entity.getTafsir_kathir().replaceAll("<b>", "");
-                String second = first.replaceAll("</b>", "");
-                holder.kathir_translation.setText(second);
-            }
-            holder.kathir_translation.setTextSize(translationfontsize);
-            holder.kathir_translation.setTextSize(translationfontsize);
-        } else {
-            holder.kahteercardview.setVisibility(View.GONE);
-        }
+
         if (showTransliteration) {
             if (entity != null) {
                 holder.quran_transliteration.setText(Html.fromHtml(entity.getEn_transliteration(), Html.FROM_HTML_MODE_LEGACY));
@@ -814,8 +803,8 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
         //  public   com.nex3z.flowlayout.FlowLayout  flow_word_by_word;
         com.example.utility.FlowLayout flow_word_by_word;
         //   RelativeLayout colllayout;
-        CardView erabnotescardView, kahteercardview;
-        ImageView mafoolatarow, showkatheer;
+        CardView erabnotescardView ;
+        ImageView mafoolatarow;
         Group hiddenGroup, card_group;
         MaterialCardView base_cardview;
         FloatingActionButton tafsir, jumptofb, bookmarfb, fabmenu,helpfb,summbaryfb,sharescreenfb;
@@ -882,11 +871,11 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
                 erab_notes_expand.setOnClickListener(this);
                 erab_notes_expand.setTag("erab_notes");
              erabnotescardView = view.findViewById(R.id.base_cardview);
-                kahteercardview = view.findViewById(R.id.katheer_base_cardview);
+
                 mafoolatarow = view.findViewById(R.id.show);
-                showkatheer = view.findViewById(R.id.showkatheer);
+
                 hiddenGroup = view.findViewById(R.id.card_group);
-                card_group = view.findViewById(R.id.katheer_card_group);
+
                 mafoolatarow.setOnClickListener(this);
                 mafoolbihi = view.findViewById(R.id.directobject);
             base_cardview = view.findViewById(R.id.base_cardview);
@@ -1133,17 +1122,7 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
                         mafoolatarow.setImageResource(android.R.drawable.arrow_up_float);
                     }
                 });
-                showkatheer.setOnClickListener(view1 -> {
-                    TransitionManager.beginDelayedTransition(erabnotescardView, new AutoTransition());
-                    if (card_group.getVisibility() == View.VISIBLE) {
-                        card_group.setVisibility(View.GONE);
-                        showkatheer.setImageResource(android.R.drawable.arrow_down_float);
-                    } else {
-                        //     colllayout.setLayoutParams(params);
-                        card_group.setVisibility(View.VISIBLE);
-                        showkatheer.setImageResource(android.R.drawable.arrow_up_float);
-                    }
-                });
+
                 erabexpand.setOnClickListener(view1 -> {
                     if (erab_textView.getVisibility() == View.GONE) {
                         erab_textView.setVisibility(View.VISIBLE);

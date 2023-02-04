@@ -11,13 +11,6 @@
         android:layout_alignParentLeft="true"
         android:visibility="visible" />
 
-    <include
-        layout="@layout/katheercollapsable"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_toRightOf="@+id/erabcollapsabletwo"
-        android:visibility="visible" />
 
 
 </RelativeLayout>

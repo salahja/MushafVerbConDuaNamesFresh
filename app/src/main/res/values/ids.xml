@@ -388,6 +388,8 @@
     <item name="llEndRange" type="id" />
     <item name="tvStartRange" type="id" />
     <item name="llStartRange" type="id" />
+    <item name="chooseDisplaytype" type="id" />
+    <item name="display" type="id" />
 
 
 </resources>

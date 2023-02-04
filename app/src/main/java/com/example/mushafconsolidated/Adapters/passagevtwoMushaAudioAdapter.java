@@ -430,7 +430,7 @@ public class passagevtwoMushaAudioAdapter extends RecyclerView.Adapter<passagevt
         com.example.utility.FlowLayout flow_word_by_word;
         //   RelativeLayout colllayout;
         CardView erabnotescardView, kahteercardview;
-        ImageView mafoolatarow, showkatheer;
+        ImageView mafoolatarow;
         Group hiddenGroup, card_group;
         MaterialCardView base_cardview;
         FloatingActionButton tafsir, jumptofb, bookmarfb, fabmenu,helpfb,summbaryfb,sharescreenfb;

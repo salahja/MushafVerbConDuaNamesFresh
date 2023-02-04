@@ -46,9 +46,6 @@
         layout="@layout/erabcollapsabletwo"
         android:visibility="gone" />
 
-    <include
-        layout="@layout/katheercollapsable"
-        android:visibility="gone" />
 
     <include
         layout="@layout/quran_tranlation_rows"

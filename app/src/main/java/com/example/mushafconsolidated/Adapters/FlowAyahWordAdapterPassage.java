@@ -849,7 +849,7 @@ if (SharedPref.themePreferences().equals("dark")) {
     //    com.google.android.flexbox.FlexboxLayout flow_word_by_word;
         //   RelativeLayout colllayout;
         CardView erabnotescardView, kahteercardview;
-        ImageView mafoolatarow, showkatheer;
+        ImageView mafoolatarow;
         Group hiddenGroup, card_group;
         MaterialCardView base_cardview;
         //  public MaterialCardView cardview;
@@ -936,11 +936,11 @@ if (SharedPref.themePreferences().equals("dark")) {
                 erab_notes_expand.setOnClickListener(this);
                 erab_notes_expand.setTag("erab_notes");
                 erabnotescardView = view.findViewById(R.id.base_cardview);
-                kahteercardview = view.findViewById(R.id.katheer_base_cardview);
+
                 mafoolatarow = view.findViewById(R.id.show);
-                showkatheer = view.findViewById(R.id.showkatheer);
+
                 hiddenGroup = view.findViewById(R.id.card_group);
-                card_group = view.findViewById(R.id.katheer_card_group);
+
                 mafoolatarow.setOnClickListener(this);
                 mafoolbihi = view.findViewById(R.id.directobject);
                 //    hal=view.findViewById(R.id.hal);
@@ -973,19 +973,7 @@ if (SharedPref.themePreferences().equals("dark")) {
                         mafoolatarow.setImageResource(android.R.drawable.arrow_up_float);
                     }
                 });
-                showkatheer.setOnClickListener(view1 -> {
-                    TransitionManager.beginDelayedTransition(erabnotescardView, new AutoTransition());
-                    if (card_group.getVisibility() == View.VISIBLE) {
-                        card_group.setVisibility(View.GONE);
-                        //   params.width = 100;
-                        //   colllayout.setLayoutParams(params);
-                        showkatheer.setImageResource(android.R.drawable.arrow_down_float);
-                    } else {
-                        //     colllayout.setLayoutParams(params);
-                        card_group.setVisibility(View.VISIBLE);
-                        showkatheer.setImageResource(android.R.drawable.arrow_up_float);
-                    }
-                });
+
                 erabexpand.setOnClickListener(view1 -> {
                     if (erab_textView.getVisibility() == View.GONE) {
                         erab_textView.setVisibility(View.VISIBLE);

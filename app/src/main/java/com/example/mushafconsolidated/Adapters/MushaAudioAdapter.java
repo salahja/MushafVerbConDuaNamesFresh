@@ -127,7 +127,7 @@ public class MushaAudioAdapter extends RecyclerView.Adapter<MushaAudioAdapter.It
         if (viewType == 0) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.surah_header, parent, false);
         } else {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.mushaf_row_ayah_word, parent, false);
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_row_mushaf_row_ayah_word, parent, false);
           //  view = LayoutInflater.from(parent.getContext()).inflate(R.layout.new_mushaf_row_ayah_word, parent, false);
             //   view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_viewer_aya_cardview, parent, false);
         }

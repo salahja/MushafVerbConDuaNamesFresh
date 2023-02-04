@@ -33,18 +33,15 @@
         android:layout_height="wrap_content"
         android:fontFamily="cursive"
         android:hint="@string/arabic_font_style"
-        android:lineSpacingExtra="@dimen/lineSpacingExtra"
+        android:lineSpacingExtra="0.5dp"
         android:padding="@dimen/textViewPadding"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:visibility="visible" />
 
     <include
         layout="@layout/erabcollapsabletwo"
         android:visibility="gone" />
 
-    <include
-        layout="@layout/katheercollapsable"
-        android:visibility="gone" />
 
     <include
         layout="@layout/quran_tranlation_rows"

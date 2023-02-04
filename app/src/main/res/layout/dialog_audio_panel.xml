@@ -12,7 +12,7 @@
 
         android:id="@+id/jumptoverse"
         android:layout_width="match_parent"
-        android:layout_height="450dp"
+        android:layout_height="500dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="1dp"
         android:layout_marginEnd="1dp"
@@ -28,11 +28,24 @@
         <LinearLayout
 
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="550dp"
             android:layout_marginTop="@dimen/space_3"
             android:animateLayoutChanges="true"
             android:orientation="vertical"
             android:paddingBottom="@dimen/space_3">
+            <com.google.android.material.button.MaterialButton
+                android:id="@id/playbutton"
+                style="@style/Widget.MaterialComponents.Button.Icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/space_2"
+                android:layout_marginBottom="8.0dip"
+                android:minWidth="180.0dip"
+                android:text="@string/apply"
+                app:cornerRadius="4.0dip"
+                app:icon="@drawable/ic_action_play"
+                app:iconGravity="textStart" />
 
             <LinearLayout
 
@@ -201,8 +214,42 @@
                     app:drawableRightCompat="@drawable/ic_arrow_drop_down" />
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@id/display"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="?selectableItemBackground"
+                android:focusable="true"
+                android:orientation="horizontal"
+                android:padding="@dimen/space_3">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1.0"
+                    android:drawablePadding="@dimen/space_1"
+                    android:gravity="start|center"
+                    android:text="on for Single"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                    android:textStyle="bold"
+                    app:drawableLeftCompat="@drawable/baseline_audio_file_24"
+                    app:drawableStartCompat="@drawable/baseline_audio_file_24" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@id/chooseDisplaytype"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                    android:textStyle="bold"
+                    app:drawableEndCompat="@drawable/ic_arrow_drop_down"
+                    app:drawableRightCompat="@drawable/ic_arrow_drop_down" />
+            </LinearLayout>
+
             <com.google.android.material.textview.MaterialTextView
                 android:id="@id/tvAdvancedSetting"
+                android:visibility="gone"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="?selectableItemBackground"
@@ -217,19 +264,7 @@
                 app:drawableRightCompat="@drawable/ic_keyboard_arrow_right_black_24dp"
                 app:drawableStartCompat="@drawable/ic_settings" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@id/playbutton"
-                style="@style/Widget.MaterialComponents.Button.Icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/space_2"
-                android:layout_marginBottom="8.0dip"
-                android:minWidth="180.0dip"
-                android:text="@string/apply"
-                app:cornerRadius="4.0dip"
-                app:icon="@drawable/ic_action_play"
-                app:iconGravity="textStart" />
+
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
