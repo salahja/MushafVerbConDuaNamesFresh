@@ -101,8 +101,7 @@ public class PageAdapter extends RecyclerView.Adapter<PageAdapter.ViewHolder> {
         String arabic_font_selection = sharedPreferences.getString("Arabic_Font_Selection", "me_quran.ttf");
         Typeface custom_font = Typeface.createFromAsset(context.getAssets(),
                 arabic_font_selection);
-   //     holder.topLinear.setVisibility(View.VISIBLE);
-    //    holder.BottomLinear.setVisibility(View.VISIBLE);
+
 
         // set Colors
         holder.tvAyahs.setTextColor(ayahsColor);
@@ -128,37 +127,11 @@ public class PageAdapter extends RecyclerView.Adapter<PageAdapter.ViewHolder> {
             holder.tvAyahs.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_NONE);
         }
 
-        // top - bottom details
-      //  holder.detailsbutton
         StringBuilder sb=new StringBuilder();
         sb.append("Page:-").append(item.getPageNum()).append("       "   ).append(suraName).append("     ").append("Juz:-").append(item.getJuz());
         holder.detailsbutton.setText(sb.toString());
-      /*  holder.tvSurahName.setText(suraName);
-        holder.tvJuz.setText(String.valueOf(item.getJuz()));*/
 
-        //<editor-fold desc="listeners">
- /*       holder.imBookmark.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                iBookmark.onBookmarkClicked(item);
-            }
-        });
-*/
-        /*holder.ayahsLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d(TAG, "onClick: frameLayout");
-                flipState(holder);
-            }
-        });
-        */
 
- /*       holder.btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                iOnClick.onClick(holder.getAdapterPosition());
-            }
-        });*/
 
     /*    holder.btnPrev.setOnClickListener(new View.OnClickListener() {
             @Override

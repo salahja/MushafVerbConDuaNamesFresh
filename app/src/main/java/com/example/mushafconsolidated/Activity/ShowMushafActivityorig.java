@@ -120,7 +120,7 @@ public class ShowMushafActivityorig extends BaseActivity implements
     private boolean isSingle=false;
     private List<QuranEntity> quranbySurahadapter;
     private MaterialButton resetplayer;
-    private FloatingActionButton fab1,fab2;
+
     private LinearLayout  fabLayout1,fabLayout2;
     private   MovableFloatingActionButton  fab;
 
@@ -147,17 +147,12 @@ public class ShowMushafActivityorig extends BaseActivity implements
 
     protected StyledPlayerControlView playerView;
 
-    //  protected  StyledPlayerView playerView;
-    protected LinearLayout debugRootView;
-    protected TextView debugTextView;
     protected @Nullable ExoPlayer player;
 
     private boolean isShowingTrackSelectionDialog;
     private Button selectTracksButton;
-    private DataSource.Factory dataSourceFactory;
     private List<MediaItem> mediaItems;
     private TrackSelectionParameters trackSelectionParameters;
-    private DebugTextViewHelper debugViewHelper;
     private Tracks lastSeenTracks;
     private boolean startAutoPlay;
     private int startItemIndex;
@@ -174,7 +169,6 @@ public class ShowMushafActivityorig extends BaseActivity implements
 
     private static final String TAG = "ShowMushafActivity";
     private Intent intentmyservice;
-    private TextView ayadet;
     private SeekBar seekBar;
     int surahselected, verselected;
     private String isNightmode;
@@ -250,7 +244,7 @@ public class ShowMushafActivityorig extends BaseActivity implements
     int pos;
 
     List<Page> pageList;
-    int ayahsColor, scrollorColor;
+    int scrollorColor;
     private int lastpageShown = 1;
     private int seekMax;
     private static int songEnded = 0;
@@ -265,29 +259,14 @@ public class ShowMushafActivityorig extends BaseActivity implements
      */
     ArraySet<Integer> pagesReadLogNumber;
 
-    /**
-     * hold current date used to retrive pages and also with updating
-     */
-    private long currentDate;
-
-
-    /**
-     * hold current date used to retrive pages and also with updating
-     */
-    private String currentDateStr;
-
     private Spinner translationBooks, readers;
     private ConstraintLayout  downloadFooter;
     private  LinearLayout normalFooter;
     private RelativeLayout playerFooter;
-    private List<String> bookNames;
-    private List<Integer> bookIDs;
     //  private List<TranslationBook> booksInfo;
     private List<Qari> readersList;
     private static final int REQUEST_WRITE_Settings = 113;
 
-
-    private AudioManager audioManager;
     private int screenHeight;
     private ProgressBar mediaPlayerDownloadProgress;
     private BottomSheetBehavior mBottomSheetBehavior;
@@ -330,14 +309,9 @@ public class ShowMushafActivityorig extends BaseActivity implements
         //endregion
 
         Log.d(TAG, "onCreate: " + pos);
-        // debugRootView = findViewById(R.id.controls_root);
-        // debugTextView = findViewById(R.id.debug_text_view);
-        // selectTracksButton = findViewById(R.id.select_tracks_button);
-        //  selectTracksButton.setOnClickListener(this);
 
         playerView = findViewById(R.id.player_view);
-        //  playerView.setControllerVisibilityListener((StyledPlayerView.ControllerVisibilityListener) this);
-        // playerView.setErrorMessageProvider(new ShowMushafActivity.PlayerErrorMessageProvider());
+
 
         playerView.requestFocus();
 
@@ -373,8 +347,7 @@ public class ShowMushafActivityorig extends BaseActivity implements
 
       fab =  findViewById(R.id.fab);
       
-        fab1 = (FloatingActionButton) findViewById(R.id.resetfab);
-        fab2= (FloatingActionButton) findViewById(R.id.playlistfab);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -1100,15 +1073,8 @@ public class ShowMushafActivityorig extends BaseActivity implements
         }
     };
 
-
-    public boolean checkPermission() {
-        int result = ContextCompat.checkSelfPermission((ShowMushafActivityorig.this), android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        return result == PackageManager.PERMISSION_GRANTED;
-    }
-
     public List<String> createDownloadLink() {
         List<ChaptersAnaEntity> chap = repository.getSingleChapter(surah);
-        int versescount = chap.get(0).getVersescount();
 
         List<QuranEntity> quranbySurah = Utils.getQuranbySurah(surah);
         setSurahselected(surah);
@@ -1148,7 +1114,6 @@ public class ShowMushafActivityorig extends BaseActivity implements
 
     public List<String> createDownloadLinks() {
         List<ChaptersAnaEntity> chap = repository.getSingleChapter(surah);
-        int versescount = chap.get(0).getVersescount();
 
         List<QuranEntity> quranbySurah = Utils.getQuranbySurah(surah);
         setSurahselected(surah);
@@ -1215,8 +1180,6 @@ public class ShowMushafActivityorig extends BaseActivity implements
     }
 
     private void DownloadIfnotPlay() {
-
-        String filePath = "";
 
         int internetStatus = Settingsss.checkInternetStatus(this);
 
@@ -1335,7 +1298,6 @@ public class ShowMushafActivityorig extends BaseActivity implements
             String counter = serviceIntent.getStringExtra("counter");
             String mediamax = serviceIntent.getStringExtra("mediamax");
             String strSongEnded = serviceIntent.getStringExtra("song_ended");
-            long seekProgress = Long.parseLong(ayahplaying);
             //  seekProgress=1272539-seekProgress;
             seekMax = Integer.parseInt(mediamax);
             songEnded = Integer.parseInt(strSongEnded);

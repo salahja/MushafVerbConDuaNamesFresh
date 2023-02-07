@@ -146,6 +146,7 @@ import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import database.GridImageAct;
 import sj.hisnul.activity.HisnulBottomACT;
 import wheel.OnWheelChangedListener;
 import wheel.WheelView;
@@ -490,17 +491,17 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
 
 
                        break;
-                   case id.audio:
+                   case id.names:
 
                        materialToolbar.setTitle("Quran Audio");
 
-                       Intent settingint = new Intent(QuranGrammarAct.this, PlayerActivity.class);
+                       Intent settingint = new Intent(QuranGrammarAct.this, GridImageAct.class);
                        settingint.putExtra(Constants.SURAH_INDEX, getChapterno());
                        startActivity(settingint);
-                       navigationView.setCheckedItem(id.duanav);
+
                        break;
                    case id.mushafview:
-                       materialToolbar.setTitle("Topics");
+                       materialToolbar.setTitle("Mushaf");
                     //   Intent searchs = new Intent(QuranGrammarAct.this, MainTwoActivityPrayer.class);
 
                      //  startActivity(searchs);

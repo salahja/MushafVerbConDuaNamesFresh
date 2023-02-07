@@ -22,18 +22,18 @@
     <item
         android:id="@+id/mushafview"
         android:contentDescription="@string/search"
-        android:icon="@drawable/ic_book"
-        android:title="@string/topicsearch"
+        android:icon="@drawable/baseline_audiotrack_24"
+        android:title="@string/Audio"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
 
         app:showAsAction="always|collapseActionView" />
 
 
     <item
-        android:id="@+id/audio"
-        android:icon="@drawable/baseline_audio_file_24"
+        android:id="@+id/names"
+        android:icon="@drawable/allah4"
         android:orderInCategory="100"
-        android:title="Quran Audio" />
+        android:title="Allah(SWT)Names" />
 
 
     <item

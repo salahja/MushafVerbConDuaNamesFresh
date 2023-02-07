@@ -4,7 +4,7 @@
     android:layout_alignParentBottom="true"
 
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
 
     >
@@ -17,12 +17,13 @@
         app:show_timeout="0"
         app:hide_on_touch="false"
         app:bar_gravity="bottom"
-        app:controller_layout_id="@layout/vtwocustom_xo_player"
+        app:show_buffering="always"
+        app:controller_layout_id="@layout/custom_xo_player"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:id="@+id/player_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content" />
 
 
 

@@ -58,6 +58,7 @@
                 android:padding="@dimen/space_3">
 
                 <com.google.android.material.textview.MaterialTextView
+
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

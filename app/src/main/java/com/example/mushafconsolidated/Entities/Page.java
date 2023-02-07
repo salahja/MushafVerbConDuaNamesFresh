@@ -3,11 +3,15 @@ package com.example.mushafconsolidated.Entities;
 import java.util.List;
 
 public class Page {
-    private List<QuranMetaEntity> ayahItems;
+   private List<QuranMetaEntity> ayahItems;
+    private List<QuranEntity> ayahItemsquran;
     private int pageNum;
     private int rubHizb;
     private int juz;
 
+    public List<QuranEntity> getAyahItemsquran() {
+        return ayahItemsquran;
+    }
 
     public int getJuz() {
         return juz;
@@ -15,6 +19,10 @@ public class Page {
 
     public void setJuz(int juz) {
         this.juz = juz;
+    }
+
+    public void setAyahItemsquran(List<QuranEntity> ayahItemsquran) {
+        this.ayahItemsquran = ayahItemsquran;
     }
 
     public List<QuranMetaEntity> getAyahItems() {

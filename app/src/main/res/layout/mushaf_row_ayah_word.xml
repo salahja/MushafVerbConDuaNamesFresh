@@ -38,12 +38,12 @@
     <TextView
         android:id="@+id/quran_textView"
 
-        android:gravity="center"
+        android:gravity="right"
         android:layout_below="@id/arabic_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="cursive"
-
+        android:layoutDirection="rtl"
         android:layout_marginEnd="100dp"
         android:hint="@string/arabic_font_style"
         android:lineSpacingExtra="@dimen/lineSpacingExtra"

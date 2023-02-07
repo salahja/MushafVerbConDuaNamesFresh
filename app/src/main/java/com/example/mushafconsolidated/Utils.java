@@ -1091,7 +1091,9 @@ public class Utils {
     }
 
 
-
+    public static List<QuranEntity> getAyahsByPageQuran(int i) {
+        return database.QuranDao().getAyahsByPage(i);
+    }
 
 
 
