@@ -395,13 +395,15 @@ public class ShowMushafActivity extends BaseActivity implements
         audioSettingBottomBehaviour = BottomSheetBehavior.from(playerbottomsheet);
         audioSettingBottomBehaviour.setState(BottomSheetBehavior.STATE_COLLAPSED);
           //text
-        singleline=false;
+
         initSpinner();
         if (!singleline) {
-      //  initpassage();
+            loadFullQuran();
+            prepares();
+            System.out.println("check");
         }
-        loadFullQuran();
-      // initQuranPages();
+
+
         initRV();
 
 
@@ -412,7 +414,7 @@ public class ShowMushafActivity extends BaseActivity implements
    int  firstpage=   quranEntities.get(0).getPage();
         Page page;
         List<QuranEntity> ayahItems;
-        for (int i = firstpage; i <= quranEntities.get(quranEntities.size()-1).getPage(); i++) {
+        for (int i = firstpage; i < quranEntities.get(quranEntities.size()-1).getPage(); i++) {
             ayahItems = repository.getAyahsByPageQuran(i);
             if (ayahItems.size() > 0) {
                 page = new Page();
@@ -425,7 +427,7 @@ public class ShowMushafActivity extends BaseActivity implements
         }
 
         fullQuranPages = new ArrayList<>(pages);
-        prepares();
+
 
     }
 
@@ -1829,21 +1831,22 @@ public class ShowMushafActivity extends BaseActivity implements
         header.add(chapter.get(0).getNameenglish());
         setVersescount(chapter.get(0).getVersescount());
         setSurahName(chapter.get(0).getNameenglish());
+   //     manager.setOrientation(LinearLayoutManager.HORIZONTAL);
         // eqContainer.setVisibility(View.GONE);
         rvAyahsPages.setLayoutManager(manager);
         GridLayoutManager mLayoutManager = new GridLayoutManager(this, 2);
 
         rvAyahsPages.setHasFixedSize(true);
- singleline=false;
- flow=false;
+
+
 
         if (singleline) {
             mushaAudioAdapter = new MushaAudioAdapter(this, quranbySurahadapter, listener, chapter.get(0).getChapterid(), chapter.get(0).getNamearabic(), chapter.get(0).getIsmakki(), header);
             rvAyahsPages.setAdapter(mushaAudioAdapter);
-
+/*
         } else if (flow) {
             flowMushaAudioAdapter = new FlowMushaAudioAdapter(this, quranbySurahadapter, listener, chapter.get(0).getChapterid(), chapter.get(0).getNamearabic(), chapter.get(0).getIsmakki(), header);
-            rvAyahsPages.setAdapter(flowMushaAudioAdapter);
+            rvAyahsPages.setAdapter(flowMushaAudioAdapter);*/
 
         } else {
             passageadapter = new passagevtwoMushaAudioAdapter(fullQuranPages,pages, this, quranbySurahadapter, listener, chapter.get(0).getChapterid(), chapter.get(0).getNamearabic(), chapter.get(0).getIsmakki(), header);

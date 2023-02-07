@@ -254,6 +254,7 @@ public class passagevtwoMushaAudioAdapter extends RecyclerView.Adapter<passagevt
             }
             holder.quran_textView.setText(CorpusUtilityorig.getSpannable(builder.toString()), TextView.BufferType.SPANNABLE);
             holder.quran_textView.setTypeface(custom_font);
+            holder.quran_textView.setTextSize(arabicfontSize);
 
 /*
 
