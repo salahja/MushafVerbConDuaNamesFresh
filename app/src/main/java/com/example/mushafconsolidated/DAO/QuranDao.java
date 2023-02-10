@@ -26,8 +26,8 @@ public interface QuranDao {
 
 
 
-    @Query("select * from qurans where page = :i order by ayah")
-    List<QuranEntity> getAyahsByPage(int i);
+    @Query("select * from qurans where  surah =:sura and page = :pageno order by ayah")
+    List<QuranEntity> getAyahsByPage(int sura,int pageno);
 
 
     @Query("select * from qurans where surah = :surahid and ayah>=:from and ayah<=:toid order by ayah  ")

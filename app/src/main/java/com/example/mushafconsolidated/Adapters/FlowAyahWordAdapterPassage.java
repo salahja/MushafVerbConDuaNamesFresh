@@ -294,22 +294,7 @@ public class FlowAyahWordAdapterPassage extends RecyclerView.Adapter<FlowAyahWor
         setChapterInfo(holder, ayahWord);
         setAdapterposition(position);
         wordBywordWithTranslation(showrootkey, holder, custom_font, showWordColor, wbw, ayahWord, showWordByword, passageAyahworrd);
-        if (showKathir) {
-            //   holder.expandImageButton.setVisibility(View.VISIBLE);
-            if (entity != null) {
-                //   kathir_translation.loadDataWithBaseURL(null, entity.getTafsir_kathir().toString(), "text/html", "utf-8", null);
-                //  holder.kathir_translation.setText(Html.fromHtml(entity.getTafsir_kathir(), Html.FROM_HTML_MODE_LEGACY));
-                String first = entity.getTafsir_kathir().replaceAll("<b>", "");
-                String second = first.replaceAll("</b>", "");
-                holder.kathir_translation.setText(second);
-            }
-            holder.kathir_translation.setTextSize(translationfontsize);
-            holder.kathir_translation.setTextSize(translationfontsize);
-            //   holder.kathir_translation.setVisibility(View.VISIBLE);
-            // holder.kathir_note.setVisibility(View.VISIBLE);
-        } else {
-            holder.kahteercardview.setVisibility(View.GONE);
-        }
+
         if (showTransliteration) {
             if (entity != null) {
                 holder.quran_transliteration.setText(Html.fromHtml(entity.getTranslation(), Html.FROM_HTML_MODE_LEGACY));

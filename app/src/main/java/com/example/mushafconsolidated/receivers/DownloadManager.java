@@ -20,7 +20,7 @@ import android.widget.Toast;
 import androidx.core.app.NotificationCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import com.example.mushafconsolidated.Activity.ShowMushafActivityorig;
+import com.example.mushafconsolidated.Activity.ShowMushafActivity;
 import com.example.mushafconsolidated.R;
 
 import java.io.File;
@@ -149,7 +149,7 @@ public class DownloadManager extends AsyncTask<String, Long, Boolean> {
      * Function to init download objects
      */
     private void init() {
-        openApplication = new Intent(context, ShowMushafActivityorig.class);
+        openApplication = new Intent(context, ShowMushafActivity.class);
         notificationPending = PendingIntent.getActivity(context, 0,
                 openApplication, PendingIntent.FLAG_IMMUTABLE);
         aboveLollipopFlag = android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;

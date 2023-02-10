@@ -171,27 +171,18 @@
 
         <TextView
             android:id="@+id/lqari"
-            android:layout_width="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:text="Qari Name"
+            android:textAlignment="center"
             android:textColor="@color/cyan"
             android:textSize="22sp">
 
         </TextView>
 
-        <ImageView
-            android:layout_marginStart="200dp"
-            android:id="@+id/exo_extra_controls"
-            style="@style/exoplayerSetting"
-            android:layout_gravity="end"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:text="BUfferring"
-            android:textColor="@color/cyan"
-            android:textSize="22sp">
 
-        </ImageView>
 
 
     </LinearLayout>

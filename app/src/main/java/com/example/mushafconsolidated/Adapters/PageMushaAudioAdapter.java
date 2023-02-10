@@ -1,7 +1,6 @@
 package com.example.mushafconsolidated.Adapters;
 
 import static android.content.Context.MODE_PRIVATE;
-import static com.example.Constant.AYAH_ID;
 import static com.example.Constant.CHAPTER;
 import static com.example.Constant.SURAH_ARABIC_NAME;
 import static com.example.utility.QuranGrammarApplication.getContext;
@@ -16,7 +15,6 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnLongClickListener;
@@ -44,14 +42,12 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Set;
 
 //import com.example.mushafconsolidated.Entities.JoinVersesTranslationDataTranslation;
 //public class CustomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements OnItemClickListenerOnLong {
-public class passagevtwoMushaAudioAdapter extends RecyclerView.Adapter<passagevtwoMushaAudioAdapter.ItemViewAdapter>
+public class PageMushaAudioAdapter extends RecyclerView.Adapter<PageMushaAudioAdapter.ItemViewAdapter>
         //implements OnItemClickListenerOnLong {
 {
 
@@ -79,7 +75,7 @@ public class passagevtwoMushaAudioAdapter extends RecyclerView.Adapter<passagevt
     private Typeface colorwordfont;
     private CorpusAyahWord ayahWord;
 
-    public passagevtwoMushaAudioAdapter(ArrayList<Page> fullQuranPages, LinkedHashMap<Integer, String> passage, Context context, List<QuranEntity> quranbySurah, OnItemClickListenerOnLong listener, long surah_id, String surahName, int ismakki, ArrayList<String> header) {
+    public PageMushaAudioAdapter(ArrayList<Page> fullQuranPages, LinkedHashMap<Integer, String> passage, Context context, List<QuranEntity> quranbySurah, OnItemClickListenerOnLong listener, long surah_id, String surahName, int ismakki, ArrayList<String> header) {
     this.fullQuranPages=fullQuranPages;
         this.passage = passage;
         this.context = context;
@@ -112,7 +108,7 @@ public class passagevtwoMushaAudioAdapter extends RecyclerView.Adapter<passagevt
 
     @Override
     public int getItemCount() {
-        return fullQuranPages.size();
+        return fullQuranPages.size()+1;
 
         //     return  quran.size();
     }
@@ -256,36 +252,12 @@ public class passagevtwoMushaAudioAdapter extends RecyclerView.Adapter<passagevt
             holder.quran_textView.setTypeface(custom_font);
             holder.quran_textView.setTextSize(arabicfontSize);
 
-/*
-
-            // contained in the LinkesHashMap
-            Set entrySet = passage.entrySet();
-
-            // Obtain an Iterator for the entries Set
-            Iterator it = entrySet.iterator();
-
-            // Iterate through LinkedHashMap entries
-            System.out.println("LinkedHashMap entries : ");
-
-            while (it.hasNext())
-                // iterating over each element using it.next()
-                // method
-
-                holder.quran_textView.setText(it.next().toString());
-            holder.quran_textView.setTextSize(arabicfontSize);
-            holder.quran_textView.setTypeface(custom_font);
-
-            holder.quran_textView.setVisibility(View.VISIBLE);
-            holder.rukuview.setVisibility(View.VISIBLE);
-*/
-
-            //      displayAyats(showrootkey, holder, position   , sharedPreferences, custom_font, showErab, showWordColor, showTransliteration, showJalalayn, showTranslation, showWordByword, whichtranslation, showKathir);
 
         }
 
     }
 
-    public void displayAyats(boolean showrootkey, passagevtwoMushaAudioAdapter.ItemViewAdapter holder, int position, SharedPreferences sharedPreferences, Typeface custom_font, boolean showErab, boolean showWordColor, boolean showTransliteration, boolean showJalalayn, boolean showTranslation, boolean showWordByword, String whichtranslation, boolean showKathir) {
+    public void displayAyats(boolean showrootkey, PageMushaAudioAdapter.ItemViewAdapter holder, int position, SharedPreferences sharedPreferences, Typeface custom_font, boolean showErab, boolean showWordColor, boolean showTransliteration, boolean showJalalayn, boolean showTranslation, boolean showWordByword, String whichtranslation, boolean showKathir) {
         //   holder.flowwbw.setBackgroundColor(R.style.Theme_DarkBlue);
         QuranEntity entity = null;
 
@@ -389,11 +361,12 @@ public class passagevtwoMushaAudioAdapter extends RecyclerView.Adapter<passagevt
 
     }
 
-    private void storepreferences(QuranEntity entity) {
-        SharedPreferences pref = context.getSharedPreferences("lastread", MODE_PRIVATE);
+    private void storepreferences(Page page, int position) {
+        SharedPreferences pref = context.getSharedPreferences("lastreadmushaf", MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
-        editor.putInt(CHAPTER, entity.getSurah());
-        editor.putInt(AYAH_ID, entity.getAyah());
+        editor.putInt(CHAPTER, page.getAyahItemsquran().get(0).getSurah());
+        editor.putInt("page", page.getAyahItemsquran().get(0).getPage());
+
         editor.putString(SURAH_ARABIC_NAME, SurahName);
         editor.apply();
         //  editor.commit();

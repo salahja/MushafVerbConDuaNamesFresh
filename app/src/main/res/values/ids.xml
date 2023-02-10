@@ -390,6 +390,7 @@
     <item name="llStartRange" type="id" />
     <item name="chooseDisplaytype" type="id" />
     <item name="display" type="id" />
+    <item name="surahselection" type="id" />
 
 
 </resources>

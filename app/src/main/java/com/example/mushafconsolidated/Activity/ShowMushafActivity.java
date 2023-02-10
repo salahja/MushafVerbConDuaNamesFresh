@@ -1,5 +1,6 @@
 package com.example.mushafconsolidated.Activity;
 
+import static com.example.Constant.CHAPTER;
 import static com.google.android.exoplayer2.util.RepeatModeUtil.REPEAT_TOGGLE_MODE_ONE;
 
 import android.annotation.SuppressLint;
@@ -10,20 +11,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.provider.MediaStore;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
-import android.util.Pair;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,7 +43,6 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SwitchCompat;
-import androidx.collection.ArraySet;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -56,15 +51,13 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mushafconsolidated.Adapters.FlowMushaAudioAdapter;
-import com.example.mushafconsolidated.Adapters.MushaAudioAdapter;
-import com.example.mushafconsolidated.Adapters.passagevtwoMushaAudioAdapter;
+import com.example.mushafconsolidated.Adapters.LineMushaAudioAdapter;
+import com.example.mushafconsolidated.Adapters.PageMushaAudioAdapter;
 import com.example.mushafconsolidated.Adapters.vtwoMushaAudioAdapter;
 import com.example.mushafconsolidated.Entities.ChaptersAnaEntity;
 import com.example.mushafconsolidated.Entities.Page;
 import com.example.mushafconsolidated.Entities.Qari;
 import com.example.mushafconsolidated.Entities.QuranEntity;
-import com.example.mushafconsolidated.Entities.QuranMetaEntity;
 import com.example.mushafconsolidated.R;
 import com.example.mushafconsolidated.Utils;
 import com.example.mushafconsolidated.intrface.OnItemClickListenerOnLong;
@@ -83,29 +76,10 @@ import com.google.android.exoplayer2.PlaybackException;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.Tracks;
 import com.google.android.exoplayer2.audio.AudioAttributes;
-import com.google.android.exoplayer2.extractor.mp3.Mp3Extractor;
-import com.google.android.exoplayer2.mediacodec.MediaCodecRenderer;
-import com.google.android.exoplayer2.mediacodec.MediaCodecUtil;
 import com.google.android.exoplayer2.source.DefaultMediaSourceFactory;
-import com.google.android.exoplayer2.source.hls.DefaultHlsDataSourceFactory;
-import com.google.android.exoplayer2.source.hls.HlsMediaSource;
-import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
-import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
-import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelectionParameters;
-import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.ui.PlayerControlView;
 import com.google.android.exoplayer2.ui.StyledPlayerView;
-import com.google.android.exoplayer2.upstream.Allocator;
-import com.google.android.exoplayer2.upstream.BandwidthMeter;
-import com.google.android.exoplayer2.upstream.DataSource;
-import com.google.android.exoplayer2.upstream.DefaultAllocator;
-import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
-import com.google.android.exoplayer2.upstream.DefaultDataSource;
-import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
-import com.google.android.exoplayer2.upstream.DefaultHttpDataSource;
-import com.google.android.exoplayer2.util.DebugTextViewHelper;
-import com.google.android.exoplayer2.util.ErrorMessageProvider;
 import com.google.android.exoplayer2.util.EventLogger;
 
 import com.google.android.exoplayer2.util.Util;
@@ -123,8 +97,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+ ;
 import wheel.OnWheelChangedListener;
 import wheel.WheelView;
 
@@ -149,6 +122,7 @@ public class ShowMushafActivity extends BaseActivity implements
     boolean flow = false;
     boolean singleline;
     private ArrayList<Page> fullQuranPages;
+    private int pagenum;
 
     public int getVersestartrange() {
         return versestartrange;
@@ -175,7 +149,7 @@ public class ShowMushafActivity extends BaseActivity implements
     }
 
     private int ayah;
-    passagevtwoMushaAudioAdapter passageadapter;
+    PageMushaAudioAdapter passageadapter;
     private final LinkedHashMap<Integer, String> passage = new LinkedHashMap<>();
     private final LinkedHashMap<Integer, String> pages = new LinkedHashMap<>();
     int audioType;
@@ -185,14 +159,14 @@ public class ShowMushafActivity extends BaseActivity implements
     private List<MediaItem> marray;
     private String singleverse;
 
-    private boolean isSingle = false;
+    private boolean isSingle ;
     private boolean isStartFrom = false;
     private List<QuranEntity> quranbySurahadapter;
     private MaterialButton resetplayer;
     private SharedPreferences sharedPreferences;
     private String selectedqari;
     TextView qariname;
-    ImageView buffering;
+    ImageView buffering,canceldownload;
 
     public void setPrevqari(String prevqari) {
         this.prevqari = prevqari;
@@ -221,6 +195,15 @@ public class ShowMushafActivity extends BaseActivity implements
     // For ad playback only.
     public static final String BROADCAST_SEEKBAR = "com.example.mushafconsolidated.Activity.sendseekbar";
     public static int  readerID;
+
+    public String getSurahNameArabic() {
+        return surahNameArabic;
+    }
+
+    public void setSurahNameArabic(String surahNameArabic) {
+        this.surahNameArabic = surahNameArabic;
+    }
+
     private boolean pausePlayFlag;
     public static String  downloadLink, readerName;
     public static boolean startBeforeDownload;
@@ -228,7 +211,8 @@ public class ShowMushafActivity extends BaseActivity implements
     private static final String TAG = "ShowMushafActivity";
 
     int surahselected, verselected, versescount;
-    String surahName;
+    String surahNameEnglish,surahNameArabic
+            ;
     private String isNightmode;
 
     public int getVersescount() {
@@ -239,12 +223,12 @@ public class ShowMushafActivity extends BaseActivity implements
         this.versescount = versescount;
     }
 
-    public String getSurahName() {
-        return surahName;
+    public String getSurahNameEnglish() {
+        return surahNameEnglish;
     }
 
-    public void setSurahName(String surahName) {
-        this.surahName = surahName;
+    public void setSurahNameEnglish(String surahNameEnglish) {
+        this.surahNameEnglish = surahNameEnglish;
     }
 // LinearLayout fabLayout1, fabLayout2,fabLayout3;
 
@@ -294,19 +278,18 @@ public class ShowMushafActivity extends BaseActivity implements
         this.surahselected = surahselected;
     }
 
-    @BindView(R.id.rvAyahsPages)
-    RecyclerView rvAyahsPages;
+
+    RecyclerView recyclerView;
 
     Utils repository;
-    FlowMushaAudioAdapter flowMushaAudioAdapter;
-    MushaAudioAdapter mushaAudioAdapter;
+
+    LineMushaAudioAdapter lineMushaAudioAdapter;
     vtwoMushaAudioAdapter vtwoMushaAudioAdapter;
     Typeface typeface;
     TextView txtView;
-    int pos;
+ //   int pos;
 
-    int scrollorColor;
-    private int seekMax;
+
     private static final int songEnded = 0;
 
     private Spinner translationBooks, readers;
@@ -332,23 +315,25 @@ public class ShowMushafActivity extends BaseActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vfour_expandable_newactivity_show_ayahs);
-        ButterKnife.bind(this);
+    //    ButterKnife.bind(this);
         QuranGrammarApplication.appContext = ShowMushafActivity.this;
         //  intentmyservice = new Intent(this, AudioService.class);
         Intent intent = new Intent(BROADCAST_SEEKBAR);
+        getpreferences();
         sharedPreferences =
                 androidx.preference.PreferenceManager.getDefaultSharedPreferences(this);
         isNightmode = sharedPreferences.getString("themepref", "dark");
         repository = Utils.getInstance(getApplication());
         typeface = Typeface.createFromAsset(getAssets(), "me_quran.ttf");
         selectedqari = sharedPreferences.getString("qari", "35");
-        pos = getIntent().getIntExtra(Constants.SURAH_INDEX, 1);
-        pos = getStartPageFromIndex(pos);
+
+
 
         //region Description
         if (getIntent().hasExtra(Constants.SURAH_INDEX)) {
             surah = getIntent().getIntExtra(Constants.SURAH_INDEX, 1);
-            singleline = getIntent().getBooleanExtra(Constants.MUSHAFDISPLAY, true);
+            singleline = getIntent().getBooleanExtra(Constants.MUSHAFDISPLAY, false);
+
             setSurahselected(surah);
             //   getIntent().getIntExtra(Constants.SURAH_GO_INDEX, 1);
             int ayahtrack = getIntent().getIntExtra(Constants.AYAH_GO_INDEX, 0);
@@ -356,20 +341,14 @@ public class ShowMushafActivity extends BaseActivity implements
                 setStartPosition(ayahtrack);
             }
             Log.d(TAG, "onCreate: ayah  " + ayah);
-            pos = getPosFromSurahAndAyah(surah, ayah);
+
             //       showMessage(String.valueOf(pos));D
 
 
-        } else if (getIntent().hasExtra(Constants.PAGE_INDEX)) {  // case bookmark, go to by page
-            pos = getIntent().getIntExtra(Constants.PAGE_INDEX, 1);
-        } else if (getIntent().hasExtra(Constants.JUZ_INDEX)) {
-            pos = getIntent().getIntExtra(Constants.JUZ_INDEX, 1);
-            pos = getPageFromJuz(pos);
         }
-
         //endregion
 
-        Log.d(TAG, "onCreate: " + pos);
+
 
         playerView = findViewById(R.id.player_view);
 
@@ -394,7 +373,7 @@ public class ShowMushafActivity extends BaseActivity implements
         RelativeLayout playerbottomsheet = findViewById(R.id.audio_settings_bottom);
         audioSettingBottomBehaviour = BottomSheetBehavior.from(playerbottomsheet);
         audioSettingBottomBehaviour.setState(BottomSheetBehavior.STATE_COLLAPSED);
-          //text
+        recyclerView = (RecyclerView) findViewById(R.id.rvAyahsPages);
 
         initSpinner();
         if (!singleline) {
@@ -408,14 +387,26 @@ public class ShowMushafActivity extends BaseActivity implements
 
 
     }
+
+    private void getpreferences() {
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("lastreadmushaf", MODE_PRIVATE);
+        surah = pref.getInt(CHAPTER, 20);
+        pagenum = pref.getInt("page", 1);
+        setSurahselected(surah);
+      //  surahname = pref.getString(SURAH_ARABIC_NAME, "");
+      //  setSurahArabicName(surahname);
+
+    }
+
     private void loadFullQuran() {
         List<Page> pages = new ArrayList<>();
         List<QuranEntity> quranEntities =       Utils.getQuranbySurah(surah);
    int  firstpage=   quranEntities.get(0).getPage();
+
         Page page;
         List<QuranEntity> ayahItems;
-        for (int i = firstpage; i < quranEntities.get(quranEntities.size()-1).getPage(); i++) {
-            ayahItems = repository.getAyahsByPageQuran(i);
+        for (int i = firstpage; i <= quranEntities.get(quranEntities.size()-1).getPage(); i++) {
+            ayahItems = repository.getAyahsByPageQuran(surah,i);
             if (ayahItems.size() > 0) {
                 page = new Page();
                 page.setAyahItemsquran(ayahItems);
@@ -441,20 +432,7 @@ public class ShowMushafActivity extends BaseActivity implements
             ArrayList<Integer> ayahmat = new ArrayList<>();
             for (QuranEntity ayahItem : page.getAyahItemsquran()) {
                 aya = ayahItem.getQurantext();
-                // add sura name
 
-
-                // AlFatiha(index = 1 ) has a Basmallah in first ayah.
-
-                int pos = aya.indexOf("ٱلرَّحِيم");
-                //   Log.d(TAG, "onBindViewHolder: pos " + pos);
-
-
-                // insert  البسملة
-                builder.append(aya.substring(0, pos + 1)); // +1 as substring upper bound is excluded
-                builder.append("\n");
-                // cute ayah
-                aya = aya.substring(pos+1); // +1 to start with new character after البسملة
 
 
 
@@ -651,7 +629,8 @@ public class ShowMushafActivity extends BaseActivity implements
                 sura = String.valueOf(soraList.get(chapterno[0] - 1).getChapterid());
 
                 setSurahselected(soraList.get(chapterno[0] - 1).getChapterid());
-                setSurahName(soraList.get(chapterno[0] - 1).getNameenglish());
+                setSurahNameEnglish(soraList.get(chapterno[0] - 1).getNameenglish());
+                setSurahNameArabic(soraList.get(chapterno[0] - 1).getNamearabic());
             }
 
             int verse = verseno[0];
@@ -784,7 +763,7 @@ public class ShowMushafActivity extends BaseActivity implements
 
         StringBuilder st = new StringBuilder();
 
-        st.append(getSurahName()).append("-").append(getSurahselected()).append(":").append(getAyah());
+        st.append(getSurahNameEnglish()).append("-").append(getSurahselected()).append(":").append(getAyah());
         setVerseendrange(verse);
         endrange.setText(st.toString());
 
@@ -794,7 +773,7 @@ public class ShowMushafActivity extends BaseActivity implements
 
         StringBuilder st = new StringBuilder();
         StringBuilder stt = new StringBuilder();
-        st.append(getSurahName()).append("-").append(getSurahselected()).append(":").append(getAyah());
+        st.append(getSurahNameEnglish()).append("-").append(getSurahselected()).append(":").append(getAyah());
         setVersestartrange(verse);
         startrange.setText(st.toString());
 
@@ -832,7 +811,7 @@ public class ShowMushafActivity extends BaseActivity implements
 ///musincadapter
             // RecyclerView.ViewHolder holder = (RecyclerView.ViewHolder) rvAyahsPages.findViewHolderForAdapterPosition(currenttrack);
 
-            RecyclerView.ViewHolder holder = (RecyclerView.ViewHolder) rvAyahsPages.findViewHolderForAdapterPosition(currenttrack);
+            RecyclerView.ViewHolder holder = (RecyclerView.ViewHolder) recyclerView.findViewHolderForAdapterPosition(currenttrack);
 
             if (null != holder) {
                 try {
@@ -854,7 +833,7 @@ public class ShowMushafActivity extends BaseActivity implements
                     Toast.makeText(ShowMushafActivity.this, "null pointer udapte", Toast.LENGTH_SHORT).show();
                 }
             }
-            RecyclerView.ViewHolder holderp = (RecyclerView.ViewHolder) rvAyahsPages.findViewHolderForAdapterPosition(currenttrack - 1);
+            RecyclerView.ViewHolder holderp = (RecyclerView.ViewHolder) recyclerView.findViewHolderForAdapterPosition(currenttrack - 1);
             if (currenttrack > 1) {
                 if (null != holderp) {
                     try {
@@ -878,9 +857,9 @@ public class ShowMushafActivity extends BaseActivity implements
 
             }
 
-            rvAyahsPages.post(() -> rvAyahsPages.scrollToPosition((currenttrack)));
+            recyclerView.post(() -> recyclerView.scrollToPosition((currenttrack)));
 
-            handler.postDelayed(this, 1500);
+          //  handler.postDelayed(this, 1000);
 
 
         }
@@ -929,13 +908,13 @@ public class ShowMushafActivity extends BaseActivity implements
             if (onClickOrRange) {
                 if (hlights.get(currenttrack) != null) {
                     if(null!=holder) {
-                        holder = (RecyclerView.ViewHolder) rvAyahsPages.findViewHolderForAdapterPosition(hlights.get(getVersestartrange()).get(0).getPassage());
-                        rvAyahsPages.post(() -> rvAyahsPages.scrollToPosition(hlights.get(getVersestartrange()).get(0).getPassage()));
+                        holder = (RecyclerView.ViewHolder) recyclerView.findViewHolderForAdapterPosition(hlights.get(getVersestartrange()).get(0).getPassage());
+                        recyclerView.post(() -> recyclerView.scrollToPosition(hlights.get(getVersestartrange()).get(0).getPassage()));
                     }
                 } else {
                     if(null!=holder) {
-                        holder = (RecyclerView.ViewHolder) rvAyahsPages.findViewHolderForAdapterPosition(hlights.get(currenttrack + 1).get(0).getPassage());
-                        rvAyahsPages.post(() -> rvAyahsPages.scrollToPosition((hlights.get(currenttrack + 1).get(0).getPassage())));
+                        holder = (RecyclerView.ViewHolder) recyclerView.findViewHolderForAdapterPosition(hlights.get(currenttrack + 1).get(0).getPassage());
+                        recyclerView.post(() -> recyclerView.scrollToPosition((hlights.get(currenttrack + 1).get(0).getPassage())));
                         currenttrack++;
                     }
                 }
@@ -943,13 +922,13 @@ public class ShowMushafActivity extends BaseActivity implements
             } else {
                 if (hlights.get(currenttrack) != null) {
                     if(null!=holder) {
-                        holder = (RecyclerView.ViewHolder) rvAyahsPages.findViewHolderForAdapterPosition(hlights.get(currenttrack).get(0).getPassage());
-                        rvAyahsPages.post(() -> rvAyahsPages.scrollToPosition(hlights.get(currenttrack).get(0).getPassage()));
+                        holder = (RecyclerView.ViewHolder) recyclerView.findViewHolderForAdapterPosition(hlights.get(currenttrack).get(0).getPassage());
+                        recyclerView.post(() -> recyclerView.scrollToPosition(hlights.get(currenttrack).get(0).getPassage()));
                     }
                 } else {
                     if(null!=holder) {
-                        holder = (RecyclerView.ViewHolder) rvAyahsPages.findViewHolderForAdapterPosition(hlights.get(currenttrack + 1).get(0).getPassage());
-                        rvAyahsPages.post(() -> rvAyahsPages.scrollToPosition((hlights.get(currenttrack + 1).get(0).getPassage())));
+                        holder = (RecyclerView.ViewHolder) recyclerView.findViewHolderForAdapterPosition(hlights.get(currenttrack + 1).get(0).getPassage());
+                        recyclerView.post(() -> recyclerView.scrollToPosition((hlights.get(currenttrack + 1).get(0).getPassage())));
                         currenttrack++;
                     }
                 }
@@ -981,7 +960,7 @@ public class ShowMushafActivity extends BaseActivity implements
                     Toast.makeText(ShowMushafActivity.this, "null pointer udapte", Toast.LENGTH_SHORT).show();
                 }
             }
-            RecyclerView.ViewHolder holderp = (RecyclerView.ViewHolder) rvAyahsPages.findViewHolderForAdapterPosition(1);
+            RecyclerView.ViewHolder holderp = (RecyclerView.ViewHolder) recyclerView.findViewHolderForAdapterPosition(1);
             int temp = 2;
 
             if (temp > 1) {
@@ -1008,7 +987,7 @@ public class ShowMushafActivity extends BaseActivity implements
 
             //  rvAyahsPages.post(() -> rvAyahsPages.scrollToPosition((ayah)));
 
-            handler.postDelayed(this, 1500);
+            handler.postDelayed(this, 2000);
 
 
         }
@@ -1037,8 +1016,8 @@ public class ShowMushafActivity extends BaseActivity implements
 
             RecyclerView.ViewHolder holder = null;
 
-            holder = (RecyclerView.ViewHolder) rvAyahsPages.findViewHolderForAdapterPosition(currenttrack);
-            rvAyahsPages.post(() -> rvAyahsPages.scrollToPosition((hlights.get(currenttrack + 1).get(0).getPassage())));
+            holder = (RecyclerView.ViewHolder) recyclerView.findViewHolderForAdapterPosition(currenttrack);
+            recyclerView.post(() -> recyclerView.scrollToPosition((hlights.get(currenttrack + 1).get(0).getPassage())));
 
             if (null != holder) {
                 try {
@@ -1084,7 +1063,7 @@ public class ShowMushafActivity extends BaseActivity implements
                     Toast.makeText(ShowMushafActivity.this, "null pointer udapte", Toast.LENGTH_SHORT).show();
                 }
             }
-            RecyclerView.ViewHolder holderp = (RecyclerView.ViewHolder) rvAyahsPages.findViewHolderForAdapterPosition(1);
+            RecyclerView.ViewHolder holderp = (RecyclerView.ViewHolder) recyclerView.findViewHolderForAdapterPosition(1);
             int temp = 2;
 
             if (temp > 1) {
@@ -1112,7 +1091,7 @@ public class ShowMushafActivity extends BaseActivity implements
 
             //  rvAyahsPages.post(() -> rvAyahsPages.scrollToPosition((ayah)));
 
-            handler.postDelayed(this, 1500);
+            handler.postDelayed(this, 1000);
 
 
         }
@@ -1173,11 +1152,11 @@ public class ShowMushafActivity extends BaseActivity implements
 
             RecyclerView.ViewHolder holder;
             if (hlights.get(currenttrack) != null) {
-                holder = (RecyclerView.ViewHolder) rvAyahsPages.findViewHolderForAdapterPosition(hlights.get(currenttrack).get(0).getPassage());
-                rvAyahsPages.post(() -> rvAyahsPages.scrollToPosition((hlights.get(currenttrack + 1).get(0).getPassage())));
+                holder = (RecyclerView.ViewHolder) recyclerView.findViewHolderForAdapterPosition(hlights.get(currenttrack).get(0).getPassage());
+                recyclerView.post(() -> recyclerView.scrollToPosition((hlights.get(currenttrack + 1).get(0).getPassage())));
             } else {
-                holder = (RecyclerView.ViewHolder) rvAyahsPages.findViewHolderForAdapterPosition(hlights.get(currenttrack + 1).get(0).getPassage());
-                rvAyahsPages.post(() -> rvAyahsPages.scrollToPosition((hlights.get(currenttrack + 1).get(0).getPassage())));
+                holder = (RecyclerView.ViewHolder) recyclerView.findViewHolderForAdapterPosition(hlights.get(currenttrack + 1).get(0).getPassage());
+                recyclerView.post(() -> recyclerView.scrollToPosition((hlights.get(currenttrack + 1).get(0).getPassage())));
                 currenttrack++;
             }
 
@@ -1207,7 +1186,7 @@ public class ShowMushafActivity extends BaseActivity implements
                     Toast.makeText(ShowMushafActivity.this, "null pointer udapte", Toast.LENGTH_SHORT).show();
                 }
             }
-            RecyclerView.ViewHolder holderp = (RecyclerView.ViewHolder) rvAyahsPages.findViewHolderForAdapterPosition(1);
+            RecyclerView.ViewHolder holderp = (RecyclerView.ViewHolder) recyclerView.findViewHolderForAdapterPosition(1);
             int temp = 2;
 
             if (temp > 1) {
@@ -1235,7 +1214,7 @@ public class ShowMushafActivity extends BaseActivity implements
 
             //  rvAyahsPages.post(() -> rvAyahsPages.scrollToPosition((ayah)));
 
-            handler.postDelayed(this, 1500);
+            handler.postDelayed(this, 5000);
 
 
         }
@@ -1289,11 +1268,19 @@ public class ShowMushafActivity extends BaseActivity implements
 
     };
 
+
+    private void setupHandlerSingle() {
+        handler.removeCallbacks(sendUpdatesToUI);
+
+        handler.postDelayed(sendUpdatesToUI, 1000);
+
+    }
+
     private void setupHandler() {
-        //   handler.removeCallbacks(sendUpdatesToUI);
-        //   handler.removeCallbacks(sendUpdatesToUIPassage);
-        //  handler.postDelayed(sendUpdatesToUI, 1000);
-        //    handler.postDelayed(sendUpdatesToUIPassage, 1000);
+
+           handler.removeCallbacks(sendUpdatesToUIPassage);
+
+            handler.postDelayed(sendUpdatesToUIPassage, 1000);
     }
 
     protected void releasePlayer() {
@@ -1361,7 +1348,8 @@ public class ShowMushafActivity extends BaseActivity implements
 
                 playerView.setPlayer(player);
                 player.prepare();
-                qariname.setText(readerName);
+              String str= getSurahNameEnglish().concat(":").concat(readerName);
+                qariname.setText(str);
                 player.play();
 
 
@@ -1416,9 +1404,16 @@ public class ShowMushafActivity extends BaseActivity implements
                 }
 
                 player.setMediaItems(marray, /* resetPosition= */ !haveStartPosition);
-                qariname.setText(readerName);
+                String str= getSurahNameEnglish().concat(":").concat(readerName);
+                qariname.setText(str);
+             //   qariname.setText(readerName);
                 player.prepare();
-                setupHandler();
+           /*     if(singleline){
+                    setupHandlerSingle();
+                }else{
+                    setupHandler();
+                }
+*/
                 if (audioSettingBottomBehaviour.getState() == BottomSheetBehavior.STATE_EXPANDED) {
                     audioSettingBottomBehaviour.setState(BottomSheetBehavior.STATE_COLLAPSED);
                 }
@@ -1556,12 +1551,18 @@ public class ShowMushafActivity extends BaseActivity implements
 
             //    NewsendUpdatesToUIPassage.run();
             if (!singleline) {
-                sendUpdatesToUIPassage.run();
+                if(player.isPlaying() || player.getPlayWhenReady()) {
+                    sendUpdatesToUIPassage.run();
+                }else{
+                    handler.removeCallbacks(sendUpdatesToUIPassage);
+                }
             } else {
 
-                //     if(player.isPlaying()) {
+                 if(player.isPlaying()|| player.getPlayWhenReady()) {
                 sendUpdatesToUI.run();
-                //  }
+                 }else{
+                     handler.removeCallbacks(sendUpdatesToUI);
+                 }
 
             }
 
@@ -1571,7 +1572,7 @@ public class ShowMushafActivity extends BaseActivity implements
 
             if (tracks.containsType(C.TRACK_TYPE_AUDIO)
                     && !tracks.isTypeSupported(C.TRACK_TYPE_AUDIO, /* allowExceedsCapabilities= */ true)) {
-                showToast(R.string.error_unsupported_audio);
+                //showToast(R.string.error_unsupported_audio);
             }
             lastSeenTracks = tracks;
         }
@@ -1579,7 +1580,7 @@ public class ShowMushafActivity extends BaseActivity implements
 
     private void preparehighlightsNew(int passageno, StringBuilder str, ArrayList<Integer> ayahmat) {
 
-        RecyclerView.ViewHolder holder = (RecyclerView.ViewHolder) rvAyahsPages.findViewHolderForAdapterPosition(1);
+        RecyclerView.ViewHolder holder = (RecyclerView.ViewHolder) recyclerView.findViewHolderForAdapterPosition(1);
 
         int ayahindex = ayahmat.get(0);
         int ayahmaz = ayahmat.size();
@@ -1615,7 +1616,7 @@ public class ShowMushafActivity extends BaseActivity implements
 
     private void preparehighlights(int passageno, StringBuilder str, ArrayList<Integer> ayahmat) {
 
-        RecyclerView.ViewHolder holder = (RecyclerView.ViewHolder) rvAyahsPages.findViewHolderForAdapterPosition(1);
+        RecyclerView.ViewHolder holder = (RecyclerView.ViewHolder) recyclerView.findViewHolderForAdapterPosition(1);
 
         int ayahindex = ayahmat.get(0);
 
@@ -1646,6 +1647,7 @@ public class ShowMushafActivity extends BaseActivity implements
         System.out.println("check");
     }
 
+/*
     private void showToast(int messageId) {
         showToast(getString(messageId));
     }
@@ -1653,6 +1655,7 @@ public class ShowMushafActivity extends BaseActivity implements
     private void showToast(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
+*/
 
     protected void clearStartPosition() {
         startAutoPlay = true;
@@ -1680,6 +1683,8 @@ public class ShowMushafActivity extends BaseActivity implements
 
     @SuppressLint("WrongViewCast")
     private void initRV() {
+        canceldownload= (ImageView) findViewById(R.id.canceldownload);
+        canceldownload.setOnClickListener(this);
         qariname= (TextView) findViewById(R.id.lqari);
         buffering= (ImageView) findViewById(R.id.exo_buffering);
         SwitchCompat chooseDisplaytype = findViewById(R.id.chooseDisplaytype);
@@ -1692,6 +1697,8 @@ public class ShowMushafActivity extends BaseActivity implements
         exo_bottom_bar = (ImageButton) findViewById(R.id.exo_bottom_bar);
         //  private ImageView playbutton;
         MaterialButton playbutton = findViewById(R.id.playbutton);
+        MaterialButton surahselection= (MaterialButton) findViewById(R.id.surahselection);
+        surahselection.setOnClickListener(this);
         exo_close.setOnClickListener(this);
         playbutton.setOnClickListener(this);
         exo_bottom_bar.setOnClickListener(this);
@@ -1770,6 +1777,12 @@ public class ShowMushafActivity extends BaseActivity implements
 
             }
         });
+        surahselection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SurahAyahPicker(true, true);
+            }
+        });
         playfb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1792,8 +1805,8 @@ public class ShowMushafActivity extends BaseActivity implements
 
                 StringBuilder st = new StringBuilder();
                 StringBuilder stt = new StringBuilder();
-                st.append(getSurahName()).append("-").append(getSurahselected()).append(":").append("1");
-                stt.append(getSurahName()).append("-").append(getSurahselected()).append(":").append(getVersescount());
+                st.append(getSurahNameEnglish()).append("-").append(getSurahselected()).append(":").append("1");
+                stt.append(getSurahNameEnglish()).append("-").append(getSurahselected()).append(":").append(getVersescount());
                 startrange.setText(st.toString());
                 startrange.setText(stt.toString());
 
@@ -1830,30 +1843,28 @@ public class ShowMushafActivity extends BaseActivity implements
         header.add(chapter.get(0).getAbjadname());
         header.add(chapter.get(0).getNameenglish());
         setVersescount(chapter.get(0).getVersescount());
-        setSurahName(chapter.get(0).getNameenglish());
+        setSurahNameEnglish(chapter.get(0).getNameenglish());
+        setSurahNameArabic(chapter.get(0).getNamearabic());
    //     manager.setOrientation(LinearLayoutManager.HORIZONTAL);
         // eqContainer.setVisibility(View.GONE);
-        rvAyahsPages.setLayoutManager(manager);
+        recyclerView.setLayoutManager(manager);
         GridLayoutManager mLayoutManager = new GridLayoutManager(this, 2);
 
-        rvAyahsPages.setHasFixedSize(true);
+        recyclerView.setHasFixedSize(true);
 
 
 
         if (singleline) {
-            mushaAudioAdapter = new MushaAudioAdapter(this, quranbySurahadapter, listener, chapter.get(0).getChapterid(), chapter.get(0).getNamearabic(), chapter.get(0).getIsmakki(), header);
-            rvAyahsPages.setAdapter(mushaAudioAdapter);
-/*
-        } else if (flow) {
-            flowMushaAudioAdapter = new FlowMushaAudioAdapter(this, quranbySurahadapter, listener, chapter.get(0).getChapterid(), chapter.get(0).getNamearabic(), chapter.get(0).getIsmakki(), header);
-            rvAyahsPages.setAdapter(flowMushaAudioAdapter);*/
+            lineMushaAudioAdapter = new LineMushaAudioAdapter(this, quranbySurahadapter, listener, chapter.get(0).getChapterid(), chapter.get(0).getNamearabic(), chapter.get(0).getIsmakki(), header);
+            recyclerView.setAdapter(lineMushaAudioAdapter);
 
         } else {
-            passageadapter = new passagevtwoMushaAudioAdapter(fullQuranPages,pages, this, quranbySurahadapter, listener, chapter.get(0).getChapterid(), chapter.get(0).getNamearabic(), chapter.get(0).getIsmakki(), header);
-            rvAyahsPages.setAdapter(passageadapter);
+            passageadapter = new PageMushaAudioAdapter(fullQuranPages,pages, this, quranbySurahadapter, listener, chapter.get(0).getChapterid(), chapter.get(0).getNamearabic(), chapter.get(0).getIsmakki(), header);
+            recyclerView.setAdapter(passageadapter);
+            passageadapter.notifyDataSetChanged();
         }
 
-        rvAyahsPages.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         exo_bottom_bar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1864,14 +1875,14 @@ public class ShowMushafActivity extends BaseActivity implements
         exo_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //    player.stop();
+
                 setVerselected(1);
                 setVersestartrange(0);
                 setVerseendrange(0);
                 setAyah(0);
 
                 handler.removeCallbacks(sendUpdatesToUI);
-                rvAyahsPages.post(() -> rvAyahsPages.scrollToPosition((0)));
+                recyclerView.post(() -> recyclerView.scrollToPosition((0)));
                 releasePlayer();
                 initializePlayer();
 
@@ -1908,8 +1919,21 @@ public class ShowMushafActivity extends BaseActivity implements
             }
         });
 
+        canceldownload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                downloadFooter.setVisibility(View.GONE);
+                normalFooter.setVisibility(View.VISIBLE);
+                //stop flag of auto start audio after download
+                startBeforeDownload = false;
+                //stop download service
+                stopService(new Intent(ShowMushafActivity.this, DownloadService.class));
+
+            }
+        });
+
         // to preserver quran direction from right to left
-        rvAyahsPages.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+        recyclerView.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
 
     }
 
@@ -2203,7 +2227,7 @@ public class ShowMushafActivity extends BaseActivity implements
     @Override
     public void onItemClick(View v, int position) {
         Object istag = v.getTag();
-        if (istag.equals("verse")) {
+        if (istag.equals("verse") && singleline) {
             onClickOrRange = true;
             int ayah1 = quranbySurahadapter.get(position).getAyah();
 
@@ -2218,10 +2242,19 @@ public class ShowMushafActivity extends BaseActivity implements
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        handler.removeCallbacks(sendUpdatesToUI);
+        handler.removeCallbacks(sendUpdatesToUIPassage);
+
+    }
+
+    @Override
     public void onItemLongClick(int position, View v) {
 
         Object istag = v.getTag();
-        if (istag.equals("verse")) {
+        if (istag.equals("verse") && singleline) {
             onClickOrRange = true;
             int ayah1 = quranbySurahadapter.get(position).getAyah();
             setAyah(ayah1);
@@ -2246,56 +2279,3 @@ public class ShowMushafActivity extends BaseActivity implements
 
 }
 
-/*
-    private void initQuranPages() {
-//todo
-        List<QuranEntity> quranEntities = Utils.getQuranbySurah(surah);
-
-        StringBuilder builder = new StringBuilder();
-        ArrayList<Integer> ayahmat = new ArrayList<>();
-        int counter = 1;
-        int outerloop = 0;
-        int pageloop;
-        int nextpage;
-        int indexsize = quranEntities.size();
-        for (; outerloop <= quranEntities.size(); ) {
-            int page;
-            try {
-                  page = quranEntities.get(outerloop).getPage();
-         //   nextpage = quranEntities.get(outerloop + 1).getPage();
-               } catch (IndexOutOfBoundsException e){
-                  break;
-              }
-
-            boolean whileloop = false;
-
-            do {
-
-                String aya = quranEntities.get(outerloop).getQurantext();
-                builder.append(aya).append("﴿ { ").append(quranEntities.get(outerloop).getAyah()).append("} ﴾");
-
-                aya = quranEntities.get(outerloop + 1).getQurantext();
-                builder.append(aya).append("﴿ { ").append(quranEntities.get(outerloop + 1).getAyah()).append("} ﴾");
-                outerloop++;
-                whileloop = true;
-                try {
-                    boolean b = page == quranEntities.get(outerloop + 1).getPage();
-                } catch (IndexOutOfBoundsException e) {
-                    break;
-                }
-
-            } while (page == quranEntities.get(outerloop + 1).getPage());
-
-            outerloop++;
-
-            if (builder.toString().trim().length() != 0) {
-                pages.put(page, builder.toString());
-            }
-            //    preparehighlightsNew(   quranEntities.get(outerloop).getPage()-1,builder, ayahmat);
-            ayahmat = new ArrayList<>();
-            builder = new StringBuilder();
-        }
-
-        System.out.println("CHECK");
-    }
- */

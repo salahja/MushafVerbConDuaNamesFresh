@@ -25,7 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.window.layout.WindowMetrics;
 import androidx.window.layout.WindowMetricsCalculator;
 
-import com.example.mushafconsolidated.Adapters.PageAdapter;
+
 import com.example.mushafconsolidated.Entities.Page;
 import com.example.mushafconsolidated.Entities.QuranEntity;
 import com.example.mushafconsolidated.R;

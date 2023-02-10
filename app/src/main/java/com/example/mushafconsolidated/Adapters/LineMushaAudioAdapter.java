@@ -38,7 +38,6 @@ import com.example.mushafconsolidated.intrface.OnItemClickListenerOnLong;
 import com.example.mushafconsolidated.model.CorpusAyahWord;
 import com.example.mushafconsolidated.model.CorpusWbwWord;
 import com.example.utility.QuranGrammarApplication;
-import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -50,7 +49,7 @@ import java.util.Locale;
 
 //import com.example.mushafconsolidated.Entities.JoinVersesTranslationDataTranslation;
 //public class CustomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements OnItemClickListenerOnLong {
-public class MushaAudioAdapter extends RecyclerView.Adapter<MushaAudioAdapter.ItemViewAdapter>
+public class LineMushaAudioAdapter extends RecyclerView.Adapter<LineMushaAudioAdapter.ItemViewAdapter>
         //implements OnItemClickListenerOnLong {
 {
 
@@ -79,7 +78,7 @@ public class MushaAudioAdapter extends RecyclerView.Adapter<MushaAudioAdapter.It
 
 
 
-    public MushaAudioAdapter(Context context, List<QuranEntity> quranbySurah,OnItemClickListenerOnLong listener,long surah_id, String surahName, int ismakki,ArrayList<String> header) {
+    public LineMushaAudioAdapter(Context context, List<QuranEntity> quranbySurah, OnItemClickListenerOnLong listener, long surah_id, String surahName, int ismakki, ArrayList<String> header) {
         this.context=context;
         this.allofQuran=quranbySurah;
         this.mItemClickListener=listener;
@@ -236,7 +235,7 @@ public class MushaAudioAdapter extends RecyclerView.Adapter<MushaAudioAdapter.It
 
     }
 
-    public void displayAyats(boolean showrootkey, MushaAudioAdapter.ItemViewAdapter holder, int position, SharedPreferences sharedPreferences, Typeface custom_font, boolean showErab, boolean showWordColor, boolean showTransliteration, boolean showJalalayn, boolean showTranslation, boolean showWordByword, String whichtranslation, boolean showKathir) {
+    public void displayAyats(boolean showrootkey, LineMushaAudioAdapter.ItemViewAdapter holder, int position, SharedPreferences sharedPreferences, Typeface custom_font, boolean showErab, boolean showWordColor, boolean showTransliteration, boolean showJalalayn, boolean showTranslation, boolean showWordByword, String whichtranslation, boolean showKathir) {
         //   holder.flowwbw.setBackgroundColor(R.style.Theme_DarkBlue);
         QuranEntity entity = null;
 

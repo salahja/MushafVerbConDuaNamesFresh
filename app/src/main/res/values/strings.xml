@@ -785,7 +785,9 @@ Stream audio when possible (non-gapless audio only)
     <string name="repeat_range">Repeat Range</string>
     <string name="end_range">End Range</string>
     <string name="start_range">Start Range</string>
-    <string name="Audio">Audio</string>>
+    <string name="Audio">Audio</string>
+    <string name="plays">Play</string>
+    <string name="SelectSurah">Surah Selection</string>>
 
 
 
