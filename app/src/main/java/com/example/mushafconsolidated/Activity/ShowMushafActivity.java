@@ -1153,10 +1153,12 @@ public class ShowMushafActivity extends BaseActivity implements
             RecyclerView.ViewHolder holder;
             if (hlights.get(currenttrack) != null) {
                 holder = (RecyclerView.ViewHolder) recyclerView.findViewHolderForAdapterPosition(hlights.get(currenttrack).get(0).getPassage());
-                recyclerView.post(() -> recyclerView.scrollToPosition((hlights.get(currenttrack + 1).get(0).getPassage())));
+                if(hlights.get(hlights.size()).get(0).getPassage()!=hlights.get(1).get(0).getPassage())
+                 recyclerView.post(() -> recyclerView.scrollToPosition((hlights.get(currenttrack + 1).get(0).getPassage())));
             } else {
                 holder = (RecyclerView.ViewHolder) recyclerView.findViewHolderForAdapterPosition(hlights.get(currenttrack + 1).get(0).getPassage());
-                recyclerView.post(() -> recyclerView.scrollToPosition((hlights.get(currenttrack + 1).get(0).getPassage())));
+                if(hlights.get(hlights.size()).get(0).getPassage()!=hlights.get(1).get(0).getPassage())
+                 recyclerView.post(() -> recyclerView.scrollToPosition((hlights.get(currenttrack + 1).get(0).getPassage())));
                 currenttrack++;
             }
 
@@ -1404,7 +1406,11 @@ public class ShowMushafActivity extends BaseActivity implements
                 }
 
                 player.setMediaItems(marray, /* resetPosition= */ !haveStartPosition);
-                String str= getSurahNameEnglish().concat(":").concat(readerName);
+
+                String str=  ("(").concat(getSurahNameArabic().concat(")").concat("(").concat(getSurahNameEnglish().concat(")").concat(":")
+                        .concat(readerName)));
+
+
                 qariname.setText(str);
              //   qariname.setText(readerName);
                 player.prepare();

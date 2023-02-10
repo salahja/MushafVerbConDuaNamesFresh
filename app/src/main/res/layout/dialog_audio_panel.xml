@@ -7,20 +7,20 @@
     android:background="@color/red"
 
     android:layout_width="fill_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <com.google.android.material.card.MaterialCardView
 
         android:id="@+id/jumptoverse"
         android:layout_width="match_parent"
         android:layout_height="500dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="1dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="2dp"
 
 
-        app:cardCornerRadius="50dp"
+        app:cardCornerRadius="30dp"
         app:cardElevation="15dp"
         app:cardMaxElevation="20dp"
         app:cardPreventCornerOverlap="false"
@@ -240,6 +240,7 @@
                 android:padding="@dimen/space_3">
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:layout_marginBottom="20dp"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -253,6 +254,7 @@
                     app:drawableStartCompat="@drawable/baseline_audio_file_24" />
 
                 <androidx.appcompat.widget.SwitchCompat
+                    android:layout_marginBottom="20dp"
                     android:id="@id/chooseDisplaytype"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
