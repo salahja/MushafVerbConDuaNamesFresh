@@ -1,6 +1,7 @@
 package com.example.mushafconsolidated.Activity;
 
 import static com.example.Constant.CHAPTER;
+import static com.example.Constant.SURAH_ARABIC_NAME;
 import static com.google.android.exoplayer2.util.RepeatModeUtil.REPEAT_TOGGLE_MODE_ONE;
 
 import android.annotation.SuppressLint;
@@ -97,7 +98,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 
- ;
 import wheel.OnWheelChangedListener;
 import wheel.WheelView;
 
@@ -118,11 +118,10 @@ public class ShowMushafActivity extends BaseActivity implements
     //  private LinkedHashMap<Integer, Integer> hlights;
 
     private final ArrayList<AyahCoordinate> Coordinates = new ArrayList<>();
-    private LinkedHashMap<Integer, ArrayList<AyahCoordinate>> hlights = new LinkedHashMap<>();
+    private final LinkedHashMap<Integer, ArrayList<AyahCoordinate>> hlights = new LinkedHashMap<>();
     boolean flow = false;
     boolean singleline;
     private ArrayList<Page> fullQuranPages;
-    private int pagenum;
 
     public int getVersestartrange() {
         return versestartrange;
@@ -268,7 +267,6 @@ public class ShowMushafActivity extends BaseActivity implements
 
     boolean isMusicplaying = false;
     private int surah;
-    private ListView listView;
 
     public int getSurahselected() {
         return surahselected;
@@ -323,7 +321,8 @@ public class ShowMushafActivity extends BaseActivity implements
         sharedPreferences =
                 androidx.preference.PreferenceManager.getDefaultSharedPreferences(this);
         isNightmode = sharedPreferences.getString("themepref", "dark");
-        repository = Utils.getInstance(getApplication());
+      //  repository = Utils.getInstance(getApplication());
+        repository=new Utils(this);
         typeface = Typeface.createFromAsset(getAssets(), "me_quran.ttf");
         selectedqari = sharedPreferences.getString("qari", "35");
 
@@ -391,10 +390,8 @@ public class ShowMushafActivity extends BaseActivity implements
     private void getpreferences() {
         SharedPreferences pref = getApplicationContext().getSharedPreferences("lastreadmushaf", MODE_PRIVATE);
         surah = pref.getInt(CHAPTER, 20);
-        pagenum = pref.getInt("page", 1);
+        int pagenum = pref.getInt("page", 1);
         setSurahselected(surah);
-      //  surahname = pref.getString(SURAH_ARABIC_NAME, "");
-      //  setSurahArabicName(surahname);
 
     }
 
@@ -631,6 +628,14 @@ public class ShowMushafActivity extends BaseActivity implements
                 setSurahselected(soraList.get(chapterno[0] - 1).getChapterid());
                 setSurahNameEnglish(soraList.get(chapterno[0] - 1).getNameenglish());
                 setSurahNameArabic(soraList.get(chapterno[0] - 1).getNamearabic());
+
+                SharedPreferences pref = getSharedPreferences("lastreadmushaf", MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putInt(CHAPTER, Integer.parseInt(sura));
+              //  editor.putInt("page", page.getAyahItemsquran().get(0).getPage());
+
+                editor.putString(SURAH_ARABIC_NAME, soraList.get(chapterno[0] - 1).getNamearabic());
+                editor.apply();
             }
 
             int verse = verseno[0];
@@ -823,9 +828,7 @@ public class ShowMushafActivity extends BaseActivity implements
                             TextView textView = holder.itemView.findViewById(R.id.quran_textView);
                             holder.itemView.findViewById(R.id.quran_textView).setBackgroundColor(Color.BLUE);
                             //for vtwoadapter
-                            // Highlightverse(textView);
 
-                            //   holder.itemView.findViewById(R.id.quran_textView).setBackgroundColor(Constant.MUSLIMMATE);
                         }
 
                     }
@@ -1153,12 +1156,13 @@ public class ShowMushafActivity extends BaseActivity implements
             RecyclerView.ViewHolder holder;
             if (hlights.get(currenttrack) != null) {
                 holder = (RecyclerView.ViewHolder) recyclerView.findViewHolderForAdapterPosition(hlights.get(currenttrack).get(0).getPassage());
-                if(hlights.get(hlights.size()).get(0).getPassage()!=hlights.get(1).get(0).getPassage())
+
+              if(currenttrack<hlights.get(hlights.size()).get(0).getPassage())
                  recyclerView.post(() -> recyclerView.scrollToPosition((hlights.get(currenttrack + 1).get(0).getPassage())));
             } else {
                 holder = (RecyclerView.ViewHolder) recyclerView.findViewHolderForAdapterPosition(hlights.get(currenttrack + 1).get(0).getPassage());
-                if(hlights.get(hlights.size()).get(0).getPassage()!=hlights.get(1).get(0).getPassage())
-                 recyclerView.post(() -> recyclerView.scrollToPosition((hlights.get(currenttrack + 1).get(0).getPassage())));
+                if(currenttrack<hlights.get(hlights.size()).get(0).getPassage())
+                  recyclerView.post(() -> recyclerView.scrollToPosition((hlights.get(currenttrack + 1).get(0).getPassage())));
                 currenttrack++;
             }
 
@@ -1414,12 +1418,6 @@ public class ShowMushafActivity extends BaseActivity implements
                 qariname.setText(str);
              //   qariname.setText(readerName);
                 player.prepare();
-           /*     if(singleline){
-                    setupHandlerSingle();
-                }else{
-                    setupHandler();
-                }
-*/
                 if (audioSettingBottomBehaviour.getState() == BottomSheetBehavior.STATE_EXPANDED) {
                     audioSettingBottomBehaviour.setState(BottomSheetBehavior.STATE_COLLAPSED);
                 }
@@ -1533,9 +1531,6 @@ public class ShowMushafActivity extends BaseActivity implements
         @Override
         public void onPositionDiscontinuity(
                 Player.PositionInfo oldPosition, Player.PositionInfo newPosition, @Player.DiscontinuityReason int reason) {
-            //  listener.onPositionDiscontinuity(oldPosition, newPosition, reason);
-// ayah=newPosition.mediaItemIndex;
-// sendUpdatesToUI.run();
             System.out.println("oldpostion" + " " + oldPosition + "newpostion " + " " + newPosition + "reason" + " " + reason);
             System.out.println("check");
         }
@@ -1653,27 +1648,11 @@ public class ShowMushafActivity extends BaseActivity implements
         System.out.println("check");
     }
 
-/*
-    private void showToast(int messageId) {
-        showToast(getString(messageId));
-    }
-
-    private void showToast(String message) {
-        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-    }
-*/
-
     protected void clearStartPosition() {
         startAutoPlay = true;
         startItemIndex = C.INDEX_UNSET;
         startPosition = C.TIME_UNSET;
     }
-
-    /*
-    private void addToReadLog(int pos) {
-        pagesReadLogNumber.add(pos);
-    }
-*/
 
     private int getPosFromSurahAndAyah(int surah, int ayah) {
         return repository.getPageFromSurahAndAyah(surah, ayah);
@@ -1737,7 +1716,7 @@ public class ShowMushafActivity extends BaseActivity implements
             }
         });
 
-        listView = (ListView) findViewById(R.id.ayahlist);
+        ListView listView = (ListView) findViewById(R.id.ayahlist);
         playiv = (ImageView) findViewById(R.id.play);
         playiv.setOnClickListener(this);
 
@@ -1851,8 +1830,6 @@ public class ShowMushafActivity extends BaseActivity implements
         setVersescount(chapter.get(0).getVersescount());
         setSurahNameEnglish(chapter.get(0).getNameenglish());
         setSurahNameArabic(chapter.get(0).getNamearabic());
-   //     manager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        // eqContainer.setVisibility(View.GONE);
         recyclerView.setLayoutManager(manager);
         GridLayoutManager mLayoutManager = new GridLayoutManager(this, 2);
 
@@ -2126,8 +2103,6 @@ public class ShowMushafActivity extends BaseActivity implements
 
             }
         }
-        //    ayaList.remove(0);
-        //    quranbySurah.remove(0);
         return downloadLinks;
     }
 

@@ -69,7 +69,7 @@ public class Utils {
     private static final String TAG = "Utils";
     private static QuranAppDatabase database;
      Context thiscontext;
-    static Utils instance;
+
 
     public Utils(Context context) {
         database = QuranAppDatabase.getInstance(context);
@@ -81,7 +81,11 @@ public class Utils {
 
     }
 
-    public static Utils getInstance(Application context) {
+
+
+
+
+  /*  public static Utils getInstance(Application context) {
         if (instance == null) {
             instance = new Utils();
             database = QuranAppDatabase.getInstance(context);
@@ -90,7 +94,7 @@ public class Utils {
 
         }
         return instance;
-    }
+    }*/
     public static List<BookMarks> getBookMarksNew() {
         return database.BookMarkDao().getBookMarks();
 

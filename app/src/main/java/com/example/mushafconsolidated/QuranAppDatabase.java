@@ -105,9 +105,6 @@ public abstract class QuranAppDatabase extends RoomDatabase {
     public static QuranAppDatabase quranAppDatabaseInstance;
     public static QuranAppDatabase quranAppDatabaseInstanceasset;
 
-    public static synchronized QuranAppDatabase getInstance() {
-        return getInstance();
-    }
 
     public static synchronized QuranAppDatabase getInstance(Context context) {
         String FILEPATH = context.getExternalFilesDir(null).

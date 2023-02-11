@@ -361,7 +361,7 @@ public class PageMushaAudioAdapter extends RecyclerView.Adapter<PageMushaAudioAd
 
     }
 
-    private void storepreferences(Page page, int position) {
+    private void storepreferences(Page page) {
         SharedPreferences pref = context.getSharedPreferences("lastreadmushaf", MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putInt(CHAPTER, page.getAyahItemsquran().get(0).getSurah());

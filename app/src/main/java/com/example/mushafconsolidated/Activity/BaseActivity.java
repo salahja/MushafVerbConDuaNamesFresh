@@ -44,6 +44,7 @@ public  class BaseActivity extends AppCompatActivity {
                 break;
             case DARK_BLUE:
                 setTheme(R.style.AppTheme_materialdarkblue);
+
                 break;
             case DARK_GREEN:
                 setTheme(R.style.AppTheme_DarkGreen);

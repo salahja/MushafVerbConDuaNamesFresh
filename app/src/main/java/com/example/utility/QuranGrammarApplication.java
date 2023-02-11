@@ -58,12 +58,12 @@ public class QuranGrammarApplication extends Application {
 
     public void onCreate() {
         super.onCreate();
-        repository = Utils.getInstance(this);
+//        repository = Utils.getInstance(this);
       //  repository = new Utils(getContext()) ;
 
       //  Log.d(TAG, "onCreate:  nbbbbbb  ahyas" + ahays);
 
-            persistanscePages();
+//            persistanscePages();
 
 
         LeakCanary.Config config = LeakCanary.getConfig();
@@ -76,7 +76,7 @@ public class QuranGrammarApplication extends Application {
         String themePref = sharedPreferences.getString("themepref", "white");
         ThemeHelper.applyTheme(themePref);
     }
-    private void persistanscePages() {
+ /*   private void persistanscePages() {
         new Thread(() -> {
             try {
                 loadFullQuran();
@@ -104,6 +104,6 @@ public class QuranGrammarApplication extends Application {
 
         fullQuranPages = new ArrayList<>(pages);
 
-    }
+    }*/
 
 }

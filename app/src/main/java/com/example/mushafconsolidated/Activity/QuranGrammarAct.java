@@ -507,7 +507,7 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
                      //  startActivity(searchs);
 
                        Intent settingints = new Intent(QuranGrammarAct.this, ShowMushafActivity.class);
-                   settingints.putExtra(Constants.SURAH_INDEX, getChapterno());
+             //      settingints.putExtra(Constants.SURAH_INDEX, getChapterno());
                        startActivity(settingints);
 
 
