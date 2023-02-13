@@ -147,6 +147,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import database.GridImageAct;
+import mm.prayer.muslimmate.Activity.MainTwoActivityPrayer;
 import sj.hisnul.activity.HisnulBottomACT;
 import wheel.OnWheelChangedListener;
 import wheel.WheelView;
@@ -552,11 +553,13 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
                     break;
                 case id.setting:
                     drawerLayout.closeDrawers();
-                    materialToolbar.setTitle("Settings");
-                    Intent settingint = new Intent(this, ActivitySettings.class);
+                    materialToolbar.setTitle("Prayer");
+               /*     Intent settingint = new Intent(this, ActivitySettings.class);
                     startActivity(settingint);
-                    navigationView.setCheckedItem(id.Names);
-                    //  Intent conjugatorintent = new Intent(newreadactivity.this, VerbConjugationAct.class);
+                    navigationView.setCheckedItem(id.Names);*/
+                      Intent pray = new Intent(QuranGrammarAct.this, MainTwoActivityPrayer.class);
+
+                       startActivity(pray);
                     break;
             case id.searchtopic:
                 drawerLayout.closeDrawers();

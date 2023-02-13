@@ -56,6 +56,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mushafconsolidated.Adapters.LineMushaAudioAdapter;
 import com.example.mushafconsolidated.Adapters.PageMushaAudioAdapter;
 import com.example.mushafconsolidated.Adapters.vtwoMushaAudioAdapter;
+import com.example.mushafconsolidated.Entities.AudioPlayed;
 import com.example.mushafconsolidated.Entities.ChaptersAnaEntity;
 import com.example.mushafconsolidated.Entities.Page;
 import com.example.mushafconsolidated.Entities.Qari;
@@ -101,6 +102,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 
+import mm.prayer.muslimmate.model.AudioPositionSaved;
+import mm.prayer.muslimmate.model.WeatherSave;
+import mm.prayer.muslimmate.ui.ConfigPreferences;
 import wheel.OnWheelChangedListener;
 import wheel.WheelView;
 
@@ -271,11 +275,9 @@ public class ShowMushafActivity extends BaseActivity implements
         SharedPreferences.Editor editor = pref.edit();
         editor.putInt("lastaya", currenttrack);
         editor.putInt("trackposition", hlights.get(currenttrack).get(0).getPassage());
-        //   editor.putInt(LASTAYA, 11);
-        // editor.putInt("trackposition",2);
-
         editor.apply();
-        // finish();
+
+
         super.onBackPressed();
     }
 
@@ -403,12 +405,16 @@ public class ShowMushafActivity extends BaseActivity implements
     }
 
     private void getLastPlayed() {
-        SharedPreferences pref = getSharedPreferences("lastaya", MODE_PRIVATE);
+        AudioPositionSaved aplayed = ConfigPreferences.getLastPlayedAudio(this, String.valueOf(surah));
+        if(aplayed!=null) {
+            resumelastplayed = aplayed.getAudiopsaved().get(0).getAyah();
+            resumetrackposition = aplayed.getAudiopsaved().get(0).getTrackposition();
+            SharedPreferences pref = getSharedPreferences("lastaya", MODE_PRIVATE);
 
-        resumelastplayed = pref.getInt("lastaya", 1);
-        resumetrackposition = pref.getInt("trackposition", 1);
+        //    resumelastplayed = pref.getInt("lastaya", 1);
+       //     resumetrackposition = pref.getInt("trackposition", 1);
 
-
+        }
     }
 
     private void loadFullQuran() {
@@ -1379,11 +1385,6 @@ public class ShowMushafActivity extends BaseActivity implements
 
             } else {
                 marray = createMediaItems();
-
-
-
-
-
                 if (marray.isEmpty()) {
                     return false;
                 }
@@ -1759,10 +1760,13 @@ public class ShowMushafActivity extends BaseActivity implements
         });
 
         llStartRange.setOnClickListener(new View.OnClickListener() {
-            final boolean starttrue = true;
+
+           final boolean starttrue = true;
+
 
             @Override
             public void onClick(View v) {
+              marrayrange=null;
                 SurahAyahPicker(false, starttrue);
             }
         });
@@ -1907,11 +1911,14 @@ public class ShowMushafActivity extends BaseActivity implements
         exo_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+          //reset player
                 setVerselected(1);
                 setVersestartrange(0);
                 setVerseendrange(0);
                 setAyah(0);
+                marrayrange=null;
+                resume=false;
+                rangeRecitation=false;
 
                 handler.removeCallbacks(sendUpdatesToUI);
                 recyclerView.post(() -> recyclerView.scrollToPosition((0)));
@@ -2284,17 +2291,23 @@ public class ShowMushafActivity extends BaseActivity implements
         releasePlayer();
         handler.removeCallbacks(sendUpdatesToUI);
         handler.removeCallbacks(sendUpdatesToUIPassage);
+      if(currenttrack!=0) {
+          SharedPreferences pref = getSharedPreferences("lastaya", MODE_PRIVATE);
+          SharedPreferences.Editor editor = pref.edit();
+          editor.putInt("lastaya", currenttrack);
 
-        SharedPreferences pref = getSharedPreferences("lastaya", MODE_PRIVATE);
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putInt("lastaya", currenttrack);
-        editor.putInt("trackposition", hlights.get(currenttrack).get(0).getPassage());
+          editor.putInt("trackposition", hlights.get(currenttrack).get(0).getPassage());
+          ArrayList<AudioPlayed> ap = new ArrayList<>();
+          AudioPlayed audioPlayed = new AudioPlayed();
+          audioPlayed.setSurah(surah);
+          audioPlayed.setAyah(currenttrack);
+          audioPlayed.setTrackposition(hlights.get(currenttrack).get(0).getPassage());
+          ap.add(audioPlayed);
 
-        //  editor.putInt("lastaya", 11);
-        //   editor.putInt("trackposition",2);
-        //    recyclerView.post(() -> recyclerView.scrollToPosition((hlights.get(currenttrack + 1).get(0).getPassage())));
-        ;
-        editor.apply();
+          editor.apply();
+
+          ConfigPreferences.setLastPlayedAudio(this, ap, String.valueOf(surah));
+      }
         //unregister broadcast for download ayat
         LocalBroadcastManager.getInstance(ShowMushafActivity.this).unregisterReceiver(downloadPageAya);
         //stop flag of auto start

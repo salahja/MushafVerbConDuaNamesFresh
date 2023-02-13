@@ -2,9 +2,14 @@ package mm.prayer.muslimmate.ui;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
+import com.example.mushafconsolidated.Entities.AudioPlayed;
 import com.google.gson.Gson;
+
+import java.util.ArrayList;
 import java.util.List;
 
+import mm.prayer.muslimmate.model.AudioPositionSaved;
 import mm.prayer.muslimmate.model.WeatherApp;
 import mm.prayer.muslimmate.model.WeatherSave;
 
@@ -35,6 +40,36 @@ public class ConfigPreferences {
         Gson gson = new Gson();
         String json = gson.toJson(locationConfig);
         editor.putString(LOCATION_INFO, json);
+        editor.commit();
+    }
+    public static void setLastPlayedAudio(Context context, ArrayList<AudioPlayed> audioPlayed,String surah) {
+        SharedPreferences.Editor editor = context.getSharedPreferences
+                (MAIN_CONFIG, Context.MODE_PRIVATE).edit();
+        Gson gson = new Gson();
+      //  String json = gson.toJson(audioPlayed);
+        String json = gson.toJson(new AudioPositionSaved(audioPlayed));
+
+
+        editor.putString(surah, json);
+        editor.commit();
+    }
+
+    public static AudioPositionSaved getLastPlayedAudio(Context context,String surah) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences
+                (MAIN_CONFIG, Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString(surah, "");
+        AudioPositionSaved weathers = gson.fromJson(json, AudioPositionSaved.class);
+        return weathers;
+    }
+
+
+    public static void setTodayListWeather(Context context, List<WeatherApp> weatherApp) {
+        SharedPreferences.Editor editor = context.getSharedPreferences
+                (MAIN_CONFIG, Context.MODE_PRIVATE).edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(new WeatherSave(weatherApp));
+        editor.putString(TODAY_WETHER, json);
         editor.commit();
     }
 
@@ -85,14 +120,6 @@ public class ConfigPreferences {
      *
      * @param weatherApp Weather list of day
      */
-    public static void setTodayListWeather(Context context, List<WeatherApp> weatherApp) {
-        SharedPreferences.Editor editor = context.getSharedPreferences
-                (MAIN_CONFIG, Context.MODE_PRIVATE).edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(new WeatherSave(weatherApp));
-        editor.putString(TODAY_WETHER, json);
-        editor.commit();
-    }
 
     /**
      * Function to get today weather list
