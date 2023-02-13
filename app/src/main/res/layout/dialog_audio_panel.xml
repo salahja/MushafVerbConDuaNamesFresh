@@ -34,12 +34,34 @@
             android:animateLayoutChanges="true"
             android:orientation="vertical"
             android:paddingBottom="@dimen/space_3">
+            <RelativeLayout
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@id/playresume"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="@dimen/space_2"
+                    android:layout_marginBottom="8.0dip"
+                    android:minWidth="180.0dip"
+                    android:text="@string/resume"
+                    app:cornerRadius="4.0dip"
+                    app:icon="@drawable/ic_play_from"
+                    app:iconGravity="textStart" />
+
+
             <com.google.android.material.button.MaterialButton
                 android:id="@id/playbutton"
-                style="@style/Widget.MaterialComponents.Button.Icon"
+                android:layout_toEndOf="@+id/playresume"
+                style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="start"
                 android:layout_marginTop="@dimen/space_2"
                 android:layout_marginBottom="8.0dip"
                 android:minWidth="180.0dip"
@@ -49,18 +71,19 @@
                 app:iconGravity="textStart" />
             <com.google.android.material.button.MaterialButton
                 android:id="@id/surahselection"
-                style="@style/Widget.MaterialComponents.Button.Icon"
+                style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="end"
                 android:layout_marginTop="@dimen/space_2"
                 android:layout_marginBottom="8.0dip"
                 android:minWidth="180.0dip"
+                android:layout_toEndOf="@+id/playbutton"
                 android:text="@string/SelectSurah"
                 app:cornerRadius="4.0dip"
                 app:icon="@drawable/baseline_open_in_new_24"
                 app:iconGravity="textStart" />
-
+            </RelativeLayout>
             <LinearLayout
 
                 android:id="@id/llStartRange"
@@ -69,10 +92,10 @@
                 android:background="?selectableItemBackground"
                 android:focusable="true"
                 android:orientation="horizontal"
-                android:padding="@dimen/space_3">
+                android:padding="@dimen/space_1">
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:background="?android:colorBackground"
+
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

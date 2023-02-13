@@ -144,6 +144,7 @@ public class Constant {
     public static final String AYAHNUMBER = "aya";
     public static final String SURAH_ARABIC_NAME = "arabicname";
     public static final String CHAPTER = "chapter";
+    public static final String LASTAYA="lastaya";
     public static final String CHAPTERORPART = "chapterorpart";
     public static final String MAKKI_MADANI = "makkimadani";
     public static final String WORDNUMBER = "wordnumber";

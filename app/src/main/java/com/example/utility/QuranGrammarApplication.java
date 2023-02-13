@@ -43,10 +43,10 @@ public class QuranGrammarApplication extends Application {
     public static Context getContext() {
         return appContext;
     }
-
+/*
     public List<Page> getFullQuranPages() {
         return fullQuranPages;
-    }
+    }*/
 
     public static Context getInstance() {
         //Check application language

@@ -391,6 +391,7 @@
     <item name="chooseDisplaytype" type="id" />
     <item name="display" type="id" />
     <item name="surahselection" type="id" />
+    <item name="playresume" type="id" />
 
 
 </resources>

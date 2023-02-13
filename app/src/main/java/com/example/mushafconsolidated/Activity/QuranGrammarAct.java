@@ -1296,7 +1296,7 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
         return utils.getSuraStartpage(pos);
     }
 
-    private void loadData() {
+ /*   private void loadData() {
         pageList = ((QuranGrammarApplication) getApplication()).getFullQuranPages();
         if (pageList != null && pageList.size() >= 50) {
          //   handler.sendEmptyMessage(0);
@@ -1325,7 +1325,7 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
             }).start();
         }
       new Thread(this::generateListOfPagesStartWithHizbQurater).start();
-    }
+    }*/
 
     private void generateListOfPagesStartWithHizbQurater() {
       quraterSStart = utils.getHizbQuaterStart();

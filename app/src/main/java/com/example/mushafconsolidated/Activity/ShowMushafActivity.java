@@ -1,6 +1,7 @@
 package com.example.mushafconsolidated.Activity;
 
 import static com.example.Constant.CHAPTER;
+
 import static com.example.Constant.SURAH_ARABIC_NAME;
 import static com.google.android.exoplayer2.util.RepeatModeUtil.REPEAT_TOGGLE_MODE_ONE;
 
@@ -69,7 +70,7 @@ import com.example.mushafconsolidated.receivers.QuranValidateSources;
 import com.example.mushafconsolidated.receivers.Settingsss;
 import com.example.mushafconsolidated.settings.Constants;
 import com.example.utility.FlowLayout;
-import com.example.utility.QuranGrammarApplication;
+
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
@@ -78,6 +79,7 @@ import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.Tracks;
 import com.google.android.exoplayer2.audio.AudioAttributes;
 import com.google.android.exoplayer2.source.DefaultMediaSourceFactory;
+import com.google.android.exoplayer2.trackselection.TrackSelectionOverride;
 import com.google.android.exoplayer2.trackselection.TrackSelectionParameters;
 import com.google.android.exoplayer2.ui.PlayerControlView;
 import com.google.android.exoplayer2.ui.StyledPlayerView;
@@ -93,6 +95,7 @@ import com.example.utility.MovableFloatingActionButton;
 import java.io.File;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -113,6 +116,7 @@ public class ShowMushafActivity extends BaseActivity implements
     private String[] ayahWheelDisplayData;
     int versestartrange, verseendrange;
     private int currenttrack;
+    private int resumelastplayed;
     private boolean onClickOrRange = false;
     LinearLayout llStartRange, llEndRange;
     //  private LinkedHashMap<Integer, Integer> hlights;
@@ -120,8 +124,10 @@ public class ShowMushafActivity extends BaseActivity implements
     private final ArrayList<AyahCoordinate> Coordinates = new ArrayList<>();
     private final LinkedHashMap<Integer, ArrayList<AyahCoordinate>> hlights = new LinkedHashMap<>();
     boolean flow = false;
-    boolean singleline;
+    boolean singleline,rangeRecitation;
     private ArrayList<Page> fullQuranPages;
+    private long resumetrackposition;
+    private boolean resume;
 
     public int getVersestartrange() {
         return versestartrange;
@@ -156,16 +162,18 @@ public class ShowMushafActivity extends BaseActivity implements
     private final Handler handler = new Handler();
     private static final String KEY_AUTO_PLAY = "auto_play";
     private List<MediaItem> marray;
+    private List<MediaItem> marrayrange=new ArrayList<>();
     private String singleverse;
 
-    private boolean isSingle ;
+    private boolean isSingle;
     private boolean isStartFrom = false;
     private List<QuranEntity> quranbySurahadapter;
     private MaterialButton resetplayer;
     private SharedPreferences sharedPreferences;
     private String selectedqari;
     TextView qariname;
-    ImageView buffering,canceldownload;
+    ImageView buffering;
+    MaterialButton canceldownload;
 
     public void setPrevqari(String prevqari) {
         this.prevqari = prevqari;
@@ -193,7 +201,7 @@ public class ShowMushafActivity extends BaseActivity implements
     ImageView playiv;
     // For ad playback only.
     public static final String BROADCAST_SEEKBAR = "com.example.mushafconsolidated.Activity.sendseekbar";
-    public static int  readerID;
+    public static int readerID;
 
     public String getSurahNameArabic() {
         return surahNameArabic;
@@ -204,14 +212,13 @@ public class ShowMushafActivity extends BaseActivity implements
     }
 
     private boolean pausePlayFlag;
-    public static String  downloadLink, readerName;
+    public static String downloadLink, readerName;
     public static boolean startBeforeDownload;
 
     private static final String TAG = "ShowMushafActivity";
 
     int surahselected, verselected, versescount;
-    String surahNameEnglish,surahNameArabic
-            ;
+    String surahNameEnglish, surahNameArabic;
     private String isNightmode;
 
     public int getVersescount() {
@@ -260,7 +267,14 @@ public class ShowMushafActivity extends BaseActivity implements
         if (player != null) {
             player.release();
         }
+        SharedPreferences pref = getSharedPreferences("lastaya", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putInt("lastaya", currenttrack);
+        editor.putInt("trackposition", hlights.get(currenttrack).get(0).getPassage());
+        //   editor.putInt(LASTAYA, 11);
+        // editor.putInt("trackposition",2);
 
+        editor.apply();
         // finish();
         super.onBackPressed();
     }
@@ -276,7 +290,6 @@ public class ShowMushafActivity extends BaseActivity implements
         this.surahselected = surahselected;
     }
 
-
     RecyclerView recyclerView;
 
     Utils repository;
@@ -285,13 +298,12 @@ public class ShowMushafActivity extends BaseActivity implements
     vtwoMushaAudioAdapter vtwoMushaAudioAdapter;
     Typeface typeface;
     TextView txtView;
- //   int pos;
-
+    //   int pos;
 
     private static final int songEnded = 0;
 
     private Spinner translationBooks, readers;
-    private ConstraintLayout downloadFooter;
+    private RelativeLayout downloadFooter;
     private LinearLayout normalFooter;
     private RelativeLayout playerFooter, audio_settings_bottom;
 
@@ -313,20 +325,19 @@ public class ShowMushafActivity extends BaseActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vfour_expandable_newactivity_show_ayahs);
-    //    ButterKnife.bind(this);
-        QuranGrammarApplication.appContext = ShowMushafActivity.this;
+        //    ButterKnife.bind(this);
+        //    QuranGrammarApplication.appContext = ShowMushafActivity.this;
         //  intentmyservice = new Intent(this, AudioService.class);
         Intent intent = new Intent(BROADCAST_SEEKBAR);
         getpreferences();
+        getLastPlayed();
         sharedPreferences =
                 androidx.preference.PreferenceManager.getDefaultSharedPreferences(this);
         isNightmode = sharedPreferences.getString("themepref", "dark");
-      //  repository = Utils.getInstance(getApplication());
-        repository=new Utils(this);
+        //  repository = Utils.getInstance(getApplication());
+        repository = new Utils(this);
         typeface = Typeface.createFromAsset(getAssets(), "me_quran.ttf");
         selectedqari = sharedPreferences.getString("qari", "35");
-
-
 
         //region Description
         if (getIntent().hasExtra(Constants.SURAH_INDEX)) {
@@ -343,11 +354,8 @@ public class ShowMushafActivity extends BaseActivity implements
 
             //       showMessage(String.valueOf(pos));D
 
-
         }
         //endregion
-
-
 
         playerView = findViewById(R.id.player_view);
 
@@ -381,7 +389,6 @@ public class ShowMushafActivity extends BaseActivity implements
             System.out.println("check");
         }
 
-
         initRV();
 
 
@@ -395,19 +402,28 @@ public class ShowMushafActivity extends BaseActivity implements
 
     }
 
+    private void getLastPlayed() {
+        SharedPreferences pref = getSharedPreferences("lastaya", MODE_PRIVATE);
+
+        resumelastplayed = pref.getInt("lastaya", 1);
+        resumetrackposition = pref.getInt("trackposition", 1);
+
+
+    }
+
     private void loadFullQuran() {
         List<Page> pages = new ArrayList<>();
-        List<QuranEntity> quranEntities =       Utils.getQuranbySurah(surah);
-   int  firstpage=   quranEntities.get(0).getPage();
+        List<QuranEntity> quranEntities = Utils.getQuranbySurah(surah);
+        int firstpage = quranEntities.get(0).getPage();
 
         Page page;
         List<QuranEntity> ayahItems;
-        for (int i = firstpage; i <= quranEntities.get(quranEntities.size()-1).getPage(); i++) {
-            ayahItems = repository.getAyahsByPageQuran(surah,i);
+        for (int i = firstpage; i <= quranEntities.get(quranEntities.size() - 1).getPage(); i++) {
+            ayahItems = repository.getAyahsByPageQuran(surah, i);
             if (ayahItems.size() > 0) {
                 page = new Page();
                 page.setAyahItemsquran(ayahItems);
-            //    page.se(ayahItems);
+                //    page.se(ayahItems);
                 page.setPageNum(i);
                 page.setJuz(ayahItems.get(0).getJuz());
                 pages.add(page);
@@ -420,30 +436,25 @@ public class ShowMushafActivity extends BaseActivity implements
     }
 
     private void prepares() {
-       int counter=1;
-        for(int i=0;i<fullQuranPages.size();i++){
+        int counter = 1;
+        for (int i = 0; i < fullQuranPages.size(); i++) {
             Page page = fullQuranPages.get(i);
 
-            String aya="";
+            String aya = "";
             StringBuilder builder = new StringBuilder();
             ArrayList<Integer> ayahmat = new ArrayList<>();
             for (QuranEntity ayahItem : page.getAyahItemsquran()) {
                 aya = ayahItem.getQurantext();
 
-
-
-
                 builder.append(MessageFormat.format("{0} ﴿ {1} ﴾ ", aya, ayahItem.getAyah()));
                 ayahmat.add(ayahItem.getAyah());
             }
-            preparehighlightsNew(counter,builder,ayahmat);
+            preparehighlightsNew(counter, builder, ayahmat);
             ayahmat = new ArrayList<>();
             builder = new StringBuilder();
             counter++;
 
         }
-
-
 
 
     }
@@ -632,7 +643,7 @@ public class ShowMushafActivity extends BaseActivity implements
                 SharedPreferences pref = getSharedPreferences("lastreadmushaf", MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
                 editor.putInt(CHAPTER, Integer.parseInt(sura));
-              //  editor.putInt("page", page.getAyahItemsquran().get(0).getPage());
+                //  editor.putInt("page", page.getAyahItemsquran().get(0).getPage());
 
                 editor.putString(SURAH_ARABIC_NAME, soraList.get(chapterno[0] - 1).getNamearabic());
                 editor.apply();
@@ -662,7 +673,7 @@ public class ShowMushafActivity extends BaseActivity implements
 
         AlertDialog alertDialog = dialogPicker.create();
         String preferences = sharedPreferences.getString("themepref", "dark");
-        int db = ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.odd_item_bg_dark_blue_light);
+        int db = ContextCompat.getColor(this, R.color.odd_item_bg_dark_blue_light);
 
         if (preferences.equals("purple")) {
             alertDialog.getWindow().setBackgroundDrawableResource(R.color.md_theme_dark_onSecondary);
@@ -771,7 +782,7 @@ public class ShowMushafActivity extends BaseActivity implements
         st.append(getSurahNameEnglish()).append("-").append(getSurahselected()).append(":").append(getAyah());
         setVerseendrange(verse);
         endrange.setText(st.toString());
-
+        rangeRecitation=true;
     }
 
     private void updateStartRange(int verse) {
@@ -781,6 +792,7 @@ public class ShowMushafActivity extends BaseActivity implements
         st.append(getSurahNameEnglish()).append("-").append(getSurahselected()).append(":").append(getAyah());
         setVersestartrange(verse);
         startrange.setText(st.toString());
+        rangeRecitation=true;
 
     }
 
@@ -862,8 +874,7 @@ public class ShowMushafActivity extends BaseActivity implements
 
             recyclerView.post(() -> recyclerView.scrollToPosition((currenttrack)));
 
-          //  handler.postDelayed(this, 1000);
-
+            //  handler.postDelayed(this, 1000);
 
         }
 
@@ -910,12 +921,12 @@ public class ShowMushafActivity extends BaseActivity implements
             RecyclerView.ViewHolder holder = null;
             if (onClickOrRange) {
                 if (hlights.get(currenttrack) != null) {
-                    if(null!=holder) {
+                    if (null != holder) {
                         holder = (RecyclerView.ViewHolder) recyclerView.findViewHolderForAdapterPosition(hlights.get(getVersestartrange()).get(0).getPassage());
                         recyclerView.post(() -> recyclerView.scrollToPosition(hlights.get(getVersestartrange()).get(0).getPassage()));
                     }
                 } else {
-                    if(null!=holder) {
+                    if (null != holder) {
                         holder = (RecyclerView.ViewHolder) recyclerView.findViewHolderForAdapterPosition(hlights.get(currenttrack + 1).get(0).getPassage());
                         recyclerView.post(() -> recyclerView.scrollToPosition((hlights.get(currenttrack + 1).get(0).getPassage())));
                         currenttrack++;
@@ -924,12 +935,12 @@ public class ShowMushafActivity extends BaseActivity implements
 
             } else {
                 if (hlights.get(currenttrack) != null) {
-                    if(null!=holder) {
+                    if (null != holder) {
                         holder = (RecyclerView.ViewHolder) recyclerView.findViewHolderForAdapterPosition(hlights.get(currenttrack).get(0).getPassage());
                         recyclerView.post(() -> recyclerView.scrollToPosition(hlights.get(currenttrack).get(0).getPassage()));
                     }
                 } else {
-                    if(null!=holder) {
+                    if (null != holder) {
                         holder = (RecyclerView.ViewHolder) recyclerView.findViewHolderForAdapterPosition(hlights.get(currenttrack + 1).get(0).getPassage());
                         recyclerView.post(() -> recyclerView.scrollToPosition((hlights.get(currenttrack + 1).get(0).getPassage())));
                         currenttrack++;
@@ -1157,12 +1168,15 @@ public class ShowMushafActivity extends BaseActivity implements
             if (hlights.get(currenttrack) != null) {
                 holder = (RecyclerView.ViewHolder) recyclerView.findViewHolderForAdapterPosition(hlights.get(currenttrack).get(0).getPassage());
 
-              if(currenttrack<hlights.get(hlights.size()).get(0).getPassage())
-                 recyclerView.post(() -> recyclerView.scrollToPosition((hlights.get(currenttrack + 1).get(0).getPassage())));
+                if (currenttrack < hlights.get(hlights.size()).get(0).getPassage())
+                    recyclerView.post(() -> recyclerView.scrollToPosition((hlights.get(currenttrack + 1).get(0).getPassage())));
+                else {
+                    recyclerView.post(() -> recyclerView.scrollToPosition((hlights.get(currenttrack).get(0).getPassage())));
+                }
             } else {
                 holder = (RecyclerView.ViewHolder) recyclerView.findViewHolderForAdapterPosition(hlights.get(currenttrack + 1).get(0).getPassage());
-                if(currenttrack<hlights.get(hlights.size()).get(0).getPassage())
-                  recyclerView.post(() -> recyclerView.scrollToPosition((hlights.get(currenttrack + 1).get(0).getPassage())));
+                if (currenttrack < hlights.get(hlights.size()).get(0).getPassage())
+                    recyclerView.post(() -> recyclerView.scrollToPosition((hlights.get(currenttrack + 1).get(0).getPassage())));
                 currenttrack++;
             }
 
@@ -1192,7 +1206,12 @@ public class ShowMushafActivity extends BaseActivity implements
                     Toast.makeText(ShowMushafActivity.this, "null pointer udapte", Toast.LENGTH_SHORT).show();
                 }
             }
-            RecyclerView.ViewHolder holderp = (RecyclerView.ViewHolder) recyclerView.findViewHolderForAdapterPosition(1);
+            RecyclerView.ViewHolder holderp = null;
+            if (currenttrack > 1) {
+                int pos = hlights.get(currenttrack - 1).get(0).getPassage();
+                holderp = (RecyclerView.ViewHolder) recyclerView.findViewHolderForAdapterPosition(pos);
+            }
+            //   RecyclerView.ViewHolder holderp = (RecyclerView.ViewHolder) recyclerView.findViewHolderForAdapterPosition(1);
             int temp = 2;
 
             if (temp > 1) {
@@ -1274,7 +1293,6 @@ public class ShowMushafActivity extends BaseActivity implements
 
     };
 
-
     private void setupHandlerSingle() {
         handler.removeCallbacks(sendUpdatesToUI);
 
@@ -1284,9 +1302,9 @@ public class ShowMushafActivity extends BaseActivity implements
 
     private void setupHandler() {
 
-           handler.removeCallbacks(sendUpdatesToUIPassage);
+        handler.removeCallbacks(sendUpdatesToUIPassage);
 
-            handler.postDelayed(sendUpdatesToUIPassage, 1000);
+        handler.postDelayed(sendUpdatesToUIPassage, 1000);
     }
 
     protected void releasePlayer() {
@@ -1354,13 +1372,17 @@ public class ShowMushafActivity extends BaseActivity implements
 
                 playerView.setPlayer(player);
                 player.prepare();
-              String str= getSurahNameEnglish().concat(":").concat(readerName);
+                String str = getSurahNameEnglish().concat(":").concat(readerName);
                 qariname.setText(str);
                 player.play();
 
 
             } else {
                 marray = createMediaItems();
+
+
+
+
 
                 if (marray.isEmpty()) {
                     return false;
@@ -1376,7 +1398,6 @@ public class ShowMushafActivity extends BaseActivity implements
                 player.setAudioAttributes(AudioAttributes.DEFAULT, /* handleAudioFocus= */ true);
                 player.setPlayWhenReady(startAutoPlay);
                 player.setRepeatMode(Player.REPEAT_MODE_ALL);
-
 
                 playerView.setRepeatToggleModes(REPEAT_TOGGLE_MODE_ONE);
 
@@ -1409,15 +1430,24 @@ public class ShowMushafActivity extends BaseActivity implements
                     //    player.seekTo(startItemIndex, startPosition);
                 }
 
-                player.setMediaItems(marray, /* resetPosition= */ !haveStartPosition);
+                if(rangeRecitation) {
+                    marrayrange = marray.subList(getVersestartrange(), getVerseendrange());
+                    player.setMediaItems(marrayrange, /* resetPosition= */ !haveStartPosition);
+                }else {
+                    player.setMediaItems(marray, /* resetPosition= */ !haveStartPosition);
+                }
 
-                String str=  ("(").concat(getSurahNameArabic().concat(")").concat("(").concat(getSurahNameEnglish().concat(")").concat(":")
+                String str = ("(").concat(getSurahNameArabic().concat(")").concat("(").concat(getSurahNameEnglish().concat(")").concat(":")
                         .concat(readerName)));
 
-
                 qariname.setText(str);
-             //   qariname.setText(readerName);
+                //   qariname.setText(readerName);
                 player.prepare();
+
+                if (resume) {
+                    player.seekToDefaultPosition(resumelastplayed);
+                }
+
                 if (audioSettingBottomBehaviour.getState() == BottomSheetBehavior.STATE_EXPANDED) {
                     audioSettingBottomBehaviour.setState(BottomSheetBehavior.STATE_COLLAPSED);
                 }
@@ -1425,6 +1455,16 @@ public class ShowMushafActivity extends BaseActivity implements
                     audioSettingBottomBehaviour.setState(BottomSheetBehavior.STATE_EXPANDED);
                     player.play();
                 }
+
+             /*  player.getCurrentAdGroupIndex();
+                player.setTrackSelectionParameters(
+                        player.getTrackSelectionParameters()
+                                .buildUpon()
+                                .setOverrideForType(
+                                        new TrackSelectionOverride(
+                                                audioTrackGroup.getMediaTrackGroup(),
+                                                *//* trackIndex= *//* 0))
+                                .build());*/
             }
         }
         //updateButtonVisibility();
@@ -1439,7 +1479,7 @@ public class ShowMushafActivity extends BaseActivity implements
         List<String> ayaLocations = new ArrayList<>();
 
         marray = new ArrayList<>();
-        if (getVersestartrange() != 0 && getVerseendrange() != 0) {
+   /*     if (getVersestartrange() != 0 && getVerseendrange() != 0) {
             onClickOrRange = true;
             List<QuranEntity> quranbySurah = Utils.getQuranbySurahAyahrange(surah, getVersestartrange(), getVerseendrange());
             for (QuranEntity ayaItem : quranbySurah) {
@@ -1448,7 +1488,7 @@ public class ShowMushafActivity extends BaseActivity implements
                 marray.add(MediaItem.fromUri(location));
 
             }
-        } else if (isSingle) {
+        } else */if (isSingle) {
             List<QuranEntity> sngleverseplay = Utils.getsurahayahVerses(getSurahselected(), getVerselected());
             //Create files locations for the all page ayas
             for (QuranEntity ayaItem : sngleverseplay) {
@@ -1542,28 +1582,37 @@ public class ShowMushafActivity extends BaseActivity implements
             Tracks currentTracks = player.getCurrentTracks();
 
             currenttrack = player.getCurrentMediaItemIndex();
+            //     currenttrack=resumelastplayed;
+            boolean resume = true;
+
             System.out.println("Ayah" + "" + ayah);
-            if (onClickOrRange) {
+
+
+            if(rangeRecitation) {
+                currenttrack += getVersestartrange();
+                currenttrack++;
+            }else if (onClickOrRange) {
                 currenttrack += getAyah();
             } else {
 
                 currenttrack++;
+
             }
 
             //    NewsendUpdatesToUIPassage.run();
             if (!singleline) {
-                if(player.isPlaying() || player.getPlayWhenReady()) {
+                if (player.isPlaying() || player.getPlayWhenReady()) {
                     sendUpdatesToUIPassage.run();
-                }else{
+                } else {
                     handler.removeCallbacks(sendUpdatesToUIPassage);
                 }
             } else {
 
-                 if(player.isPlaying()|| player.getPlayWhenReady()) {
-                sendUpdatesToUI.run();
-                 }else{
-                     handler.removeCallbacks(sendUpdatesToUI);
-                 }
+                if (player.isPlaying() || player.getPlayWhenReady()) {
+                    sendUpdatesToUI.run();
+                } else {
+                    handler.removeCallbacks(sendUpdatesToUI);
+                }
 
             }
 
@@ -1668,10 +1717,10 @@ public class ShowMushafActivity extends BaseActivity implements
 
     @SuppressLint("WrongViewCast")
     private void initRV() {
-        canceldownload= (ImageView) findViewById(R.id.canceldownload);
+        canceldownload = (MaterialButton) findViewById(R.id.canceldownload);
         canceldownload.setOnClickListener(this);
-        qariname= (TextView) findViewById(R.id.lqari);
-        buffering= (ImageView) findViewById(R.id.exo_buffering);
+        qariname = (TextView) findViewById(R.id.lqari);
+        buffering = (ImageView) findViewById(R.id.exo_buffering);
         SwitchCompat chooseDisplaytype = findViewById(R.id.chooseDisplaytype);
         chooseDisplaytype.setOnClickListener(this);
         playfb = (MovableFloatingActionButton) findViewById(R.id.playfb);
@@ -1682,7 +1731,9 @@ public class ShowMushafActivity extends BaseActivity implements
         exo_bottom_bar = (ImageButton) findViewById(R.id.exo_bottom_bar);
         //  private ImageView playbutton;
         MaterialButton playbutton = findViewById(R.id.playbutton);
-        MaterialButton surahselection= (MaterialButton) findViewById(R.id.surahselection);
+        MaterialButton playresume = (MaterialButton) findViewById(R.id.playresume);
+        playresume.setOnClickListener(this);
+        MaterialButton surahselection = (MaterialButton) findViewById(R.id.surahselection);
         surahselection.setOnClickListener(this);
         exo_close.setOnClickListener(this);
         playbutton.setOnClickListener(this);
@@ -1726,7 +1777,7 @@ public class ShowMushafActivity extends BaseActivity implements
 
         audio_settings_bottom = findViewById(R.id.audio_settings_bottom);
         normalFooter = (LinearLayout) findViewById(R.id.normalfooter);
-        downloadFooter = (ConstraintLayout) findViewById(R.id.footerdownload);
+        downloadFooter = (RelativeLayout) findViewById(R.id.footerdownload);
         playerFooter = (RelativeLayout) findViewById(R.id.footerplayer);
 
         mediaPlayerDownloadProgress = (ProgressBar) findViewById(R.id.downloadProgress);
@@ -1835,14 +1886,12 @@ public class ShowMushafActivity extends BaseActivity implements
 
         recyclerView.setHasFixedSize(true);
 
-
-
         if (singleline) {
             lineMushaAudioAdapter = new LineMushaAudioAdapter(this, quranbySurahadapter, listener, chapter.get(0).getChapterid(), chapter.get(0).getNamearabic(), chapter.get(0).getIsmakki(), header);
             recyclerView.setAdapter(lineMushaAudioAdapter);
 
         } else {
-            passageadapter = new PageMushaAudioAdapter(fullQuranPages,pages, this, quranbySurahadapter, listener, chapter.get(0).getChapterid(), chapter.get(0).getNamearabic(), chapter.get(0).getIsmakki(), header);
+            passageadapter = new PageMushaAudioAdapter(fullQuranPages, pages, this, quranbySurahadapter, listener, chapter.get(0).getChapterid(), chapter.get(0).getNamearabic(), chapter.get(0).getIsmakki(), header);
             recyclerView.setAdapter(passageadapter);
             passageadapter.notifyDataSetChanged();
         }
@@ -1899,6 +1948,16 @@ public class ShowMushafActivity extends BaseActivity implements
             public void onClick(View v) {
 
                 DownloadIfnotPlay();
+            }
+        });
+
+        playresume.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resume = true;
+                DownloadIfnotPlay();
+
+
             }
         });
 
@@ -2015,7 +2074,6 @@ public class ShowMushafActivity extends BaseActivity implements
     public List<String> createDownloadLink() {
         List<ChaptersAnaEntity> chap = repository.getSingleChapter(surah);
 
-
         setSurahselected(surah);
         //   int ayaID=0;
         int counter = 0;
@@ -2106,8 +2164,6 @@ public class ShowMushafActivity extends BaseActivity implements
         return downloadLinks;
     }
 
-
- 
     @Override
     public void onClick(View v) {
         if (v == findViewById(R.id.play)) {
@@ -2225,9 +2281,30 @@ public class ShowMushafActivity extends BaseActivity implements
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
+        releasePlayer();
         handler.removeCallbacks(sendUpdatesToUI);
         handler.removeCallbacks(sendUpdatesToUIPassage);
+
+        SharedPreferences pref = getSharedPreferences("lastaya", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putInt("lastaya", currenttrack);
+        editor.putInt("trackposition", hlights.get(currenttrack).get(0).getPassage());
+
+        //  editor.putInt("lastaya", 11);
+        //   editor.putInt("trackposition",2);
+        //    recyclerView.post(() -> recyclerView.scrollToPosition((hlights.get(currenttrack + 1).get(0).getPassage())));
+        ;
+        editor.apply();
+        //unregister broadcast for download ayat
+        LocalBroadcastManager.getInstance(ShowMushafActivity.this).unregisterReceiver(downloadPageAya);
+        //stop flag of auto start
+        startBeforeDownload = false;
+
+        if (player != null) {
+            player.release();
+        }
+
+        // finish();
 
     }
 
