@@ -1759,10 +1759,13 @@ public class ShowMushafActivity extends BaseActivity implements
         });
 
         llStartRange.setOnClickListener(new View.OnClickListener() {
-            final boolean starttrue = true;
+
+           final boolean starttrue = true;
+
 
             @Override
             public void onClick(View v) {
+              marrayrange=null;
                 SurahAyahPicker(false, starttrue);
             }
         });
@@ -1912,6 +1915,9 @@ public class ShowMushafActivity extends BaseActivity implements
                 setVersestartrange(0);
                 setVerseendrange(0);
                 setAyah(0);
+                marrayrange=null;
+                resume=false;
+                rangeRecitation=false;
 
                 handler.removeCallbacks(sendUpdatesToUI);
                 recyclerView.post(() -> recyclerView.scrollToPosition((0)));
