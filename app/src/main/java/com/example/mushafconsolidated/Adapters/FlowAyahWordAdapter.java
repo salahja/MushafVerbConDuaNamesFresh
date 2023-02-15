@@ -144,8 +144,9 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
     private WebView kathir_translation;
     private Typeface colorwordfont;
     private CorpusAyahWord ayahWord;
+    private boolean isaudio;
 
-    public FlowAyahWordAdapter(LinkedHashMap<Integer, ArrayList<CorpusWbwWord>> passage, ArrayList<MafoolMutlaqEnt> mutlaqent, ArrayList<TameezEnt> tameezEnts, ArrayList<BadalErabNotesEnt> badalErabNotesEnt, ArrayList<LiajlihiEnt> liajlihient, ArrayList<HalEnt> jumlahaliya, ArrayList<MafoolBihi> mafoolBihis, ArrayList<String> header, List<QuranEntity> allofQuran,
+    public FlowAyahWordAdapter(boolean isaudio, LinkedHashMap<Integer, ArrayList<CorpusWbwWord>> passage, ArrayList<MafoolMutlaqEnt> mutlaqent, ArrayList<TameezEnt> tameezEnts, ArrayList<BadalErabNotesEnt> badalErabNotesEnt, ArrayList<LiajlihiEnt> liajlihient, ArrayList<HalEnt> jumlahaliya, ArrayList<MafoolBihi> mafoolBihis, ArrayList<String> header, List<QuranEntity> allofQuran,
                                ArrayList<CorpusAyahWord> ayahWordArrayList, Context context, long surah_id, String surahName, int ismakki, OnItemClickListenerOnLong listener) {
         this.mutlaqent = mutlaqent;
         this.tameezEnts = tameezEnts;
@@ -166,6 +167,7 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
         arabicfontSize = sharedPreferences.getInt("pref_font_arabic_key", 18);
         translationfontsize = sharedPreferences.getInt("pref_font_englsh_key", 18);
         mItemClickListener = listener;
+        this.isaudio=isaudio;
 
     }
 
@@ -335,10 +337,12 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
             storepreferences(entity);
         }
         SpannableString quranverses = ayahWordArrayList.get(position).getSpannableverse();
-        holder.quran_textView.setText(quranverses);
+        if (!isaudio){
+            holder.quran_textView.setText(quranverses);
         holder.quran_textView.setTextSize(arabicfontSize);
         holder.quran_textView.setTypeface(custom_font);
         holder.base_cardview.setVisibility(View.GONE);
+    }
         SpannableStringBuilder mf = new SpannableStringBuilder();
         StringBuilder halsb = new StringBuilder();
         StringBuilder tameezsb = new StringBuilder();
@@ -711,11 +715,17 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
                         SentenceAnalysisBottomSheet.newInstance(data).show(((AppCompatActivity) context).getSupportFragmentManager(), SentenceAnalysisBottomSheet.TAG);
 
                     } else {
+                 /*       ((AppCompatActivity) context). runOnUiThread(new Runnable() {
+                            public void run() {
+
+
+                            }
+                           });*/
+
                         WordAnalysisBottomSheet item = new WordAnalysisBottomSheet();
                         item.setArguments(dataBundle);
                         String[] data = {String.valueOf(word.getSurahId()), String.valueOf(word.getVerseId()), word.getTranslateEn(), String.valueOf((word.getWordno())), SurahName};
                         WordAnalysisBottomSheet.newInstance(data).show(((AppCompatActivity) context).getSupportFragmentManager(), WordAnalysisBottomSheet.TAG);
-
                     }
 
                 }
@@ -924,34 +934,65 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
                     private void showFABMenu() {
 
                         isFABOpen = true;
+
                         fabmenu.animate().rotationBy(180);
+                        if(!isaudio) {
 
-                        tafsir.setVisibility(View.VISIBLE);
-                        tafsir.animate().translationX(- getInstance().getResources().getDimension(R.dimen.standard_55));
-                        tafsir.animate().rotationBy(360);
-                        tafsir.animate().setDuration(1500);
+                            tafsir.setVisibility(View.VISIBLE);
+                            tafsir.animate().translationX(-getInstance().getResources().getDimension(R.dimen.standard_55));
+                            tafsir.animate().rotationBy(360);
+                            tafsir.animate().setDuration(1500);
 
-                        jumptofb.setVisibility(View.VISIBLE);
-                        jumptofb.animate().translationX(-getInstance().getResources().getDimension(R.dimen.standard_105));
-                        jumptofb.animate().rotationBy(360);
+                            jumptofb.setVisibility(View.VISIBLE);
+                            jumptofb.animate().translationX(-getInstance().getResources().getDimension(R.dimen.standard_105));
+                            jumptofb.animate().rotationBy(360);
 
-                        bookmarfb.setVisibility(View.VISIBLE);
-                        bookmarfb.animate().translationX(-getInstance().getResources().getDimension(R.dimen.standard_155));
-                        bookmarfb.animate().rotationBy(360);
-                        bookmarfb.animate().setDuration(600);
+                            bookmarfb.setVisibility(View.VISIBLE);
+                            bookmarfb.animate().translationX(-getInstance().getResources().getDimension(R.dimen.standard_155));
+                            bookmarfb.animate().rotationBy(360);
+                            bookmarfb.animate().setDuration(600);
 
-                        summbaryfb.setVisibility(View.VISIBLE);
-                        summbaryfb.animate().translationX(-getInstance().getResources().getDimension(R.dimen.standard_205));
-                        summbaryfb.animate().rotationBy(360);
-                        helpfb.setVisibility(View.VISIBLE);
-                        helpfb.animate().translationX(-getInstance().getResources().getDimension(R.dimen.standard_255));
-                        helpfb.animate().rotationBy(360);
+                            summbaryfb.setVisibility(View.VISIBLE);
+                            summbaryfb.animate().translationX(-getInstance().getResources().getDimension(R.dimen.standard_205));
+                            summbaryfb.animate().rotationBy(360);
+                            helpfb.setVisibility(View.VISIBLE);
+                            helpfb.animate().translationX(-getInstance().getResources().getDimension(R.dimen.standard_255));
+                            helpfb.animate().rotationBy(360);
 
-                        sharescreenfb.setVisibility(View.VISIBLE);
-                        sharescreenfb.animate().translationX(-getInstance().getResources().getDimension(R.dimen.standard_305));
-                        sharescreenfb.animate().rotationBy(360);
-                        sharescreenfb.animate().setDuration(500);
+                            sharescreenfb.setVisibility(View.VISIBLE);
+                            sharescreenfb.animate().translationX(-getInstance().getResources().getDimension(R.dimen.standard_305));
+                            sharescreenfb.animate().rotationBy(360);
+                            sharescreenfb.animate().setDuration(500);
+                        }else{
 
+                            tafsir.setVisibility(View.VISIBLE);
+                            tafsir.animate().translationX(-getInstance().getResources().getDimension(R.dimen.standard_55));
+                            tafsir.animate().rotationBy(360);
+                            tafsir.animate().setDuration(1500);
+
+                            jumptofb.setVisibility(View.VISIBLE);
+                            jumptofb.animate().translationX(-getInstance().getResources().getDimension(R.dimen.audio_105));
+                            jumptofb.animate().rotationBy(360);
+
+                            bookmarfb.setVisibility(View.VISIBLE);
+                            bookmarfb.animate().translationX(-getInstance().getResources().getDimension(R.dimen.audio_155));
+                            bookmarfb.animate().rotationBy(360);
+                            bookmarfb.animate().setDuration(600);
+
+                            summbaryfb.setVisibility(View.VISIBLE);
+                            summbaryfb.animate().translationX(-getInstance().getResources().getDimension(R.dimen.audio_205));
+                            summbaryfb.animate().rotationBy(360);
+                            helpfb.setVisibility(View.VISIBLE);
+                            helpfb.animate().translationX(-getInstance().getResources().getDimension(R.dimen.audio_255));
+                            helpfb.animate().rotationBy(360);
+
+                            sharescreenfb.setVisibility(View.VISIBLE);
+                            sharescreenfb.animate().translationX(-getInstance().getResources().getDimension(R.dimen.audio_305));
+                            sharescreenfb.animate().rotationBy(360);
+                            sharescreenfb.animate().setDuration(500);
+
+
+                        }
 
 
 

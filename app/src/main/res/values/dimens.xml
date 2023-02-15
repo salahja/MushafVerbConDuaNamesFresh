@@ -181,6 +181,14 @@
     <dimen name="standard_305">-365dp</dimen>
     <dimen name="standard_405">485dp</dimen>
 
+    <dimen name="audio_55">55dp</dimen>
+    <dimen name="audio_105">115dp</dimen>
+    <dimen name="audio_155">175dp</dimen>
+    <dimen name="audio_205">240dp</dimen>
+    <dimen name="audio_255">300dp</dimen>
+    <dimen name="audio_305">365dp</dimen>
+    <dimen name="audioaud_405">485dp</dimen>
+
     mm mulsimmate
 
 

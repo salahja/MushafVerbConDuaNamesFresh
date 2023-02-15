@@ -53,7 +53,8 @@
             android:tooltipText="Share ScreenShot"
             android:src="@drawable/baseline_share_36"
 
-            android:contentDescription="share" />
+            android:contentDescription="share"
+            tools:ignore="RelativeOverlap" />
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/jumptofb"
             android:layout_width="wrap_content"
@@ -164,6 +165,7 @@
             android:layout_height="40dp"
             android:layout_marginStart="20dip"
 
+
             android:background="?attr/selectableItemBackground"
             android:backgroundTint="@color/white"
             android:layout_marginEnd="30dp"
@@ -174,7 +176,7 @@
             android:paddingEnd="@dimen/space_1"
 
 
-            android:visibility="visible"
+            android:visibility="gone"
             app:srcCompat="@drawable/shr_filter">
 
         </ImageView>

@@ -100,7 +100,6 @@ import com.example.mushafconsolidated.Entities.MafoolBihi;
 import com.example.mushafconsolidated.Entities.MafoolMutlaqEnt;
 import com.example.mushafconsolidated.Entities.Page;
 import com.example.mushafconsolidated.Entities.QuranEntity;
-import com.example.mushafconsolidated.Entities.QuranMetaEntity;
 import com.example.mushafconsolidated.Entities.TameezEnt;
 import com.example.mushafconsolidated.BottomOptionDialog;
 import com.example.mushafconsolidated.NamesDetail;
@@ -322,9 +321,10 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
             startActivity(settingint);
             navigationView.setCheckedItem(R.id.Names);
         } else if (id == R.id.mushafview) {
-
-            mushafview = !mushafview;
-            ReloadActivity();
+            Intent settingint = new Intent(this, WordbywordMushafAct.class);
+            startActivity(settingint);
+         //   mushafview = !mushafview;
+          //  ReloadActivity();
         }
 
         return super.onOptionsItemSelected(item);
@@ -1220,7 +1220,7 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
             header.add(getSurahArabicName());
             HightLightKeyWord();
             if (!mushafview) {
-                flowAyahWordAdapter = new FlowAyahWordAdapter(passage, Mutlaqent, Tammezent, BadalErabNotesEnt, Liajlihient, Jumlahaliya, mafoolbihiwords, header, allofQuran, corpusayahWordArrayList, QuranGrammarAct.this, surah_id, surahArabicName, isMakkiMadani, listener);
+                flowAyahWordAdapter = new FlowAyahWordAdapter(false, passage, Mutlaqent, Tammezent, BadalErabNotesEnt, Liajlihient, Jumlahaliya, mafoolbihiwords, header, allofQuran, corpusayahWordArrayList, QuranGrammarAct.this, surah_id, surahArabicName, isMakkiMadani, listener);
                 flowAyahWordAdapter.addContext(QuranGrammarAct.this);
                 parentRecyclerView.setHasFixedSize(true);
                 parentRecyclerView.setAdapter(flowAyahWordAdapter);

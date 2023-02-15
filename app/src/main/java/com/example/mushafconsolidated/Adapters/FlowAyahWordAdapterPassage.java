@@ -201,7 +201,9 @@ public class FlowAyahWordAdapterPassage extends RecyclerView.Adapter<FlowAyahWor
                 androidx.preference.PreferenceManager.getDefaultSharedPreferences(context);
         isNightmode = sharedPreferences.getString("themepref", "dark");
         String arabic_font_selection = sharedPreferences.getString("Arabic_Font_Selection", "quranicfontregular.ttf");
-        Typeface custom_font = Typeface.createFromAsset(context.getAssets(), arabic_font_selection);
+        String normalfontstr = sharedPreferences.getString("Arabic_Font_Selection", "me_quran.ttf");
+        Typeface wbwcoloredfont = Typeface.createFromAsset(context.getAssets(), arabic_font_selection);
+        Typeface normalfont = Typeface.createFromAsset(context.getAssets(), normalfontstr);
         boolean showrootkey = sharedPreferences.getBoolean("showrootkey", true);
         boolean showErab = sharedPreferences.getBoolean("showErabKey", true);
         boolean showWordColor = sharedPreferences.getBoolean("colortag", true);
@@ -247,13 +249,13 @@ public class FlowAyahWordAdapterPassage extends RecyclerView.Adapter<FlowAyahWor
             }
 
         } else {
-            displayAyats(showrootkey, holder, position - 1, sharedPreferences, custom_font, showErab, showWordColor, showTransliteration, showJalalayn, showTranslation, showWordByword, whichtranslation, showKathir);
+            displayAyats(normalfont,showrootkey, holder, position - 1, sharedPreferences, wbwcoloredfont, showErab, showWordColor, showTransliteration, showJalalayn, showTranslation, showWordByword, whichtranslation, showKathir);
 
         }
 
     }
 
-    private void displayAyats(boolean showrootkey, FlowAyahWordAdapterPassage.ItemViewAdapter holder, int position, SharedPreferences sharedPreferences, Typeface custom_font, boolean showErab, boolean showWordColor, boolean showTransliteration, boolean showJalalayn, boolean showTranslation, boolean showWordByword, String whichtranslation, boolean showKathir) {
+    private void displayAyats(Typeface normalfont, boolean showrootkey, ItemViewAdapter holder, int position, SharedPreferences sharedPreferences, Typeface custom_font, boolean showErab, boolean showWordColor, boolean showTransliteration, boolean showJalalayn, boolean showTranslation, boolean showWordByword, String whichtranslation, boolean showKathir) {
         //   holder.flowwbw.setBackgroundColor(R.style.Theme_DarkBlue);
         QuranEntity entity = null;
         String wbw = sharedPreferences.getString("wbw", String.valueOf(Context.MODE_PRIVATE));
@@ -293,7 +295,7 @@ public class FlowAyahWordAdapterPassage extends RecyclerView.Adapter<FlowAyahWor
         // mafoolate(holder, custom_font, entity, mafoolBihi, mf, halsb, tameezsb, badalsb, ajlihisb, mutlaqsb);
         setChapterInfo(holder, ayahWord);
         setAdapterposition(position);
-        wordBywordWithTranslation(showrootkey, holder, custom_font, showWordColor, wbw, ayahWord, showWordByword, passageAyahworrd);
+        wordBywordWithTranslation(normalfont,showrootkey, holder, custom_font, showWordColor, wbw, ayahWord, showWordByword, passageAyahworrd);
 
         if (showTransliteration) {
             if (entity != null) {
@@ -542,7 +544,7 @@ if (SharedPref.themePreferences().equals("dark")) {
         mfspan.append("\n");
     }
 
-    private void wordBywordWithTranslation(boolean showrootkey, ItemViewAdapter holder, Typeface custom_font, boolean showWordColor, String wbw, CorpusAyahWord ayahWord, boolean showWbwTranslation, ArrayList<CorpusWbwWord> passageAyahworrd) {
+    private void wordBywordWithTranslation(Typeface normalfont, boolean showrootkey, ItemViewAdapter holder, Typeface custom_font, boolean showWordColor, String wbw, CorpusAyahWord ayahWord, boolean showWbwTranslation, ArrayList<CorpusWbwWord> passageAyahworrd) {
         final LayoutInflater inflater =
                 (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         holder.flow_word_by_word.removeAllViews();
@@ -588,17 +590,18 @@ if (SharedPref.themePreferences().equals("dark")) {
                 spannedword = getSpannedWords(word);
 
                 spannedword.setSpan(custom_font, 0, spannedword.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
+                arabic.setTypeface(colorwordfont);
              //   spannedword= SpannableString.valueOf(spannedword.toString().replaceAll(" ", ""));
                 arabic.setText(spannedword);
             } else {
                 arabic.setText(word.getWordsAr());
+                arabic.setTypeface(normalfont);
             }
             rootword.setText(spannedroot);
             rootword.setTextSize(arabicfontSize);
             //   arabic.setTextSize(29);
             arabic.setTextSize(arabicfontSize);
-           arabic.setTypeface(colorwordfont);
+
             if (showWbwTranslation) {
                 switch (wbw) {
                     case "en":
@@ -624,6 +627,7 @@ if (SharedPref.themePreferences().equals("dark")) {
             translation.setTextSize(arabicfontSize);
             holder.flow_word_by_word.addView(view);
             view.setLongClickable(true);
+            TextView textView = holder.flow_word_by_word.findViewById(R.id.word_arabic_textView);
             view.setOnLongClickListener(new OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {

@@ -72,7 +72,7 @@
         <activity
             android:name=".Activity.MainActivity"
             android:parentActivityName=".Activity.SplashActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="fullSensor">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
@@ -80,7 +80,7 @@
         <activity
             android:name="sj.hisnul.activity.HisnulBottomACT"
             android:parentActivityName=".Activity.MainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="fullSensor">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
@@ -89,16 +89,28 @@
         <activity
             android:name=".Activity.ShowMushafActivity"
             android:parentActivityName=".Activity.MainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="fullSensor">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mushafconsolidated.Activity.MainActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.WordbywordMushafAct"
+            android:parentActivityName=".Activity.MainActivity"
+            android:screenOrientation="fullSensor">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
         </activity>
 
+
+
+
+
         <activity
             android:name=".Activity.PlayerActivity"
             android:parentActivityName=".Activity.MainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="fullSensor">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
@@ -106,23 +118,16 @@
         <activity
             android:name=".Activity.ExoPlayerNewShowMushafActivity"
             android:parentActivityName=".Activity.MainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="fullSensor">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
         </activity>
-        <activity
-            android:name=".Activity.ShowMushafActivityorig"
-            android:parentActivityName=".Activity.MainActivity"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.mushafconsolidated.Activity.MainActivity" />
-        </activity>
+   
         <activity
             android:name=".Activity.TopicDetailAct"
             android:parentActivityName=".Activity.MainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="fullSensor">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
@@ -130,7 +135,7 @@
         <activity
             android:name=".Activity.QuranTopicSearchActivity"
             android:parentActivityName=".Activity.MainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="fullSensor">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
@@ -138,7 +143,7 @@
         <activity
             android:name=".Activity.TafsirFullscreenActivity"
             android:parentActivityName=".Activity.MainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="fullSensor">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
@@ -146,7 +151,7 @@
         <activity
             android:name=".Activity.SurahActivity"
             android:parentActivityName=".Activity.MainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="fullSensor">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
@@ -154,7 +159,7 @@
         <activity
             android:name="database.GridImageAct"
             android:parentActivityName=".Activity.MainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="fullSensor">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
@@ -169,7 +174,7 @@
             android:name=".Activity.WordOccuranceAct"
             android:exported="true"
             android:parentActivityName=".Activity.MainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="fullSensor">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
@@ -178,7 +183,7 @@
             android:name=".Activity.QuranGrammarAct"
             android:exported="true"
             android:parentActivityName=".Activity.MainActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="fullSensor"
             android:windowSoftInputMode="stateVisible|adjustResize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -188,7 +193,7 @@
             android:name=".Activity.QuranDIctionarySearchActivity"
             android:exported="true"
             android:parentActivityName=".Activity.MainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="fullSensor">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
@@ -197,7 +202,7 @@
             android:name=".Activity.SearchResult"
             android:exported="true"
             android:parentActivityName=".Activity.MainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="fullSensor">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
@@ -206,7 +211,7 @@
             android:name=".Activity.SearchKeyBoardAct"
             android:exported="true"
             android:parentActivityName=".Activity.MainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="fullSensor">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
@@ -215,7 +220,7 @@
             android:name=".Activity.LughatWordDetailsAct"
             android:exported="true"
             android:label="@string/title_activity_verb_conjugation"
-            android:screenOrientation="portrait">
+            android:screenOrientation="fullSensor">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
@@ -224,7 +229,7 @@
             android:name=".Activity.WordDictionaryAct"
             android:exported="true"
             android:label="@string/title_activity_verb_conjugation"
-            android:screenOrientation="portrait">
+            android:screenOrientation="fullSensor">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
@@ -289,7 +294,7 @@
         <activity
             android:name="mm.prayer.muslimmate.Activity.PrayShowActivityPrayer"
             android:parentActivityName="mm.prayer.muslimmate.Activity.MainTwoActivityPrayer"
-            android:screenOrientation="portrait">
+            android:screenOrientation="fullSensor">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mm.prayer.muslimmate.Activity.MainTwoActivityPrayer" />
@@ -297,7 +302,7 @@
         <activity
             android:name="mm.prayer.muslimmate.fragments.ManualLocationActivityPrayer"
             android:parentActivityName="mm.prayer.muslimmate.Activity.MainTwoActivityPrayer"
-            android:screenOrientation="portrait">
+            android:screenOrientation="fullSensor">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mm.prayer.muslimmate.Activity.MainTwoActivityPrayer" />
@@ -305,7 +310,7 @@
         <activity
             android:name="mm.prayer.muslimmate.Activity.SettingsActivity"
             android:parentActivityName="mm.prayer.muslimmate.Activity.MainTwoActivityPrayer"
-            android:screenOrientation="portrait">
+            android:screenOrientation="fullSensor">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mm.prayer.muslimmate.Activity.MainTwoActivityPrayer" />
@@ -313,7 +318,7 @@
         <activity
             android:name="mm.prayer.muslimmate.Activity.CompassActivityPrayer"
             android:parentActivityName="mm.prayer.muslimmate.Activity.MainTwoActivityPrayer"
-            android:screenOrientation="portrait">
+            android:screenOrientation="fullSensor">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mm.prayer.muslimmate.Activity.MainTwoActivityPrayer" />

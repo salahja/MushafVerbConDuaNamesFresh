@@ -6,7 +6,10 @@
     android:id="@+id/container"
     android:orientation="vertical">
 
-    <include layout="@layout/quran_imageview_row" />
+    <include layout="@layout/quran_imageview_row"
+        android:layout_width="match_parent"
+        android:layout_gravity="start"
+        android:layout_height="match_parent"/>
 
     <com.example.utility.FlowLayout
         android:id="@+id/flow_word_by_word"
@@ -32,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="cursive"
-        android:hint="@string/arabic_font_style"
+
         android:lineSpacingExtra="0.5dp"
         android:padding="@dimen/textViewPadding"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"

@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:lineSpacingExtra="@dimen/lineSpacingExtra"
             android:padding="@dimen/textViewPadding"
-            android:text="Erab Notes"
+
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:visibility="gone" />
 
@@ -24,7 +24,7 @@
             android:id="@+id/erab_notes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/arabic_font_style"
+
             android:lineSpacingExtra="@dimen/lineSpacingExtra"
             android:padding="@dimen/textViewPadding"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -65,7 +65,7 @@
             android:fontFamily="cursive"
             android:lineSpacingExtra="@dimen/lineSpacingExtra"
             android:padding="@dimen/textViewPadding"
-            android:text="@string/sahi_international"
+
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:visibility="gone" />
 
@@ -78,7 +78,6 @@
             android:alpha="0.7"
 
 
-            android:hint="translation"
             android:lineSpacingExtra="@dimen/lineSpacingExtra"
             android:padding="@dimen/textViewPadding"
             android:paddingLeft="16dp"
@@ -99,7 +98,7 @@
             android:id="@+id/quran_jalalaynnote"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/jalalayn"
+
             android:fontFamily="cursive"
             android:lineSpacingExtra="@dimen/lineSpacingExtra"
             android:padding="@dimen/textViewPadding"
@@ -111,7 +110,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/quran_jalalaynnote"
-            android:hint="@string/jalalayan"
+
             android:lineSpacingExtra="@dimen/lineSpacingExtra"
             android:padding="@dimen/textViewPadding"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -128,7 +127,7 @@
             android:id="@+id/quran_transliterationnote"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Transliteration"
+
             android:fontFamily="cursive"
             android:lineSpacingExtra="@dimen/lineSpacingExtra"
             android:padding="@dimen/textViewPadding"
@@ -199,7 +198,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/erab_textViewnote"
 
-            android:hint="erab view"
+
             android:lineSpacingExtra="@dimen/lineSpacingExtra"
             android:padding="@dimen/textViewPadding"
             android:visibility="gone" />

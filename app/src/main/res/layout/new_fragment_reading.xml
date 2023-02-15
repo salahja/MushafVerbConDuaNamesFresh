@@ -26,13 +26,13 @@
                 android:id="@+id/toolbarmain"
                 app:elevation="14dp"
                 style="?attr/catalogToolbarWithCloseButtonStyle"
-                app:layout_scrollEffect="compress"
+
                 app:menu="@menu/menu_dua_group"
                 app:navigationIcon="@drawable/baseline_menu_24"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_scrollFlags="scroll|enterAlways|snap"
-                app:layout_collapseMode="pin"
+
+                app:layout_collapseMode="none"
                 />
 
 
