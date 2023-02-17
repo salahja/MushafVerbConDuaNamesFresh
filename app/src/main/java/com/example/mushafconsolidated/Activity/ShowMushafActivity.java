@@ -46,7 +46,6 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SwitchCompat;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -54,6 +53,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.JustJava.WbwSurah;
 import com.example.mushafconsolidated.Adapters.LineMushaAudioAdapter;
 import com.example.mushafconsolidated.Adapters.PageMushaAudioAdapter;
 import com.example.mushafconsolidated.Adapters.vtwoMushaAudioAdapter;
@@ -81,7 +81,6 @@ import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.Tracks;
 import com.google.android.exoplayer2.audio.AudioAttributes;
 import com.google.android.exoplayer2.source.DefaultMediaSourceFactory;
-import com.google.android.exoplayer2.trackselection.TrackSelectionOverride;
 import com.google.android.exoplayer2.trackselection.TrackSelectionParameters;
 import com.google.android.exoplayer2.ui.PlayerControlView;
 import com.google.android.exoplayer2.ui.StyledPlayerView;
@@ -97,14 +96,12 @@ import com.example.utility.MovableFloatingActionButton;
 import java.io.File;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 
 import mm.prayer.muslimmate.model.AudioPositionSaved;
-import mm.prayer.muslimmate.model.WeatherSave;
 import mm.prayer.muslimmate.ui.ConfigPreferences;
 import wheel.OnWheelChangedListener;
 import wheel.WheelView;
@@ -129,7 +126,7 @@ public class ShowMushafActivity extends BaseActivity implements
     private final ArrayList<AyahCoordinate> Coordinates = new ArrayList<>();
     private final LinkedHashMap<Integer, ArrayList<AyahCoordinate>> hlights = new LinkedHashMap<>();
     boolean flow = false;
-    boolean singleline,rangeRecitation;
+    boolean singleline, rangeRecitation;
     private ArrayList<Page> fullQuranPages;
     private long resumetrackposition;
     private boolean resume;
@@ -167,7 +164,7 @@ public class ShowMushafActivity extends BaseActivity implements
     private final Handler handler = new Handler();
     private static final String KEY_AUTO_PLAY = "auto_play";
     private List<MediaItem> marray;
-    private List<MediaItem> marrayrange=new ArrayList<>();
+    private List<MediaItem> marrayrange = new ArrayList<>();
     private String singleverse;
 
     private boolean isSingle;
@@ -269,7 +266,6 @@ public class ShowMushafActivity extends BaseActivity implements
         //stop flag of auto start
         startBeforeDownload = false;
 
-
         if (player != null) {
             player.release();
         }
@@ -278,7 +274,6 @@ public class ShowMushafActivity extends BaseActivity implements
         editor.putInt("lastaya", currenttrack);
         editor.putInt("trackposition", hlights.get(currenttrack).get(0).getPassage());
         editor.apply();
-
 
         super.onBackPressed();
     }
@@ -408,7 +403,7 @@ public class ShowMushafActivity extends BaseActivity implements
 
     private void getLastPlayed() {
         AudioPositionSaved aplayed = ConfigPreferences.getLastPlayedAudio(this, String.valueOf(surah));
-        if(aplayed!=null) {
+        if (aplayed != null) {
             resumelastplayed = aplayed.getAudiopsaved().get(0).getAyah();
             resumetrackposition = aplayed.getAudiopsaved().get(0).getTrackposition();
 
@@ -563,6 +558,7 @@ public class ShowMushafActivity extends BaseActivity implements
     }
 
     public void SurahAyahPicker(boolean isrefresh, boolean starttrue) {
+        ArrayList<Integer>rangevalues=new ArrayList<>();
         TextView mTextView;
         WheelView chapterWheel, verseWheel, wvDay;
         Utils utils = new Utils(ShowMushafActivity.this);
@@ -655,19 +651,17 @@ public class ShowMushafActivity extends BaseActivity implements
             }
 
             int verse = verseno[0];
-
-            // setSurahselected(Integer.parseInt(sura));
             setAyah(verse);
-
             String aya = String.valueOf(verseno[0]);
-
             if (isrefresh && starttrue) {
                 releasePlayer();
                 RefreshActivity(sura, aya, false);
             } else if (starttrue) {
                 updateStartRange(verse);
+                rangevalues.add(verse);
             } else {
                 updateEndRange(verse);
+                rangevalues.add(verse);
             }
 
 
@@ -787,7 +781,7 @@ public class ShowMushafActivity extends BaseActivity implements
         st.append(getSurahNameEnglish()).append("-").append(getSurahselected()).append(":").append(getAyah());
         setVerseendrange(verse);
         endrange.setText(st.toString());
-        rangeRecitation=true;
+        rangeRecitation = true;
     }
 
     private void updateStartRange(int verse) {
@@ -797,7 +791,7 @@ public class ShowMushafActivity extends BaseActivity implements
         st.append(getSurahNameEnglish()).append("-").append(getSurahselected()).append(":").append(getAyah());
         setVersestartrange(verse);
         startrange.setText(st.toString());
-        rangeRecitation=true;
+        rangeRecitation = true;
 
     }
 
@@ -848,7 +842,7 @@ public class ShowMushafActivity extends BaseActivity implements
                             span.setSpan(new ForegroundColorSpan(Color.CYAN), 0, str.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
 
-                        }   else {
+                        } else {
                             TextView textView = holder.itemView.findViewById(R.id.quran_textView);
                             textView.getText();
                             String strs = String.valueOf(textView.getText());
@@ -857,7 +851,7 @@ public class ShowMushafActivity extends BaseActivity implements
                             spans.setSpan(new BackgroundColorSpan(Color.BLUE), 0, strs.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
                             textView.setText(spans);
-                          //  holder.itemView.findViewById(R.id.quran_textView).setBackgroundColor(Color.BLUE);
+                            //  holder.itemView.findViewById(R.id.quran_textView).setBackgroundColor(Color.BLUE);
                             //for vtwoadapter
 
                         }
@@ -930,7 +924,42 @@ public class ShowMushafActivity extends BaseActivity implements
 
 
     };
+    private final Runnable picker = new Runnable() {
+        final boolean trackchange = false;
 
+        // int currentAdapterP=hlights.get(currenttrack-1).get(0).getPassage();
+        public void run() {
+
+            WbwSurah wbwSurah=new WbwSurah(ShowMushafActivity.this);
+            int startverse;
+            startverse =wbwSurah.SurahAyahPicker(false,true, getSurahselected(), getAyah());
+
+
+
+
+            //  rvAyahsPages.post(() -> rvAyahsPages.scrollToPosition((ayah)));
+
+            handler.postDelayed(this, 20000);
+
+
+        }
+
+        private void setVerseHighLight(TextView textView, int foreGroundcoloer) {
+            String str = String.valueOf(textView.getText());
+            SpannableStringBuilder span = new SpannableStringBuilder(str);
+            try {
+
+                span.setSpan(new ForegroundColorSpan(foreGroundcoloer), hlights.get(currenttrack).get(0).getStart(), hlights.get(currenttrack).get(0).getEnd(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                textView.setText(span);
+                String[] split = str.split("\n");
+            } catch (IndexOutOfBoundsException exception) {
+                System.out.println(exception);
+            }
+        }
+
+
+    };
     private final Runnable NewsendUpdatesToUIPassage = new Runnable() {
         final boolean trackchange = false;
 
@@ -1397,8 +1426,8 @@ public class ShowMushafActivity extends BaseActivity implements
 
 
             } else {
-          //      myPlayer mp=new myPlayer(ShowMushafActivity.this,surah);
-                
+                //      myPlayer mp=new myPlayer(ShowMushafActivity.this,surah);
+
                 marray = createMediaItems();
                 if (marray.isEmpty()) {
                     return false;
@@ -1446,10 +1475,15 @@ public class ShowMushafActivity extends BaseActivity implements
                     //    player.seekTo(startItemIndex, startPosition);
                 }
 
-                if(rangeRecitation) {
-                    marrayrange = marray.subList(getVersestartrange(), getVerseendrange());
-                    player.setMediaItems(marrayrange, /* resetPosition= */ !haveStartPosition);
-                }else {
+                if (rangeRecitation) {
+                    if(getVerseendrange()==0){
+                        setVerseendrange(getVersescount());
+                    }
+                    if(getVersestartrange()!=0){
+                        marrayrange = marray.subList(getVersestartrange(), getVerseendrange());
+                        player.setMediaItems(marrayrange, /* resetPosition= */ !haveStartPosition);
+                    }
+                } else {
                     player.setMediaItems(marray, /* resetPosition= */ !haveStartPosition);
                 }
 
@@ -1504,7 +1538,8 @@ public class ShowMushafActivity extends BaseActivity implements
                 marray.add(MediaItem.fromUri(location));
 
             }
-        } else */if (isSingle) {
+        } else */
+        if (isSingle) {
             List<QuranEntity> sngleverseplay = Utils.getsurahayahVerses(getSurahselected(), getVerselected());
             //Create files locations for the all page ayas
             for (QuranEntity ayaItem : sngleverseplay) {
@@ -1603,11 +1638,10 @@ public class ShowMushafActivity extends BaseActivity implements
 
             System.out.println("Ayah" + "" + ayah);
 
-
-            if(rangeRecitation) {
+            if (rangeRecitation) {
                 currenttrack += getVersestartrange();
                 currenttrack++;
-            }else if (onClickOrRange) {
+            } else if (onClickOrRange) {
                 currenttrack += getAyah();
             } else {
 
@@ -1765,23 +1799,28 @@ public class ShowMushafActivity extends BaseActivity implements
         llStartRange.setOnClickListener(this);
         endrange.setOnClickListener(this);
         llEndRange = (LinearLayout) findViewById(R.id.llEndRange);
+        final int[] startverse = {0};
         llEndRange.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 boolean starttrue = false;
+             //   WbwSurah wbwSurah=new WbwSurah(ShowMushafActivity.this);
+             //   startverse[0] =wbwSurah.SurahAyahPicker(false,starttrue,getSurahselected(),getAyah());
                 SurahAyahPicker(false, starttrue);
             }
         });
 
         llStartRange.setOnClickListener(new View.OnClickListener() {
 
-           final boolean starttrue = true;
-
+            final boolean starttrue = true;
 
             @Override
             public void onClick(View v) {
-              marrayrange=null;
+                marrayrange = null;
+                Handler handler = new Handler();
+                //picker.run();
+
                 SurahAyahPicker(false, starttrue);
             }
         });
@@ -1926,14 +1965,14 @@ public class ShowMushafActivity extends BaseActivity implements
         exo_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-          //reset player
+                //reset player
                 setVerselected(1);
                 setVersestartrange(0);
                 setVerseendrange(0);
                 setAyah(0);
-                marrayrange=null;
-                resume=false;
-                rangeRecitation=false;
+                marrayrange = null;
+                resume = false;
+                rangeRecitation = false;
 
                 handler.removeCallbacks(sendUpdatesToUI);
                 recyclerView.post(() -> recyclerView.scrollToPosition((0)));
@@ -2306,23 +2345,23 @@ public class ShowMushafActivity extends BaseActivity implements
         releasePlayer();
         handler.removeCallbacks(sendUpdatesToUI);
         handler.removeCallbacks(sendUpdatesToUIPassage);
-      if(currenttrack!=0) {
-          SharedPreferences pref = getSharedPreferences("lastaya", MODE_PRIVATE);
-          SharedPreferences.Editor editor = pref.edit();
-          editor.putInt("lastaya", currenttrack);
+        if (currenttrack != 0) {
+            SharedPreferences pref = getSharedPreferences("lastaya", MODE_PRIVATE);
+            SharedPreferences.Editor editor = pref.edit();
+            editor.putInt("lastaya", currenttrack);
 
-          editor.putInt("trackposition", hlights.get(currenttrack).get(0).getPassage());
-          ArrayList<AudioPlayed> ap = new ArrayList<>();
-          AudioPlayed audioPlayed = new AudioPlayed();
-          audioPlayed.setSurah(surah);
-          audioPlayed.setAyah(currenttrack);
-          audioPlayed.setTrackposition(hlights.get(currenttrack).get(0).getPassage());
-          ap.add(audioPlayed);
+            editor.putInt("trackposition", hlights.get(currenttrack).get(0).getPassage());
+            ArrayList<AudioPlayed> ap = new ArrayList<>();
+            AudioPlayed audioPlayed = new AudioPlayed();
+            audioPlayed.setSurah(surah);
+            audioPlayed.setAyah(currenttrack);
+            audioPlayed.setTrackposition(hlights.get(currenttrack).get(0).getPassage());
+            ap.add(audioPlayed);
 
-          editor.apply();
+            editor.apply();
 
-          ConfigPreferences.setLastPlayedAudio(this, ap, String.valueOf(surah));
-      }
+            ConfigPreferences.setLastPlayedAudio(this, ap, String.valueOf(surah));
+        }
         //unregister broadcast for download ayat
         LocalBroadcastManager.getInstance(ShowMushafActivity.this).unregisterReceiver(downloadPageAya);
         //stop flag of auto start

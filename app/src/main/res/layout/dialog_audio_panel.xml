@@ -51,7 +51,7 @@
                     android:minWidth="180.0dip"
                     android:text="@string/resume"
                     app:cornerRadius="4.0dip"
-                    app:icon="@drawable/ic_play_from"
+                    app:icon="@drawable/resume_icon_24"
                     app:iconGravity="textStart" />
 
 
@@ -126,7 +126,7 @@
                 android:layout_height="wrap_content"
                 android:background="?selectableItemBackground"
                 android:orientation="horizontal"
-                android:padding="@dimen/space_3">
+                android:padding="@dimen/space_1">
 
                 <com.google.android.material.textview.MaterialTextView
 

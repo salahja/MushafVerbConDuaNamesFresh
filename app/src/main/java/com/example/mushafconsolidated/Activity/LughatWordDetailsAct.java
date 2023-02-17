@@ -15,7 +15,9 @@ import static com.example.Constant.VERBMOOD;
 import static com.example.Constant.VERBTYPE;
 import static Utility.ArabicLiterals.LALIF;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -27,6 +29,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.mushafconsolidated.R;
 import com.example.mushafconsolidated.fragments.Dictionary_frag;
+import com.example.utility.QuranGrammarApplication;
 import com.example.utility.SharedPref;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -97,6 +100,8 @@ public class LughatWordDetailsAct extends BaseActivity {
             finish();
             //      Snackbar.make(viewById, "Call button clicked", Snackbar.LENGTH_SHORT).show();
         });
+      
+        SharedPref sharedPref=new SharedPref(this);
         FragmentManager fm = getSupportFragmentManager();
         ViewStateAdapter sa = new ViewStateAdapter(fm, getLifecycle());
         final ViewPager2 viewPager = findViewById(R.id.pager);
@@ -315,6 +320,7 @@ public class LughatWordDetailsAct extends BaseActivity {
 
         } else if (isAugmentedWazan) {
             if (SharedPref.getLanguage().equals("en") && verbmood.equals("Jussive")) {
+
                 languages[0] = "lanes";
                 languages[1] = "hans";
                 languages[2] = "english";

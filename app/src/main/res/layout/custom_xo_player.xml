@@ -154,37 +154,46 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout7"
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
+        android:gravity="top"
+
         app:layout_constraintBottom_toBottomOf="parent"
-
         app:layout_constraintEnd_toEndOf="@+id/linearLayout6"
-
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/linearLayout6"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout6"
-        app:layout_constraintVertical_bias="0.011">
-
-        <TextView
+        app:layout_constraintVertical_bias="0.014">
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/lqari"
-            android:layout_gravity="center_horizontal"
-            android:layout_width="match_parent"
+            android:layout_gravity="start"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:text="Qari Name"
-            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.Material3.ActionBar.Subtitle"
             android:textColor="@color/cyan"
-            android:textSize="22sp">
+           >
 
-        </TextView>
-
-
+        </com.google.android.material.textview.MaterialTextView>
 
 
-    </LinearLayout>
 
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/ayaprogress"
+            android:layout_toEndOf="@+id/lqari"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ayah"
+            android:gravity="end"
+            android:textColor="@color/cyan"
+            android:textAppearance="@style/TextAppearance.Material3.ActionBar.Subtitle"
+            tools:layout_editor_absoluteX="12dp"
+            tools:layout_editor_absoluteY="114dp">
+
+        </com.google.android.material.textview.MaterialTextView>
+
+    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

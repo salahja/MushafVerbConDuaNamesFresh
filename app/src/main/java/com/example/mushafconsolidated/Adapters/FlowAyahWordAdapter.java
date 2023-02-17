@@ -72,6 +72,7 @@ import androidx.transition.AutoTransition;
 import androidx.transition.TransitionManager;
 
 import com.example.mushafconsolidated.Activity.TafsirFullscreenActivity;
+import com.example.mushafconsolidated.Activity.WordbywordMushafAct;
 import com.example.mushafconsolidated.Config;
 import com.example.mushafconsolidated.Entities.BadalErabNotesEnt;
 import com.example.mushafconsolidated.Entities.BookMarks;
@@ -178,11 +179,13 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
 
     @Override
     public int getItemViewType(int position) {
+
         if (position == 0) {
             return TYPE_HEADER;
         } else {
             return TYPE_ITEM;
         }
+
     }
 
     @Override
@@ -696,6 +699,10 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    //pause player when word details is clicked
+                    if (context instanceof WordbywordMushafAct) {
+                        ((WordbywordMushafAct)context).pauseplay();
+                    }
                     final Dialog dialog = new Dialog(context);
                     dialog.setTitle(word.getWordsAr());
                     Bundle dataBundle = new Bundle();
@@ -726,6 +733,7 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
                         item.setArguments(dataBundle);
                         String[] data = {String.valueOf(word.getSurahId()), String.valueOf(word.getVerseId()), word.getTranslateEn(), String.valueOf((word.getWordno())), SurahName};
                         WordAnalysisBottomSheet.newInstance(data).show(((AppCompatActivity) context).getSupportFragmentManager(), WordAnalysisBottomSheet.TAG);
+
                     }
 
                 }
