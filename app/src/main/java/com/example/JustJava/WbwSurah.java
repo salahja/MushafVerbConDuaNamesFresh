@@ -45,6 +45,8 @@ public class WbwSurah {
     private String[] surahWheelDisplayData;
     private String[] ayahWheelDisplayData;
     private  LinkedHashMap<Integer, ArrayList<CorpusWbwWord>> ruku=new LinkedHashMap<>();
+    boolean isrefresh, starttrue;
+    int surahselected, ayahselected;
     ArrayList<CorpusAyahWord> corpusayahWordArrayList = new ArrayList<>();
 
     public WbwSurah(Context context, int surah, ArrayList<CorpusAyahWord> corpusayahWordArrayList, LinkedHashMap<Integer, ArrayList<CorpusWbwWord>> ruku) {
@@ -55,8 +57,10 @@ public class WbwSurah {
 
     }
 
-    public WbwSurah(Context context) {
+    public WbwSurah(Context context ,boolean isrefresh, boolean starttrue, int surahselected, int ayahselected) {
         this.context=context;
+        this.isrefresh=isrefresh;this.starttrue=starttrue;this.surahselected=surahselected;this.ayahselected=ayahselected;
+        SurahAyahPicker();
     }
 
     public void getWordbyword() {
@@ -175,7 +179,7 @@ public class WbwSurah {
 
  
 
-    public int SurahAyahPicker(boolean isrefresh, boolean starttrue, int surahselected, int ayahselected) {
+    public int SurahAyahPicker() {
         ArrayList<Integer>rangevalues=new ArrayList<>();
         TextView mTextView;
         final int[] verseselected = {0};

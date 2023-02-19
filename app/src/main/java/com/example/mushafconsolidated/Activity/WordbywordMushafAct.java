@@ -1601,8 +1601,10 @@ public class WordbywordMushafAct extends BaseActivity implements
                     assert player != null;
                     player.play();
                 } else {
-                    player.pause();
-                    exoplayerBottomBehaviour.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                    if(null!=player) {
+                        player.pause();
+                        exoplayerBottomBehaviour.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                    }
                 }
 
             }

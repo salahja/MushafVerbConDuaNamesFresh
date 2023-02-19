@@ -271,9 +271,14 @@ public class ShowMushafActivity extends BaseActivity implements
         }
         SharedPreferences pref = getSharedPreferences("lastaya", MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
-        editor.putInt("lastaya", currenttrack);
-        editor.putInt("trackposition", hlights.get(currenttrack).get(0).getPassage());
-        editor.apply();
+
+            editor.putInt("lastaya", currenttrack);
+            if(currenttrack==0) {
+                editor.putInt("trackposition", hlights.get(currenttrack + 1).get(0).getPassage());
+            }else{
+                editor.putInt("trackposition", hlights.get(currenttrack ).get(0).getPassage());
+            }
+            editor.apply();
 
         super.onBackPressed();
     }
@@ -930,16 +935,16 @@ public class ShowMushafActivity extends BaseActivity implements
         // int currentAdapterP=hlights.get(currenttrack-1).get(0).getPassage();
         public void run() {
 
-            WbwSurah wbwSurah=new WbwSurah(ShowMushafActivity.this);
-            int startverse;
-            startverse =wbwSurah.SurahAyahPicker(false,true, getSurahselected(), getAyah());
+
+
+
 
 
 
 
             //  rvAyahsPages.post(() -> rvAyahsPages.scrollToPosition((ayah)));
 
-            handler.postDelayed(this, 20000);
+            handler.postDelayed(this, 1500);
 
 
         }
@@ -1805,6 +1810,7 @@ public class ShowMushafActivity extends BaseActivity implements
             @Override
             public void onClick(View v) {
                 boolean starttrue = false;
+
              //   WbwSurah wbwSurah=new WbwSurah(ShowMushafActivity.this);
              //   startverse[0] =wbwSurah.SurahAyahPicker(false,starttrue,getSurahselected(),getAyah());
                 SurahAyahPicker(false, starttrue);
@@ -1818,10 +1824,9 @@ public class ShowMushafActivity extends BaseActivity implements
             @Override
             public void onClick(View v) {
                 marrayrange = null;
-                Handler handler = new Handler();
-                //picker.run();
 
-                SurahAyahPicker(false, starttrue);
+
+               SurahAyahPicker(false, starttrue);
             }
         });
 

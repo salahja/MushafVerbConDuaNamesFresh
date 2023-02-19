@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
 
     android:orientation="vertical"
@@ -13,7 +14,7 @@
 
         android:id="@+id/jumptoverse"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="2dp"
@@ -34,56 +35,10 @@
             android:animateLayoutChanges="true"
             android:orientation="vertical"
             android:paddingBottom="@dimen/space_3">
-            <RelativeLayout
-                android:layout_gravity="center_horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+            <include layout="@layout/audiotoppanel">
 
+            </include>
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@id/playresume"
-                    style="@style/Widget.Material3.Button.OutlinedButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:layout_marginTop="@dimen/space_2"
-                    android:layout_marginBottom="8.0dip"
-                    android:minWidth="180.0dip"
-                    android:text="@string/resume"
-                    app:cornerRadius="4.0dip"
-                    app:icon="@drawable/resume_icon_24"
-                    app:iconGravity="textStart" />
-
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@id/playbutton"
-                android:layout_toEndOf="@+id/playresume"
-                style="@style/Widget.Material3.Button.OutlinedButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_marginTop="@dimen/space_2"
-                android:layout_marginBottom="8.0dip"
-                android:minWidth="180.0dip"
-                android:text="@string/plays"
-                app:cornerRadius="4.0dip"
-                app:icon="@drawable/ic_action_play"
-                app:iconGravity="textStart" />
-            <com.google.android.material.button.MaterialButton
-                android:id="@id/surahselection"
-                style="@style/Widget.Material3.Button.OutlinedButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginTop="@dimen/space_2"
-                android:layout_marginBottom="8.0dip"
-                android:minWidth="180.0dip"
-                android:layout_toEndOf="@+id/playbutton"
-                android:text="@string/SelectSurah"
-                app:cornerRadius="4.0dip"
-                app:icon="@drawable/baseline_open_in_new_24"
-                app:iconGravity="textStart" />
-            </RelativeLayout>
             <LinearLayout
 
                 android:id="@id/llStartRange"
