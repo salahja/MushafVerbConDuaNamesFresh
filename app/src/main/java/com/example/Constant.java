@@ -213,7 +213,7 @@ public class Constant {
     public static ForegroundColorSpan attachedpronounspanLight = new ForegroundColorSpan(ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.steelemetal));
     public static ForegroundColorSpan determinerspanLight = new ForegroundColorSpan(ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.steelemetal));
     public static ForegroundColorSpan timeadverbspanLight = new ForegroundColorSpan(BROWN);
-    public static ForegroundColorSpan locationadverspanLight = new ForegroundColorSpan(ORANGE400);
+    public static ForegroundColorSpan locationadverspanLight = new ForegroundColorSpan(SALMON);
     public static ForegroundColorSpan demonstrativespanLight = new ForegroundColorSpan(BROWN);
     public static ForegroundColorSpan relativespanLight = new ForegroundColorSpan(DARKGOLDENROD);
     public static ForegroundColorSpan nasabspanLight = new ForegroundColorSpan(HOTPINK);

@@ -124,7 +124,7 @@ public class WordbywordMushafAct extends BaseActivity implements
 
         OnItemClickListenerOnLong, View.OnClickListener, StyledPlayerView.FullscreenButtonClickListener {
 
-    private FlowAyahWordAdapterPassage flowAyahWordAdapterpassage;
+
     // private UpdateMafoolFlowAyahWordAdapter flowAyahWordAdapter;
     private boolean mausoof, mudhaf, harfnasb, shart;
     private ArrayList<ChaptersAnaEntity> soraList;
@@ -146,8 +146,7 @@ public class WordbywordMushafAct extends BaseActivity implements
     private int chapterno;
     private RecyclerView parentRecyclerView;
     private RecyclerView surahRecView;
-    private boolean mushafview = false;
-    private boolean mushafcoloredview = false;
+
     private static final String KEY_TRACK_SELECTION_PARAMETERS = "track_selection_parameters";
     private static final String KEY_SERVER_SIDE_ADS_LOADER_STATE = "server_side_ads_loader_state";
     ImageButton exo_settings, exo_close, exo_bottom_bar;
@@ -239,7 +238,7 @@ public class WordbywordMushafAct extends BaseActivity implements
     private boolean startAutoPlay;
     private int startItemIndex;
     private long startPosition;
-    ImageView playiv;
+
     private final LinkedHashMap<Integer, ArrayList<CorpusWbwWord>> ruku = new LinkedHashMap<>();
     // For ad playback only.
     public static final String BROADCAST_SEEKBAR = "com.example.mushafconsolidated.Activity.sendseekbar";
@@ -365,7 +364,7 @@ public class WordbywordMushafAct extends BaseActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.vfour_expandable_newactivity_show_ayahs);
+        setContentView(R.layout.wbwaudio);
         //    ButterKnife.bind(this);
         //    QuranGrammarApplication.appContext = ShowMushafActivity.this;
         //  intentmyservice = new Intent(this, AudioService.class);
@@ -1033,7 +1032,7 @@ public class WordbywordMushafAct extends BaseActivity implements
         }
         if (player == null) {
             playerFooter.setVisibility(View.VISIBLE);
-            normalFooter.setVisibility(View.GONE);
+          //  normalFooter.setVisibility(View.GONE);
             downloadFooter.setVisibility(View.GONE);
             boolean stream = false;
             long playbackPosition = 0L;
@@ -1468,15 +1467,14 @@ public class WordbywordMushafAct extends BaseActivity implements
         });
 
         ListView listView = (ListView) findViewById(R.id.ayahlist);
-        playiv = (ImageView) findViewById(R.id.play);
-        playiv.setOnClickListener(this);
+
 
         SeekBar seekBar = findViewById(R.id.SeekBar01);
 
         RelativeLayout footerContainer = (RelativeLayout) findViewById(R.id.footerbar);
 
         audio_settings_bottom = findViewById(R.id.audio_settings_bottom);
-        normalFooter = (LinearLayout) findViewById(R.id.normalfooter);
+      //  normalFooter = (LinearLayout) findViewById(R.id.normalfooter);
         downloadFooter = (RelativeLayout) findViewById(R.id.footerdownload);
         playerFooter = (RelativeLayout) findViewById(R.id.footerplayer);
 
@@ -1642,7 +1640,7 @@ public class WordbywordMushafAct extends BaseActivity implements
             @Override
             public void onClick(View v) {
                 downloadFooter.setVisibility(View.GONE);
-                normalFooter.setVisibility(View.VISIBLE);
+              //  normalFooter.setVisibility(View.VISIBLE);
                 //stop flag of auto start audio after download
                 startBeforeDownload = false;
                 //stop download service
@@ -1801,14 +1799,14 @@ public class WordbywordMushafAct extends BaseActivity implements
         //make footer change to normal if audio end in pause
         if (!Settingsss.isMyServiceRunning(this, DownloadService.class)) {
             playerFooter.setVisibility(View.GONE);
-            normalFooter.setVisibility(View.GONE);
+        //    normalFooter.setVisibility(View.GONE);
         } else {
             if (downloadFooter.getVisibility() != View.VISIBLE) {
                 playerFooter.setVisibility(View.VISIBLE);
             } else {
                 playerFooter.setVisibility(View.GONE);
             }
-            normalFooter.setVisibility(View.GONE);
+         //   normalFooter.setVisibility(View.GONE);
         }
 
         if (audioSettingBottomBehaviour.getState() == BottomSheetBehavior.STATE_EXPANDED) {
@@ -1831,7 +1829,7 @@ public class WordbywordMushafAct extends BaseActivity implements
             if (status != null) {
                 if (status.equals(AudioAppConstants.Download.IN_DOWNLOAD)) {
                     downloadFooter.setVisibility(View.VISIBLE);
-                    normalFooter.setVisibility(View.GONE);
+                  //  normalFooter.setVisibility(View.GONE);
                     playerFooter.setVisibility(View.GONE);
                     mediaPlayerDownloadProgress.setMax(max);
                     mediaPlayerDownloadProgress.setProgress(value);
@@ -1845,13 +1843,13 @@ public class WordbywordMushafAct extends BaseActivity implements
                     if (startBeforeDownload) {
                         //change views
                         downloadFooter.setVisibility(View.GONE);
-                        normalFooter.setVisibility(View.GONE);
+                    //    normalFooter.setVisibility(View.GONE);
                         playerFooter.setVisibility(View.VISIBLE);
                         initializePlayer();
 
                     } else {
                         downloadFooter.setVisibility(View.GONE);
-                        normalFooter.setVisibility(View.GONE);
+                     //   normalFooter.setVisibility(View.GONE);
                         playerFooter.setVisibility(View.GONE);
                     }
 
@@ -1961,7 +1959,7 @@ public class WordbywordMushafAct extends BaseActivity implements
             DownloadIfnotPlay();
         } else if (v == findViewById(R.id.canceldownload)) {
             downloadFooter.setVisibility(View.GONE);
-            normalFooter.setVisibility(View.VISIBLE);
+        //    normalFooter.setVisibility(View.VISIBLE);
             //stop flag of auto start audio after download
             startBeforeDownload = false;
             //stop download service

@@ -101,6 +101,7 @@ import com.example.utility.QuranGrammarApplication;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textview.MaterialTextView;
 import com.tooltip.Tooltip;
 
 import java.io.File;
@@ -811,7 +812,8 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
         public TextView erab_textView;
         public TextView surah_info, mafoolbihi;
         public TextView bismilla;
-        public TextView quran_textView, erab_notes;
+        public TextView  erab_notes;
+        MaterialTextView quran_textView;
         public TextView quran_transliterationnote;
         public TextView quran_jalalaynnote;
         public TextView erab_textViewnote;

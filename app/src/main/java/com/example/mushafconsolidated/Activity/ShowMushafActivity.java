@@ -112,6 +112,7 @@ public class ShowMushafActivity extends BaseActivity implements
     private static final String KEY_TRACK_SELECTION_PARAMETERS = "track_selection_parameters";
     private static final String KEY_SERVER_SIDE_ADS_LOADER_STATE = "server_side_ads_loader_state";
     ImageButton exo_settings, exo_close, exo_bottom_bar;
+    MaterialTextView ayaprogress;
     private static final String KEY_ITEM_INDEX = "item_index";
     private static final String KEY_POSITION = "position";
     private String[] surahWheelDisplayData;
@@ -833,14 +834,16 @@ public class ShowMushafActivity extends BaseActivity implements
             // RecyclerView.ViewHolder holder = (RecyclerView.ViewHolder) rvAyahsPages.findViewHolderForAdapterPosition(currenttrack);
 
             RecyclerView.ViewHolder holder = (RecyclerView.ViewHolder) recyclerView.findViewHolderForAdapterPosition(currenttrack);
-
+            StringBuilder ab=new StringBuilder();
+            ab.append("Aya").append(":").append(currenttrack).append(" ").append("of").append(getVersescount());
+            ayaprogress.setText(ab.toString());
             if (null != holder) {
                 try {
                     if (holder.itemView.findViewById(R.id.quran_textView) != null) {
 
                         if (isNightmode.equals("light")) {
 
-                            holder.itemView.findViewById(R.id.quran_textView).setBackgroundColor(Color.BLUE);
+                            holder.itemView.findViewById(R.id.quran_textView).setBackgroundColor(Color.LTGRAY);
                             TextView textViews = holder.itemView.findViewById(R.id.quran_textView);
                             String str = String.valueOf(textViews.getText());
 
@@ -983,16 +986,16 @@ public class ShowMushafActivity extends BaseActivity implements
             RecyclerView.ViewHolder holder = null;
             if (onClickOrRange) {
                 if (hlights.get(currenttrack) != null) {
-                    if (null != holder) {
+                 
                         holder = (RecyclerView.ViewHolder) recyclerView.findViewHolderForAdapterPosition(hlights.get(getVersestartrange()).get(0).getPassage());
                         recyclerView.post(() -> recyclerView.scrollToPosition(hlights.get(getVersestartrange()).get(0).getPassage()));
-                    }
+               
                 } else {
-                    if (null != holder) {
+                     
                         holder = (RecyclerView.ViewHolder) recyclerView.findViewHolderForAdapterPosition(hlights.get(currenttrack + 1).get(0).getPassage());
                         recyclerView.post(() -> recyclerView.scrollToPosition((hlights.get(currenttrack + 1).get(0).getPassage())));
                         currenttrack++;
-                    }
+                   
                 }
 
             } else {
@@ -1227,6 +1230,9 @@ public class ShowMushafActivity extends BaseActivity implements
         public void run() {
 
             RecyclerView.ViewHolder holder;
+            StringBuilder ab=new StringBuilder();
+            ab.append("Aya").append(":").append(currenttrack).append(" ").append("of").append(getVersescount());
+            ayaprogress.setText(ab.toString());
             if (hlights.get(currenttrack) != null) {
                 holder = (RecyclerView.ViewHolder) recyclerView.findViewHolderForAdapterPosition(hlights.get(currenttrack).get(0).getPassage());
 
@@ -1790,6 +1796,7 @@ public class ShowMushafActivity extends BaseActivity implements
 
     @SuppressLint("WrongViewCast")
     private void initRV() {
+        ayaprogress= (MaterialTextView) findViewById(R.id.ayaprogress);
         canceldownload = (MaterialButton) findViewById(R.id.canceldownload);
         canceldownload.setOnClickListener(this);
         qariname = (TextView) findViewById(R.id.lqari);

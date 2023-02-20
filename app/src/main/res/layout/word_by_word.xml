@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/chips_group"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,6 +13,8 @@
         android:id="@+id/word_arabic_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:lineSpacing="-4dp"
+        android:lineSpacingExtra="-4dp"
         android:checkable="true"
         android:text="flow"
         android:visibility="visible" />

@@ -16,7 +16,11 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:elevation="8dp"
-        android:maxLines="1"
+        app:lineSpacing="-4dp"
+        android:lineSpacingExtra="-4dp"
+
+
+        android:layout_marginTop="-16dp"
         android:visibility="visible" />
 
     <TextView
@@ -30,12 +34,12 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textSize="16.0sp" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/quran_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="cursive"
-
+        android:elevation="@dimen/_9sdp"
         android:lineSpacingExtra="0.5dp"
         android:padding="@dimen/textViewPadding"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
