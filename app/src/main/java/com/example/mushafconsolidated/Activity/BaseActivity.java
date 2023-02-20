@@ -12,7 +12,7 @@ import com.google.android.material.color.DynamicColors;
 
 
 public  class BaseActivity extends AppCompatActivity {
-    public static final String PURPLE_THEME = "purple";
+    public static final String LIGHT_THEME = "light";
     public static final String DARK_THEME = "dark";
     public static final String DARK_BLUE = "blue";
     public static final String DARK_GREEN = "green";
@@ -36,8 +36,8 @@ public  class BaseActivity extends AppCompatActivity {
     protected void switchTheme(String currenttheme) {
         switch (currenttheme) {
 
-            case PURPLE_THEME:
-                setTheme(R.style.AppTheme_Dark);
+            case LIGHT_THEME:
+                setTheme(R.style.AppTheme);
                 break;
             case DARK_THEME:
                 setTheme(R.style.Theme_Black);

@@ -299,7 +299,7 @@ public class WbwSurah {
         String preferences = sharedPreferences.getString("themepref", "dark");
         int db = ContextCompat.getColor(context, R.color.odd_item_bg_dark_blue_light);
 
-        if (preferences.equals("purple")) {
+        if (preferences.equals("light")) {
             alertDialog.getWindow().setBackgroundDrawableResource(R.color.md_theme_dark_onSecondary);
             //   alertDialog.getWindow().setBackgroundDrawableResource(R.color.md_theme_dark_onTertiary);
 
@@ -329,9 +329,9 @@ public class WbwSurah {
         buttonPositive.setTextColor(ContextCompat.getColor(context, R.color.green));
         Button buttonNegative = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
         buttonNegative.setTextColor(ContextCompat.getColor(context, R.color.red));
-        if (preferences.equals("purple")) {
-            buttonPositive.setTextColor(ContextCompat.getColor(context, R.color.yellow));
-            buttonNegative.setTextColor(ContextCompat.getColor(context, R.color.Goldenrod));
+        if (preferences.equals("light")) {
+            buttonPositive.setTextColor(ContextCompat.getColor(context, R.color.colorMuslimMate));
+            buttonNegative.setTextColor(ContextCompat.getColor(context, R.color.red));;
 
         } else if (preferences.equals("brown")) {
             buttonPositive.setTextColor(ContextCompat.getColor(context, R.color.colorMuslimMate));

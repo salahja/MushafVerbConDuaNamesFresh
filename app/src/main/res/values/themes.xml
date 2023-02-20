@@ -7,10 +7,7 @@
 
     <color name="text_field_background">#F3F1F1</color>
 
-    <style name="Theme.DarkBlue.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
+
 
     <style name="Theme.DarkBlue.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

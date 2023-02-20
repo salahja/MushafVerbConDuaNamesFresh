@@ -354,11 +354,12 @@ public class TopicFlowAyahWordAdapter extends RecyclerView.Adapter<TopicFlowAyah
                 switch (isNightmode) {
                     case "dark":
                     case "blue":
-                    case "purple":
+
                     case "green":
                         color = ContextCompat.getColor(context,R.color.background_color);
                         break;
                     case "brown":
+                    case "light":
                         color = ContextCompat.getColor(context,R.color.neutral0);
                         break;
                     case "white":
@@ -455,7 +456,7 @@ public class TopicFlowAyahWordAdapter extends RecyclerView.Adapter<TopicFlowAyah
         } else {
             holder.surah_info.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_madinah_48, 0, 0, 0);
         }
-        if (isNightmode.equals("dark") || isNightmode.equals("blue")||isNightmode.equals("purple")||isNightmode.equals("green")) {
+        if (isNightmode.equals("dark") || isNightmode.equals("blue") ||isNightmode.equals("green")) {
 //TextViewCompat.setCompoundDrawableTintList()
             holder.surah_info.setCompoundDrawableTintList(ColorStateList.valueOf(Color.CYAN));
         } else {

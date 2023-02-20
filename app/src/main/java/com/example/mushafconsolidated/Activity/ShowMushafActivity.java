@@ -679,7 +679,7 @@ public class ShowMushafActivity extends BaseActivity implements
         String preferences = sharedPreferences.getString("themepref", "dark");
         int db = ContextCompat.getColor(this, R.color.odd_item_bg_dark_blue_light);
 
-        if (preferences.equals("purple")) {
+        if (preferences.equals("light")) {
             alertDialog.getWindow().setBackgroundDrawableResource(R.color.md_theme_dark_onSecondary);
             //   alertDialog.getWindow().setBackgroundDrawableResource(R.color.md_theme_dark_onTertiary);
 
@@ -709,9 +709,9 @@ public class ShowMushafActivity extends BaseActivity implements
         buttonPositive.setTextColor(ContextCompat.getColor(ShowMushafActivity.this, R.color.green));
         Button buttonNegative = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
         buttonNegative.setTextColor(ContextCompat.getColor(ShowMushafActivity.this, R.color.red));
-        if (preferences.equals("purple")) {
-            buttonPositive.setTextColor(ContextCompat.getColor(ShowMushafActivity.this, R.color.yellow));
-            buttonNegative.setTextColor(ContextCompat.getColor(ShowMushafActivity.this, R.color.Goldenrod));
+        if (preferences.equals("light")) {
+            buttonPositive.setTextColor(ContextCompat.getColor(ShowMushafActivity.this, R.color.colorMuslimMate));
+            buttonNegative.setTextColor(ContextCompat.getColor(ShowMushafActivity.this, R.color.red));
 
         } else if (preferences.equals("brown")) {
             buttonPositive.setTextColor(ContextCompat.getColor(ShowMushafActivity.this, R.color.colorMuslimMate));
@@ -837,9 +837,18 @@ public class ShowMushafActivity extends BaseActivity implements
             if (null != holder) {
                 try {
                     if (holder.itemView.findViewById(R.id.quran_textView) != null) {
-                        if (isNightmode.equals("brown")) {
 
-                            //   holder.itemView.findViewById(R.id.quran_textView).setBackgroundColor(Color.CYAN);
+                        if (isNightmode.equals("light")) {
+
+                            holder.itemView.findViewById(R.id.quran_textView).setBackgroundColor(Color.BLUE);
+                            TextView textViews = holder.itemView.findViewById(R.id.quran_textView);
+                            String str = String.valueOf(textViews.getText());
+
+                            SpannableStringBuilder span = new SpannableStringBuilder(str);
+                            span.setSpan(new ForegroundColorSpan(Color.CYAN), 0, str.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        } else      if (isNightmode.equals("brown")) {
+
+                              holder.itemView.findViewById(R.id.quran_textView).setBackgroundColor(Color.CYAN);
                             TextView textViews = holder.itemView.findViewById(R.id.quran_textView);
                             String str = String.valueOf(textViews.getText());
 
@@ -1237,7 +1246,14 @@ public class ShowMushafActivity extends BaseActivity implements
                 try {
                     int drawingCacheBackgroundColor = holder.itemView.findViewById(R.id.rukuview).getDrawingCacheBackgroundColor();
                     if (holder.itemView.findViewById(R.id.quran_textView) != null) {
-                        if (isNightmode.equals("brown")) {
+                        if (isNightmode.equals("light")) {
+
+                            //    holder.itemView.findViewById(R.id.quran_textView).setBackgroundColor(Color.CYAN);
+                            TextView textView = holder.itemView.findViewById(R.id.quran_textView);
+                            int odd_item_bg_brown = R.color.odd_item_bg_brown;
+                            setVerseHighLight(textView, Color.RED);
+
+                        } else if (isNightmode.equals("brown")) {
 
                             //    holder.itemView.findViewById(R.id.quran_textView).setBackgroundColor(Color.CYAN);
                             TextView textView = holder.itemView.findViewById(R.id.quran_textView);
@@ -1505,6 +1521,8 @@ public class ShowMushafActivity extends BaseActivity implements
 
                 if (audioSettingBottomBehaviour.getState() == BottomSheetBehavior.STATE_EXPANDED) {
                     audioSettingBottomBehaviour.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                }else{
+                    audioSettingBottomBehaviour.setState(BottomSheetBehavior.STATE_EXPANDED);
                 }
                 if (exoplayerBottomBehaviour.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
                     audioSettingBottomBehaviour.setState(BottomSheetBehavior.STATE_EXPANDED);
@@ -2273,7 +2291,7 @@ public class ShowMushafActivity extends BaseActivity implements
 
                 initializePlayer();
                 playerFooter.setVisibility(View.VISIBLE);
-                //  audio_settings_bottom.setVisibility(View.GONE);
+                 audio_settings_bottom.setVisibility(View.GONE);
 
             }
         } else {

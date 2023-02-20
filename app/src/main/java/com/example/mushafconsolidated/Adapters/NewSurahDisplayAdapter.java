@@ -111,7 +111,7 @@ public class NewSurahDisplayAdapter extends RecyclerView.Adapter<NewSurahDisplay
             holder.surahcardview.setCardBackgroundColor(context.getResources().getColor(R.color.md_theme_light_secondary));
 
         }*/
-        if (theme.equals("dark") || theme.equals("blue") || theme.equals("purple")||theme.equals("green")) {
+        if (theme.equals("dark") || theme.equals("blue")  ||theme.equals("green")) {
             holder.makkimadaniIcon.setColorFilter(Color.CYAN);
             holder.ivsurahicon.setColorFilter(Color.CYAN);
         } else {

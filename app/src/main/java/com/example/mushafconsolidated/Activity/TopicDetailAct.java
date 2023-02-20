@@ -91,8 +91,8 @@ public class TopicDetailAct extends BaseActivity implements OnItemClickListenerO
         SharedPreferences shared = androidx.preference.PreferenceManager.getDefaultSharedPreferences(TopicDetailAct.this);
         String preferences = shared.getString("themePref", "dark");
         switch (preferences) {
-            case "white":
-                switchTheme("purple");
+            case "light":
+                switchTheme("light");
                 break;
             case "dark":
                 switchTheme("dark");

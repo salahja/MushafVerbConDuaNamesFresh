@@ -232,6 +232,7 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
         //  String arabic_font_selection = sharedPreferences.getString("Arabic_Font_Selection", String.valueOf(MODE_PRIVATE));
 
         String arabic_font_selection = sharedPreferences.getString("Arabic_Font_Selection", "quranicfontregular.ttf");
+
         Typeface custom_font = Typeface.createFromAsset(context.getAssets(),
                 arabic_font_selection);
         final String FONTS_LOCATION_PATH = "fonts/DejaVuSans.ttf";
@@ -297,7 +298,7 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
             final Drawable drawable = imgs.getDrawable(Integer.parseInt(chapterno) - 1);
             imgs.recycle();
             holder.ivSurahIcon.setImageDrawable(drawable);
-            if (isNightmode.equals("dark") || isNightmode.equals("blue") || isNightmode.equals("purple")||isNightmode.equals("green")) {
+            if (isNightmode.equals("dark") || isNightmode.equals("blue") ||isNightmode.equals("green")) {
                 headercolor = Color.YELLOW;
                 holder.ivLocationmakki.setColorFilter(Color.CYAN);
                 holder.ivSurahIcon.setColorFilter(Color.CYAN);
@@ -674,14 +675,15 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
                 switch (isNightmode) {
                     case "dark":
                     case "blue":
-                    case "purple":
+
                     case "green":
                         color = ContextCompat.getColor(context,R.color.background_color);
                         break;
                     case "brown":
                         color = ContextCompat.getColor(context,R.color.neutral0);
                         break;
-                    case "white":
+                    case "light":
+                  //  case "white":
                         color = ContextCompat.getColor(context,R.color.background_color_light_brown);
                         break;
                 }
@@ -789,7 +791,7 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
         } else {
             holder.surah_info.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_madinah_48, 0, 0, 0);
         }
-        if (isNightmode.equals("dark") || isNightmode.equals("blue")||isNightmode.equals("purple")||isNightmode.equals("green")) {
+        if (isNightmode.equals("dark") || isNightmode.equals("blue") ||isNightmode.equals("green")) {
 //TextViewCompat.setCompoundDrawableTintList()
             holder.surah_info.setCompoundDrawableTintList(ColorStateList.valueOf(Color.CYAN));
         } else {

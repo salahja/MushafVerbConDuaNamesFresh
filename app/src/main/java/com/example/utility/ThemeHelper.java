@@ -52,7 +52,7 @@ public class ThemeHelper {
                 break;
             }
             case DARK_BLUE: {
-                QuranGrammarApplication.getContext().setTheme(R.style.Theme_DarkBlue);
+                QuranGrammarApplication.getContext().setTheme(R.style.AppTheme_materialdarkblue);
                 //     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                 break;
             }
@@ -61,7 +61,7 @@ public class ThemeHelper {
                 break;
             }
             case GREEN_MODE: {
-                QuranGrammarApplication.getContext().setTheme(R.style.Theme_Brown);
+                QuranGrammarApplication.getContext().setTheme(R.style.Theme_Browns);
                 //  AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                 break;
             }

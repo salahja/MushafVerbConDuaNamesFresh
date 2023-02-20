@@ -114,7 +114,7 @@ public class FragmentContainerView extends BottomSheetDialogFragment  {
                 public void onClick(View v) {
                     SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getActivity()).edit();
                     //     SharedPreferences.Editor editor = getActivity().getSharedPreferences("properties", 0).edit();
-                    editor.putString("themepref", "purple");
+                    editor.putString("themepref", "light");
                     editor.apply();
                     dismiss();
                 }
@@ -192,7 +192,7 @@ public class FragmentContainerView extends BottomSheetDialogFragment  {
 
 
             String theme = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("themepref", "dark");
-       if(theme.equals("purple")){
+       if(theme.equals("light")){
            holder.purple.setChecked(true);
        } else if    (theme.equals("dark")) {
 

@@ -75,7 +75,7 @@ public class SarfMujarradSarfSagheerListingAdapter extends RecyclerView.Adapter<
 
 
 
-        if (preferences.equals("dark") || preferences.equals("blue") || preferences.equals("purple")||preferences.equals("green")) {
+        if (preferences.equals("dark") || preferences.equals("blue") ||preferences.equals("green")) {
             rootcolor = Color.CYAN;
             weaknesscolor = Color.YELLOW;
             wazancolor = Color.CYAN;

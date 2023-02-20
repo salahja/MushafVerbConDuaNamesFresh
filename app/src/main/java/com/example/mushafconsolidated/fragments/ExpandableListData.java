@@ -86,7 +86,7 @@ public class ExpandableListData {
         String preferences = prefs.getString("theme", "dark");
         dark = preferences.equals("dark")
                 || preferences.equals("blue")
-                || preferences.equals("purple")
+
                 || preferences.equals("green");
         String whichtranslation = prefs.getString("selecttranslation", "en_sahih");
         whichwbw = prefs.getString("wbw", "en_sahih");

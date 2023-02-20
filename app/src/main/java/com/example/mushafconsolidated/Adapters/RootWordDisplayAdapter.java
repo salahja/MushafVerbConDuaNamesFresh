@@ -124,7 +124,7 @@ public class RootWordDisplayAdapter extends RecyclerView.Adapter<RootWordDisplay
         } else {
             arabicFontsize = 18;
         }
-  /*      if (theme.equals("dark") || theme.equals("blue") || theme.equals("purple")||theme.equals("green")) {
+  /*      if (theme.equals("dark") || theme.equals("blue")  ||theme.equals("green")) {
             //    holder.darkThemeBacground.setBackground(context.getResources().getDrawable(R.drawable.activatedbackgroundblack));
             holder.darkThemeBacground.setCardBackgroundColor(context.getResources().getColor(R.color.odd_item_bg_black));
 
@@ -194,7 +194,7 @@ public class RootWordDisplayAdapter extends RecyclerView.Adapter<RootWordDisplay
         }
         Typeface mequran = Typeface.createFromAsset(context.getAssets(), quranFont);
         Log.d(TAG, "onBindViewHolder: called");
-        if (theme.equals("dark") || theme.equals("blue") || theme.equals("purple")||theme.equals("green")) {
+        if (theme.equals("dark") || theme.equals("blue")  ||theme.equals("green")) {
             rootcolor = Constant.BYELLOW;
             weaknesscolor = Constant.BCYAN;
             wazancolor = Constant.BCYAN;

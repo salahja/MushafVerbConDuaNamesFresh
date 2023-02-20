@@ -418,10 +418,13 @@ public class WordbywordMushafAct extends BaseActivity implements
         exoplayerBottomBehaviour = BottomSheetBehavior.from(bottomsheetexoplayer);
         exoplayerBottomBehaviour.setState(BottomSheetBehavior.STATE_EXPANDED);
 
+
         RelativeLayout playerbottomsheet = findViewById(R.id.audio_settings_bottom);
         audioSettingBottomBehaviour = BottomSheetBehavior.from(playerbottomsheet);
         audioSettingBottomBehaviour.setState(BottomSheetBehavior.STATE_COLLAPSED);
         recyclerView = (RecyclerView) findViewById(R.id.rvAyahsPages);
+
+
 
         initSpinner();
         if (!singleline) {
@@ -717,8 +720,9 @@ public class WordbywordMushafAct extends BaseActivity implements
         String preferences = sharedPreferences.getString("themepref", "dark");
         int db = ContextCompat.getColor(this, R.color.odd_item_bg_dark_blue_light);
 
-        if (preferences.equals("purple")) {
-            alertDialog.getWindow().setBackgroundDrawableResource(R.color.md_theme_dark_onSecondary);
+        if (preferences.equals("light")) {
+        //    alertDialog.getWindow().setBackgroundDrawableResource(R.color.md_theme_dark_onSecondary);
+            alertDialog.getWindow().setBackgroundDrawableResource(R.color.background_color_light_brown);
             //   alertDialog.getWindow().setBackgroundDrawableResource(R.color.md_theme_dark_onTertiary);
 
             //
@@ -747,9 +751,9 @@ public class WordbywordMushafAct extends BaseActivity implements
         buttonPositive.setTextColor(ContextCompat.getColor(WordbywordMushafAct.this, R.color.green));
         Button buttonNegative = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
         buttonNegative.setTextColor(ContextCompat.getColor(WordbywordMushafAct.this, R.color.red));
-        if (preferences.equals("purple")) {
-            buttonPositive.setTextColor(ContextCompat.getColor(WordbywordMushafAct.this, R.color.yellow));
-            buttonNegative.setTextColor(ContextCompat.getColor(WordbywordMushafAct.this, R.color.Goldenrod));
+        if (preferences.equals("light")) {
+            buttonPositive.setTextColor(ContextCompat.getColor(WordbywordMushafAct.this, R.color.colorMuslimMate));
+            buttonNegative.setTextColor(ContextCompat.getColor(WordbywordMushafAct.this, R.color.red));;
 
         } else if (preferences.equals("brown")) {
             buttonPositive.setTextColor(ContextCompat.getColor(WordbywordMushafAct.this, R.color.colorMuslimMate));
@@ -885,7 +889,14 @@ public class WordbywordMushafAct extends BaseActivity implements
                 try {
 
                     if (holder.itemView.findViewById(R.id.flow_word_by_word) != null) {
-                        if (isNightmode.equals("brown")) {
+
+                        if(isNightmode.equals("light")){
+                            TextView textViews =      holder.itemView.findViewById(R.id.flow_word_by_word).findViewById(R.id.word_arabic_textView);
+                            holder.itemView.findViewById(R.id.flow_word_by_word).setBackgroundColor(ContextCompat.getColor(WordbywordMushafAct.this, R.color.horizontalview_color_ab));
+
+
+                        }
+                     else    if (isNightmode.equals("brown")) {
                             TextView textViews =      holder.itemView.findViewById(R.id.flow_word_by_word).findViewById(R.id.word_arabic_textView);
                             holder.itemView.findViewById(R.id.flow_word_by_word).setBackgroundColor(ContextCompat.getColor(WordbywordMushafAct.this, R.color.bg_surface_brown));
 
@@ -1799,7 +1810,7 @@ public class WordbywordMushafAct extends BaseActivity implements
             }
             normalFooter.setVisibility(View.GONE);
         }
-        playerFooter.setVisibility(View.VISIBLE);
+
         if (audioSettingBottomBehaviour.getState() == BottomSheetBehavior.STATE_EXPANDED) {
             audioSettingBottomBehaviour.setState(BottomSheetBehavior.STATE_COLLAPSED);
         }
@@ -1985,8 +1996,9 @@ public class WordbywordMushafAct extends BaseActivity implements
             } else {
 
                 initializePlayer();
+
                 playerFooter.setVisibility(View.VISIBLE);
-                //  audio_settings_bottom.setVisibility(View.GONE);
+                audio_settings_bottom.setVisibility(View.GONE);
 
             }
         } else {

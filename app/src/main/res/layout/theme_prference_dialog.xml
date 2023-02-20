@@ -13,7 +13,7 @@
         android:layout_marginTop="60dp"
         android:fontFamily="cursive"
         android:textSize="25sp"
-        android:text="Purple"
+        android:text="Light"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

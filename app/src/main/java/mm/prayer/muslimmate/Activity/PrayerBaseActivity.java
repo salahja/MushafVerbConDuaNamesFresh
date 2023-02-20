@@ -12,7 +12,7 @@ import com.google.android.material.color.DynamicColors;
 
 
 public  class PrayerBaseActivity extends AppCompatActivity {
-    public static final String PURPLE_THEME = "purple";
+    public static final String LIGHT_THEME = "purple";
     public static final String DARK_THEME = "dark";
     public static final String DARK_BLUE = "blue";
     public static final String DARK_GREEN = "green";
@@ -36,20 +36,20 @@ public  class PrayerBaseActivity extends AppCompatActivity {
     protected void switchTheme(String currenttheme) {
         switch (currenttheme) {
             default:
-            case PURPLE_THEME:
+            case LIGHT_THEME:
                 setTheme(R.style.AppTheme_Dark);
                 break;
             case DARK_THEME:
                 setTheme(R.style.Theme_Black);
                 break;
             case DARK_BLUE:
-                setTheme(R.style.Theme_DarkBlue);
+                setTheme(R.style.AppTheme_materialdarkblue);
                 break;
             case DARK_GREEN:
                 setTheme(R.style.AppTheme_DarkGreen);
                 break;
             case BROWN_MODE:
-                setTheme(R.style.Theme_Brown);
+                setTheme(R.style.Theme_Browns);
                 break;
         }
         PreferenceManager.getDefaultSharedPreferences(this).edit().putString("mmtheme", currenttheme).apply();

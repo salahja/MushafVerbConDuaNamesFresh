@@ -345,7 +345,7 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
    /*     AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) materialToolbar.getLayoutParams();
         params.setScrollFlags(0);*/
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.getContext());
-        if (preferences.equals("dark") || preferences.equals("blue") || preferences.equals("purple")||preferences.equals("green")) {
+        if (preferences.equals("dark") || preferences.equals("blue") ||preferences.equals("green")) {
             shartagainstback = prefs.getInt("shartback", Color.GREEN);
             mausofColoragainstBlack = prefs.getInt("mausoofblack", Color.RED);
             mudhafColoragainstBlack = prefs.getInt("mudhafblack", Color.CYAN);
@@ -837,7 +837,7 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
         String preferences = shared.getString("themepref", "dark");
         int db = ContextCompat.getColor(QuranGrammarApplication.getContext(), color.odd_item_bg_dark_blue_light);
 
-        if(preferences.equals("purple")) {
+        if(preferences.equals("light")) {
            alertDialog.getWindow().setBackgroundDrawableResource(color.md_theme_dark_onSecondary);
          //   alertDialog.getWindow().setBackgroundDrawableResource(R.color.md_theme_dark_onTertiary);
 
@@ -868,10 +868,9 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
         buttonPositive.setTextColor(ContextCompat.getColor(this, color.green));
         Button buttonNegative = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
         buttonNegative.setTextColor(ContextCompat.getColor(this, color.red));
-        if(preferences.equals("purple")) {
-            buttonPositive.setTextColor(ContextCompat.getColor(this, color.yellow));
-            buttonNegative.setTextColor(ContextCompat.getColor(this, color.Goldenrod));
-
+        if(preferences.equals("light")) {
+            buttonPositive.setTextColor(ContextCompat.getColor(this, color.colorMuslimMate));
+            buttonNegative.setTextColor(ContextCompat.getColor(this, color.red));
         }else   if(preferences.equals("brown")) {
             buttonPositive.setTextColor(ContextCompat.getColor(this, color.colorMuslimMate));
             buttonNegative.setTextColor(ContextCompat.getColor(this, color.red));
@@ -1014,7 +1013,7 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
         String preferences = shared.getString("themepref", "dark");
         int db = ContextCompat.getColor(QuranGrammarApplication.getContext(), color.odd_item_bg_dark_blue_light);
 
-        if(preferences.equals("purple")) {
+        if(preferences.equals("light")) {
             alertDialog.getWindow().setBackgroundDrawableResource(color.md_theme_dark_onSecondary);
             cardview.setCardBackgroundColor(PURPLES);
         }else   if(preferences.equals("brown")) {

@@ -119,7 +119,7 @@ public class NounVerbOccuranceListAdapter extends BaseExpandableListAdapter {
         listTitleTextView.setTypeface(null, Typeface.BOLD);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.getContext());
         String preferences = prefs.getString("theme", "dark");
-        if (preferences.equals("dark") || preferences.equals("blue")||preferences.equals("purple")||preferences.equals("green")) {
+        if (preferences.equals("dark") || preferences.equals("blue")||preferences.equals("green")) {
             listTitleTextView.setTextColor(CYAN);
         } else {
             listTitleTextView.setTextColor(ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.burntamber));

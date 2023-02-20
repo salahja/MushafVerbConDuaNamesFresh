@@ -258,7 +258,7 @@ public class WordAnalysisBottomSheet extends DialogFragment {
         }
         boolean dark = themepreference.equals("dark")
                 || themepreference.equals("blue")
-                || themepreference.equals("purple")
+
                 || themepreference.equals("green");
         Utils utils = new Utils(getActivity());
         ExecutorService ex = Executors.newSingleThreadExecutor();

@@ -124,7 +124,7 @@ public class ManualLocationFragmentbackup extends Fragment implements SearchView
         //  String theme = sharedPreferences.getString("theme", 1);
         String themePref = sharedPreferences.getString("themepref", "white");
         ArrayAdapter<String> adapter;
-        if(themePref.equals("blue")|| themePref.equals("purple")||themePref.equals("black")){
+        if(themePref.equals("blue")||themePref.equals("black")){
             //spinner adapter
             adapter = new ArrayAdapter<String>(context,
                     R.layout.mm_spinner_view_dark, countries);

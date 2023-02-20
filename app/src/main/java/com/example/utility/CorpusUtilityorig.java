@@ -179,7 +179,6 @@ Activity activity;
         String preferences = prefs.getString("theme", "dark");
         dark = preferences.equals("dark")
                 || preferences.equals("blue")
-                || preferences.equals("purple")
                 || preferences.equals("green");
 
     }
@@ -192,7 +191,7 @@ Activity activity;
         String preferences = prefs.getString("theme", "dark");
         dark = preferences.equals("dark")
                 || preferences.equals("blue")
-                || preferences.equals("purple")
+
                 || preferences.equals("green");
 
     }
@@ -705,8 +704,8 @@ Activity activity;
       //  String preferences = sharedPreferences.getString("themepref", "dark");
         int db = ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.odd_item_bg_dark_blue_light);
 
-        if(preferences.equals("purple")) {
-            alertDialog.getWindow().setBackgroundDrawableResource(R.color.md_theme_dark_onSecondary);
+        if(preferences.equals("light")) {
+            alertDialog.getWindow().setBackgroundDrawableResource(R.color.background_color_light_brown);
             //   alertDialog.getWindow().setBackgroundDrawableResource(R.color.md_theme_dark_onTertiary);
 
             //
@@ -739,9 +738,9 @@ Activity activity;
         buttonPositive.setTextColor(ContextCompat.getColor(activity, R.color.green));
         Button buttonNegative = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
         buttonNegative.setTextColor(ContextCompat.getColor(activity, R.color.red));
-        if(preferences.equals("purple")) {
-            buttonPositive.setTextColor(ContextCompat.getColor(activity, R.color.yellow));
-            buttonNegative.setTextColor(ContextCompat.getColor(activity, R.color.Goldenrod));
+        if(preferences.equals("light")) {
+            buttonPositive.setTextColor(ContextCompat.getColor(activity, R.color.colorMuslimMate));
+            buttonNegative.setTextColor(ContextCompat.getColor(activity, R.color.red));
 
         }else   if(preferences.equals("brown")) {
             buttonPositive.setTextColor(ContextCompat.getColor(activity, R.color.colorMuslimMate));

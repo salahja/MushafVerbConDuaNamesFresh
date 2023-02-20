@@ -96,7 +96,7 @@ public class GrammarFragmentsListAdapter extends BaseExpandableListAdapter {
         String preferences = prefs.getString("theme", "dark");
         boolean dark = preferences.equals("dark")
                 || preferences.equals("blue")
-                || preferences.equals("purple")
+
                 || preferences.equals("green");
         if (dark) {
             listTitleTextView.setTextColor(CYAN);

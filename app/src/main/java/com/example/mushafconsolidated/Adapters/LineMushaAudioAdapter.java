@@ -213,7 +213,7 @@ public class LineMushaAudioAdapter extends RecyclerView.Adapter<LineMushaAudioAd
             final Drawable drawable = imgs.getDrawable(Integer.parseInt(chapterno) - 1);
             imgs.recycle();
             holder.ivSurahIcon.setImageDrawable(drawable);
-            if (isNightmode.equals("dark") || isNightmode.equals("blue") || isNightmode.equals("purple")||isNightmode.equals("green")) {
+            if (isNightmode.equals("dark") || isNightmode.equals("blue") ||isNightmode.equals("green")) {
                 headercolor = Color.YELLOW;
                 holder.ivLocationmakki.setColorFilter(Color.CYAN);
                 holder.ivSurahIcon.setColorFilter(Color.CYAN);
@@ -464,7 +464,7 @@ public class LineMushaAudioAdapter extends RecyclerView.Adapter<LineMushaAudioAd
         } else {
             holder.surah_info.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_madinah_48, 0, 0, 0);
         }
-        if (isNightmode.equals("dark") || isNightmode.equals("blue")||isNightmode.equals("purple")||isNightmode.equals("green")) {
+        if (isNightmode.equals("dark") || isNightmode.equals("blue")||isNightmode.equals("green")) {
 //TextViewCompat.setCompoundDrawableTintList()
             holder.surah_info.setCompoundDrawableTintList(ColorStateList.valueOf(Color.CYAN));
         } else {
