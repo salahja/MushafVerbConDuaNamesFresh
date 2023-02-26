@@ -80,7 +80,7 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> im
 
 
         SharedPreferences prefs = getDefaultSharedPreferences(ApplicationContext.getContext());
-        String fontCategory = sharedPreferences.getString("arabic_font_category", "cal.otf");
+        String fontCategory = sharedPreferences.getString("arabic_font_category", "me_quran.otf");
         //     Typeface prefArabicFontTypeface = Typeface.createFromAsset(ApplicationContext.getContext().getAssets(), fontCategory);
         String fonts = prefs.getString("Arabic_Font_Size", "25");
         //    int arabicfontSize = sharedPreferences.getInt("pref_font_arabic_key", 18);

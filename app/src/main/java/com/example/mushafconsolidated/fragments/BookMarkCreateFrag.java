@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -42,6 +43,7 @@ public class BookMarkCreateFrag extends BottomSheetDialogFragment {
     private RecyclerView recyclerView;
     private String suraname;
     private int chapter,verse;
+    private int selectedposition;
 
 
     public BookMarkCreateFrag() {
@@ -61,7 +63,8 @@ public class BookMarkCreateFrag extends BottomSheetDialogFragment {
     RadioGroup radioGroup;
     private BookmarCrateAdapter bookmarCrateAdapter;
     RelativeLayout frameLayout;
-
+    List<BookMarksPojo> collectionC=new ArrayList<>();
+    ArrayList<BookMarks> bookMarks=new ArrayList<>();
     // TODO: Customize parameters
     public static BookMarkCreateFrag newInstance(String[] data) {
         final BookMarkCreateFrag fragment = new BookMarkCreateFrag();
@@ -102,17 +105,27 @@ public class BookMarkCreateFrag extends BottomSheetDialogFragment {
 
         ArrayList<String> details = new ArrayList<>();
         Utils utils = new Utils(getActivity());
-        ArrayList<BookMarks> bookMarks = utils.getBookMarks();
-        List<BookMarksPojo> collectionC = utils.getCollectionC();
-        BookmarCrateAdapter bookmarCrateAdapter = new BookmarCrateAdapter(bookMarks, collectionC);
+
+         collectionC = utils.getCollectionC();
+        BookmarCrateAdapter bookmarCrateAdapter = new BookmarCrateAdapter(collectionC);
 
 
         recyclerView.setAdapter(bookmarCrateAdapter);
         bookmarCrateAdapter.SetOnItemClickListener(new BookmarCrateAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
+                RecyclerView.ViewHolder holder=   (RecyclerView.ViewHolder) recyclerView.findViewHolderForAdapterPosition(position);
+                if (holder != null) {
+
+                    CheckBox ck= holder.itemView.findViewById(R.id.checkbox);
+                    if(ck!=null){
+                        selectedposition=position;
+                    }
+                    System.out.println("check");
+                }
+
                 Object tag = v.getTag();
-                if (tag.equals("create")) {
+                if (tag.equals("newcollection")) {
                     AlertDialog.Builder dialogPicker = new AlertDialog.Builder(getActivity());
                     Dialog dlg = new Dialog(getActivity());
                     //  AlertDialog dialog = builder.create();
@@ -132,8 +145,15 @@ public class BookMarkCreateFrag extends BottomSheetDialogFragment {
                     dialogPicker.show();
 
 
-                } else if (tag.equals("add")) {
-                    bookMarkSelected(position, "pins");
+                } else if (tag.equals("addcollection")) {
+                    --selectedposition;
+             BookMarksPojo book=        collectionC.get(selectedposition);
+                    RecyclerView.ViewHolder holderS=   (RecyclerView.ViewHolder) recyclerView.findViewHolderForAdapterPosition(position-2);
+                    if (holder != null) {
+                        CheckBox ck= holderS.itemView.findViewById(R.id.checkbox);
+                        System.out.println("check");
+                    }
+                    bookMarkSelected(selectedposition, book.getHeader());
                     Toast.makeText(getActivity(), "create collections", Toast.LENGTH_SHORT).show();
 
                 }

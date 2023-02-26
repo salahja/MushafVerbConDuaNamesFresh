@@ -48,6 +48,7 @@ import com.example.mushafconsolidated.Entities.BookMarks;
 import com.example.mushafconsolidated.R;
 import com.example.mushafconsolidated.Utils;
 import com.example.mushafconsolidated.intrface.OnItemClickListener;
+import com.example.utility.QuranGrammarApplication;
 import com.example.utility.SwipeToDeleteCallback;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -88,50 +89,36 @@ public class PinsFragment extends Fragment  {
     RecyclerView.LayoutManager layoutManager;
     private BookmarksShowAdapter bookmarksShowAdapter;
     private RecyclerView mRecview;
-    private TextView monthDay, monthView, weekDay,
-            HmonthDay, HmonthView, country, city, fajr,
-            sunrise, zuhr, asr, magrib, isha, salahNow, remain;
-    private RelativeLayout pray1, pray2, pray3, pray4, pray5, pray6;
-    private Context context;
-    private LocationReader lr;
-    private MuslimMatePrayerTimes muslimMatePrayerTimes;
-    private SimpleDateFormat format;
-    private Timer timer;
-    private LocationInfo locationInfo;
-    private Prayer arabEyesPrayerCalculator;
-    private StandardMethod calmethod ;
-ListView listView;
-    private OnItemClickListener listner;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     //    View rootView = inflater.inflate(R.layout.activity_collection, container, false);
         View view = inflater.inflate(R.layout.fragment_bookmark, container, false);
         Utils utils = new Utils(getActivity());
-        List<BookMarks> bookMarksNew = Utils.getBookMarksNew();
+        List<BookMarks> bookMarksNew = Utils.getAllBookmarks("pins");
+        List<BookMarks> bookMarksNews = Utils.getBookMarksNew();
 
-        //  List<BookMarks> bookmarks = new DatabaseAccess().getBookmarks();
         bookmarksShowAdapter = new BookmarksShowAdapter(getActivity());
         mRecview = view.findViewById(R.id.recyclerViewAdapterTranslation);
-        coordinatorLayout = view.findViewById(R.id.coordinatorLayout);
-        this.layoutManager = new LinearLayoutManager(getActivity());
+        coordinatorLayout = view.findViewById(R.id.coordinatorLayoutbookmark);
+        this.layoutManager = new LinearLayoutManager(QuranGrammarApplication.appContext);
         mRecview.setLayoutManager(layoutManager);
-        //    bookmarksShowAdapter.setBookMarkArrayList((ArrayList<String>) bookmarstringarray);
+
         bookmarksShowAdapter.setBookMarkArrayList(bookMarksNew);
         mRecview.setAdapter(bookmarksShowAdapter);
-        //    mRecview.setLayoutManager(new LinearLayoutManager(getActivity()));
+
     enableSwipeToDeleteAndUndo();
         return view;
-      //  return rootView;
+
     }
 
     private void enableSwipeToDeleteAndUndo() {
         SwipeToDeleteCallback swipeToDeleteCallback = new SwipeToDeleteCallback(getActivity()) {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-                //    final int position = viewHolder.getAdapterPosition();
-                //  final String item = mAdapter.getData().get(position);
-                //   mAdapter.removeItem(position);
+
                 final int position = viewHolder.getAdapterPosition();
                 final BookMarks item = bookmarksShowAdapter.getBookMarkArrayList().get(position);
                 //   final int code = item.hashCode();
@@ -142,7 +129,7 @@ ListView listView;
                 snackbar.setAction("UNDO", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //     bookmarksShowAdapter.restoreItem(item, position);
+
                         mRecview.scrollToPosition(position);
                     }
                 });
@@ -151,10 +138,8 @@ ListView listView;
                 final long itemId = bookmarksShowAdapter.getItemId(position);
                 final int bookmarkid = bookmarksShowAdapter.getBookmarid();
                 bookmarksShowAdapter.getBookChapterno();
-                //      bookmarksShowAdapter.getBookMarkArrayList(bookmarkid)
-                //  Utils butils = new Utils(getActivity());
-                //  butils.deleteBookmarks(bookmarid);
-                Utils.deleteBookMarks(item);
+          //    Utils.deleteBookMarks(item);
+            Utils.deleteBookmark(item);
 
             }
         };
@@ -169,16 +154,13 @@ ListView listView;
             @Override
             public void onItemClick(View v, int position) {
                 BookMarks bmark = (BookMarks) bookmarksShowAdapter.getItem(position);
-                //        ChaptersAnaEntity surah = (ChaptersAnaEntity) bookmarksShowAdapter.getItem(position);
+
                 Bundle dataBundle = new Bundle();
                 dataBundle.putInt(SURAH_ID, Integer.parseInt(bmark.getChapterno()));
                 dataBundle.putInt(AYAHNUMBER, Integer.parseInt(bmark.getVerseno()));
                 dataBundle.putString(SURAH_ARABIC_NAME, bmark.getSurahname());
-//                dataBundle.putInt(VERSESCOUNT,bmark.getVersescount());
-                //VersesFragment frag = new VersesFragment();
-                //   frag.setArguments(dataBundle);
-                String header = bmark.getHeader();
-                Fragment fragment;
+
+
                 Intent readingintent = new Intent(getActivity(), QuranGrammarAct.class);
                 readingintent.putExtra(MUFRADATFRAGTAG, false);
                 readingintent.putExtra(CHAPTER, Integer.parseInt(bmark.getChapterno()));
@@ -193,16 +175,7 @@ ListView listView;
 
     }
 
-/*
-    @Override
-    public void onItemClick(View v, int position) {
-      Object tag=  v.getTag();
-      if(tag.equals("icon")) {
-          System.out.printf("check");
-      }
 
-
-    }*/
 }
 
 

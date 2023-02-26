@@ -392,6 +392,9 @@
     <item name="display" type="id" />
     <item name="surahselection" type="id" />
     <item name="playresume" type="id" />
+    <item name="createbookmark" type="id" />
+    <item name="addtocollection" type="id" />
+    <item name="newcollection" type="id" />
 
 
 </resources>

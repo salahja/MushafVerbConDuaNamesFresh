@@ -437,7 +437,7 @@
     <string name="title_notifications">Notifications</string>
     <string name="secret_google_maps_api_key" translatable="false">prayer-times-59273</string>
 
-
+    <string name="bookmarkst">Bookmarks Display</string>
     <string name="main">Muslim Mate</string>
     <string name="action_compass">Compass</string>
 
@@ -664,7 +664,7 @@
   </string>
     <string name="collection">Collections</string>
     <string name="pins">Add to Pins</string>
-    <string name="ccreate_new">Create New</string>
+    <string name="ccreate_new">New Collection</string>
     <string name="addbookmarks">Add Bmarks</string>
     <string name="tafseerTap">Tafseer</string>
     <string name="tv_no_quran_data">No quran</string>
@@ -788,7 +788,9 @@ Stream audio when possible (non-gapless audio only)
     <string name="Audio">Audio</string>
     <string name="plays">Play</string>
     <string name="SelectSurah">Surah Selection</string>
-    <string name="resume">Resume</string>>
+    <string name="resume">Resume</string>
+    <string name="createpin">Create Bookmark</string>
+    <string name="addtocollection">Add to Collection</string>>
 
 
 

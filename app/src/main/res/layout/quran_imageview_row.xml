@@ -45,6 +45,17 @@
 
         </ImageView>
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/collectionfb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fabSize="mini"
+            app:fabCustomSize="@dimen/fabsize"
+            android:tooltipText="Share ScreenShot"
+            android:src="@drawable/baseline_collections_24"
+
+            android:contentDescription="share"
+            tools:ignore="RelativeOverlap" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/sharescreenfb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -104,7 +115,7 @@
             android:tooltipText="Bookmark Ayah"
             app:fabCustomSize="@dimen/fabsize"
             app:fabSize="mini"
-            android:src="@drawable/baseline_bookmarks_red_900_36dp"
+            android:src="@drawable/ic_baseline_bookmark_add_24"
 
 
             android:contentDescription="TODssO" />

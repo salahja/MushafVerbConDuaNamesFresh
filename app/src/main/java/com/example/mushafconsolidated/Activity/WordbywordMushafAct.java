@@ -1,6 +1,7 @@
 package com.example.mushafconsolidated.Activity;
 
 import static android.text.TextUtils.concat;
+import static com.example.Constant.BOOKMARKTAG;
 import static com.example.Constant.CHAPTER;
 import static com.example.Constant.SURAH_ARABIC_NAME;
 import static com.google.android.exoplayer2.util.RepeatModeUtil.REPEAT_TOGGLE_MODE_ONE;
@@ -364,7 +365,7 @@ public class WordbywordMushafAct extends BaseActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.wbwaudio);
+        setContentView(R.layout.vfour_expandable_newactivity_show_ayahs);
         //    ButterKnife.bind(this);
         //    QuranGrammarApplication.appContext = ShowMushafActivity.this;
         //  intentmyservice = new Intent(this, AudioService.class);
@@ -420,7 +421,7 @@ public class WordbywordMushafAct extends BaseActivity implements
 
         RelativeLayout playerbottomsheet = findViewById(R.id.audio_settings_bottom);
         audioSettingBottomBehaviour = BottomSheetBehavior.from(playerbottomsheet);
-        audioSettingBottomBehaviour.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        audioSettingBottomBehaviour.setState(BottomSheetBehavior.STATE_EXPANDED);
         recyclerView = (RecyclerView) findViewById(R.id.rvAyahsPages);
 
 
@@ -940,7 +941,7 @@ public class WordbywordMushafAct extends BaseActivity implements
 
             //  rvAyahsPages.post(() -> rvAyahsPages.scrollToPosition((ayah)));
 
-            handler.postDelayed(this, 1000);
+            handler.postDelayed(this, 1500);
 
 
         }
@@ -1027,6 +1028,17 @@ public class WordbywordMushafAct extends BaseActivity implements
     }
 
     protected boolean initializePlayer() {
+
+       if( audioSettingBottomBehaviour.getState()==BottomSheetBehavior.STATE_EXPANDED){
+           audioSettingBottomBehaviour.setState(BottomSheetBehavior.STATE_COLLAPSED);
+           exoplayerBottomBehaviour.setState(BottomSheetBehavior.STATE_EXPANDED);
+           playerFooter.setVisibility(View.VISIBLE);
+           audio_settings_bottom.setVisibility(View.GONE);
+
+       }
+
+
+     ;
         if (isMusicplaying) {
             releasePlayer();
         }
@@ -1781,7 +1793,12 @@ public class WordbywordMushafAct extends BaseActivity implements
     protected void onPause() {
 //        mSensorManager.unregisterListener(this);
         super.onPause();
-
+        audioSettingBottomBehaviour.setState(BottomSheetBehavior.STATE_EXPANDED);
+        playerFooter.setVisibility(View.VISIBLE);
+        if(player!=null){
+            player.pause();;
+        }
+       // player.play();
         //unregister broadcast for download ayat
         LocalBroadcastManager.getInstance(this).unregisterReceiver(downloadPageAya);
         //stop flag of auto start
@@ -1809,12 +1826,19 @@ public class WordbywordMushafAct extends BaseActivity implements
          //   normalFooter.setVisibility(View.GONE);
         }
 
-        if (audioSettingBottomBehaviour.getState() == BottomSheetBehavior.STATE_EXPANDED) {
-            audioSettingBottomBehaviour.setState(BottomSheetBehavior.STATE_COLLAPSED);
-        }
+      //  if (audioSettingBottomBehaviour.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+         //   audioSettingBottomBehaviour.setState(BottomSheetBehavior.STATE_COLLAPSED);
+       // }
         if (exoplayerBottomBehaviour.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
             audioSettingBottomBehaviour.setState(BottomSheetBehavior.STATE_EXPANDED);
+            playerFooter.setVisibility(View.VISIBLE);
             player.play();
+        }
+        if(playerFooter.getVisibility()==View.GONE){
+            playerFooter.setVisibility(View.VISIBLE);
+            if (player != null) {
+                player.play();
+            }
         }
         //loadPagesReadLoge();
     }
@@ -1995,8 +2019,7 @@ public class WordbywordMushafAct extends BaseActivity implements
 
                 initializePlayer();
 
-                playerFooter.setVisibility(View.VISIBLE);
-                audio_settings_bottom.setVisibility(View.GONE);
+
 
             }
         } else {

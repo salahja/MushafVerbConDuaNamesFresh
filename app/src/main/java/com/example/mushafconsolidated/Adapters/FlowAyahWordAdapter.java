@@ -703,9 +703,9 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
                 @Override
                 public void onClick(View view) {
                     //pause player when word details is clicked
-                    if (context instanceof WordbywordMushafAct) {
+               /*     if (context instanceof WordbywordMushafAct) {
                         ((WordbywordMushafAct)context).pauseplay();
-                    }
+                    }*/
                     final Dialog dialog = new Dialog(context);
                     dialog.setTitle(word.getWordsAr());
                     Bundle dataBundle = new Bundle();
@@ -829,7 +829,7 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
         ImageView mafoolatarow;
         Group hiddenGroup, card_group;
         MaterialCardView base_cardview;
-        FloatingActionButton tafsir, jumptofb, bookmarfb, fabmenu,helpfb,summbaryfb,sharescreenfb;
+        FloatingActionButton tafsir, jumptofb, bookmarfb, fabmenu,helpfb,summbaryfb,sharescreenfb,collectionfb;
         ItemViewAdapter(View view, int viewType) {
             super(view);
             view.setTag(this);
@@ -902,7 +902,9 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
                 mafoolbihi = view.findViewById(R.id.directobject);
             base_cardview = view.findViewById(R.id.base_cardview);
 
-
+                collectionfb=view.findViewById(R.id.collectionfb);
+                collectionfb.setOnClickListener(this);
+                collectionfb.setTag("collection");
                 fabmenu =  view. findViewById(R.id.expandfabs);
                 tafsir =   view. findViewById(R.id.tafsirfb);
                 jumptofb =   view. findViewById(R.id.jumptofb);
@@ -975,6 +977,13 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
                             sharescreenfb.animate().translationX(-getInstance().getResources().getDimension(R.dimen.standard_305));
                             sharescreenfb.animate().rotationBy(360);
                             sharescreenfb.animate().setDuration(500);
+
+
+                            collectionfb.setVisibility(View.VISIBLE);
+                            collectionfb.animate().translationX(-getInstance().getResources().getDimension(R.dimen.standard_405));
+                            collectionfb.animate().rotationBy(360);
+                            collectionfb.animate().setDuration(500);
+
                         }else{
 
                             tafsir.setVisibility(View.VISIBLE);
@@ -1157,7 +1166,8 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
                         helpfb.animate().translationX(0);
                         sharescreenfb.animate().translationX(0);
                         sharescreenfb.animate().rotationBy(360);
-
+                        collectionfb.animate().translationX(0);
+                        collectionfb.animate().rotationBy(360);
 
                     }
                 });

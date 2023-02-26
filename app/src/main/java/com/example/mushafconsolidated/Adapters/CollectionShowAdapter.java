@@ -102,8 +102,14 @@ public class CollectionShowAdapter extends RecyclerView.Adapter<CollectionShowAd
         SharedPreferences shared = android.preference.PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.getContext());
         String isNightmode = shared.getString("theme", "dark");
         String chapterno = bookMark.getChapterno();
-        final Drawable drawable = imgs.getDrawable((Integer.parseInt(chapterno) - 1));
-        holder.pinicon.setImageDrawable(drawable);
+
+        if(!chapterno.isEmpty()) {
+            final Drawable drawable = imgs.getDrawable((Integer.parseInt(chapterno) - 1));
+            holder.pinicon.setImageDrawable(drawable);
+       //     holder.surahicon.setImageDrawable(drawable);
+        }
+     //   final Drawable drawable = imgs.getDrawable((Integer.parseInt(chapterno) - 1));
+
         if (isNightmode.equals("dark") || isNightmode.equals("blue")) {
             holder.pinicon.setColorFilter(Color.CYAN);
 

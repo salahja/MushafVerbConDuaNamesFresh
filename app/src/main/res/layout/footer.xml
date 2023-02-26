@@ -25,11 +25,10 @@ android:background="@drawable/rect_round"
 
 
           <com.google.android.material.button.MaterialButton
-                android:id="@id/collection"
+                android:id="@id/newcollection"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="false"
-
+              style="@style/Widget.Material3.Button.OutlinedButton"
               android:layout_weight="1"
                 android:paddingTop="10.0dip"
                 android:paddingBottom="10.0dip"
@@ -49,8 +48,9 @@ android:background="@drawable/rect_round"
             android:layout_weight=".05" />
 
         <com.google.android.material.button.MaterialButton
+            style="@style/Widget.Material3.Button.OutlinedButton"
             android:textAlignment="center"
-            android:id="@id/addpin"
+            android:id="@id/addtocollection"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
@@ -58,7 +58,7 @@ android:background="@drawable/rect_round"
 
             android:paddingTop="10.0dip"
             android:paddingBottom="10.0dip"
-            android:text="@string/pins"
+            android:text="@string/addtocollection"
             android:textSize="17.0sp" />
 
 
@@ -83,17 +83,5 @@ android:background="@drawable/rect_round"
 
 
 
-        <com.google.android.material.button.MaterialButton
-            android:layout_weight="1"
-            android:id="@id/done"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:gravity="center"
-            android:paddingTop="10.0dip"
-            android:paddingBottom="10.0dip"
-            android:text="@string/Done"
-
-            android:textSize="17.0sp" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

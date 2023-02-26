@@ -91,7 +91,7 @@ public class BookmarkFragmentorig extends Fragment implements AdapterView.OnItem
                 snackbar.show();
                 final long itemId = bookmarksShowAdapter.getItemId(position);
                 final int bookmarkid = bookmarksShowAdapter.getBookmarid();
-                bookmarksShowAdapter.getBookChapterno();
+           //     bookmarksShowAdapter.getBookChapterno();
                 //      bookmarksShowAdapter.getBookMarkArrayList(bookmarkid)
                 //  Utils butils = new Utils(getActivity());
                 //  butils.deleteBookmarks(bookmarid);

@@ -110,7 +110,7 @@ public class ShowMushafActivity extends BaseActivity implements
 
         OnItemClickListenerOnLong, View.OnClickListener, StyledPlayerView.FullscreenButtonClickListener {
     private static final String KEY_TRACK_SELECTION_PARAMETERS = "track_selection_parameters";
-    private static final String KEY_SERVER_SIDE_ADS_LOADER_STATE = "server_side_ads_loader_state";
+
     ImageButton exo_settings, exo_close, exo_bottom_bar;
     MaterialTextView ayaprogress;
     private static final String KEY_ITEM_INDEX = "item_index";
@@ -124,12 +124,11 @@ public class ShowMushafActivity extends BaseActivity implements
     LinearLayout llStartRange, llEndRange;
     //  private LinkedHashMap<Integer, Integer> hlights;
 
-    private final ArrayList<AyahCoordinate> Coordinates = new ArrayList<>();
+
     private final LinkedHashMap<Integer, ArrayList<AyahCoordinate>> hlights = new LinkedHashMap<>();
     boolean flow = false;
     boolean singleline, rangeRecitation;
     private ArrayList<Page> fullQuranPages;
-    private long resumetrackposition;
     private boolean resume;
 
     public int getVersestartrange() {
@@ -411,7 +410,7 @@ public class ShowMushafActivity extends BaseActivity implements
         AudioPositionSaved aplayed = ConfigPreferences.getLastPlayedAudio(this, String.valueOf(surah));
         if (aplayed != null) {
             resumelastplayed = aplayed.getAudiopsaved().get(0).getAyah();
-            resumetrackposition = aplayed.getAudiopsaved().get(0).getTrackposition();
+            long resumetrackposition = aplayed.getAudiopsaved().get(0).getTrackposition();
 
 
         }
@@ -2028,7 +2027,9 @@ public class ShowMushafActivity extends BaseActivity implements
                     assert player != null;
                     player.play();
                 } else {
-                    player.pause();
+                    if (player != null) {
+                        player.pause();
+                    }
                     exoplayerBottomBehaviour.setState(BottomSheetBehavior.STATE_COLLAPSED);
                 }
 

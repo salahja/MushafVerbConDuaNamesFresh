@@ -30,5 +30,13 @@ public interface BookMarkDao {
     @Query(" select    * from bookmark where header=:str group by header")
     List<BookMarks> getCollectionbygroup(String str);
 
+    @Query(" select    * from bookmark where header=:str order by datetime")
+    List<BookMarks> getAllBookmarks(String str);
+
+
+
+    @Query(" delete from bookmark where header=:str ")
+    int deleteCollection(String str);
+
 
 }

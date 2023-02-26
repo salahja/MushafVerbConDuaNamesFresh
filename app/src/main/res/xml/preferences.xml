@@ -135,11 +135,13 @@
         app:title="Reciters">
         <ListPreference
 
-            android:defaultValue="Mishary"
+            android:defaultValue="Mishary Rashed Al-Afasy"
             android:entries="@array/qarinames"
             android:entryValues="@array/qarientryarry"
             android:key="qari"
-            android:title="@string/qari" />
+            android:title="@string/qari"
+            app:icon="@drawable/baseline_people_alt_24" />
+
 
 
     </PreferenceCategory>

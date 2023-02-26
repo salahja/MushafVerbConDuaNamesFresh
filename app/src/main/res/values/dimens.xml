@@ -179,7 +179,8 @@
     <dimen name="standard_205">-240dp</dimen>
     <dimen name="standard_255">-300dp</dimen>
     <dimen name="standard_305">-365dp</dimen>
-    <dimen name="standard_405">485dp</dimen>
+
+    <dimen name="standard_405">-405dp</dimen>
 
     <dimen name="audio_55">55dp</dimen>
     <dimen name="audio_105">115dp</dimen>

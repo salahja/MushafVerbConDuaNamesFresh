@@ -10,12 +10,11 @@ import com.example.mushafconsolidated.R;
 import com.google.android.material.color.DynamicColors;
 
 public  class BaseActivity extends AppCompatActivity {
-    public static final String LIGHT_THEME = "purple";
+    public static final String LIGHT_THEME = "light";
     public static final String DARK_THEME = "dark";
     public static final String DARK_BLUE = "blue";
-    public static final String LIGHT_PURPLE = "light";
+    public static final String DARK_GREEN = "green";
     public static final String BROWN_MODE = "brown";
-
 
     public String currenttheme;
 
@@ -32,7 +31,7 @@ public  class BaseActivity extends AppCompatActivity {
     // }
     protected void switchTheme(String currenttheme) {
         switch (currenttheme) {
-            default:
+
             case LIGHT_THEME:
                 setTheme(R.style.AppTheme);
                 break;
@@ -41,14 +40,17 @@ public  class BaseActivity extends AppCompatActivity {
                 break;
             case DARK_BLUE:
                 setTheme(R.style.AppTheme_materialdarkblue);
+
                 break;
-            case LIGHT_PURPLE:
-                setTheme(R.style.AppTheme_Light);
+            case DARK_GREEN:
+                setTheme(R.style.AppTheme_DarkGreen);
                 break;
             case BROWN_MODE:
                 setTheme(R.style.Theme_Browns);
                 break;
-
+            default:
+                setTheme(R.style.Theme_Black);
+                break;
         }
         PreferenceManager.getDefaultSharedPreferences(this).edit().putString("theme", currenttheme).apply();
     }

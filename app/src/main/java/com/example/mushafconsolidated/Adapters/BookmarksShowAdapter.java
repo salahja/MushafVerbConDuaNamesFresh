@@ -38,9 +38,9 @@ public class BookmarksShowAdapter extends RecyclerView.Adapter<BookmarksShowAdap
     PreferenceUtil pref;
     int holderposition;
     int bookmarid;
-    private String SurahName;
+
     private int bookChapterno;
-    private int bookVerseno;
+
     private List<BookMarks> bookMarkArrayList;
     public BookmarksShowAdapter() {
     }
@@ -75,13 +75,8 @@ public class BookmarksShowAdapter extends RecyclerView.Adapter<BookmarksShowAdap
         return bookChapterno;
     }
 
-    public int getBookVerseno() {
-        return bookVerseno;
-    }
 
-    public String getSurahName() {
-        return SurahName;
-    }
+
 
     @NonNull
     @Override
@@ -106,8 +101,10 @@ public class BookmarksShowAdapter extends RecyclerView.Adapter<BookmarksShowAdap
         SharedPreferences shared = android.preference.PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.getContext());
         String isNightmode = shared.getString("theme", "dark");
         String chapterno = bookMark.getChapterno();
-        final Drawable drawable = imgs.getDrawable((Integer.parseInt(chapterno) - 1));
-        holder.surahicon.setImageDrawable(drawable);
+        if(!chapterno.isEmpty()) {
+            final Drawable drawable = imgs.getDrawable((Integer.parseInt(chapterno) - 1));
+            holder.surahicon.setImageDrawable(drawable);
+        }
         if (isNightmode.equals("dark") || isNightmode.equals("blue")) {
             holder.surahicon.setColorFilter(Color.CYAN);
 
@@ -168,7 +165,8 @@ public class BookmarksShowAdapter extends RecyclerView.Adapter<BookmarksShowAdap
         public final TextView verseno;
         final ImageView surahicon;
         final CardView cardView;
-        public TextView chapterno,header;
+        public TextView chapterno;
+        public final TextView header;
 
         public ViewHolder(View view,int viewType) {
             super(view);

@@ -65,14 +65,14 @@ public class CollectionFrag extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     //    View rootView = inflater.inflate(R.layout.activity_collection, container, false);
-        View view = inflater.inflate(R.layout.fragment_bookmark, container, false);
+        View view = inflater.inflate(R.layout.fragment_bookmark_collection, container, false);
         Utils utils = new Utils(getActivity());
         List<BookMarksPojo> bookMarksNew = utils.getCollectionC();
 
         //  List<BookMarks> bookmarks = new DatabaseAccess().getBookmarks();
         collectionShowAdapter = new CollectionShowAdapter(getActivity());
         mRecview = view.findViewById(R.id.recyclerViewAdapterTranslation);
-        coordinatorLayout = view.findViewById(R.id.coordinatorLayout);
+        coordinatorLayout = view.findViewById(R.id.coordinatorLayoutbookmark);
         this.layoutManager = new LinearLayoutManager(getActivity());
         mRecview.setLayoutManager(layoutManager);
         //    bookmarksShowAdapter.setBookMarkArrayList((ArrayList<String>) bookmarstringarray);
@@ -113,7 +113,7 @@ public class CollectionFrag extends Fragment {
                 //      bookmarksShowAdapter.getBookMarkArrayList(bookmarkid)
                 //  Utils butils = new Utils(getActivity());
                 //  butils.deleteBookmarks(bookmarid);
-            //    Utils.deleteBookMarks(item);
+             Utils.deleteCollection(item.getHeader());
 
             }
         };

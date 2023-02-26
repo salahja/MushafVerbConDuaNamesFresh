@@ -601,7 +601,7 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
 
 
     public void initDialogComponents(int readposition) {
-        QuranEntity quranEntity = allofQuran.get(readposition);
+        QuranEntity quranEntity = allofQuran.get(readposition-1);
         Dialog jumpDialog;
         Spinner suraNames, verses;
         EditText surahIndex;
@@ -1473,9 +1473,14 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
         SwitchCompat colorsentence = view.findViewById(id.colorized);
         boolean colortag = shared.getBoolean("colortag", true);
         View qurantext = view.findViewById(id.quran_textView);
-         if(tag.equals("bookmarfb"))
+
+        if(tag.equals("bookmarfb")){
+            bookMarkSelected(position);
+
+        }else
+         if(tag.equals("collection"))
          {
-        bookMarkSelected(position);
+
              Bundle dataBundle = new Bundle();
              int chapter_no = corpusayahWordArrayList.get(position).getWord().get(0).getSurahId();
              int verse = corpusayahWordArrayList.get(position).getWord().get(0).getVerseId();
@@ -1836,10 +1841,10 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
 
     private void bookMarkSelected(int position) {
         //  position = flowAyahWordAdapter.getAdapterposition();
-        int chapter_no = corpusayahWordArrayList.get(position).getWord().get(0).getSurahId();
-        int verse = corpusayahWordArrayList.get(position).getWord().get(0).getVerseId();
+        int chapter_no = corpusayahWordArrayList.get(position-1).getWord().get(0).getSurahId();
+        int verse = corpusayahWordArrayList.get(position-1).getWord().get(0).getVerseId();
         BookMarks en = new BookMarks();
-        en.setHeader("orphans");
+        en.setHeader("pins");
         en.setChapterno(String.valueOf(chapter_no));
         en.setVerseno(String.valueOf(verse));
         en.setSurahname(getSurahArabicName());

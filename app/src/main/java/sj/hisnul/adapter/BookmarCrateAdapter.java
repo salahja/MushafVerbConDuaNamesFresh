@@ -31,7 +31,7 @@ public class BookmarCrateAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private static final int TYPE_HEADER = 2;
     private static final int TYPE_FOOTER = 1;
     private static final int TYPE_ITEM =0;
-    private final ArrayList<BookMarks> bookMarks;
+
     private final List<BookMarksPojo> collection;
     RelativeLayout frameLayout;
 
@@ -40,8 +40,8 @@ public class BookmarCrateAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     int wazancolor;
     ArrayList<String> subheaders;
 
-    public BookmarCrateAdapter(ArrayList<BookMarks> bookMarks, List<BookMarksPojo> collectionC) {
-        this.bookMarks=bookMarks;
+    public BookmarCrateAdapter( List<BookMarksPojo> collectionC) {
+
         this.collection=collectionC;
     }
 
@@ -81,7 +81,7 @@ public class BookmarCrateAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
           //  });
         } else if (holder instanceof ViewHolder) {
 
-           final BookMarks bookMark = bookMarks.get(position);
+
 
            try {
                 collections = collection.get(position-1);
@@ -96,13 +96,13 @@ public class BookmarCrateAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
            TypedArray imgs = QuranGrammarApplication.getContext().getResources().obtainTypedArray(R.array.sura_imgs);
            SharedPreferences shared = android.preference.PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.getContext());
            String isNightmode = shared.getString("theme", "dark");
-           String chapterno = bookMark.getChapterno();
-           final Drawable drawable = imgs.getDrawable((Integer.parseInt(chapterno) - 1));
-           itemholder.surahicon.setImageDrawable(drawable);
+
+
+      /*    itemholder.surahicon.setImageDrawable(drawable);
            if (isNightmode.equals("dark") || isNightmode.equals("blue")) {
                itemholder.surahicon.setColorFilter(Color.CYAN);
 
-           }
+           }*/
            String aya="(aya's";
            if(null!=collections){
                itemholder.collectiondetails.setText(collections.getHeader().concat(collections.getCount().concat("-").concat("aya's)")));
@@ -115,15 +115,15 @@ public class BookmarCrateAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                itemholder.collectionimage.setVisibility(View.GONE);
            }
 
-           itemholder.datestamp.setText(bookMark.getDatetime());
-           itemholder.suraName.setText(bookMark.getSurahname());
-           itemholder.chapterno.setText(bookMark.getChapterno());
-           itemholder.verseno.setText(bookMark.getVerseno() + "");
+        //   itemholder.datestamp.setText(bookMark.getDatetime());
+         //  itemholder.suraName.setText(bookMark.getSurahname());
+         //  itemholder.chapterno.setText(bookMark.getChapterno());
+          // itemholder.verseno.setText(bookMark.getVerseno() + "");
            int arabicFontSize = shared.getInt("pref_font_arabic_key", 18);
-           itemholder.datestamp.setTextSize(arabicFontSize);
-           itemholder.suraName.setTextSize(arabicFontSize);
-           itemholder.verseno.setTextSize(arabicFontSize);
-           itemholder.chapterno.setTextSize(arabicFontSize);
+         //  itemholder.datestamp.setTextSize(arabicFontSize);
+          // itemholder.suraName.setTextSize(arabicFontSize);
+         //  itemholder.verseno.setTextSize(arabicFontSize);
+          // itemholder.chapterno.setTextSize(arabicFontSize);
    /*        if (isNightmode.equals("dark")) {
                ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.color_background_overlay);
                itemholder.cardView.setCardBackgroundColor(ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.color_background_overlay));
@@ -140,41 +140,41 @@ public class BookmarCrateAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
     @Override
     public int getItemCount() {
-        if (bookMarks == null) {
+        if (collection == null) {
             return 0;
         }
 
 
 
-        if (bookMarks.size() == 0) {
+        if (collection.size() == 0) {
             //Return 1 here to show nothing
             return 1;
         }
 
         // Add extra view to show the footer view
-        return bookMarks.size() + 1;
+        return collection.size() + 1;
     }
 
     @Override
     public long getItemId(int position) {
         //  Surah surah = surahArrayList.get(position);
-        return bookMarks.size();
+        return collection.size();
     }
 
     public Object getItem(int position) {
-        return bookMarks.get(position);
+        return collection.get(position);
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position == bookMarks.size()) {
+        if (position == collection.size()) {
             // This is where we'll add footer.
             return TYPE_FOOTER;
-        }
+        }else
         if(position==0){
             return TYPE_HEADER;
-        }
-        if(position!=bookMarks.size() && position!=0){
+        } else
+        if(position!=collection.size() && position!=0){
             return TYPE_ITEM;
         }
 
@@ -193,22 +193,25 @@ public class BookmarCrateAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
     private  class FooterViewHolder extends RecyclerView.ViewHolder   implements View.OnClickListener {
         final TextView footerText;
-        MaterialButton create,addpin,done;
+        MaterialButton newcollection,addtocollection;
         public FooterViewHolder(View view) {
             super(view);
             view.setTag(this);
             view.setOnClickListener(this);
             footerText = view.findViewById(R.id.txtDuaReference);
-            create=view.findViewById(R.id.collection);
-            addpin=view.findViewById(R.id.addpin);
-            done=view.findViewById(R.id.done);
-             addpin.setTag("add");
-              addpin.setOnClickListener(this);
+            newcollection=view.findViewById(R.id.newcollection);
+            addtocollection=view.findViewById(R.id.addtocollection);
 
-            done.setTag("done");
-            done.setOnClickListener(this);
-            create.setTag("create");
-            create.setOnClickListener(this);
+            addtocollection.setTag("add");
+            addtocollection.setOnClickListener(this);
+
+
+
+            addtocollection.setOnClickListener(this);
+            addtocollection.setTag("addcollection");
+         ;
+            newcollection.setOnClickListener(this);
+            newcollection.setTag("newcollection");
 
 
 
@@ -271,14 +274,16 @@ public class BookmarCrateAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             frameLayout= itemView.findViewById(R.id.bottomSheet);
             itemView.setOnClickListener(this);
            collectiondetails=view.findViewById(R.id.checkbox);
-            surahicon = itemView.findViewById(R.id.surahicon);
-            cardView = itemView.findViewById(R.id.cardview);
-            datestamp = itemView.findViewById(R.id.date);
-            chapterno = itemView.findViewById(R.id.chapterno);
-            suraName = (TextView) itemView.findViewById(R.id.surahname);
-            verseno = itemView.findViewById(R.id.verseno);
-            chapterno = itemView.findViewById(R.id.chapterno);
-            itemView.setOnClickListener(this); // current clickListerner
+       //     surahicon = itemView.findViewById(R.id.surahicon);
+        //    cardView = itemView.findViewById(R.id.cardview);
+        //    datestamp = itemView.findViewById(R.id.date);
+         //   chapterno = itemView.findViewById(R.id.chapterno);
+         //   suraName = (TextView) itemView.findViewById(R.id.surahname);
+          //  verseno = itemView.findViewById(R.id.verseno);
+          //  chapterno = itemView.findViewById(R.id.chapterno);
+            itemView.setOnClickListener(this);
+            collectiondetails.setOnClickListener(this);// current clickListerner
+            collectiondetails.setTag("ck");;
 
         }
 

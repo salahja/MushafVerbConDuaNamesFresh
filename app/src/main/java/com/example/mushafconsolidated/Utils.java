@@ -8,6 +8,7 @@ import android.util.Log;
 import androidx.room.Query;
 import androidx.sqlite.db.SimpleSQLiteQuery;
 
+import com.example.mushafconsolidated.DAO.BookMarkDao;
 import com.example.mushafconsolidated.Entities.AllahNamesDetails;
 import com.example.mushafconsolidated.Entities.BadalErabNotesEnt;
 import com.example.mushafconsolidated.Entities.BookMarks;
@@ -100,6 +101,12 @@ public class Utils {
 
     }
 
+    public static List<BookMarks> getAllBookmarks(String pins) {
+        return database.BookMarkDao().getAllBookmarks(pins);
+
+    }
+
+
     public static List<QuranEntity> getsurahayahVerses(int id, int aid) {
         return database.QuranDao().getsurahayahVerses(id, aid);
 
@@ -131,6 +138,33 @@ public class Utils {
         }.execute();
 
     }
+
+    public static void deleteBookmark(BookMarks bookmark) {
+        BookMarkDao bookMarkDao = database.BookMarkDao();
+        new deleteWordAsyncTask(bookMarkDao).execute(bookmark);
+    }
+
+    public static void deleteCollection(String count) {
+
+        database.BookMarkDao().deleteCollection(count);
+    }
+
+    private static class deleteWordAsyncTask extends AsyncTask<BookMarks, Void, Void> {
+        private BookMarkDao mAsyncTaskDao;
+
+        deleteWordAsyncTask(BookMarkDao dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final BookMarks... params) {
+            mAsyncTaskDao.deletebookmark(params[0]);
+            return null;
+        }
+    }
+
+
+
 
 
     public static ArrayList<BookMarks> getCollectionCount() {
@@ -1042,7 +1076,7 @@ public class Utils {
     }
 
     public List<BookMarksPojo> getCollectionC() {
-        String sql = "select  count(*) as count, * from bookmark group by header";
+        String sql = "select  count(*) as count, * from bookmark where header != \"pins\" group by header";
         SimpleSQLiteQuery query = new SimpleSQLiteQuery(sql);
         //  List<Book> result = booksDao.getBooks(query);
        return    database.RawDao().getCollectionCount(query);
