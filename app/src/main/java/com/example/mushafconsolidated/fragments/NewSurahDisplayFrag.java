@@ -254,6 +254,7 @@ public class NewSurahDisplayFrag extends Fragment implements  SearchView.OnQuery
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        container.removeAllViews();
         //     View view = inflater.inflate(R.layout.list_surah_juz, container, false);
         View view = inflater.inflate(R.layout.list_surah_juz, container, false);
        searchint=  view.findViewById(R.id.searchint);

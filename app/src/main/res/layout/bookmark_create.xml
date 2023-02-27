@@ -2,73 +2,37 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/base_cardview"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
 
 
 
+     <include layout="@layout/header"
+         android:id="@+id/header"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         >
+     </include>
 
 
-            <RelativeLayout
-                android:layout_alignParentBottom="true"
+    <include layout="@layout/footer"
+     android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
 
-                android:layout_gravity="bottom"
-                android:id="@id/downloadedView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="49.8">
+    </include>
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@id/downloadedLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:gravity="center"
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="50dp"
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-                    android:paddingTop="10.0dip"
-                    android:paddingBottom="10.0dip"
-                    android:text="@string/ccreate_new"
-                    android:textSize="17.0sp" />
+    </androidx.recyclerview.widget.RecyclerView>
 
-                <TextView
-                    android:id="@id/downloadedCountView"
-                    android:layout_width="12.0dip"
-                    android:layout_height="12.0dip"
-                    android:layout_alignTop="@id/downloadedLabel"
-                    android:layout_marginTop="3.0dip"
-                    android:layout_toEndOf="@id/downloadedLabel"
-                    android:alpha="0.0"
 
-                    android:gravity="center"
-
-                    android:textSize="8.0sp" />
-            </RelativeLayout>
-
-            <View
-                style="@style/VerticalLine"
-                android:layout_width="0.0dip"
-                android:layout_height="fill_parent"
-                android:layout_marginTop="5.0dip"
-                android:layout_marginBottom="5.0dip"
-                android:layout_weight="0.4" />
-
-            <View
-                android:id="@id/translationTypeIndicatorView"
-                android:layout_width="0.0dip"
-                android:layout_height="6.0dip"
-                android:layout_above="@id/readyToDownloadView"
-                android:background="@color/colorPrimary" />
-
-    <com.google.android.material.button.MaterialButton
-                android:id="@id/readyToDownloadView"
-                android:layout_width="0.0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="49.8"
-                android:gravity="center"
-                android:paddingTop="10.0dip"
-                android:paddingBottom="10.0dip"
-                android:text="@string/Done"
-
-                android:textSize="17.0sp" />
 
 
 </RelativeLayout>

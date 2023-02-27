@@ -467,7 +467,7 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
                        FragmentTransaction transaction = fragmentManager.beginTransaction();
                        transaction.setCustomAnimations(anim.slide_down, anim.slide_up);
                        NewSurahDisplayFrag newCustomFragment = NewSurahDisplayFrag.newInstance();
-                       transaction.add(id.frame_container, newCustomFragment);
+                       transaction.replace(id.frame_container, newCustomFragment);
                        transaction.addToBackStack(null);
                        transaction.commit();
                        navigationView.setCheckedItem(id.surahnav);
@@ -1482,8 +1482,8 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
          {
 
              Bundle dataBundle = new Bundle();
-             int chapter_no = corpusayahWordArrayList.get(position).getWord().get(0).getSurahId();
-             int verse = corpusayahWordArrayList.get(position).getWord().get(0).getVerseId();
+             int chapter_no = corpusayahWordArrayList.get(position-1).getWord().get(0).getSurahId();
+             int verse = corpusayahWordArrayList.get(position-1).getWord().get(0).getVerseId();
              BookMarks en = new BookMarks();
 
 

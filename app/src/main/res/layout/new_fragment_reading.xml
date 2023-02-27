@@ -27,6 +27,7 @@
                 app:elevation="14dp"
                 style="?attr/catalogToolbarWithCloseButtonStyle"
 
+
                 app:menu="@menu/menu_dua_group"
                 app:navigationIcon="@drawable/baseline_menu_24"
                 android:layout_width="match_parent"
@@ -59,6 +60,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/overlayViewRecyclerView"
+
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="59dp"
