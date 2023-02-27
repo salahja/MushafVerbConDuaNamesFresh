@@ -24,10 +24,10 @@
 
             style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
 
             android:text="@string/tha"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <com.google.android.material.button.MaterialButton
@@ -35,10 +35,10 @@
 
             style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
 
             android:text="@string/ta"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <com.google.android.material.button.MaterialButton
@@ -49,7 +49,7 @@
             android:layout_height="50dp"
 
             android:text="@string/ba"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <com.google.android.material.button.MaterialButton
@@ -60,7 +60,7 @@
             android:layout_height="50dp"
 
             android:text="@string/alifhamza"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
     </com.google.android.flexbox.FlexboxLayout>
 
@@ -82,7 +82,7 @@
             android:layout_height="50dp"
 
             android:text="@string/dal"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <com.google.android.material.button.MaterialButton
@@ -93,7 +93,7 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:text="@string/kha"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
 
@@ -105,7 +105,7 @@
             android:layout_height="50dp"
 
             android:text="@string/ha"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <com.google.android.material.button.MaterialButton
@@ -116,7 +116,7 @@
             android:layout_height="50dp"
 
             android:text="@string/jeem"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
     </com.google.android.flexbox.FlexboxLayout>
@@ -139,7 +139,7 @@
             android:layout_height="50dp"
 
             android:text="@string/sheen"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
         <com.google.android.material.button.MaterialButton
             android:id="@+id/seen"
@@ -149,7 +149,7 @@
             android:layout_height="50dp"
 
             android:text="@string/seen"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
 
@@ -162,7 +162,7 @@
 
             android:text="@string/za"
             android:textAllCaps="true"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
 
@@ -176,7 +176,7 @@
             android:layout_height="50dp"
 
             android:text="@string/ra"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold"
 
             />
@@ -189,7 +189,7 @@
             android:layout_height="50dp"
 
             android:text="@string/zal"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
 
@@ -213,7 +213,7 @@
             android:layout_height="50dp"
 
             android:text="@string/dhuad"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <com.google.android.material.button.MaterialButton
@@ -224,7 +224,7 @@
             android:layout_height="50dp"
 
             android:text="@string/suad"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
 
@@ -237,7 +237,7 @@
             android:layout_height="50dp"
 
             android:text="@string/qaf"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
 
@@ -249,7 +249,7 @@
             android:layout_height="50dp"
 
             android:text="@string/fa"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <com.google.android.material.button.MaterialButton
@@ -260,7 +260,7 @@
             android:layout_height="50dp"
 
             android:text="@string/ghain"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
         <com.google.android.material.button.MaterialButton
             android:id="@+id/ayn"
@@ -272,7 +272,7 @@
             android:layout_gravity="top"
 
             android:text="@string/ayan"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
 
@@ -299,7 +299,7 @@
             android:layout_height="50dp"
 
             android:text="@string/meem"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <com.google.android.material.button.MaterialButton
@@ -311,7 +311,7 @@
             android:layout_height="50dp"
 
             android:text="@string/lam"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
         <com.google.android.material.button.MaterialButton
             android:id="@+id/kaf"
@@ -321,7 +321,7 @@
             android:layout_height="50dp"
 
             android:text="@string/kaf"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <com.google.android.material.button.MaterialButton
@@ -333,7 +333,7 @@
             android:layout_height="50dp"
 
             android:text="@string/zoa"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <com.google.android.material.button.MaterialButton
@@ -344,7 +344,7 @@
             android:layout_height="50dp"
 
             android:text="@string/toay"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
     </com.google.android.flexbox.FlexboxLayout>
@@ -369,7 +369,7 @@
             android:layout_height="50dp"
 
             android:text="@string/tamarboot"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <com.google.android.material.button.MaterialButton
@@ -380,7 +380,7 @@
             android:layout_height="50dp"
 
             android:text="@string/ya"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <com.google.android.material.button.MaterialButton
@@ -392,7 +392,7 @@
             android:layout_height="50dp"
 
             android:text="@string/waw"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <com.google.android.material.button.MaterialButton
@@ -403,7 +403,7 @@
             android:layout_height="50dp"
 
             android:text="@string/Haa"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <com.google.android.material.button.MaterialButton
@@ -414,7 +414,7 @@
             android:layout_height="50dp"
 
             android:text="@string/nuun"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
 
@@ -438,7 +438,7 @@
             android:layout_height="50dp"
 
             android:text="@string/kclear"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <com.google.android.material.button.MaterialButton
@@ -449,7 +449,7 @@
             android:layout_height="50dp"
 
             android:text="@string/kdelete"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <com.google.android.material.button.MaterialButton
@@ -460,7 +460,7 @@
             android:layout_height="50dp"
 
             android:text="@string/kenter"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
     </com.google.android.flexbox.FlexboxLayout>

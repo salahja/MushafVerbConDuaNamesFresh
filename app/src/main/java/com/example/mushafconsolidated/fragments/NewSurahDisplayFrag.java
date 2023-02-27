@@ -20,11 +20,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,25 +31,33 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Lifecycle;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mushafconsolidated.Activity.QuranGrammarAct;
+import com.example.mushafconsolidated.Activity.ShowMushafActivity;
 import com.example.mushafconsolidated.Adapters.NewSurahDisplayAdapter;
 import com.example.mushafconsolidated.Entities.ChaptersAnaEntity;
 import com.example.mushafconsolidated.R;
 import com.example.mushafconsolidated.Utils;
 import com.example.mushafconsolidated.intrface.OnItemClickListener;
 import com.example.mushafconsolidated.intrface.PassdataInterface;
+import com.example.mushafconsolidated.settings.Constants;
 import com.example.utility.QuranGrammarApplication;
-import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationBarView;
+
+import org.sj.conjugator.activity.ConjugatorAct;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import sj.hisnul.entity.hduanames;
+import database.GridImageAct;
+import sj.hisnul.activity.HisnulBottomACT;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -73,6 +78,7 @@ public class NewSurahDisplayFrag extends Fragment implements  SearchView.OnQuery
     private final boolean isfragmentshowing = true;
     private ImageView drop;
     private TextView devIndicatorView;
+    FloatingActionButton btnBottomSheet;
     private PassdataInterface passdataInterface;
     private PassdataInterface datapasser;
     private int lastreadchapterno, lastreadverseno;
@@ -81,6 +87,7 @@ public class NewSurahDisplayFrag extends Fragment implements  SearchView.OnQuery
     private SearchView.OnQueryTextListener queryTextListener;
     private List<ChaptersAnaEntity> chapterfilered;
     private  TextView searchint;
+    private NavigationBarView bottomNavigationView;
 
     public NewSurahDisplayFrag(PassdataInterface passdataInterface) {
         this.setPassdataInterface(passdataInterface);
@@ -208,7 +215,6 @@ public class NewSurahDisplayFrag extends Fragment implements  SearchView.OnQuery
                 if(menuItem.getItemId()==R.id.search){
                     searchint.setVisibility(View.VISIBLE);
 
-               //    Toast.makeText(getActivity(), "search menu", Toast.LENGTH_SHORT).show();
                 }
                 return false;
             }
@@ -254,8 +260,11 @@ public class NewSurahDisplayFrag extends Fragment implements  SearchView.OnQuery
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        container.removeAllViews();
+
         //     View view = inflater.inflate(R.layout.list_surah_juz, container, false);
         View view = inflater.inflate(R.layout.list_surah_juz, container, false);
+        initnavagation(view);
        searchint=  view.findViewById(R.id.searchint);
         setToolbarFragment();
         setToolbarMenu();
@@ -324,6 +333,96 @@ public class NewSurahDisplayFrag extends Fragment implements  SearchView.OnQuery
         ParentAdapter.setUp(allAnaChapters);
         parentRecyclerView.setAdapter(ParentAdapter);
         return view;
+    }
+
+    private void initnavagation(View view) {
+        bottomNavigationView =view. findViewById(R.id.bottomNavView);
+        btnBottomSheet = view.findViewById(R.id.fab);
+
+        btnBottomSheet.setOnClickListener(v -> {
+            toggleBottomSheets();
+            //  toggleHideSeek();
+        });
+        bottomNavigationView.setOnItemReselectedListener(new NavigationBarView.OnItemReselectedListener() {
+            @Override
+            public void onNavigationItemReselected(@NonNull MenuItem item) {
+
+
+
+                switch (item.getItemId()) {
+                    case R.id.surahnav:
+
+                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                        FragmentTransaction transaction = fragmentManager.beginTransaction();
+                        transaction.setCustomAnimations(R.anim.slide_down, R.anim.slide_up);
+                        NewSurahDisplayFrag newCustomFragment = NewSurahDisplayFrag.newInstance();
+                        transaction.replace(R.id.frame_container, newCustomFragment);
+                        transaction.addToBackStack(null);
+                        transaction.commit();
+
+
+                        break;
+                    case R.id.conjugationnav:
+
+
+
+                        Intent conjugatorintent = new Intent(getActivity(), ConjugatorAct.class);
+                        startActivity(conjugatorintent);
+                        break;
+                    case R.id.dua:
+
+
+                        Intent searchintent = new Intent(getActivity(), HisnulBottomACT.class);
+                        startActivity(searchintent);
+
+
+
+
+
+
+
+                        break;
+                    case R.id.names:
+
+
+
+                        Intent settingint = new Intent(getActivity(), GridImageAct.class);
+                      //  settingint.putExtra(Constants.SURAH_INDEX, getChapterno());
+                        startActivity(settingint);
+
+                        break;
+                    case R.id.mushafview:
+                      //  materialToolbar.setTitle("Mushaf");
+                        //   Intent searchs = new Intent(QuranGrammarAct.this, MainTwoActivityPrayer.class);
+
+                        //  startActivity(searchs);
+
+                        Intent settingints = new Intent(getActivity(), ShowMushafActivity.class);
+                        //      settingints.putExtra(Constants.SURAH_INDEX, getChapterno());
+                        startActivity(settingints);
+
+
+
+
+
+
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+        });
+    }
+
+    public void toggleBottomSheets() {
+        if (bottomNavigationView.getVisibility() == View.VISIBLE) {
+            bottomNavigationView.setVisibility(View.GONE);
+            //    btnBottomSheet.setText("Close sheet");
+        } else {
+            bottomNavigationView.setVisibility(View.VISIBLE);
+            //    btnBottomSheet.setText("Expand sheet");
+        }
     }
 
     @Override

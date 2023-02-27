@@ -54,13 +54,14 @@
             android:id="@+id/autoCompleteTextView"
             android:layout_width="171dp"
             android:layout_height="50dp"
+
             android:layout_alignParentStart="true"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="50dp"
             android:hint="@string/root_word"
             android:padding="5dp"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="25sp"
+
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -68,11 +69,13 @@
         <RadioGroup
             android:id="@+id/verbcase"
             style="@style/Widget.Material3.CompoundButton.RadioButton"
-            android:layout_width="wrap_content"
+
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="50dp"
             android:layout_toEndOf="@+id/autoCompleteTextView"
+            android:orientation="horizontal"
             android:paddingTop="10dp"
             app:layout_constraintBottom_toBottomOf="@+id/autoCompleteTextView"
             app:layout_constraintEnd_toEndOf="parent"
@@ -83,7 +86,7 @@
 
             <RadioButton
                 android:id="@+id/rdindicative"
-                android:layout_width="119dp"
+                android:layout_width="wrap_content"
 
                 android:layout_height="wrap_content"
                 android:checked="true"
@@ -92,8 +95,9 @@
             <RadioButton
                 android:id="@id/rdsubjunctive"
 
-                android:layout_width="119dp"
-                android:layout_height="20dp"
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
 
                 android:text="@string/subjunctive"
 
@@ -101,8 +105,8 @@
 
             <RadioButton
                 android:id="@id/rdjussive"
-                android:textSize="20sp"
-                android:layout_width="119dp"
+                android:layout_width="wrap_content"
+
                 android:layout_height="wrap_content"
 
                 android:text="@string/jussive"
@@ -112,7 +116,8 @@
             <RadioButton
                 android:id="@id/emphasized"
 
-                android:layout_width="119dp"
+                android:layout_width="wrap_content"
+
                 android:layout_height="wrap_content"
 
                 android:text="@string/emphasized"
@@ -129,7 +134,7 @@
             android:hint="@string/mujarrad_augmented"
             android:paddingEnd="5dp"
             android:textAlignment="center"
-            android:textSize="25sp"
+
 
             app:layout_constraintEnd_toEndOf="parent"
 
@@ -149,7 +154,7 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/nasara"
-                    style="@style/Widget.Material3.Chip.Suggestion"
+                style="@style/Widget.Material3.Chip.Suggestion"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:layout_weight="1.0"
@@ -157,32 +162,31 @@
                 android:paddingEnd="5dp"
 
                 android:textAlignment="center"
-                android:textSize="25sp"
+
                 android:textStyle="bold" />
 
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/zaraba"
-                    style="@style/Widget.Material3.Chip.Suggestion"
+                style="@style/Widget.Material3.Chip.Suggestion"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:layout_weight="1.0"
                 android:hint="ZARABA"
 
                 android:paddingStart="5dp"
-                android:textAlignment="center"
-                android:textSize="24sp" />
+                android:textAlignment="center" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/fataha"
-                  style="@style/Widget.Material3.Chip.Suggestion"
+                style="@style/Widget.Material3.Chip.Suggestion"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:layout_weight="1.0"
                 android:hint="Fatha"
                 android:paddingStart="5dp"
                 android:textAlignment="center"
-                android:textSize="24sp"
+
                 android:textStyle="bold" />
 
 
@@ -198,7 +202,7 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/samia"
-                    style="@style/Widget.Material3.Chip.Suggestion"
+                style="@style/Widget.Material3.Chip.Suggestion"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:layout_below="@+id/nasara"
@@ -206,7 +210,7 @@
                 android:hint="Samia"
                 android:paddingStart="5dp"
                 android:textAlignment="center"
-                android:textSize="@dimen/text_size_30"
+
                 android:textStyle="bold" />
 
             <com.google.android.material.chip.Chip
@@ -219,44 +223,39 @@
                 android:hint="Karuma"
                 android:paddingStart="20dp"
                 android:textAlignment="center"
-                android:textSize="24sp"
+
                 android:textStyle="bold" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/hasiba"
-                    style="@style/Widget.Material3.Chip.Suggestion"
+                style="@style/Widget.Material3.Chip.Suggestion"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:layout_weight="1.0"
                 android:hint="Hasiba"
                 android:paddingStart="20dp"
                 android:textAlignment="center"
-                android:textSize="24sp"
+
                 android:textStyle="bold" />
         </LinearLayout>
 
 
+        <TextView
+            android:id="@+id/mazeedaugmented"
+            style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
 
+            android:hint="Mazeed/Augmented"
 
-            <TextView
-                android:id="@+id/mazeedaugmented"
-                style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:textAlignment="center"
 
-                android:paddingEnd="5dp"
-
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fourthrowmujarrad"
-
-                android:hint="Mazeed/Augmented"
-                android:paddingStart="5dp"
-                android:textAlignment="center"
-                android:textSize="20sp" />
-
-
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fourthrowmujarrad" />
 
 
         <LinearLayout
@@ -272,8 +271,8 @@
                 android:id="@+id/tafeel"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="wrap_content"
-                  android:layout_height="60dp"
-                android:textSize="25sp"
+                android:layout_height="60dp"
+
                 android:layout_weight="1.0"
                 android:hint="tafeel"
                 android:paddingStart="5dp"
@@ -281,10 +280,10 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/mufala"
-                  style="@style/Widget.Material3.Chip.Suggestion"
+                style="@style/Widget.Material3.Chip.Suggestion"
                 android:layout_width="wrap_content"
-                android:textSize="25sp"
-                  android:layout_height="60dp"
+
+                android:layout_height="60dp"
                 android:layout_weight="1.0"
                 android:hint="Mufala"
                 android:paddingStart="5dp"
@@ -292,70 +291,70 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/ifal"
-                  style="@style/Widget.Material3.Chip.Suggestion"
+                style="@style/Widget.Material3.Chip.Suggestion"
                 android:layout_width="wrap_content"
-                  android:layout_height="60dp"
+                android:layout_height="60dp"
                 android:layout_weight="1.0"
                 android:hint="Ifal"
                 android:paddingStart="5dp"
-                android:textSize="25sp"
+
                 android:textAlignment="center" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/tafaul"
-                  style="@style/Widget.Material3.Chip.Suggestion"
+                style="@style/Widget.Material3.Chip.Suggestion"
                 android:layout_width="wrap_content"
-                  android:layout_height="60dp"
+                android:layout_height="60dp"
                 android:layout_weight="1.0"
                 android:hint="Tafaul"
                 android:paddingStart="5dp"
-                android:textSize="25sp"
+
                 android:textAlignment="center" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/mazeedsecondrow"
             android:layout_width="match_parent"
-              android:layout_height="60dp"
+            android:layout_height="60dp"
             android:layout_below="@+id/mazeedseventhrow"
             app:layout_constraintTop_toBottomOf="@+id/mazeedseventhrow">
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/tafaaaul"
-                  style="@style/Widget.Material3.Chip.Suggestion"
+                style="@style/Widget.Material3.Chip.Suggestion"
                 android:layout_width="wrap_content"
-                  android:layout_height="60dp"
-                android:textSize="25sp"
+                android:layout_height="60dp"
+
                 android:layout_weight="1.0"
                 android:hint="Tafaaul"
                 android:textAlignment="center" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/infala"
-                android:textSize="25sp"
-                    style="@style/Widget.Material3.Chip.Suggestion"
+
+                style="@style/Widget.Material3.Chip.Suggestion"
                 android:layout_width="wrap_content"
-                  android:layout_height="60dp"
+                android:layout_height="60dp"
                 android:layout_weight="1.0"
                 android:hint="Infala"
                 android:textAlignment="center" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/iftiala"
-                android:textSize="25sp"
-                    style="@style/Widget.Material3.Chip.Suggestion"
+
+                style="@style/Widget.Material3.Chip.Suggestion"
                 android:layout_width="wrap_content"
 
-                  android:layout_height="60dp"
+                android:layout_height="60dp"
                 android:layout_weight="1.0"
                 android:hint="@string/iftiala" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/istifala"
-                    style="@style/Widget.Material3.Chip.Suggestion"
+                style="@style/Widget.Material3.Chip.Suggestion"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
-                android:textSize="25sp"
+
                 android:layout_weight="1.0"
                 android:hint="@string/istifala"
                 android:textAlignment="center" />
@@ -366,7 +365,7 @@
             android:id="@+id/action_buttons"
 
             android:layout_width="94dp"
-             android:layout_height="60dp"
+            android:layout_height="60dp"
 
 
             android:layout_gravity="start|bottom|center"
@@ -391,7 +390,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/mujarradbtn"
             style="@style/Widget.Material3.Button.OutlinedButton"
-            android:textSize="25sp"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
@@ -404,11 +403,11 @@
             style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="25sp"
-            app:itemTextAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+
             android:layout_margin="5.0dip"
             android:hint="@string/mazeed_listing"
             app:elevation="7dp"
+            app:itemTextAppearance="@style/TextAppearance.MaterialComponents.Headline5"
             app:layout_constraintEnd_toStartOf="@+id/mujarradbtn"
             app:layout_constraintTop_toBottomOf="@+id/mazeedsecondrow" />
 
@@ -420,8 +419,8 @@
             android:layout_height="60dp"
             android:layout_gravity="bottom"
             android:layout_margin="@dimen/fab_margin"
-            android:gravity="bottom"
             android:contentDescription="@string/_text_arabic"
+            android:gravity="bottom"
             app:layout_constraintEnd_toStartOf="@+id/mazeedbtn"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mazeedsecondrow"
