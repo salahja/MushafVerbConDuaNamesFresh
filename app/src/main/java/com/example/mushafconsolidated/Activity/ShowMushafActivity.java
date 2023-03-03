@@ -18,6 +18,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.BackgroundColorSpan;
@@ -332,6 +333,7 @@ public class ShowMushafActivity extends BaseActivity implements
         //    ButterKnife.bind(this);
         //    QuranGrammarApplication.appContext = ShowMushafActivity.this;
         //  intentmyservice = new Intent(this, AudioService.class);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         Intent intent = new Intent(BROADCAST_SEEKBAR);
         getpreferences();
         getLastPlayed();

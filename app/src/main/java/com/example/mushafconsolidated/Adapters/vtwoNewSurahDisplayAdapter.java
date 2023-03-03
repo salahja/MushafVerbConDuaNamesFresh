@@ -115,7 +115,7 @@ public class vtwoNewSurahDisplayAdapter extends RecyclerView.Adapter<vtwoNewSura
             holder.makkimadaniIcon.setColorFilter(Color.BLUE);
             holder.ivsurahicon.setColorFilter(Color.BLACK);
         }
-        holder.tvarabic.setTextSize(SharedPref.SeekarabicFontsize());
+     //   holder.tvarabic.setTextSize(SharedPref.SeekarabicFontsize());
 
     }
 
@@ -163,7 +163,7 @@ public class vtwoNewSurahDisplayAdapter extends RecyclerView.Adapter<vtwoNewSura
             //   surahcardview = itemView.findViewById(R.id.surahcardview);
             tvenglish = itemView.findViewById(R.id.tvenglish);
             tvnumber = itemView.findViewById(R.id.tvNumber);
-            tvsurahright = itemView.findViewById(R.id.tvSuraright);
+//            tvsurahright = itemView.findViewById(R.id.tvSuraright);
             tvarabic = itemView.findViewById(R.id.tvArabic);
             makkimadaniIcon = itemView.findViewById(R.id.makkimadaniicon);
             //  overlayTypeChapterView = itemView.findViewById(R.id.overlayTypeChapterView);

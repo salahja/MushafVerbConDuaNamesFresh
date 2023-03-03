@@ -42,6 +42,7 @@ public class NewSurahDisplayAdapter extends RecyclerView.Adapter<NewSurahDisplay
     private final Context context;
     private String surahname;
     private List<ChaptersAnaEntity> chapterfilered;
+    private boolean defaultfont;
 
     public NewSurahDisplayAdapter(Context context, ArrayList<ChaptersAnaEntity> allAnaChapters) {
         this.context = context;
@@ -82,13 +83,16 @@ public class NewSurahDisplayAdapter extends RecyclerView.Adapter<NewSurahDisplay
         String sb = surah.getChapterid() +
                 ":" +
                 surah.getNameenglish();
-
+        defaultfont = sharedPreferences.getBoolean("default_font", true);
 
         int surahIsmakki = surah.getIsmakki();
         int cno = surah.getChapterid();
       //  holder.tvsurahleft.setText(sb);
         holder.tvsurahleft.setText(surah.getNameenglish());
-        holder.tvsurahleft.setTextSize(SharedPref.SeekarabicFontsize());
+        if(!defaultfont){
+            holder.tvsurahleft.setTextSize(SharedPref.SeekarabicFontsize());
+        }
+   //
         final Drawable drawable = imgs.getDrawable(cno - 1);
         holder.ivsurahicon.setImageDrawable(drawable);
 
@@ -118,7 +122,7 @@ public class NewSurahDisplayAdapter extends RecyclerView.Adapter<NewSurahDisplay
             holder.makkimadaniIcon.setColorFilter(Color.BLUE);
             holder.ivsurahicon.setColorFilter(Color.BLACK);
         }
-        holder.tvsurahleft.setTextSize(SharedPref.SeekarabicFontsize());
+     //   holder.tvsurahleft.setTextSize(SharedPref.SeekarabicFontsize());
 
     }
 
@@ -227,7 +231,7 @@ public class NewSurahDisplayAdapter extends RecyclerView.Adapter<NewSurahDisplay
         ItemViewAdapter(View layout, int viewType) {
             super(layout);
             surahcardview = itemView.findViewById(R.id.surahcardview);
-            tvsurahright = itemView.findViewById(R.id.tvSuraright);
+          //  tvsurahright = itemView.findViewById(R.id.tvSuraright);
             tvsurahleft = itemView.findViewById(R.id.tvArabic);
             makkimadaniIcon = itemView.findViewById(R.id.makkimadaniicon);
             overlayTypeChapterView = itemView.findViewById(R.id.overlayTypeChapterView);

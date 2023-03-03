@@ -16,10 +16,12 @@
         app:lineSpacing="-4dp"
         android:lineSpacingExtra="-4dp"
         android:checkable="true"
+        style="@android:style/TextAppearance.DeviceDefault.Large"
         android:text="flow"
         android:visibility="visible" />
 
     <TextView
+        style="@android:style/TextAppearance.DeviceDefault.Small"
         android:id="@+id/root_word"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,6 +36,7 @@
         android:visibility="gone" />
 
     <TextView
+        style="@android:style/TextAppearance.DeviceDefault.Medium"
         android:id="@+id/word_trans_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

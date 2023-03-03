@@ -29,8 +29,9 @@
         android:fontFamily="cursive"
         android:paddingStart="5.0dip"
         android:paddingEnd="5.0dip"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textSize="16.0sp" />
+        style="@android:style/TextAppearance.DeviceDefault.Medium"
+
+         />
 
 
 
@@ -51,11 +52,11 @@
         android:padding="@dimen/textViewPadding"
 
 
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        style="@android:style/TextAppearance.DeviceDefault.Large"
         android:visibility="visible" />
     <TextView
         android:id="@+id/translate_textViewnote"
-
+        style="@android:style/TextAppearance.DeviceDefault.Medium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="cursive"
@@ -63,7 +64,7 @@
         android:layout_below="@+id/quran_textView"
         android:padding="@dimen/textViewPadding"
         android:text="@string/sahi_international"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+
         android:visibility="gone" />
     <TextView
         android:id="@+id/translate_textView"

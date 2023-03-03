@@ -84,6 +84,11 @@
         app:fragment="com.example.mushafconsolidated.fragments.ActivitySettings$SelectQuranFronts"
         android:key="@string/prefs_wbw"
         android:title="Select WBW Language" />
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="@string/pref_default_device_font"
+        android:title="Default Device Font"
+        app:icon="@drawable/baseline_font_download_24" />
     <Preference
         android:defaultValue="en_sahih"
         android:dialogTitle="set main action"

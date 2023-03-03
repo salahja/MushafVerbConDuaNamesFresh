@@ -80,7 +80,7 @@
                             android:layout_centerInParent="true"
                             android:lines="1"
                             android:text="message"
-                            android:textSize="18.0sp" />
+                            />
                     </RelativeLayout>
 
                     <TextView
@@ -212,12 +212,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15.0dip"
-
+                        style="@android:style/TextAppearance.DeviceDefault.Medium"
                         android:text="Word"
                         android:textAlignment="center"
 
 
-                        android:textSize="18.0sp" />
+                        />
 
                     <TextView
                         android:id="@id/translationView"
@@ -225,19 +225,19 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15.0dip"
                         android:hint="translation"
+                        style="@android:style/TextAppearance.DeviceDefault.Medium"
 
-
-                        android:textSize="18.0sp" />
+                        />
 
                     <TextView
 
                         android:id="@id/verbdetails"
-
+                        style="@android:style/TextAppearance.DeviceDefault.Medium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15.0dip"
                         android:hint="verb details"
-                        android:textSize="18.0sp"
+                       
 
 
                         android:visibility="visible" />
@@ -250,7 +250,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15.0dip"
                         android:hint="verb details"
-                        android:textSize="18.0sp"
+                       
 
 
                         android:visibility="gone" />
@@ -260,8 +260,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15.0dip"
-
-                        android:textSize="18.0sp"
+                        style="@android:style/TextAppearance.DeviceDefault.Small"
+                       
 
                         android:visibility="visible" />
 
@@ -272,7 +272,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15.0dip"
                         android:layout_gravity="center"
-                        android:textSize="18.0sp"
+                       
 
                         android:visibility="visible" />
 
@@ -282,7 +282,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15.0dip"
                         android:hint="lemma"
-                        android:textSize="30.0sp"
+                        style="@android:style/TextAppearance.DeviceDefault.Medium"
                         android:layout_gravity="center"
 
                         android:visibility="gone" />
@@ -295,8 +295,9 @@
                         android:hint="Root"
                         android:lines="1"
                         android:text="Root Word"
+                        style="@android:style/TextAppearance.DeviceDefault.Medium"
                         android:layout_gravity="center"
-                        android:textSize="20.0sp" />
+                          />
 
                     <com.google.android.material.chip.Chip
                         android:id="@id/mazeedmeaning"
@@ -306,7 +307,7 @@
                         android:elevation="8dp"
                         android:lines="1"
                         android:onClick="onClick"
-                        android:textSize="24.0sp"
+                        style="@android:style/TextAppearance.DeviceDefault.Medium"
                         android:tooltipText="Click for Vocabulary"
                         android:visibility="gone"
                         app:chipIcon="@drawable/ic_baseline_expand_24" />
@@ -380,7 +381,7 @@
                             android:layout_gravity="center_horizontal"
 
                             android:text="Word Occurancer"
-                            android:textSize="18.0sp"
+                           
                             android:visibility="visible"
                             app:elevation="8dp"
                             app:icon="@drawable/ic_action_jump"
@@ -512,7 +513,7 @@
                                 android:paddingStart="5.0dip"
                                 android:paddingEnd="3.0dip"
 
-                                android:textSize="20dp"
+                                style="@android:style/TextAppearance.DeviceDefault.Medium"
 
                                 app:chipIconTint="@color/colorAccent" />
 
@@ -527,7 +528,7 @@
                                 android:paddingEnd="5.0dip"
 
 
-                                android:textSize="20dp" />
+                                style="@android:style/TextAppearance.DeviceDefault.Medium" />
 
                             <TextView
 
@@ -541,7 +542,7 @@
                                 android:paddingStart="5.0dip"
                                 android:paddingEnd="3.0dip"
 
-                                android:textSize="20dp"
+
                                 app:chipCornerRadius="12dp" />
 
 

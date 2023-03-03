@@ -53,6 +53,7 @@ public class LineMushaAudioAdapter extends RecyclerView.Adapter<LineMushaAudioAd
         //implements OnItemClickListenerOnLong {
 {
 
+    private final boolean defaultfont;
     BroadcastReceiver broadcastReceiver;
     private boolean isFABOpen=false;
     private static final int TYPE_HEADER = 0;
@@ -87,6 +88,7 @@ public class LineMushaAudioAdapter extends RecyclerView.Adapter<LineMushaAudioAd
      //   this.header = header;
         arabicfontSize = sharedPreferences.getInt("pref_font_arabic_key", 18);
         translationfontsize = sharedPreferences.getInt("pref_font_englsh_key", 18);
+        defaultfont = sharedPreferences.getBoolean("default_font", true);
         this.surah_id = surah_id;
         this.SurahName = surahName;
         this.isMakkiMadani = ismakki;
@@ -344,7 +346,9 @@ public class LineMushaAudioAdapter extends RecyclerView.Adapter<LineMushaAudioAd
             builder.append(MessageFormat.format("{0} ﴿ {1} ﴾ ۩", aya, entity.getAyah()));
        //     builder.append("۩");
             holder.quran_textView.setText(builder.toString());
-            holder.quran_textView.setTextSize(arabicfontSize);
+            if(!defaultfont) {
+                holder.quran_textView.setTextSize(arabicfontSize);
+            }
             holder.quran_textView.setTypeface(custom_font);
         }else{
             StringBuilder builder = new StringBuilder();
@@ -352,7 +356,9 @@ public class LineMushaAudioAdapter extends RecyclerView.Adapter<LineMushaAudioAd
             builder.append(MessageFormat.format("{0} ﴿ {1} ﴾ ", aya, entity.getAyah()));
 
             holder.quran_textView.setText(builder.toString());
-            holder.quran_textView.setTextSize(arabicfontSize);
+            if(!defaultfont) {
+                holder.quran_textView.setTextSize(arabicfontSize);
+            }
             holder.quran_textView.setTypeface(custom_font);
         }
 
@@ -430,12 +436,19 @@ public class LineMushaAudioAdapter extends RecyclerView.Adapter<LineMushaAudioAd
             holder.translate_textViewnote.setVisibility(View.VISIBLE);
 
         }
-
+      //  setTextSizes(holder);
     }
 
+    private void setTextSizes(ItemViewAdapter holder) {
+        if (!defaultfont) {
+            holder.quran_transliteration.setTextSize(translationfontsize);
+            holder.erab_textView.setTextSize(translationfontsize);
+            holder.translate_textView.setTextSize(translationfontsize);
+            holder.translate_textViewnote.setTextSize(translationfontsize);
+            holder.quran_jalalayn.setTextSize(translationfontsize);
 
-
-
+        }
+    }
 
     private void storepreferences(QuranEntity entity) {
         SharedPreferences pref = context.getSharedPreferences("lastread", MODE_PRIVATE);

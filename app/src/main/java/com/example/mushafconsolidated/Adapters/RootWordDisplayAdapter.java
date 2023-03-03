@@ -345,8 +345,8 @@ public class RootWordDisplayAdapter extends RecyclerView.Adapter<RootWordDisplay
         StringBuilder vb = new StringBuilder();
         StringBuilder pron = new StringBuilder();
         holder.lemma.setText(vbdetail.get("lemma"));
-        holder.wordView.setTextSize(arabicFontsize);
-        holder.lemma.setTextSize(arabicFontsize);
+     //   holder.wordView.setTextSize(arabicFontsize);
+     //   holder.lemma.setTextSize(arabicFontsize);
         worddetails.get("noun");
         worddetails.get("PRON");
         try {
@@ -361,14 +361,14 @@ public class RootWordDisplayAdapter extends RecyclerView.Adapter<RootWordDisplay
         if (worddetails.get("noun") != null) {
             holder.noundetails.setVisibility(View.VISIBLE);
             holder.noundetails.setText(worddetails.get("noun"));
-            holder.noundetails.setTextSize(arabicFontsize);
+       //     holder.noundetails.setTextSize(arabicFontsize);
         }
         if (worddetails.get("PRON") != null) {
             holder.pronoundetails.setVisibility(View.VISIBLE);
             pron.append("Pronoun:");
             pron.append(worddetails.get("PRON"));
             holder.pronoundetails.setText(pron.toString());
-            holder.pronoundetails.setTextSize(arabicFontsize);
+          //  holder.pronoundetails.setTextSize(arabicFontsize);
         }
         vb.append("V-");
         if (vbdetail.get("thulathi") != null) {
@@ -389,31 +389,31 @@ public class RootWordDisplayAdapter extends RecyclerView.Adapter<RootWordDisplay
         if (vbdetail.get("verbmood") != null) {
             holder.moodrules.setVisibility(View.VISIBLE);
             holder.moodrules.setText(vbdetail.get("verbmood"));
-            holder.moodrules.setTextSize(arabicFontsize);
+          //  holder.moodrules.setTextSize(arabicFontsize);
         }
         if (vb.length() > 2) {
             holder.verbdetails.setVisibility(View.VISIBLE);
             holder.verbdetails.setText(vb.toString());
-            holder.verbdetails.setTextSize(arabicFontsize);
+          //  holder.verbdetails.setTextSize(arabicFontsize);
         }
         holder.referenceView.setText(corpusexpand.get(0).getSurah() + ":" + corpusexpand.get(0).getAyah() + ":" + corpusexpand.get(0).getWordno());
         SpannableStringBuilder worddetail = this.worddetails.get("worddetails");
       //  holder.wdetailstv.setText(worddetail, TextView.BufferType.SPANNABLE);
         holder.wdetailstv.setText(worddetail);
-        holder.referenceView.setTextSize(arabicFontsize);
+     //   holder.referenceView.setTextSize(arabicFontsize);
         holder.wdetailstv.setTextSize(16);
         if (worddetails.get("lemma") != null || worddetails.get("lemma").length() != 0) {
             holder.lemma.setVisibility(View.VISIBLE);
             holder.lemma.setText(LEMMA + this.worddetails.get("lemma"));
-            holder.lemma.setTextSize(arabicFontsize);
+    //        holder.lemma.setTextSize(arabicFontsize);
         }
         if (worddetails.get("root") != null) {
             holder.rootView.setText(ROOTWORDSTRING + worddetails.get("root"));
-            holder.rootView.setTextSize(arabicFontsize);
+        //    holder.rootView.setTextSize(arabicFontsize);
         }
         if (vbdetail.get("root") != null) {
             holder.rootView.setText(ROOTWORDSTRING + vbdetail.get("root"));
-            holder.rootView.setTextSize(arabicFontsize);
+        //    holder.rootView.setTextSize(arabicFontsize);
 
         }
 

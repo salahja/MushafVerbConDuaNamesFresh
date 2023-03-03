@@ -119,8 +119,8 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
         //implements OnItemClickListenerOnLong {
 {
 
-
-    private boolean isFABOpen=false;
+    private final boolean defaultfont;
+    private boolean isFABOpen = false;
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
     final long surah_id;
@@ -168,8 +168,10 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
         issentence = sharedPreferences.getBoolean("grammarsentence", false);
         arabicfontSize = sharedPreferences.getInt("pref_font_arabic_key", 18);
         translationfontsize = sharedPreferences.getInt("pref_font_englsh_key", 18);
+        defaultfont = sharedPreferences.getBoolean("default_font", true);
+
         mItemClickListener = listener;
-        this.isaudio=isaudio;
+        this.isaudio = isaudio;
 
     }
 
@@ -237,7 +239,7 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
         Typeface custom_font = Typeface.createFromAsset(context.getAssets(),
                 arabic_font_selection);
         final String FONTS_LOCATION_PATH = "fonts/DejaVuSans.ttf";
-        colorwordfont = Typeface.createFromAsset(QuranGrammarApplication.getContext().getAssets(),FONTS_LOCATION_PATH);
+        colorwordfont = Typeface.createFromAsset(QuranGrammarApplication.getContext().getAssets(), FONTS_LOCATION_PATH);
         boolean showrootkey = sharedPreferences.getBoolean("showrootkey", true);
         boolean showErab = sharedPreferences.getBoolean("showErabKey", true);
         boolean showWordColor = sharedPreferences.getBoolean("colortag", true);
@@ -299,7 +301,7 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
             final Drawable drawable = imgs.getDrawable(Integer.parseInt(chapterno) - 1);
             imgs.recycle();
             holder.ivSurahIcon.setImageDrawable(drawable);
-            if (isNightmode.equals("dark") || isNightmode.equals("blue") ||isNightmode.equals("green")) {
+            if (isNightmode.equals("dark") || isNightmode.equals("blue") || isNightmode.equals("green")) {
                 headercolor = Color.YELLOW;
                 holder.ivLocationmakki.setColorFilter(Color.CYAN);
                 holder.ivSurahIcon.setColorFilter(Color.CYAN);
@@ -342,12 +344,12 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
             storepreferences(entity);
         }
         SpannableString quranverses = ayahWordArrayList.get(position).getSpannableverse();
-        if (!isaudio){
-            holder.quran_textView.setText(quranverses);
-        holder.quran_textView.setTextSize(arabicfontSize);
+        //   if (!isaudio){
+        holder.quran_textView.setText(quranverses);
+        //   holder.quran_textView.setTextSize(arabicfontSize);
         holder.quran_textView.setTypeface(custom_font);
         holder.base_cardview.setVisibility(View.GONE);
-    }
+        //  }
         SpannableStringBuilder mf = new SpannableStringBuilder();
         StringBuilder halsb = new StringBuilder();
         StringBuilder tameezsb = new StringBuilder();
@@ -498,8 +500,7 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
             if (entity != null) {
                 holder.quran_transliteration.setText(Html.fromHtml(entity.getEn_transliteration(), Html.FROM_HTML_MODE_LEGACY));
             }
-            holder.quran_transliteration.setTextSize(translationfontsize);
-            holder.quran_transliteration.setTextSize(translationfontsize);
+
             holder.quran_transliteration.setVisibility(View.VISIBLE);
 
         }
@@ -508,8 +509,8 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
             if (entity != null) {
                 holder.quran_jalalayn.setText(entity.getEn_jalalayn());
             }
-            holder.quran_jalalayn.setTextSize(translationfontsize);
-            holder.quran_jalalayn.setTextSize(translationfontsize);
+            //
+
             holder.quran_jalalayn.setVisibility(View.VISIBLE);
             holder.quran_jalalaynnote.setVisibility(View.VISIBLE);
         }
@@ -519,8 +520,7 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
                     holder.translate_textView.setText(entity.getEn_arberry());
                 }
                 holder.translate_textViewnote.setText(R.string.arberry);
-                holder.translate_textView.setTextSize(translationfontsize);
-                holder.translate_textView.setTextSize(translationfontsize);
+
                 holder.translate_textView.setVisibility(View.VISIBLE);
                 holder.translate_textViewnote.setVisibility(View.VISIBLE);
             }
@@ -529,8 +529,7 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
                     holder.translate_textView.setText(entity.getTranslation());
                 }
                 holder.translate_textViewnote.setText(R.string.ensahih);
-                holder.translate_textView.setTextSize(translationfontsize);
-                holder.translate_textView.setTextSize(translationfontsize);
+
                 holder.translate_textView.setVisibility(View.VISIBLE);
                 holder.translate_textViewnote.setVisibility(View.VISIBLE);
             }
@@ -539,8 +538,7 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
                     holder.translate_textView.setText(entity.getEn_jalalayn());
                 }
                 holder.translate_textViewnote.setText(R.string.enjalalayn);
-                holder.translate_textView.setTextSize(translationfontsize);
-                holder.translate_textView.setTextSize(translationfontsize);
+
                 holder.translate_textView.setVisibility(View.VISIBLE);
                 holder.translate_textViewnote.setVisibility(View.VISIBLE);
             }
@@ -549,8 +547,7 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
                     holder.translate_textView.setText(entity.getUr_jalalayn());
                 }
                 holder.translate_textViewnote.setText(R.string.enjalalayn);
-                holder.translate_textView.setTextSize(translationfontsize);
-                holder.translate_textView.setTextSize(translationfontsize);
+
                 holder.translate_textView.setVisibility(View.VISIBLE);
                 holder.translate_textViewnote.setVisibility(View.VISIBLE);
             }
@@ -559,13 +556,12 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
                     holder.translate_textView.setText(entity.getUr_junagarhi());
                 }
                 holder.translate_textViewnote.setText(R.string.urjunagadi);
-                holder.translate_textView.setTextSize(translationfontsize);
-                holder.translate_textView.setTextSize(translationfontsize);
+
                 holder.translate_textView.setVisibility(View.VISIBLE);
                 holder.translate_textViewnote.setVisibility(View.VISIBLE);
             }
-            holder.translate_textView.setTextSize(translationfontsize);
-            holder.translate_textView.setTextSize(translationfontsize);
+            //
+
             holder.translate_textView.setVisibility(View.VISIBLE);
             holder.translate_textViewnote.setVisibility(View.VISIBLE);
 
@@ -575,7 +571,7 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
             if (entity != null) {
                 holder.erab_textView.setText(entity.getErabspnabble());
             }
-            holder.erab_textView.setTextSize(translationfontsize);
+            //
             holder.erab_textView.setTypeface(custom_font);
             //     holder.erab_textView.setVisibility(View.VISIBLE);
             holder.erab_textViewnote.setVisibility(View.VISIBLE);
@@ -583,6 +579,18 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
 
         } else {
             holder.erabexpand.setVisibility(View.GONE);
+        }
+        setTextSizes(holder);
+    }
+
+    private void setTextSizes(ItemViewAdapter holder) {
+        if (!defaultfont) {
+            holder.quran_transliteration.setTextSize(translationfontsize);
+            holder.erab_textView.setTextSize(translationfontsize);
+            holder.translate_textView.setTextSize(translationfontsize);
+            holder.translate_textViewnote.setTextSize(translationfontsize);
+            holder.quran_jalalayn.setTextSize(translationfontsize);
+
         }
     }
 
@@ -617,7 +625,7 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
                     spannedroot = SpannableString.valueOf(word.getRootword());
                 }
                 rootword.setText(spannedroot);
-                rootword.setTextSize(arabicfontSize);
+                //
                 rootword.setVisibility(View.VISIBLE);
             }
             if (showWordColor) {
@@ -632,9 +640,9 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
             }
             rootword.setText(spannedroot);
             rootword.setTextSize(arabicfontSize);
-            //  arabic.setTextSize(18);
-            arabic.setTextSize(arabicfontSize);
             arabic.setTypeface(colorwordfont);
+
+
 
             if (showWbwTranslation) {
                 switch (wbw) {
@@ -657,8 +665,12 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
                 }
                 //  translation.setTextColor(ContextCompat.getColor(context,R.color.neutral2));
             }
-            //    translation.setTextSize(forntSize + 4);
-            translation.setTextSize(translationfontsize);
+            if(!defaultfont){
+
+                rootword.setTextSize(arabicfontSize);
+                arabic.setTextSize(arabicfontSize);
+                translation.setTextSize(arabicfontSize);
+            }
             holder.flow_word_by_word.addView(view);
             view.setLongClickable(true);
             view.setOnLongClickListener(v -> {
@@ -672,20 +684,20 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
                 ArrayList<VerbCorpus> verbCorpusRootWord = utils.getQuranRoot(word.getSurahId(), word.getVerseId(), word.getWordno());
                 WordMorphologyDetails qm = new WordMorphologyDetails(word, corpusNounWord, verbCorpusRootWord);
                 SpannableString workBreakDown = qm.getWorkBreakDown();
-                int color = ContextCompat.getColor(context,R.color.background_color_light_brown);
+                int color = ContextCompat.getColor(context, R.color.background_color_light_brown);
                 switch (isNightmode) {
                     case "dark":
                     case "blue":
 
                     case "green":
-                        color = ContextCompat.getColor(context,R.color.background_color);
+                        color = ContextCompat.getColor(context, R.color.background_color);
                         break;
                     case "brown":
-                        color = ContextCompat.getColor(context,R.color.neutral0);
+                        color = ContextCompat.getColor(context, R.color.neutral0);
                         break;
                     case "light":
-                  //  case "white":
-                        color = ContextCompat.getColor(context,R.color.background_color_light_brown);
+                        //  case "white":
+                        color = ContextCompat.getColor(context, R.color.background_color_light_brown);
                         break;
                 }
                 Tooltip.Builder builder = new Tooltip.Builder(v, R.style.ayah_translation)
@@ -773,7 +785,7 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
         editor.putInt(AYAH_ID, entity.getAyah());
         editor.putString(SURAH_ARABIC_NAME, SurahName);
         editor.apply();
-      //  editor.commit();
+        //  editor.commit();
 
     }
 
@@ -792,7 +804,7 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
         } else {
             holder.surah_info.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_madinah_48, 0, 0, 0);
         }
-        if (isNightmode.equals("dark") || isNightmode.equals("blue") ||isNightmode.equals("green")) {
+        if (isNightmode.equals("dark") || isNightmode.equals("blue") || isNightmode.equals("green")) {
 //TextViewCompat.setCompoundDrawableTintList()
             holder.surah_info.setCompoundDrawableTintList(ColorStateList.valueOf(Color.CYAN));
         } else {
@@ -812,7 +824,7 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
         public TextView erab_textView;
         public TextView surah_info, mafoolbihi;
         public TextView bismilla;
-        public TextView  erab_notes;
+        public TextView erab_notes;
         MaterialTextView quran_textView;
         public TextView quran_transliterationnote;
         public TextView quran_jalalaynnote;
@@ -821,15 +833,16 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
         public ImageView bookmark, jumpto, makkimadaniicon, ivSummary;
         public ImageView expandImageButton, ivBismillah, erabexpand, erab_notes_expand;
         TextView tvSura, tvRukus, tvVerses;
-        ImageView ivSurahIcon, ivLocationmakki, ivLocationmadani, ivhelp, ivoverflow, ivoverflow2,arrowforward, arrowback;
+        ImageView ivSurahIcon, ivLocationmakki, ivLocationmadani, ivhelp, ivoverflow, ivoverflow2, arrowforward, arrowback;
         //  public   com.nex3z.flowlayout.FlowLayout  flow_word_by_word;
         com.example.utility.FlowLayout flow_word_by_word;
         //   RelativeLayout colllayout;
-        CardView erabnotescardView ;
+        CardView erabnotescardView;
         ImageView mafoolatarow;
         Group hiddenGroup, card_group;
         MaterialCardView base_cardview;
-        FloatingActionButton tafsir, jumptofb, bookmarfb, fabmenu,helpfb,summbaryfb,sharescreenfb,collectionfb;
+        FloatingActionButton tafsir, jumptofb, bookmarfb, fabmenu, helpfb, summbaryfb, sharescreenfb, collectionfb;
+
         ItemViewAdapter(View view, int viewType) {
             super(view);
             view.setTag(this);
@@ -856,16 +869,10 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
                 ivoverflow.setOnClickListener(this);
                 ivoverflow.setTag("overflow_img");
 
-
                 ivoverflow2 = view.findViewById(R.id.ivActionOverflowtwo);
                 ivoverflow2.setOnClickListener(this);
 
                 ivoverflow2.setTag("overflowbottom");
-
-
-
-
-
 
                 makkimadaniicon = view.findViewById(R.id.makkimadaniicon);
                 //    jumpto = view.findViewById(R.id.jumpto);
@@ -892,7 +899,7 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
                 quran_textView.setTag("qurantext");
                 erab_notes_expand.setOnClickListener(this);
                 erab_notes_expand.setTag("erab_notes");
-             erabnotescardView = view.findViewById(R.id.base_cardview);
+                erabnotescardView = view.findViewById(R.id.base_cardview);
 
                 mafoolatarow = view.findViewById(R.id.show);
 
@@ -900,18 +907,18 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
 
                 mafoolatarow.setOnClickListener(this);
                 mafoolbihi = view.findViewById(R.id.directobject);
-            base_cardview = view.findViewById(R.id.base_cardview);
+                base_cardview = view.findViewById(R.id.base_cardview);
 
-                collectionfb=view.findViewById(R.id.collectionfb);
+                collectionfb = view.findViewById(R.id.collectionfb);
                 collectionfb.setOnClickListener(this);
                 collectionfb.setTag("collection");
-                fabmenu =  view. findViewById(R.id.expandfabs);
-                tafsir =   view. findViewById(R.id.tafsirfb);
-                jumptofb =   view. findViewById(R.id.jumptofb);
-                bookmarfb =   view. findViewById(R.id.bookmarfb);
-                summbaryfb=view.findViewById(R.id.summbaryfb);
-                helpfb=view.findViewById(R.id.helpfb);
-                sharescreenfb=view.findViewById(R.id.sharescreenfb);
+                fabmenu = view.findViewById(R.id.expandfabs);
+                tafsir = view.findViewById(R.id.tafsirfb);
+                jumptofb = view.findViewById(R.id.jumptofb);
+                bookmarfb = view.findViewById(R.id.bookmarfb);
+                summbaryfb = view.findViewById(R.id.summbaryfb);
+                helpfb = view.findViewById(R.id.helpfb);
+                sharescreenfb = view.findViewById(R.id.sharescreenfb);
                 sharescreenfb.setOnClickListener(this);
                 fabmenu.setOnClickListener(this);
                 tafsir.setOnClickListener(this);
@@ -934,14 +941,13 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
 
                 fabmenu.setOnClickListener(new View.OnClickListener() {
 
-
                     @Override
                     public void onClick(View view) {
                         if (!isFABOpen) {
                             showFABMenu();
                         } else {
                             closeFABMenu();
-                       //     HideFabMenu();
+                            //     HideFabMenu();
                         }
                     }
 
@@ -950,7 +956,7 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
                         isFABOpen = true;
 
                         fabmenu.animate().rotationBy(180);
-                        if(!isaudio) {
+                        if (!isaudio) {
 
                             tafsir.setVisibility(View.VISIBLE);
                             tafsir.animate().translationX(-getInstance().getResources().getDimension(R.dimen.standard_55));
@@ -978,13 +984,12 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
                             sharescreenfb.animate().rotationBy(360);
                             sharescreenfb.animate().setDuration(500);
 
-
                             collectionfb.setVisibility(View.VISIBLE);
                             collectionfb.animate().translationX(-getInstance().getResources().getDimension(R.dimen.standard_405));
                             collectionfb.animate().rotationBy(360);
                             collectionfb.animate().setDuration(500);
 
-                        }else{
+                        } else {
 
                             tafsir.setVisibility(View.VISIBLE);
                             tafsir.animate().translationX(-getInstance().getResources().getDimension(R.dimen.standard_55));
@@ -1015,11 +1020,6 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
 
                         }
 
-
-
-
-
-
                         tafsir.setOnClickListener(view12 -> {
                             closeFABMenu();
                             //HideFabMenu();
@@ -1027,7 +1027,7 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
                             //  flowAyahWordAdapter.getItem(position);
                             int chapter_no = ayahWord.getWord().get(0).getSurahId();
                             //   int verse = ayahWord.getWord().get(0).getVerseId();
-                            int verse=        ayahWordArrayList.get(getPosition()-1).getWord().get(0).getVerseId();
+                            int verse = ayahWordArrayList.get(getPosition() - 1).getWord().get(0).getVerseId();
                             //   String name = getSurahArabicName();
                             readingintent.putExtra(SURAH_ID, chapter_no);
                             readingintent.putExtra(AYAH_ID, verse);
@@ -1036,17 +1036,17 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
                         });
                         summbaryfb.setOnClickListener(v -> {
                             closeFABMenu();
-                          //  HideFabMenu();
+                            //  HideFabMenu();
                             int chapter_no = ayahWord.getWord().get(0).getSurahId();
                             //   int verse = ayahWord.getWord().get(0).getVerseId();
-                            int verse=        ayahWordArrayList.get(getPosition()-1).getWord().get(0).getVerseId();
+                            int verse = ayahWordArrayList.get(getPosition() - 1).getWord().get(0).getVerseId();
 
                             Bundle dataBundle = new Bundle();
                             dataBundle.putInt(SURAH_ID, chapter_no);
                             SurahSummary item = new SurahSummary();
                             item.setArguments(dataBundle);
                             int data = (chapter_no);
-                            SurahSummary.newInstance(data).show( ((AppCompatActivity) context).getSupportFragmentManager(), NamesDetail.TAG);
+                            SurahSummary.newInstance(data).show(((AppCompatActivity) context).getSupportFragmentManager(), NamesDetail.TAG);
                         });
 
                         helpfb.setOnClickListener(v -> {
@@ -1078,7 +1078,7 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
 
                                     view.setDrawingCacheEnabled(true);
                                     int color = Color.RED;
-                                    Bitmap bitmap =getBitmapFromView(view, color);
+                                    Bitmap bitmap = getBitmapFromView(view, color);
 
                                     File imageFile = new File(path);
                                     FileOutputStream fileOutputStream = new FileOutputStream(imageFile);
@@ -1100,10 +1100,10 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
                                 view.draw(canvas);
                                 return bitmap;
                             }
+
                             private void shareScreenShot(File imageFile) {
 
                                 Uri uri = FileProvider.getUriForFile(context, getContext().getPackageName() + ".provider", imageFile);
-
 
                                 Intent intent = new Intent();
                                 intent.setAction(Intent.ACTION_SEND);
@@ -1111,11 +1111,10 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
                                 intent.putExtra(android.content.Intent.EXTRA_TEXT, "Download Application from Instagram");
                                 intent.putExtra(Intent.EXTRA_STREAM, uri);
 
-
-                                List<ResolveInfo> resInfoList =  context.getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+                                List<ResolveInfo> resInfoList = context.getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
                                 for (ResolveInfo resolveInfo : resInfoList) {
                                     String packageName = resolveInfo.activityInfo.packageName;
-                                    context.  grantUriPermission(packageName, uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                    context.grantUriPermission(packageName, uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                 }
                                 //  startActivity(Intent.createChooser(intent, "Share PDF using.."));
                                 try {
@@ -1127,18 +1126,16 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
                         });
                     }
 
-
-
                     private void bookMarkSelected(int position) {
 
                         int chapter_no = ayahWord.getWord().get(0).getSurahId();
                         //   int verse = ayahWord.getWord().get(0).getVerseId();
-                        int verse=        ayahWordArrayList.get(getPosition()-1).getWord().get(0).getVerseId();
+                        int verse = ayahWordArrayList.get(getPosition() - 1).getWord().get(0).getVerseId();
                         BookMarks en = new BookMarks();
                         en.setChapterno(String.valueOf(chapter_no));
                         en.setVerseno(String.valueOf(verse));
                         en.setSurahname(SurahName);
-                        Utils utils=new Utils(getContext());
+                        Utils utils = new Utils(getContext());
                         //     Utils utils = new Utils(ReadingSurahPartActivity.this);
                         utils.insertBookMark(en);
 
@@ -1149,6 +1146,7 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
                         snackbar.setBackgroundTint(Color.BLACK);
                         snackbar.show();
                     }
+
                     private void closeFABMenu() {
                         isFABOpen = false;
                         fabmenu.animate().rotationBy(-180);
@@ -1171,8 +1169,6 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
 
                     }
                 });
-
-
 
                 mafoolatarow.setOnClickListener(view1 -> {
                     TransitionManager.beginDelayedTransition(erabnotescardView, new AutoTransition());

@@ -74,6 +74,7 @@ public class PageMushaAudioAdapter extends RecyclerView.Adapter<PageMushaAudioAd
     private WebView kathir_translation;
     private Typeface colorwordfont;
     private CorpusAyahWord ayahWord;
+    private boolean defaultfont;
 
     public PageMushaAudioAdapter(ArrayList<Page> fullQuranPages, LinkedHashMap<Integer, String> passage, Context context, List<QuranEntity> quranbySurah, OnItemClickListenerOnLong listener, long surah_id, String surahName, int ismakki, ArrayList<String> header) {
     this.fullQuranPages=fullQuranPages;
@@ -156,6 +157,7 @@ public class PageMushaAudioAdapter extends RecyclerView.Adapter<PageMushaAudioAd
         boolean showTranslation = sharedPreferences.getBoolean("showTranslationKey", true);
         boolean showWordByword = sharedPreferences.getBoolean("wordByWord", false);
         boolean showKathir = sharedPreferences.getBoolean("showKathir", false);
+        defaultfont = sharedPreferences.getBoolean("default_font", true);
 //bg_black
         if (position % 2 == 1) {
             switch (isNightmode) {
@@ -250,7 +252,9 @@ public class PageMushaAudioAdapter extends RecyclerView.Adapter<PageMushaAudioAd
             }
             holder.quran_textView.setText(CorpusUtilityorig.getSpannable(builder.toString()), TextView.BufferType.SPANNABLE);
             holder.quran_textView.setTypeface(custom_font);
-            holder.quran_textView.setTextSize(arabicfontSize);
+            if(!defaultfont) {
+                 holder.quran_textView.setTextSize(arabicfontSize);
+            }
 
 
         }

@@ -42,7 +42,8 @@
         android:elevation="@dimen/_9sdp"
         android:lineSpacingExtra="0.5dp"
         android:padding="@dimen/textViewPadding"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        style="@android:style/TextAppearance.DeviceDefault.Large"
+
         android:visibility="visible" />
 
     <include
