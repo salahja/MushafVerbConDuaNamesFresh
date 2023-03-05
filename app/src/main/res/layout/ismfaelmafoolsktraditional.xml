@@ -31,6 +31,7 @@
 
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/apmas"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -81,6 +82,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/plural1"
 
                     android:layout_width="0.0dip"
@@ -96,6 +98,7 @@
                     android:textSize="20sp" />
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/dual1"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -110,6 +113,7 @@
                     android:textSize="20sp" />
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/singular1"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -124,6 +128,7 @@
                     android:textSize="20sp" />
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
 
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -155,6 +160,7 @@
 
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/isthree"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -169,6 +175,7 @@
 
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/istwo"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -180,6 +187,7 @@
                     android:textSize="20dp" />
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@id/isone"
                     android:layout_width="0.0dip"
                     android:layout_height="match_parent"
@@ -194,6 +202,7 @@
 
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/indictive"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -226,6 +235,7 @@
 
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/issix"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -240,6 +250,7 @@
 
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/isfive"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -250,6 +261,7 @@
                     android:textSize="20dp" />
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@id/isfour"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -263,6 +275,7 @@
                     android:textSize="20dp" />
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/subjunctive"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -294,6 +307,7 @@
 
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/isnine"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -308,6 +322,7 @@
 
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/iseight"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -321,6 +336,7 @@
                     android:textSize="20dp" />
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@id/isseven"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -334,6 +350,7 @@
                     android:textSize="20dp" />
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/genitive"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -412,6 +429,7 @@
 
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/apfem"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -442,6 +460,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/plural2"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -456,6 +475,7 @@
                     android:textSize="20sp" />
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/dual2"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -470,6 +490,7 @@
                     android:textSize="20sp" />
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/singular2"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -484,6 +505,7 @@
                     android:textSize="20sp" />
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
 
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -517,6 +539,7 @@
 
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/ismfemthree"
 
                     android:layout_width="0.0dip"
@@ -532,6 +555,7 @@
 
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/ismfemtwo"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -546,6 +570,7 @@
 
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@id/ismfemone"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -559,6 +584,7 @@
                     android:textSize="20dp" />
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/nominative1"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -593,6 +619,7 @@
 
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/ismfemsix"
 
                     android:layout_width="0.0dip"
@@ -608,6 +635,7 @@
 
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/ismfemfive"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -622,6 +650,7 @@
 
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@id/ismfemfour"
                     android:layout_width="0.0dip"
                     android:layout_height="match_parent"
@@ -635,6 +664,7 @@
                     android:textSize="20dp" />
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/accusative1"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -670,6 +700,7 @@
 
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/ismfemnine"
 
                     android:layout_width="0.0dip"
@@ -685,6 +716,7 @@
 
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@id/ismfemeight"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -698,6 +730,7 @@
                     android:textSize="20dp" />
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@id/ismfemseven"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -711,6 +744,7 @@
                     android:textSize="20dp" />
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/genitive1"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -794,6 +828,7 @@
 
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/ppmas"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -824,6 +859,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/plural3"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -838,6 +874,7 @@
                     android:textSize="20sp" />
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/dual3"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -852,6 +889,7 @@
                     android:textSize="20sp" />
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/singular3"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -866,6 +904,7 @@
                     android:textSize="20sp" />
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
 
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -898,6 +937,7 @@
 
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/imafthree"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -912,6 +952,7 @@
 
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/imaftwo"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -923,6 +964,7 @@
                     android:textSize="20dp" />
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@id/imafone"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -936,6 +978,7 @@
                     android:textSize="20dp" />
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/nominative2"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -969,6 +1012,7 @@
 
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/imafsix"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -983,6 +1027,7 @@
 
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/imaffive"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -993,6 +1038,7 @@
                     android:textSize="20dp" />
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@id/imaffour"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -1006,6 +1052,7 @@
                     android:textSize="20dp" />
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/accusative2"
 
                     android:layout_width="0.0dip"
@@ -1040,6 +1087,7 @@
 
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/imafnine"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -1054,6 +1102,7 @@
 
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/imafeight"
                     android:layout_width="0.0dip"
                     android:layout_height="match_parent"
@@ -1067,6 +1116,7 @@
                     android:textSize="20dp" />
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@id/imafseven"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -1080,6 +1130,7 @@
                     android:textSize="20dp" />
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/genitive2"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -1161,6 +1212,7 @@
 
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/ppfem"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -1192,6 +1244,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/plural4"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -1206,6 +1259,7 @@
                     android:textSize="20sp" />
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/dual4"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -1220,6 +1274,7 @@
                     android:textSize="20sp" />
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/singular4"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -1234,6 +1289,7 @@
                     android:textSize="20sp" />
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
 
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -1284,6 +1340,7 @@
 
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/imafoolfemthree"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -1298,6 +1355,7 @@
 
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/imafoolfemtwo"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -1309,6 +1367,7 @@
                     android:textSize="20dp" />
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@id/imafoolfemone"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -1322,6 +1381,7 @@
                     android:textSize="20dp" />
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/nominative3"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -1355,6 +1415,7 @@
 
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/imafoolfemsix"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -1369,6 +1430,7 @@
 
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/imafoolfemfive"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -1379,6 +1441,7 @@
                     android:textSize="20dp" />
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@id/imafoolfemfour"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -1392,6 +1455,7 @@
                     android:textSize="20dp" />
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/accusative3"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -1424,6 +1488,7 @@
 
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/imafoolfemnine"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -1438,6 +1503,7 @@
 
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/imafoolfemeight"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -1451,6 +1517,7 @@
                     android:textSize="20dp" />
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@id/imafoolfemseven"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -1464,6 +1531,7 @@
                     android:textSize="20dp" />
 
                 <TextView
+ style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:id="@+id/genitive3"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"

@@ -240,9 +240,11 @@ public class IsmZarffKabeerAdapter extends RecyclerView.Adapter<IsmZarffKabeerAd
     }
 
     private void FontSIzeSelection(ViewHolder holder) {
+    boolean    defaultfont = sharedPreferences.getBoolean("default_font", true);
         SharedPreferences sharedPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.getContext());
         String width = sharedPreferences.getString("width", "compactWidth");
         final Integer arabicFontsize = sharedPreferences.getInt("pref_font_arabic_key", 20);
+
         if (width.equals("mediumWidth") || width.equals("expandedWidth")) {
             if (isTraditional) {
                 holder.nom.setTextSize(arabicFontsize);//(array[0]);

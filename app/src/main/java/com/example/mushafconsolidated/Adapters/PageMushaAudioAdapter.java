@@ -227,24 +227,12 @@ public class PageMushaAudioAdapter extends RecyclerView.Adapter<PageMushaAudioAd
         } else {
             Page page = fullQuranPages.get(position-1);
             //  String s=      passage.get(position);
+            holder.pagenum.setText(Integer.toString(page.getPageNum()));
          String aya="";
             StringBuilder builder = new StringBuilder();
             for (QuranEntity ayahItem : page.getAyahItemsquran()) {
                 aya = ayahItem.getQurantext();
-                // add sura name
 
-
-                    // AlFatiha(index = 1 ) has a Basmallah in first ayah.
-
-                   //n     int pos = aya.indexOf("ٱلرَّحِيم");
-                     //   Log.d(TAG, "onBindViewHolder: pos " + pos);
-
-
-                        // insert  البسملة
-                    //n    builder.append(aya.substring(0, pos + 1)); // +1 as substring upper bound is excluded
-                     //n   builder.append("\n");
-                        // cute ayah
-                      //n  aya = aya.substring(pos+1); // +1 to start with new character after البسملة
 
 
 
@@ -252,6 +240,8 @@ public class PageMushaAudioAdapter extends RecyclerView.Adapter<PageMushaAudioAd
             }
             holder.quran_textView.setText(CorpusUtilityorig.getSpannable(builder.toString()), TextView.BufferType.SPANNABLE);
             holder.quran_textView.setTypeface(custom_font);
+
+
             if(!defaultfont) {
                  holder.quran_textView.setTextSize(arabicfontSize);
             }
@@ -411,7 +401,7 @@ public class PageMushaAudioAdapter extends RecyclerView.Adapter<PageMushaAudioAd
         public TextView translate_textView;
         //   public TextView erab_textView;
         public TextView erab_textView;
-        public TextView surah_info, mafoolbihi;
+        public TextView surah_info, mafoolbihi,pagenum;
         public TextView bismilla;
 
         public TextView quran_transliterationnote;
@@ -425,8 +415,8 @@ public class PageMushaAudioAdapter extends RecyclerView.Adapter<PageMushaAudioAd
         public ImageView sajdaverse;
         View rukuview;
         ImageView ivSurahIcon, ivLocationmakki, ivLocationmadani, ivhelp, ivoverflow, ivoverflow2, arrowforward, arrowback;
-        //  public   com.nex3z.flowlayout.FlowLayout  flow_word_by_word;
-        com.example.utility.FlowLayout flow_word_by_word;
+
+
         //   RelativeLayout colllayout;
         CardView erabnotescardView, kahteercardview;
         ImageView mafoolatarow;
@@ -449,7 +439,7 @@ public class PageMushaAudioAdapter extends RecyclerView.Adapter<PageMushaAudioAd
 
             } else {
                 //     kathir_note = view.findViewById(R.id.kathir_note);
-
+                pagenum=view.findViewById(R.id.pagenum);
                 rukuview = view.findViewById(R.id.rukuview);
                 sajdaverse = view.findViewById(R.id.sajda);
                 makkimadaniicon = view.findViewById(R.id.makkimadaniicon);

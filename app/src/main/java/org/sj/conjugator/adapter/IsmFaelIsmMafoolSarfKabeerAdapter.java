@@ -375,9 +375,11 @@ public class IsmFaelIsmMafoolSarfKabeerAdapter extends RecyclerView.Adapter<IsmF
     }
 
     private void FontSIzeSelection(ViewHolder holder) {
+   boolean     defaultfont = sharedPreferences.getBoolean("default_font", true);
         SharedPreferences sharedPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.getContext());
         final Integer arabicFontsize = sharedPreferences.getInt("pref_font_arabic_key", 20);
         String width = sharedPreferences.getString("width", "compactWidth");
+        if(!defaultfont){
         if (width.equals("mediumWidth") || width.equals("expandedWidth")) {
             if (isTraditional) {
                 holder.nom.setTextSize(arabicFontsize);//(array[0]);
@@ -405,20 +407,24 @@ public class IsmFaelIsmMafoolSarfKabeerAdapter extends RecyclerView.Adapter<IsmF
                 holder.dual4.setTextSize(arabicFontsize);//(array[1]);
                 holder.plu4.setTextSize(arabicFontsize);//(array[2]);
             } else {
-                holder.nom.setTextSize(arabicFontsize);//(array[0]);
-                holder.acc.setTextSize(arabicFontsize);//(array[1]);
-                holder.gen.setTextSize(arabicFontsize);//(array[2]);
-                holder.sin1.setTextSize(arabicFontsize);//(array[0]);
-                holder.dual1.setTextSize(arabicFontsize);//(array[1]);
-                holder.plu1.setTextSize(arabicFontsize);//(array[2]);
-                holder.sin2.setTextSize(arabicFontsize);//(array[0]);
-                holder.dual2.setTextSize(arabicFontsize);//(array[1]);
-                holder.plu2.setTextSize(arabicFontsize);//(array[2]);
-                holder.sin3.setTextSize(arabicFontsize);//(array[0]);
-                holder.dual2.setTextSize(arabicFontsize);//(array[1]);
-                holder.dual3.setTextSize(arabicFontsize);//(array[2]);
+                if(!defaultfont) {
+                    holder.nom.setTextSize(arabicFontsize);//(array[0]);
+                    holder.acc.setTextSize(arabicFontsize);//(array[1]);
+                    holder.gen.setTextSize(arabicFontsize);//(array[2]);
+                    holder.sin1.setTextSize(arabicFontsize);//(array[0]);
+                    holder.dual1.setTextSize(arabicFontsize);//(array[1]);
+                    holder.plu1.setTextSize(arabicFontsize);//(array[2]);
+                    holder.sin2.setTextSize(arabicFontsize);//(array[0]);
+                    holder.dual2.setTextSize(arabicFontsize);//(array[1]);
+                    holder.plu2.setTextSize(arabicFontsize);//(array[2]);
+                    holder.sin3.setTextSize(arabicFontsize);//(array[0]);
+                    holder.dual2.setTextSize(arabicFontsize);//(array[1]);
+                    holder.dual3.setTextSize(arabicFontsize);//(array[2]);
+                }
 
             }
+        }
+        if(!defaultfont) {
             holder.imafone.setTextSize(arabicFontsize);//smafone);
             holder.imaftwo.setTextSize(arabicFontsize);//smaftwo);
             holder.imafthree.setTextSize(arabicFontsize);//smafthree);
@@ -457,6 +463,8 @@ public class IsmFaelIsmMafoolSarfKabeerAdapter extends RecyclerView.Adapter<IsmF
             holder.isseven.setTextSize(arabicFontsize);//iisseven);
             holder.iseight.setTextSize(arabicFontsize);//iiseight);
             holder.isnine.setTextSize(arabicFontsize);//iisnine);
+
+        }
 
         }
     }
