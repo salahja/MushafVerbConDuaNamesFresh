@@ -49,6 +49,7 @@ import com.example.mushafconsolidated.Entities.qurandictionary;
 import com.example.mushafconsolidated.Entities.quranexplorer;
 import com.example.mushafconsolidated.Entities.surahsummary;
 import com.example.mushafconsolidated.Entities.wbwentity;
+import com.example.mushafconsolidated.model.Juz;
 import com.example.utility.QuranGrammarApplication;
 
 import java.io.File;
@@ -149,6 +150,7 @@ public class Utils {
         database.BookMarkDao().deleteCollection(count);
     }
 
+
     private static class deleteWordAsyncTask extends AsyncTask<BookMarks, Void, Void> {
         private BookMarkDao mAsyncTaskDao;
 
@@ -166,6 +168,11 @@ public class Utils {
 
 
 
+    public static ArrayList<QuranEntity> getQuranbyJuz(int juz) {
+        ArrayList<QuranEntity> juzs = (ArrayList<QuranEntity>) database.QuranDao().getQuranbyJuz(juz);
+        return juzs;
+
+    }
 
     public static ArrayList<BookMarks> getCollectionCount() {
         ArrayList<BookMarks> duat = (ArrayList<BookMarks>) database.BookMarkDao().getCollectionCount();
@@ -1082,8 +1089,13 @@ public class Utils {
        return    database.RawDao().getCollectionCount(query);
 
     }
+    public List<Juz> getJuz() {
+        String sql = "  select  a.nameenglish,a.namearabic ,a.chapterid , b. juz, min(b.page) page,b.ayah,b.qurantext from chaptersana a, qurans b where a.chapterid=b.surah group by juz";
+        SimpleSQLiteQuery query = new SimpleSQLiteQuery(sql);
+        //  List<Book> result = booksDao.getBooks(query);
+        return    database.RawDao().getJuz(query);
 
-
+    }
 
     public static LocationInfo getLocinfo(Double latitude, Double longitude) {
         String sqlverb = "select cityd.latitude,cityd.longitude,cityd.time_zone,Countries.Number,Countries.mazhab,Countries.way,Countries.dls,Countries.En_Name,Countries.En_Full_Name,\n" +
@@ -1132,7 +1144,9 @@ public class Utils {
     public static List<QuranEntity> getAyahsByPageQuran(int surah,int pageno) {
         return database.QuranDao().getAyahsByPage(surah,pageno);
     }
-
+    public static List<QuranEntity> getAyahsByPagejuz(int juz,int pageno) {
+        return database.QuranDao().getAyahsByPagejuz(juz,pageno);
+    }
 
 
     // ayah db operation

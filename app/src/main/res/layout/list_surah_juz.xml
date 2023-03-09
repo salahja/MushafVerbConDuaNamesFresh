@@ -170,7 +170,13 @@
                         android:textSize="16.0sp" />
                 </LinearLayout>
             </ScrollView>
-
+            <ScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fillViewport="true"
+                android:fitsSystemWindows="true"
+                android:overScrollMode="never"
+                android:scrollbars="none">
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -180,23 +186,32 @@
                 android:paddingEnd="18.0dip">
 
                 <TextView
+                    android:id="@+id/tvSura"
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="@string/all"
+                    android:text="@string/surah"
                     app:tabTextAppearance="@style/TabTextAppearance" />
 
                 <TextView
+                    android:layout_marginStart="20dp"
+                    android:id="@+id/tiJuz"
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="@string/colon_mark"
+                    android:text="Juz"
                     app:tabTextAppearance="@style/TabTextAppearance" />
 
 
+
+
+
+
+
             </LinearLayout>
+            </ScrollView>
         </LinearLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -211,7 +226,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/wordByWordRecyclerView"
         android:layoutAnimation="@anim/layout_flyincenter"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:tooltipText="surah"
 

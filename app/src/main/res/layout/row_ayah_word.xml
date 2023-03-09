@@ -48,7 +48,7 @@
 
     <include
         layout="@layout/erabcollapsabletwo"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
 
     <include

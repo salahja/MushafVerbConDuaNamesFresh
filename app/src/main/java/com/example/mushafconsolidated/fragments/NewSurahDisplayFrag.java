@@ -39,17 +39,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mushafconsolidated.Activity.QuranGrammarAct;
 import com.example.mushafconsolidated.Activity.ShowMushafActivity;
+import com.example.mushafconsolidated.Adapters.JuzSurahDisplayAdapter;
 import com.example.mushafconsolidated.Adapters.NewSurahDisplayAdapter;
 import com.example.mushafconsolidated.Entities.ChaptersAnaEntity;
 import com.example.mushafconsolidated.R;
 import com.example.mushafconsolidated.Utils;
 import com.example.mushafconsolidated.intrface.OnItemClickListener;
 import com.example.mushafconsolidated.intrface.PassdataInterface;
+import com.example.mushafconsolidated.model.Juz;
 import com.example.mushafconsolidated.settings.Constants;
 import com.example.utility.QuranGrammarApplication;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.android.material.tabs.TabItem;
+import com.google.android.material.textview.MaterialTextView;
 
 import org.sj.conjugator.activity.ConjugatorAct;
 
@@ -73,6 +77,7 @@ public class NewSurahDisplayFrag extends Fragment implements  SearchView.OnQuery
     private RecyclerView parentRecyclerView;
     //   private RecyclerView.Adapter ParentAdapter;
     private NewSurahDisplayAdapter ParentAdapter;
+    private JuzSurahDisplayAdapter juzSurahDisplayAdapter;
     //  SurahDisplayAdapter ParentAdapter;
     private OnItemClickListener mItemClickListener;
     private final boolean isfragmentshowing = true;
@@ -83,6 +88,7 @@ public class NewSurahDisplayFrag extends Fragment implements  SearchView.OnQuery
     private PassdataInterface datapasser;
     private int lastreadchapterno, lastreadverseno;
     private ArrayList<ChaptersAnaEntity> allAnaChapters;
+    private List<Juz> parts;
 
     private SearchView.OnQueryTextListener queryTextListener;
     private List<ChaptersAnaEntity> chapterfilered;
@@ -266,10 +272,14 @@ public class NewSurahDisplayFrag extends Fragment implements  SearchView.OnQuery
         View view = inflater.inflate(R.layout.list_surah_juz, container, false);
         initnavagation(view);
        searchint=  view.findViewById(R.id.searchint);
+        MaterialTextView juz=view.findViewById(R.id.tiJuz);
+        MaterialTextView surahtv=view.findViewById(R.id.tvSura);
+
         setToolbarFragment();
         setToolbarMenu();
         Utils utils = new Utils(getContext());
-      allAnaChapters = utils.getAllAnaChapters();
+        allAnaChapters = utils.getAllAnaChapters();
+         parts = utils.getJuz();
         chapterfilered=allAnaChapters;
         TypedArray imgs = getContext().getResources().obtainTypedArray(R.array.sura_imgs);
         GridLayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
@@ -282,6 +292,29 @@ public class NewSurahDisplayFrag extends Fragment implements  SearchView.OnQuery
         lastreadchapterno = pref.getInt(CHAPTER, 1);
         lastreadverseno = pref.getInt(AYAH_ID, 1);
         lastread.setText("Last read" + ":" + "Surah:" + lastreadchapterno + " " + "Ayah:" + lastreadverseno);
+        juz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                parentRecyclerView.setLayoutManager(mLayoutManager);
+                parentRecyclerView.setHasFixedSize(true);
+                parentRecyclerView.setLayoutManager(mLayoutManager);
+                juzSurahDisplayAdapter = new JuzSurahDisplayAdapter(getContext(), parts);
+
+                parentRecyclerView.setAdapter(juzSurahDisplayAdapter);
+            }
+        });
+
+        surahtv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                parentRecyclerView.setLayoutManager(mLayoutManager);
+                parentRecyclerView.setHasFixedSize(true);
+              
+                ParentAdapter = new NewSurahDisplayAdapter(getContext(), allAnaChapters);
+                ParentAdapter.setUp(allAnaChapters);
+                parentRecyclerView.setAdapter(ParentAdapter);
+            }
+        });
         kahaf.setText(R.string.linkkahaf);
         lastread.setOnClickListener(new View.OnClickListener() {
             @Override

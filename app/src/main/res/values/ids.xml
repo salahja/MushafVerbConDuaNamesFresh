@@ -395,6 +395,11 @@
     <item name="createbookmark" type="id" />
     <item name="addtocollection" type="id" />
     <item name="newcollection" type="id" />
+    <item name="tvLabelLastRead" type="id" />
+    <item name="llLastRead" type="id" />
+    <item name="tiHizb" type="id" />
+    <item name="tabjuz" type="id" />
+    <item name="tvJuz" type="id" />
 
 
 </resources>

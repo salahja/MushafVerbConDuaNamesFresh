@@ -22,6 +22,7 @@ import com.example.mushafconsolidated.Entities.SifaPOJO;
 import com.example.mushafconsolidated.Entities.TameezPOJO;
 import com.example.mushafconsolidated.Entities.TameezPojoList;
 import com.example.mushafconsolidated.Entities.VerbCorpusBreakup;
+import com.example.mushafconsolidated.model.Juz;
 
 import java.util.List;
 
@@ -95,4 +96,7 @@ public interface RawDao {
 
     @RawQuery
     List<BookMarksPojo> getCollectionCount(SupportSQLiteQuery query);
+
+    @RawQuery
+    List<Juz> getJuz(SimpleSQLiteQuery query);
 }

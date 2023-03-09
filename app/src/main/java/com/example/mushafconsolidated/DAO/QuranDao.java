@@ -18,6 +18,11 @@ public interface QuranDao {
     @Query("SELECT * FROM qurans order by surah,ayah")
     List<QuranEntity> getAllQuran();
 
+    @Query("SELECT * FROM qurans where juz=:part")
+    List<QuranEntity> getQuranbyJuz(int part);
+
+
+
     @Query("SELECT * FROM qurans where surah=:surahid and ayah=:ayahid")
     List<QuranEntity> getsurahayahVerses(int surahid, int ayahid);
 
@@ -28,6 +33,10 @@ public interface QuranDao {
 
     @Query("select * from qurans where  surah =:sura and page = :pageno order by ayah")
     List<QuranEntity> getAyahsByPage(int sura,int pageno);
+    @Query("select * from qurans where  surah =:juz and page = :pageno order by ayah")
+    List<QuranEntity> getAyahsByPagejuz(int juz,int pageno);
+
+
 
 
     @Query("select * from qurans where surah = :surahid and ayah>=:from and ayah<=:toid order by ayah  ")

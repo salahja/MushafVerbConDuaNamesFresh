@@ -20,12 +20,12 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
+            android:layout_margin="5dp"
             android:clipChildren="false"
 
             android:clipToPadding="false"
             android:dividerHeight="0.0px"
-            app:cardCornerRadius="12dp"
+            app:cardCornerRadius="5dp"
             app:cardElevation="10dp"
             app:rippleColor="@color/colorAccent"
             app:strokeColor="@color/color_primary_variant"
@@ -68,12 +68,12 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
+            android:layout_margin="5dp"
             android:clipChildren="false"
 
             android:clipToPadding="false"
             android:dividerHeight="0.0px"
-            app:cardCornerRadius="12dp"
+            app:cardCornerRadius="5dp"
             app:cardElevation="10dp"
             app:rippleColor="@color/colorAccent"
             app:strokeColor="@color/color_primary_variant"
@@ -157,12 +157,12 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
+            android:layout_margin="5dp"
             android:clipChildren="false"
 
             android:clipToPadding="false"
             android:dividerHeight="0.0px"
-            app:cardCornerRadius="12dp"
+            app:cardCornerRadius="5dp"
             app:cardElevation="10dp"
             app:rippleColor="@color/colorAccent"
             app:strokeColor="@color/color_primary_variant"
@@ -283,12 +283,12 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
+            android:layout_margin="5dp"
             android:clipChildren="false"
 
             android:clipToPadding="false"
             android:dividerHeight="0.0px"
-            app:cardCornerRadius="12dp"
+            app:cardCornerRadius="5dp"
             app:cardElevation="10dp"
             app:rippleColor="@color/colorAccent"
             app:strokeColor="@color/color_primary_variant"
@@ -410,12 +410,12 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
+            android:layout_margin="5dp"
             android:clipChildren="false"
 
             android:clipToPadding="false"
             android:dividerHeight="0.0px"
-            app:cardCornerRadius="12dp"
+            app:cardCornerRadius="5dp"
             app:cardElevation="10dp"
             app:rippleColor="@color/colorAccent"
             app:strokeColor="@color/color_primary_variant"
@@ -544,12 +544,12 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
+            android:layout_margin="5dp"
             android:clipChildren="false"
 
             android:clipToPadding="false"
             android:dividerHeight="0.0px"
-            app:cardCornerRadius="12dp"
+            app:cardCornerRadius="5dp"
             app:cardElevation="10dp"
             app:rippleColor="@color/colorAccent"
             app:strokeColor="@color/color_primary_variant"
@@ -667,12 +667,12 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
+            android:layout_margin="5dp"
             android:clipChildren="false"
 
             android:clipToPadding="false"
             android:dividerHeight="0.0px"
-            app:cardCornerRadius="12dp"
+            app:cardCornerRadius="5dp"
             app:cardElevation="10dp"
             app:rippleColor="@color/colorAccent"
             app:strokeColor="@color/color_primary_variant"
@@ -735,12 +735,12 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
+            android:layout_margin="5dp"
             android:clipChildren="false"
 
             android:clipToPadding="false"
             android:dividerHeight="0.0px"
-            app:cardCornerRadius="12dp"
+            app:cardCornerRadius="5dp"
             app:cardElevation="10dp"
             app:rippleColor="@color/colorAccent"
             app:strokeColor="@color/color_primary_variant"
@@ -782,12 +782,12 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
+            android:layout_margin="5dp"
             android:clipChildren="false"
 
             android:clipToPadding="false"
             android:dividerHeight="0.0px"
-            app:cardCornerRadius="12dp"
+            app:cardCornerRadius="5dp"
             app:cardElevation="10dp"
             app:rippleColor="@color/colorAccent"
             app:strokeColor="@color/color_primary_variant"
@@ -859,12 +859,12 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
+            android:layout_margin="5dp"
             android:clipChildren="false"
 
             android:clipToPadding="false"
             android:dividerHeight="0.0px"
-            app:cardCornerRadius="12dp"
+            app:cardCornerRadius="5dp"
             app:cardElevation="10dp"
             app:rippleColor="@color/colorAccent"
             app:strokeColor="@color/color_primary_variant"
@@ -936,12 +936,12 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
+            android:layout_margin="5dp"
             android:clipChildren="false"
 
             android:clipToPadding="false"
             android:dividerHeight="0.0px"
-            app:cardCornerRadius="12dp"
+            app:cardCornerRadius="5dp"
             app:cardElevation="10dp"
             app:rippleColor="@color/colorAccent"
             app:strokeColor="@color/color_primary_variant"
@@ -1012,12 +1012,12 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
+            android:layout_margin="5dp"
             android:clipChildren="false"
 
             android:clipToPadding="false"
             android:dividerHeight="0.0px"
-            app:cardCornerRadius="12dp"
+            app:cardCornerRadius="5dp"
             app:cardElevation="10dp"
             app:rippleColor="@color/colorAccent"
             app:strokeColor="@color/color_primary_variant"
@@ -1089,12 +1089,12 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
+            android:layout_margin="5dp"
             android:clipChildren="false"
 
             android:clipToPadding="false"
             android:dividerHeight="0.0px"
-            app:cardCornerRadius="12dp"
+            app:cardCornerRadius="5dp"
             app:cardElevation="10dp"
             app:rippleColor="@color/colorAccent"
             app:strokeColor="@color/color_primary_variant"
@@ -1158,12 +1158,12 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
+            android:layout_margin="5dp"
             android:clipChildren="false"
 
             android:clipToPadding="false"
             android:dividerHeight="0.0px"
-            app:cardCornerRadius="12dp"
+            app:cardCornerRadius="5dp"
             app:cardElevation="10dp"
             app:rippleColor="@color/colorAccent"
             app:strokeColor="@color/color_primary_variant"
@@ -1205,12 +1205,12 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
+            android:layout_margin="5dp"
             android:clipChildren="false"
 
             android:clipToPadding="false"
             android:dividerHeight="0.0px"
-            app:cardCornerRadius="12dp"
+            app:cardCornerRadius="5dp"
             app:cardElevation="10dp"
             app:rippleColor="@color/colorAccent"
             app:strokeColor="@color/color_primary_variant"
@@ -1277,12 +1277,12 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
+            android:layout_margin="5dp"
             android:clipChildren="false"
 
             android:clipToPadding="false"
             android:dividerHeight="0.0px"
-            app:cardCornerRadius="12dp"
+            app:cardCornerRadius="5dp"
             app:cardElevation="10dp"
             app:rippleColor="@color/colorAccent"
             app:strokeColor="@color/color_primary_variant"
@@ -1347,12 +1347,12 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
+            android:layout_margin="5dp"
             android:clipChildren="false"
 
             android:clipToPadding="false"
             android:dividerHeight="0.0px"
-            app:cardCornerRadius="12dp"
+            app:cardCornerRadius="5dp"
             app:cardElevation="10dp"
             app:rippleColor="@color/colorAccent"
             app:strokeColor="@color/color_primary_variant"
@@ -1418,12 +1418,12 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
+            android:layout_margin="5dp"
             android:clipChildren="false"
 
             android:clipToPadding="false"
             android:dividerHeight="0.0px"
-            app:cardCornerRadius="12dp"
+            app:cardCornerRadius="5dp"
             app:cardElevation="10dp"
             app:rippleColor="@color/colorAccent"
             app:strokeColor="@color/color_primary_variant"
@@ -1495,12 +1495,12 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
+            android:layout_margin="5dp"
             android:clipChildren="false"
 
             android:clipToPadding="false"
             android:dividerHeight="0.0px"
-            app:cardCornerRadius="12dp"
+            app:cardCornerRadius="5dp"
             app:cardElevation="10dp"
             app:rippleColor="@color/colorAccent"
             app:strokeColor="@color/color_primary_variant"
@@ -1564,12 +1564,12 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
+            android:layout_margin="5dp"
             android:clipChildren="false"
 
             android:clipToPadding="false"
             android:dividerHeight="0.0px"
-            app:cardCornerRadius="12dp"
+            app:cardCornerRadius="5dp"
             app:cardElevation="10dp"
             app:rippleColor="@color/colorAccent"
             app:strokeColor="@color/color_primary_variant"
@@ -1611,12 +1611,12 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
+            android:layout_margin="5dp"
             android:clipChildren="false"
 
             android:clipToPadding="false"
             android:dividerHeight="0.0px"
-            app:cardCornerRadius="12dp"
+            app:cardCornerRadius="5dp"
             app:cardElevation="10dp"
             app:rippleColor="@color/colorAccent"
             app:strokeColor="@color/color_primary_variant"
@@ -1643,12 +1643,12 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
+            android:layout_margin="5dp"
             android:clipChildren="false"
 
             android:clipToPadding="false"
             android:dividerHeight="0.0px"
-            app:cardCornerRadius="12dp"
+            app:cardCornerRadius="5dp"
             app:cardElevation="10dp"
             app:rippleColor="@color/colorAccent"
             app:strokeColor="@color/color_primary_variant"
@@ -1715,12 +1715,12 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
+            android:layout_margin="5dp"
             android:clipChildren="false"
 
             android:clipToPadding="false"
             android:dividerHeight="0.0px"
-            app:cardCornerRadius="12dp"
+            app:cardCornerRadius="5dp"
             app:cardElevation="10dp"
             app:rippleColor="@color/colorAccent"
             app:strokeColor="@color/color_primary_variant"
@@ -1785,12 +1785,12 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
+            android:layout_margin="5dp"
             android:clipChildren="false"
 
             android:clipToPadding="false"
             android:dividerHeight="0.0px"
-            app:cardCornerRadius="12dp"
+            app:cardCornerRadius="5dp"
             app:cardElevation="10dp"
             app:rippleColor="@color/colorAccent"
             app:strokeColor="@color/color_primary_variant"
@@ -1856,12 +1856,12 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
+            android:layout_margin="5dp"
             android:clipChildren="false"
 
             android:clipToPadding="false"
             android:dividerHeight="0.0px"
-            app:cardCornerRadius="12dp"
+            app:cardCornerRadius="5dp"
             app:cardElevation="10dp"
             app:rippleColor="@color/colorAccent"
             app:strokeColor="@color/color_primary_variant"
@@ -1933,12 +1933,12 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
+            android:layout_margin="5dp"
             android:clipChildren="false"
 
             android:clipToPadding="false"
             android:dividerHeight="0.0px"
-            app:cardCornerRadius="12dp"
+            app:cardCornerRadius="5dp"
             app:cardElevation="10dp"
             app:rippleColor="@color/colorAccent"
             app:strokeColor="@color/color_primary_variant"
@@ -2002,12 +2002,12 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
+            android:layout_margin="5dp"
             android:clipChildren="false"
 
             android:clipToPadding="false"
             android:dividerHeight="0.0px"
-            app:cardCornerRadius="12dp"
+            app:cardCornerRadius="5dp"
             app:cardElevation="10dp"
             app:rippleColor="@color/colorAccent"
             app:strokeColor="@color/color_primary_variant"
@@ -2050,12 +2050,12 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
+            android:layout_margin="5dp"
             android:clipChildren="false"
 
             android:clipToPadding="false"
             android:dividerHeight="0.0px"
-            app:cardCornerRadius="12dp"
+            app:cardCornerRadius="5dp"
             app:cardElevation="10dp"
             app:rippleColor="@color/colorAccent"
             app:strokeColor="@color/color_primary_variant"
@@ -2082,12 +2082,12 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
+            android:layout_margin="5dp"
             android:clipChildren="false"
 
             android:clipToPadding="false"
             android:dividerHeight="0.0px"
-            app:cardCornerRadius="12dp"
+            app:cardCornerRadius="5dp"
             app:cardElevation="10dp"
             app:rippleColor="@color/colorAccent"
             app:strokeColor="@color/color_primary_variant"
@@ -2154,12 +2154,12 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
+            android:layout_margin="5dp"
             android:clipChildren="false"
 
             android:clipToPadding="false"
             android:dividerHeight="0.0px"
-            app:cardCornerRadius="12dp"
+            app:cardCornerRadius="5dp"
             app:cardElevation="10dp"
             app:rippleColor="@color/colorAccent"
             app:strokeColor="@color/color_primary_variant"
@@ -2231,12 +2231,12 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
+            android:layout_margin="5dp"
             android:clipChildren="false"
 
             android:clipToPadding="false"
             android:dividerHeight="0.0px"
-            app:cardCornerRadius="12dp"
+            app:cardCornerRadius="5dp"
             app:cardElevation="10dp"
             app:rippleColor="@color/colorAccent"
             app:strokeColor="@color/color_primary_variant"
@@ -2280,12 +2280,12 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
+            android:layout_margin="5dp"
             android:clipChildren="false"
 
             android:clipToPadding="false"
             android:dividerHeight="0.0px"
-            app:cardCornerRadius="12dp"
+            app:cardCornerRadius="5dp"
             app:cardElevation="10dp"
             app:rippleColor="@color/colorAccent"
             app:strokeColor="@color/color_primary_variant"
@@ -2353,12 +2353,12 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
+            android:layout_margin="5dp"
             android:clipChildren="false"
 
             android:clipToPadding="false"
             android:dividerHeight="0.0px"
-            app:cardCornerRadius="12dp"
+            app:cardCornerRadius="5dp"
             app:cardElevation="10dp"
             app:rippleColor="@color/colorAccent"
             app:strokeColor="@color/color_primary_variant"
@@ -2430,16 +2430,6 @@
 
     </TableLayout>
 
-    <ru.dimorinny.floatingtextbutton.FloatingTextButton
-        android:id="@+id/action_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="?selectableItemBackground"
-        app:floating_background_color="@color/background_color"
-        app:floating_left_icon="@drawable/baseline_arrow_circle_down_black_24dp"
 
-
-        app:floating_title="Back"
-        app:floating_title_color="@android:color/white" />
 
 </com.example.JustJava.ZoomLayout>
