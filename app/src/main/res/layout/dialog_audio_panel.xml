@@ -117,10 +117,10 @@
                 android:padding="@dimen/space_3">
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="0.0dip"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="1.0"
+                    android:layout_weight="0"
                     android:drawablePadding="@dimen/space_1"
                     android:gravity="start|center"
                     android:text="@string/qari"
@@ -136,6 +136,7 @@
                     android:layout_gravity="center"
                     android:ellipsize="end"
                     android:gravity="center"
+                    android:layout_weight="1"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                     android:textStyle="bold"
                     app:drawableEndCompat="@drawable/ic_keyboard_arrow_right_black_24dp"

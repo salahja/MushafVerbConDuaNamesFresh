@@ -72,6 +72,10 @@ public class GrammarRuleDetailFragment extends Fragment {
         mTextView = binding.grammarruleDetail;
         WebSettings webSettings = mTextView.getSettings();
         webSettings.setJavaScriptEnabled(true);
+      //  mTextView.setInitialScale(1);
+     //   mTextView.getSettings().setLoadWithOverviewMode(true);
+    //    mTextView.getSettings().setUseWideViewPort(true);
+        mTextView.getSettings().setBuiltInZoomControls(true);
         // Show the placeholder content as text in a TextView & in the toolbar if available.
         updateContent();
         rootView.setOnDragListener(dragListener);
@@ -86,6 +90,7 @@ public class GrammarRuleDetailFragment extends Fragment {
 
     private void updateContent() {
         if (mItem != null) {
+
             mTextView.loadDataWithBaseURL(null, mItem.getDetailsrules(), "text/html", "utf-8", null);
             //   mTextView.setText(mItem.getDetailsrules());
             if (mToolbarLayout != null) {

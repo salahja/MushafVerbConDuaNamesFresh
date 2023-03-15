@@ -4,9 +4,13 @@ import static android.text.TextUtils.concat;
 import static com.example.Constant.AYAHNUMBER;
 import static com.example.Constant.AYAH_ID;
 import static com.example.Constant.CHAPTER;
+import static com.example.Constant.DARKMAGENTA;
+import static com.example.Constant.INDIGO;
 import static com.example.Constant.MAKKI_MADANI;
+import static com.example.Constant.MIDNIGHTBLUE;
 import static com.example.Constant.MUSLIMMATE;
 import static com.example.Constant.ORANGE100;
+import static com.example.Constant.ORANGE400;
 import static com.example.Constant.PURPLES;
 import static com.example.Constant.QURAN_VERB_ROOT;
 import static com.example.Constant.RUKUCOUNT;
@@ -360,11 +364,11 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
             brokenPlurarColoragainstBlack = prefs.getInt("brokenblack", Color.GREEN);
 
         } else {
-            shartagainstback = prefs.getInt("shartback", Color.DKGRAY);
-            mudhafColoragainstBlack = prefs.getInt("mausoofwhite", 0xFF000000);
-            mausofColoragainstBlack = prefs.getInt("mudhafwhite", 0xFF000000);
-            sifatColoragainstBlack = prefs.getInt("sifatwhite", 0xFF000000);
-            brokenPlurarColoragainstBlack = prefs.getInt("brokenwhite", 0xFF000000);
+            shartagainstback = prefs.getInt("shartback", INDIGO);
+            mudhafColoragainstBlack = prefs.getInt("mausoofwhite", Color.GREEN);
+            mausofColoragainstBlack = prefs.getInt("mudhafwhite", MIDNIGHTBLUE);
+            sifatColoragainstBlack = prefs.getInt("sifatwhite", ORANGE400);
+            brokenPlurarColoragainstBlack = prefs.getInt("brokenwhite", DARKMAGENTA);
 
         }
         if (isFirstTime()) {
@@ -855,7 +859,7 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
             parentRecyclerView = findViewById(id.overlayViewRecyclerView);
             //
             if (currentSelectSurah == getChapterno()) {
-                parentRecyclerView.post(() -> parentRecyclerView.smoothScrollToPosition(verse_no));
+                parentRecyclerView.post(() -> parentRecyclerView.scrollToPosition(verse_no));
 
             } else {
                 jumptostatus = true;
@@ -1332,7 +1336,7 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
         WbwSurah wbwSurah=new WbwSurah(QuranGrammarAct.this, chapterno, corpusayahWordArrayList,passage);
         wbwSurah.getWordbyword();
         CorpusUtilityorig corpus = new CorpusUtilityorig(this);
-        //      corpus.highLightVerbs(corpusayahWordArrayList,surah_id);
+      //     corpus.highLightVerbs(corpusayahWordArrayList,surah_id);
         if (kana) {
             corpus.setKana(corpusayahWordArrayList, chapterno);
 

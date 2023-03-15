@@ -13,7 +13,7 @@
 
     <com.example.utility.FlowLayout
         android:id="@+id/flow_word_by_word"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="8dp"
         app:lineSpacing="-4dp"
@@ -35,6 +35,7 @@
         android:textSize="16.0sp" />
 
     <com.google.android.material.textview.MaterialTextView
+        android:autoSizeTextType="uniform"
         android:id="@+id/quran_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

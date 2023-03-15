@@ -112,6 +112,7 @@
                 android:scrollbars="none">
 
                 <LinearLayout
+                    style="@android:style/TextAppearance.DeviceDefault.Small"
                     android:id="@id/llQuickLinks"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -121,14 +122,15 @@
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/kahaf"
-                        style="@style/Widget.Material3.Button.OutlinedButton"
+
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5.0dip"
                         android:layout_weight="1.0"
 
                         android:text="@string/text_kahaf"
-                        android:textSize="16.0sp"
+                        android:textSize="12.0sp"
                         app:elevation="12dp" />
 
                     <com.google.android.material.button.MaterialButton
@@ -139,7 +141,7 @@
                         android:layout_margin="5.0dip"
                         android:layout_weight="1.0"
                         android:text="@string/text_ayatul_kursi"
-                        android:textSize="16.0sp"
+                        android:textSize="12.0sp"
                         app:elevation="7dp" />
 
                     <com.google.android.material.button.MaterialButton
@@ -148,10 +150,12 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="5.0dip"
                         android:layout_weight="1.0"
+                        android:visibility="gone"
                         android:contentDescription="@string/_text_tafsir"
-                        android:textSize="16.0sp" />
+                        android:textSize="12.0sp" />
 
                     <com.google.android.material.button.MaterialButton
+                        android:visibility="gone"
                         style="@style/Widget.Material3.Button.OutlinedButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

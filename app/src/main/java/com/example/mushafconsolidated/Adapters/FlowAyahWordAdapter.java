@@ -72,7 +72,6 @@ import androidx.transition.AutoTransition;
 import androidx.transition.TransitionManager;
 
 import com.example.mushafconsolidated.Activity.TafsirFullscreenActivity;
-import com.example.mushafconsolidated.Activity.WordbywordMushafAct;
 import com.example.mushafconsolidated.Config;
 import com.example.mushafconsolidated.Entities.BadalErabNotesEnt;
 import com.example.mushafconsolidated.Entities.BookMarks;
@@ -99,6 +98,7 @@ import com.example.utility.AnimationUtility;
 import com.example.utility.CorpusUtilityorig;
 import com.example.utility.QuranGrammarApplication;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.chip.Chip;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
@@ -137,7 +137,10 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
     private final String SurahName;
     private final int isMakkiMadani;
     public Context context;
-    public TextView arabic, rootword;
+    public TextView  rootword;
+  //MaterialTextView arabic;
+   Chip arabicChipview;
+   MaterialTextView arabicTv;
     final int arabicfontSize;
     final int translationfontsize;
     final OnItemClickListenerOnLong mItemClickListener;
@@ -611,7 +614,8 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
         holder.flow_word_by_word.removeAllViews();
         for (final CorpusWbwWord word : ayahWord.getWord()) {
             final View view = inflater.inflate(R.layout.word_by_word, null);
-            arabic = view.findViewById(R.id.word_arabic_textView);
+            arabicChipview = view.findViewById(R.id.word_arabic_chipview);
+            arabicTv=view.findViewById(R.id.word_arabic_textView);
             rootword = view.findViewById(R.id.root_word);
             //   wordno = view.findViewById(R.id.wordno);
             final TextView translation = view.findViewById(R.id.word_trans_textView);
@@ -634,15 +638,24 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
                 spannedword = getSpannedWords(word);
                 //   arabic.setText(fixArabic(String.valueOf(spannedword)));
 
-                arabic.setText(spannedword);
+                if(showWbwTranslation){
+                    arabicTv.setText(spannedword);
+                    arabicTv.setVisibility(View.VISIBLE);
+                }else{
+                    arabicChipview.setText(spannedword);
+                    arabicChipview.setVisibility(View.VISIBLE);
+                }
+
+
             } else {
-                arabic.setText(word.getWordsAr());
+                arabicChipview.setText(word.getWordsAr());
+
             }
             rootword.setText(spannedroot);
             rootword.setTextSize(arabicfontSize);
-            arabic.setTypeface(colorwordfont);
 
-
+            arabicTv.setTypeface(colorwordfont);
+            arabicChipview.setTypeface(colorwordfont);
 
             if (showWbwTranslation) {
                 switch (wbw) {
@@ -668,75 +681,145 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
             if(!defaultfont){
 
                 rootword.setTextSize(arabicfontSize);
-                arabic.setTextSize(arabicfontSize);
+                arabicChipview.setTextSize(arabicfontSize);
                 translation.setTextSize(arabicfontSize);
             }
             holder.flow_word_by_word.addView(view);
             view.setLongClickable(true);
-            view.setOnLongClickListener(v -> {
-                Utils utils = new Utils(getContext());
-                ArrayList<VerbCorpus> verbCorpusRootWords = utils.getQuranRoot(word.getSurahId(), word.getVerseId(), word.getWordno());
-                if (verbCorpusRootWords.size() > 0 && verbCorpusRootWords.get(0).getTag().equals("V")) {
-                    //    vbdetail = ams.getVerbDetails();
-                    System.out.print("check");
-                }
-                ArrayList<NounCorpus> corpusNounWord = utils.getQuranNouns(word.getSurahId(), word.getVerseId(), word.getWordno());
-                ArrayList<VerbCorpus> verbCorpusRootWord = utils.getQuranRoot(word.getSurahId(), word.getVerseId(), word.getWordno());
-                WordMorphologyDetails qm = new WordMorphologyDetails(word, corpusNounWord, verbCorpusRootWord);
-                SpannableString workBreakDown = qm.getWorkBreakDown();
-                int color = ContextCompat.getColor(context, R.color.background_color_light_brown);
-                switch (isNightmode) {
-                    case "dark":
-                    case "blue":
+            if(!showWbwTranslation) {
 
-                    case "green":
-                        color = ContextCompat.getColor(context, R.color.background_color);
-                        break;
-                    case "brown":
-                        color = ContextCompat.getColor(context, R.color.neutral0);
-                        break;
-                    case "light":
-                        //  case "white":
-                        color = ContextCompat.getColor(context, R.color.background_color_light_brown);
-                        break;
-                }
-                Tooltip.Builder builder = new Tooltip.Builder(v, R.style.ayah_translation)
-                        .setCancelable(true)
-                        .setDismissOnClick(false)
-                        .setCornerRadius(20f)
-                        .setGravity(Gravity.TOP)
-                        .setArrowEnabled(true)
-                        .setBackgroundColor(color)
-                        .setText(workBreakDown);
-                builder.show();
-                return true;
-            });
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    //pause player when word details is clicked
+                arabicChipview.setOnLongClickListener(new OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        Utils utils = new Utils(getContext());
+                        ArrayList<VerbCorpus> verbCorpusRootWords = utils.getQuranRoot(word.getSurahId(), word.getVerseId(), word.getWordno());
+                        if (verbCorpusRootWords.size() > 0 && verbCorpusRootWords.get(0).getTag().equals("V")) {
+                            //    vbdetail = ams.getVerbDetails();
+                            System.out.print("check");
+                        }
+                        ArrayList<NounCorpus> corpusNounWord = utils.getQuranNouns(word.getSurahId(), word.getVerseId(), word.getWordno());
+                        ArrayList<VerbCorpus> verbCorpusRootWord = utils.getQuranRoot(word.getSurahId(), word.getVerseId(), word.getWordno());
+                        WordMorphologyDetails qm = new WordMorphologyDetails(word, corpusNounWord, verbCorpusRootWord);
+                        SpannableString workBreakDown = qm.getWorkBreakDown();
+                        int color = ContextCompat.getColor(context, R.color.background_color_light_brown);
+                        switch (isNightmode) {
+                            case "dark":
+                            case "blue":
+
+                            case "green":
+                                color = ContextCompat.getColor(context, R.color.background_color);
+                                break;
+                            case "brown":
+                                color = ContextCompat.getColor(context, R.color.neutral0);
+                                break;
+                            case "light":
+                                //  case "white":
+                                color = ContextCompat.getColor(context, R.color.background_color_light_brown);
+                                break;
+                        }
+                        Tooltip.Builder builder = new Tooltip.Builder(v, R.style.ayah_translation)
+                                .setCancelable(true)
+                                .setDismissOnClick(false)
+                                .setCornerRadius(20f)
+                                .setGravity(Gravity.TOP)
+                                .setArrowEnabled(true)
+                                .setBackgroundColor(color)
+                                .setText(workBreakDown);
+                        builder.show();
+
+                        return true;
+                    }
+                });
+                arabicChipview.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final Dialog dialog = new Dialog(context);
+                        dialog.setTitle(word.getWordsAr());
+                        Bundle dataBundle = new Bundle();
+                        dataBundle.putInt(SURAH_ID, word.getSurahId());
+                        dataBundle.putInt(AYAHNUMBER, Math.toIntExact(word.getVerseId()));
+                        dataBundle.putInt(WORDNUMBER, Math.toIntExact(word.getWordno()));
+                        dataBundle.putString(SURAH_ARABIC_NAME, SurahName);
+                        LoadItemList(dataBundle,word);
+                    }
+                });
+            }else {
+                view.setOnLongClickListener(v -> {
+                    Utils utils = new Utils(getContext());
+                    ArrayList<VerbCorpus> verbCorpusRootWords = utils.getQuranRoot(word.getSurahId(), word.getVerseId(), word.getWordno());
+                    if (verbCorpusRootWords.size() > 0 && verbCorpusRootWords.get(0).getTag().equals("V")) {
+                        //    vbdetail = ams.getVerbDetails();
+                        System.out.print("check");
+                    }
+                    ArrayList<NounCorpus> corpusNounWord = utils.getQuranNouns(word.getSurahId(), word.getVerseId(), word.getWordno());
+                    ArrayList<VerbCorpus> verbCorpusRootWord = utils.getQuranRoot(word.getSurahId(), word.getVerseId(), word.getWordno());
+                    WordMorphologyDetails qm = new WordMorphologyDetails(word, corpusNounWord, verbCorpusRootWord);
+                    SpannableString workBreakDown = qm.getWorkBreakDown();
+                    int color = ContextCompat.getColor(context, R.color.background_color_light_brown);
+                    switch (isNightmode) {
+                        case "dark":
+                        case "blue":
+
+                        case "green":
+                            color = ContextCompat.getColor(context, R.color.background_color);
+                            break;
+                        case "brown":
+                            color = ContextCompat.getColor(context, R.color.neutral0);
+                            break;
+                        case "light":
+                            //  case "white":
+                            color = ContextCompat.getColor(context, R.color.background_color_light_brown);
+                            break;
+                    }
+                    Tooltip.Builder builder = new Tooltip.Builder(v, R.style.ayah_translation)
+                            .setCancelable(true)
+                            .setDismissOnClick(false)
+                            .setCornerRadius(20f)
+                            .setGravity(Gravity.TOP)
+                            .setArrowEnabled(true)
+                            .setBackgroundColor(color)
+                            .setText(workBreakDown);
+                    builder.show();
+                    return true;
+                });
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //pause player when word details is clicked
                /*     if (context instanceof WordbywordMushafAct) {
                         ((WordbywordMushafAct)context).pauseplay();
                     }*/
-                    final Dialog dialog = new Dialog(context);
-                    dialog.setTitle(word.getWordsAr());
-                    Bundle dataBundle = new Bundle();
-                    dataBundle.putInt(SURAH_ID, word.getSurahId());
-                    dataBundle.putInt(AYAHNUMBER, Math.toIntExact(word.getVerseId()));
-                    dataBundle.putInt(WORDNUMBER, Math.toIntExact(word.getWordno()));
-                    dataBundle.putString(SURAH_ARABIC_NAME, SurahName);
-                    LoadItemList(dataBundle);
+                        final Dialog dialog = new Dialog(context);
+                        dialog.setTitle(word.getWordsAr());
+                        Bundle dataBundle = new Bundle();
+                        dataBundle.putInt(SURAH_ID, word.getSurahId());
+                        dataBundle.putInt(AYAHNUMBER, Math.toIntExact(word.getVerseId()));
+                        dataBundle.putInt(WORDNUMBER, Math.toIntExact(word.getWordno()));
+                        dataBundle.putString(SURAH_ARABIC_NAME, SurahName);
+                        LoadItemList(dataBundle, word);
 
-                }
+                    }
 
-                private void LoadItemList(Bundle dataBundle) {
-                    if (issentence) {
-                        SentenceAnalysisBottomSheet item = new SentenceAnalysisBottomSheet();
-                        item.setArguments(dataBundle);
-                        String[] data = {String.valueOf(word.getSurahId()), String.valueOf(word.getVerseId()), word.getTranslateEn(), String.valueOf((word.getWordno()))};
-                        SentenceAnalysisBottomSheet.newInstance(data).show(((AppCompatActivity) context).getSupportFragmentManager(), SentenceAnalysisBottomSheet.TAG);
 
-                    } else {
+
+                });
+            }
+
+
+
+        }
+        holder.flow_word_by_word.setVisibility(View.VISIBLE);
+
+    }
+
+    private void LoadItemList(Bundle dataBundle, CorpusWbwWord word) {
+        if (issentence) {
+            SentenceAnalysisBottomSheet item = new SentenceAnalysisBottomSheet();
+            item.setArguments(dataBundle);
+            String[] data = {String.valueOf(word.getSurahId()), String.valueOf(word.getVerseId()), word.getTranslateEn(), String.valueOf((word.getWordno()))};
+            SentenceAnalysisBottomSheet.newInstance(data).show(((AppCompatActivity) context).getSupportFragmentManager(), SentenceAnalysisBottomSheet.TAG);
+
+        } else {
                  /*       ((AppCompatActivity) context). runOnUiThread(new Runnable() {
                             public void run() {
 
@@ -744,19 +827,12 @@ public class FlowAyahWordAdapter extends RecyclerView.Adapter<FlowAyahWordAdapte
                             }
                            });*/
 
-                        WordAnalysisBottomSheet item = new WordAnalysisBottomSheet();
-                        item.setArguments(dataBundle);
-                        String[] data = {String.valueOf(word.getSurahId()), String.valueOf(word.getVerseId()), word.getTranslateEn(), String.valueOf((word.getWordno())), SurahName};
-                        WordAnalysisBottomSheet.newInstance(data).show(((AppCompatActivity) context).getSupportFragmentManager(), WordAnalysisBottomSheet.TAG);
-
-                    }
-
-                }
-
-            });
+            WordAnalysisBottomSheet item = new WordAnalysisBottomSheet();
+            item.setArguments(dataBundle);
+            String[] data = {String.valueOf(word.getSurahId()), String.valueOf(word.getVerseId()), word.getTranslateEn(), String.valueOf((word.getWordno())), SurahName};
+            WordAnalysisBottomSheet.newInstance(data).show(((AppCompatActivity) context).getSupportFragmentManager(), WordAnalysisBottomSheet.TAG);
 
         }
-        holder.flow_word_by_word.setVisibility(View.VISIBLE);
 
     }
 

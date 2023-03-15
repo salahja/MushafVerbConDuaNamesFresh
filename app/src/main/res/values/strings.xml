@@ -631,7 +631,7 @@
     <string name="content_description_two">Menu</string>
     <string name="searchtopic">Quran Topics</string>
     <string name="qurandictionary">Quran Dictionary</string>
-    <string name="masdar">Masdar/Verbal Noun</string>
+    <string name="masdar">Masdar</string>
     <string name="checkdictionary">Check Dictionary</string>
     <string name="mudhaflisting">Mudhaf Listing</string>
     <string name="appwidget_text">App Widget</string>
@@ -778,7 +778,7 @@ Stream audio when possible (non-gapless audio only)
     <string name="play">Play Button</string>>
     <string name="nextbtn">Next Button</string>>
     <string name="previousbtn">Previous Button</string>
-    <string name="qari">Reciter Names</string>
+    <string name="qari">Reciter</string>
     <string name="advanced_settings">Advanced Settings</string>
     <string name="apply">Apply</string>
     <string name="repeat_each_verse">Repeat Each Verse</string>
