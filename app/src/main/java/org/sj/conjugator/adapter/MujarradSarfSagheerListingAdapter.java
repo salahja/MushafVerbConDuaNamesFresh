@@ -68,7 +68,7 @@ public class MujarradSarfSagheerListingAdapter extends RecyclerView.Adapter<Muja
 
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //      View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.sarfkabeercolumn, parent, false);
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.thulathitable, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.newthulathitable, parent, false);
         //    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.thulathisarfsagheer, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;

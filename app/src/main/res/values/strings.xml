@@ -791,7 +791,9 @@ Stream audio when possible (non-gapless audio only)
     <string name="resume">Resume</string>
     <string name="createpin">Create Bookmark</string>
     <string name="addtocollection">Add to Collection</string>
-    <string name="pref_default_device_font">default_font</string>>
+    <string name="pref_default_device_font">default_font</string>
+    <string name="amr">AMr</string>
+    <string name="amrnahi">AmrNahi</string>>
 
 
 

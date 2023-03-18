@@ -19,6 +19,7 @@ import com.example.mushafconsolidated.R;
 import com.example.utility.QuranGrammarApplication;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.chip.Chip;
+import com.google.android.material.textview.MaterialTextView;
 
 import org.jetbrains.annotations.NotNull;
 import org.sj.conjugator.fragments.SarfSagheer;
@@ -56,7 +57,7 @@ public class SarfMujarradSarfSagheerListingAdapter extends RecyclerView.Adapter<
 
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //      View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.sarfkabeercolumn, parent, false);
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.thulathitable, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.newthulathitable, parent, false);
         //    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.thulathisarfsagheer, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
@@ -198,9 +199,9 @@ public class SarfMujarradSarfSagheerListingAdapter extends RecyclerView.Adapter<
     public class ViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener // current clickListerner
     {
-        public final MaterialButton amr, nahiamr, ismfail, mumaroof,
+        public final MaterialTextView amr, nahiamr, ismfail, mumaroof,
                 mamaroof, ismmafool, mumajhool, mamajhool,
-                ismzarf, ismala, verify;
+                ismzarf, ismala;
         public final TextView babno, ismalaheader, ismzarfheader, masdart, masdaro, babname, rootword, weaknessname, wazan;
 
         public ViewHolder(View view) {
@@ -226,7 +227,7 @@ public class SarfMujarradSarfSagheerListingAdapter extends RecyclerView.Adapter<
             ismzarfheader = view.findViewById(R.id.ismzarfheader);
             ismalaheader = view.findViewById(R.id.ismalaheader);
             wazan = view.findViewById(R.id.wazan);
-            verify = view.findViewById(R.id.conjugateall);
+       //     verify = view.findViewById(R.id.conjugateall);
             mumajhool.setTooltipText("Click for Verb Conjugation");
             view.setOnClickListener(this);
             ismfail.setOnClickListener(this);//R.id.ismfail);
@@ -240,7 +241,7 @@ public class SarfMujarradSarfSagheerListingAdapter extends RecyclerView.Adapter<
             ismala.setOnClickListener(this);//R.id.ismaalatable);
             ismzarf.setOnClickListener(this);//R.id.zarftable);
             rootword.setOnClickListener(this);//R.id.weaknesstype);
-            verify.setOnClickListener(this);
+      //      verify.setOnClickListener(this);
 
         }
 

@@ -57,7 +57,7 @@ public class MazeedFihiSagheerListingadapter extends RecyclerView.Adapter<Mazeed
         //   View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.mufradat_ayah_list_row, parent, false);
         //    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.mazeedsarfsagheer, parent, false);
         //    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.thulathisarfsagheer, parent, false);
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.thulathitable, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.newthulathitable, parent, false);
         //    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.thulathisarfsagheer, parent, false);
         MufradatViewHolder viewHolder = new MufradatViewHolder(view);
         return viewHolder;
