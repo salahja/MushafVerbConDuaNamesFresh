@@ -49,7 +49,7 @@ public class VerbSarfKabeerAdapter extends RecyclerView.Adapter<VerbSarfKabeerAd
         //      View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.sarfkabeercolumn, parent, false);
         View view;
         if (aBoolean) {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.verbsarfkabeertraditional, parent, false);
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.newverbsarfkabeertraditional, parent, false);
         } else {
             //  view = LayoutInflater.from(parent.getContext()).inflate(R.layout.test ,parent, false);
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.verbscolumnkabeer, parent, false);
