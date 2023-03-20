@@ -184,7 +184,7 @@
 
 
                 <TextView
-                    android:id="@+id/indictive"
+                    android:id="@+id/nominative"
                     style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -257,7 +257,7 @@
                     android:textSize="20dp" />
 
                 <TextView
-                    android:id="@+id/subjunctive"
+                    android:id="@+id/accusative"
                     style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
@@ -873,6 +873,7 @@
 
                 <TextView
                     android:id="@id/imafone"
+                    android:text="ismfaone"
                     style="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"

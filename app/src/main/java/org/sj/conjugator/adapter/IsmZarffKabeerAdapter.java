@@ -403,8 +403,8 @@ public class IsmZarffKabeerAdapter extends RecyclerView.Adapter<IsmZarffKabeerAd
 
         public ViewHolder(View view) {
             super(view);
-            nom = view.findViewById(R.id.indictive);
-            acc = view.findViewById(R.id.subjunctive);
+            nom = view.findViewById(R.id.nominative);
+            acc = view.findViewById(R.id.accusative);
             gen = view.findViewById(R.id.genitive);
             nom1 = view.findViewById(R.id.nominative1);
             acc1 = view.findViewById(R.id.accusative1);

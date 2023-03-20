@@ -71,7 +71,7 @@ public class IsmFaelIsmMafoolSarfKabeerAdapter extends RecyclerView.Adapter<IsmF
         //      View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.sarfkabeercolumn, parent, false);
         View view;
         if (isTraditional) {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.ismfaelmafoolsktraditional, parent, false);
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.newismalasktraditional, parent, false);
         } else {
             //   view = LayoutInflater.from(parent.getContext()).inflate(R.layout.ismfaelmafoolcolumkabeer, parent, false);
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.ismfaelmafoolcolumkabeer, parent, false);
@@ -540,8 +540,8 @@ public class IsmFaelIsmMafoolSarfKabeerAdapter extends RecyclerView.Adapter<IsmF
             dual4 = view.findViewById(R.id.dual4);
             plu4 = view.findViewById(R.id.plural4);
             //    }
-            nom = view.findViewById(R.id.indictive);
-            acc = view.findViewById(R.id.subjunctive);
+            nom = view.findViewById(R.id.nominative);
+            acc = view.findViewById(R.id.accusative);
             gen = view.findViewById(R.id.genitive);
             nom1 = view.findViewById(R.id.nominative1);
             acc1 = view.findViewById(R.id.accusative1);

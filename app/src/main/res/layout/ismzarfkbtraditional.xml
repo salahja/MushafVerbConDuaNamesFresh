@@ -204,7 +204,7 @@
                     android:textSize="20dp" />
 
                 <TextView
-                    android:id="@id/indictive"
+                    android:id="@id/nominative"
                     android:layout_width="0.0dip"
                     android:layout_height="match_parent"
                     android:layout_weight="0.2"
@@ -273,7 +273,7 @@
                     android:textSize="20dp" />
 
                 <TextView
-                    android:id="@id/subjunctive"
+                    android:id="@id/accusative"
                     android:layout_width="0.0dip"
                     android:layout_height="match_parent"
                     android:layout_weight="0.2"
