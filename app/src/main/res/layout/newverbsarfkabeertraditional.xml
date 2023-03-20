@@ -17,7 +17,7 @@
         android:paddingTop="5dp"
         android:stretchColumns="*">
 
-        <com.google.android.material.card.MaterialCardView
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -30,6 +30,7 @@
             app:rippleColor="@color/colorAccent"
             app:strokeColor="@color/color_primary_variant"
             app:strokeWidth="1dp">
+
 
 
             <TextView
@@ -39,89 +40,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-                android:autoSizeMaxTextSize="26sp"
-                android:autoSizeMinTextSize="10sp"
                 android:autoSizeStepGranularity="6sp"
                 android:gravity="center"
                 android:paddingStart="5.0dip"
                 android:paddingEnd="3.0dip"
                 android:text="@string/faelmazi" />
 
-
-        </com.google.android.material.card.MaterialCardView>
-
-
-
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:visibility="gone"
-            android:weightSum="1.0">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/humid"
-                    style="@android:style/TextAppearance.DeviceDefault.Medium"
-                    android:layout_width="0.0dip"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    android:autoSizeMaxTextSize="26sp"
-                    android:autoSizeMinTextSize="10sp"
-                    android:autoSizeStepGranularity="6sp"
-                    android:gravity="center|right"
-                    android:paddingStart="5.0dip"
-                    android:paddingEnd="3.0dip" />
+        </androidx.cardview.widget.CardView>
+        
 
 
-                <TextView
-                    android:id="@+id/humamid"
-                    style="@android:style/TextAppearance.DeviceDefault.Medium"
-                    android:layout_width="0.0dip"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    android:gravity="center|right"
-                    android:paddingStart="5.0dip"
-                    android:paddingEnd="5.0dip"
-
-                    />
-
-                <TextView
-                    android:id="@id/huaid"
-                    style="@android:style/TextAppearance.DeviceDefault.Medium"
-                    android:layout_width="0.0dip"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.2"
-                    android:autoSizeMaxTextSize="26sp"
-                    android:autoSizeMinTextSize="10sp"
-                    android:autoSizeStepGranularity="6sp"
-                    android:gravity="center|right"
-                    android:paddingStart="5.0dip"
-                    android:paddingEnd="3.0dip" />
+ 
 
 
-            </LinearLayout>
-        </TableRow>
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:clipChildren="false"
 
-            android:clipToPadding="false"
-            android:dividerHeight="0.0px"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="10dp"
-            app:rippleColor="@color/colorAccent"
-            app:strokeColor="@color/color_primary_variant"
-            app:strokeWidth="1dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -176,75 +110,13 @@
                         android:paddingEnd="3.0dip" />
 
             </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:visibility="gone"
-            android:weightSum="1.0">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/hunnaid"
-                    style="@android:style/TextAppearance.DeviceDefault.Medium"
-                    android:layout_width="0.0dip"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    android:autoSizeMaxTextSize="26sp"
-                    android:autoSizeMinTextSize="10sp"
-                    android:autoSizeStepGranularity="6sp"
-                    android:gravity="center|right"
-                    android:paddingStart="5.0dip"
-                    android:paddingEnd="3.0dip" />
 
 
-                <TextView
-                    android:id="@+id/humafid"
-                    style="@android:style/TextAppearance.DeviceDefault.Medium"
-                    android:layout_width="0.0dip"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    android:gravity="center|right"
-                    android:paddingStart="5.0dip"
-                    android:paddingEnd="5.0dip" />
 
-                <TextView
-                    android:id="@id/hiaid"
-                    style="@android:style/TextAppearance.DeviceDefault.Medium"
-                    android:layout_width="0.0dip"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    android:autoSizeMaxTextSize="26sp"
-                    android:autoSizeMinTextSize="10sp"
-                    android:autoSizeStepGranularity="6sp"
-                    android:gravity="center|right"
-                    android:paddingStart="5.0dip"
-                    android:paddingEnd="3.0dip" />
 
-            </LinearLayout>
-        </TableRow>
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:clipChildren="false"
 
-            android:clipToPadding="false"
-            android:dividerHeight="0.0px"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="10dp"
-            app:rippleColor="@color/colorAccent"
-            app:strokeColor="@color/color_primary_variant"
-            app:strokeWidth="1dp">
+
 
 
 
@@ -295,98 +167,23 @@
 
                 </LinearLayout>
 
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:clipChildren="false"
-          android:visibility="gone"
-            android:clipToPadding="false"
-            android:dividerHeight="0.0px"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="10dp"
-            app:rippleColor="@color/colorAccent"
-            app:strokeColor="@color/color_primary_variant"
-            app:strokeWidth="1dp">
 
 
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0">
-
-                <TextView
-                    android:id="@+id/antumid"
-                    style="@android:style/TextAppearance.DeviceDefault.Medium"
-                    android:layout_width="0.0dip"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    android:autoSizeMaxTextSize="26sp"
-                    android:autoSizeMinTextSize="10sp"
-                    android:autoSizeStepGranularity="6sp"
-                    android:gravity="center|right"
-                    android:paddingStart="5.0dip"
-                    android:paddingEnd="3.0dip" />
 
 
-                <TextView
-                    android:id="@+id/antumamid"
-                    style="@android:style/TextAppearance.DeviceDefault.Medium"
-                    android:layout_width="0.0dip"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    android:autoSizeMaxTextSize="26sp"
-                    android:autoSizeMinTextSize="10sp"
-                    android:autoSizeStepGranularity="6sp"
-                    android:gravity="center|right"
-                    android:paddingStart="5.0dip"
-                    android:paddingEnd="3.0dip" />
-
-                <TextView
-                    android:id="@id/antaid"
-                    style="@android:style/TextAppearance.DeviceDefault.Medium"
-                    android:layout_width="0.0dip"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    android:autoSizeMaxTextSize="26sp"
-                    android:autoSizeMinTextSize="10sp"
-                    android:autoSizeStepGranularity="6sp"
-                    android:gravity="center|right"
-                    android:paddingStart="5.0dip"
-                    android:paddingEnd="3.0dip" />
 
 
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+        
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:clipChildren="false"
 
-            android:clipToPadding="false"
-            android:dividerHeight="0.0px"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="10dp"
-            app:rippleColor="@color/colorAccent"
-            app:strokeColor="@color/color_primary_variant"
-            app:strokeWidth="1dp">
 
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:weightSum="1.0">
+
 
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                   android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.0"
                     android:gravity="center_vertical"
@@ -435,91 +232,18 @@
                 </LinearLayout>
 
 
-            </TableRow>
-        </com.google.android.material.card.MaterialCardView>
-
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:visibility="gone"
-            android:weightSum="1.0">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0">
-
-                <TextView
-                    android:id="@id/antunnaid"
-                    style="@android:style/TextAppearance.DeviceDefault.Medium"
-
-                    android:layout_width="0.0dip"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    android:autoSizeMaxTextSize="26sp"
-                    android:autoSizeMinTextSize="10sp"
-                    android:autoSizeStepGranularity="6sp"
-                    android:gravity="center|right"
-                    android:paddingStart="5.0dip"
-                    android:paddingEnd="3.0dip" />
 
 
-                <TextView
-                    android:id="@+id/antumafid"
-                    style="@android:style/TextAppearance.DeviceDefault.Medium"
-                    android:layout_width="0.0dip"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    android:autoSizeMaxTextSize="26sp"
-                    android:autoSizeMinTextSize="10sp"
-                    android:autoSizeStepGranularity="6sp"
-                    android:gravity="center|right"
-                    android:paddingStart="5.0dip"
-                    android:paddingEnd="3.0dip" />
 
 
-                <TextView
-                    android:id="@id/antiid"
-                    style="@android:style/TextAppearance.DeviceDefault.Medium"
-                    android:layout_width="0.0dip"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    android:autoSizeMaxTextSize="26sp"
-                    android:autoSizeMinTextSize="10sp"
-                    android:autoSizeStepGranularity="6sp"
-                    android:gravity="center|right"
-                    android:paddingStart="5.0dip"
-                    android:paddingEnd="3.0dip" />
 
 
-            </LinearLayout>
-        </TableRow>
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:clipChildren="false"
 
-            android:clipToPadding="false"
-            android:dividerHeight="0.0px"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="10dp"
-            app:rippleColor="@color/colorAccent"
-            app:strokeColor="@color/color_primary_variant"
-            app:strokeWidth="1dp">
 
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:weightSum="1.0">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                   android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.0"
                     android:gravity="center_vertical"
@@ -571,78 +295,19 @@
                 </LinearLayout>
 
 
-            </TableRow>
-        </com.google.android.material.card.MaterialCardView>
 
 
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:weightSum="1.0">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0">
-
-                <TextView
-                    android:id="@id/nahnuid"
-                    style="@android:style/TextAppearance.DeviceDefault.Medium"
-                    android:layout_width="0.0dip"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    android:autoSizeMaxTextSize="26sp"
-                    android:autoSizeMinTextSize="10sp"
-                    android:autoSizeStepGranularity="6sp"
-                    android:gravity="center|right"
-                    android:paddingStart="5.0dip"
-                    android:paddingEnd="3.0dip"
-                    android:visibility="gone" />
 
 
-                <TextView
-                    android:id="@id/anaid"
-                    style="@android:style/TextAppearance.DeviceDefault.Medium"
-                    android:layout_width="0.0dip"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    android:autoSizeMaxTextSize="26sp"
-                    android:autoSizeMinTextSize="10sp"
-                    android:autoSizeStepGranularity="6sp"
-                    android:gravity="center|right"
-                    android:paddingStart="5.0dip"
-                    android:paddingEnd="3.0dip"
-                    android:visibility="gone" />
 
 
-            </LinearLayout>
-        </TableRow>
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:clipChildren="false"
 
-            android:clipToPadding="false"
-            android:dividerHeight="0.0px"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="10dp"
-            app:rippleColor="@color/colorAccent"
-            app:strokeColor="@color/color_primary_variant"
-            app:strokeWidth="1dp">
 
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:weightSum="1.0">
+
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                   android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.0"
                     android:gravity="center_vertical"
@@ -678,8 +343,8 @@
                 </LinearLayout>
 
 
-            </TableRow>
-        </com.google.android.material.card.MaterialCardView>
+
+
 
 
         <View
@@ -688,7 +353,7 @@
             android:layout_alignParentBottom="true"
             android:background="@android:color/darker_gray" />
 
-        <com.google.android.material.card.MaterialCardView
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -721,31 +386,14 @@
 
 
 
-        </com.google.android.material.card.MaterialCardView>
+        </androidx.cardview.widget.CardView>
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:clipChildren="false"
 
-            android:clipToPadding="false"
-            android:dividerHeight="0.0px"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="10dp"
-            app:rippleColor="@color/colorAccent"
-            app:strokeColor="@color/color_primary_variant"
-            app:strokeWidth="1dp">
 
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:weightSum="1.0">
+
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                   android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.0"
                     android:gravity="center_vertical"
@@ -797,32 +445,14 @@
                 </LinearLayout>
 
 
-            </TableRow>
-        </com.google.android.material.card.MaterialCardView>
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:clipChildren="false"
+        
 
-            android:clipToPadding="false"
-            android:dividerHeight="0.0px"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="10dp"
-            app:rippleColor="@color/colorAccent"
-            app:strokeColor="@color/color_primary_variant"
-            app:strokeWidth="1dp">
 
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:weightSum="1.0">
+
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                   android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.0"
                     android:gravity="center_vertical"
@@ -874,32 +504,13 @@
                 </LinearLayout>
 
 
-            </TableRow>
-        </com.google.android.material.card.MaterialCardView>
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:clipChildren="false"
 
-            android:clipToPadding="false"
-            android:dividerHeight="0.0px"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="10dp"
-            app:rippleColor="@color/colorAccent"
-            app:strokeColor="@color/color_primary_variant"
-            app:strokeWidth="1dp">
 
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:weightSum="1.0">
+
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                   android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.0"
                     android:gravity="center_vertical"
@@ -950,32 +561,14 @@
                 </LinearLayout>
 
 
-            </TableRow>
-        </com.google.android.material.card.MaterialCardView>
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:clipChildren="false"
+        
 
-            android:clipToPadding="false"
-            android:dividerHeight="0.0px"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="10dp"
-            app:rippleColor="@color/colorAccent"
-            app:strokeColor="@color/color_primary_variant"
-            app:strokeWidth="1dp">
 
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:weightSum="1.0">
+
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                   android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.0"
                     android:gravity="center_vertical"
@@ -1027,32 +620,13 @@
                 </LinearLayout>
 
 
-            </TableRow>
-        </com.google.android.material.card.MaterialCardView>
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:clipChildren="false"
+        
 
-            android:clipToPadding="false"
-            android:dividerHeight="0.0px"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="10dp"
-            app:rippleColor="@color/colorAccent"
-            app:strokeColor="@color/color_primary_variant"
-            app:strokeWidth="1dp">
 
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:weightSum="1.0">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                   android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.0"
                     android:gravity="center_vertical"
@@ -1089,9 +663,9 @@
                 </LinearLayout>
 
 
-            </TableRow>
 
-        </com.google.android.material.card.MaterialCardView>
+
+        
 
         <View
             android:layout_width="fill_parent"
@@ -1099,7 +673,7 @@
             android:layout_alignParentBottom="true"
             android:background="@android:color/darker_gray" />
 
-        <com.google.android.material.card.MaterialCardView
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -1129,21 +703,8 @@
                         android:text="@string/faelmadimajhool" />
 
 
-        </com.google.android.material.card.MaterialCardView>
+        </androidx.cardview.widget.CardView>
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:clipChildren="false"
-
-            android:clipToPadding="false"
-            android:dividerHeight="0.0px"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="10dp"
-            app:rippleColor="@color/colorAccent"
-            app:strokeColor="@color/color_primary_variant"
-            app:strokeWidth="1dp">
 
 
                 <LinearLayout
@@ -1195,21 +756,9 @@
 
                 </LinearLayout>
 
-        </com.google.android.material.card.MaterialCardView>
+        
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:clipChildren="false"
 
-            android:clipToPadding="false"
-            android:dividerHeight="0.0px"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="10dp"
-            app:rippleColor="@color/colorAccent"
-            app:strokeColor="@color/color_primary_variant"
-            app:strokeWidth="1dp">
 
 
                 <LinearLayout
@@ -1259,21 +808,9 @@
 
                 </LinearLayout>
 
-        </com.google.android.material.card.MaterialCardView>
+        
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:clipChildren="false"
 
-            android:clipToPadding="false"
-            android:dividerHeight="0.0px"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="10dp"
-            app:rippleColor="@color/colorAccent"
-            app:strokeColor="@color/color_primary_variant"
-            app:strokeWidth="1dp">
 
 
 
@@ -1325,21 +862,8 @@
                         android:paddingEnd="3.0dip" />
                 </LinearLayout>
 
-        </com.google.android.material.card.MaterialCardView>
+        
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:clipChildren="false"
-
-            android:clipToPadding="false"
-            android:dividerHeight="0.0px"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="10dp"
-            app:rippleColor="@color/colorAccent"
-            app:strokeColor="@color/color_primary_variant"
-            app:strokeWidth="1dp">
 
 
 
@@ -1397,21 +921,8 @@
 
 
 
-        </com.google.android.material.card.MaterialCardView>
+        
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:clipChildren="false"
-
-            android:clipToPadding="false"
-            android:dividerHeight="0.0px"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="10dp"
-            app:rippleColor="@color/colorAccent"
-            app:strokeColor="@color/color_primary_variant"
-            app:strokeWidth="1dp">
 
 
 
@@ -1455,7 +966,7 @@
 
 
 
-        </com.google.android.material.card.MaterialCardView>
+        
 
         <View
             android:layout_width="fill_parent"
@@ -1463,7 +974,7 @@
             android:layout_alignParentBottom="true"
             android:background="@android:color/darker_gray" />
 
-        <com.google.android.material.card.MaterialCardView
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -1495,21 +1006,8 @@
                         android:text="@string/faelmudharymajhol" />
 
 
-        </com.google.android.material.card.MaterialCardView>
+        </androidx.cardview.widget.CardView>
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:clipChildren="false"
-
-            android:clipToPadding="false"
-            android:dividerHeight="0.0px"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="10dp"
-            app:rippleColor="@color/colorAccent"
-            app:strokeColor="@color/color_primary_variant"
-            app:strokeWidth="1dp">
 
 
 
@@ -1522,21 +1020,9 @@
 
                 </LinearLayout>
 
-        </com.google.android.material.card.MaterialCardView>
+        
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:clipChildren="false"
 
-            android:clipToPadding="false"
-            android:dividerHeight="0.0px"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="10dp"
-            app:rippleColor="@color/colorAccent"
-            app:strokeColor="@color/color_primary_variant"
-            app:strokeWidth="1dp">
 
 
                 <LinearLayout
@@ -1588,21 +1074,8 @@
 
                 </LinearLayout>
 
-        </com.google.android.material.card.MaterialCardView>
+        
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:clipChildren="false"
-
-            android:clipToPadding="false"
-            android:dividerHeight="0.0px"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="10dp"
-            app:rippleColor="@color/colorAccent"
-            app:strokeColor="@color/color_primary_variant"
-            app:strokeWidth="1dp">
 
 
 
@@ -1653,21 +1126,6 @@
 
                 </LinearLayout>
 
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:clipChildren="false"
-
-            android:clipToPadding="false"
-            android:dividerHeight="0.0px"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="10dp"
-            app:rippleColor="@color/colorAccent"
-            app:strokeColor="@color/color_primary_variant"
-            app:strokeWidth="1dp">
 
 
 
@@ -1719,21 +1177,8 @@
                         android:paddingEnd="3.0dip" />
                 </LinearLayout>
 
-        </com.google.android.material.card.MaterialCardView>
+        
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:clipChildren="false"
-
-            android:clipToPadding="false"
-            android:dividerHeight="0.0px"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="10dp"
-            app:rippleColor="@color/colorAccent"
-            app:strokeColor="@color/color_primary_variant"
-            app:strokeWidth="1dp">
 
 
                 <LinearLayout
@@ -1790,21 +1235,8 @@
 
 
 
-        </com.google.android.material.card.MaterialCardView>
+        
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:clipChildren="false"
-
-            android:clipToPadding="false"
-            android:dividerHeight="0.0px"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="10dp"
-            app:rippleColor="@color/colorAccent"
-            app:strokeColor="@color/color_primary_variant"
-            app:strokeWidth="1dp">
 
 
 
@@ -1847,7 +1279,7 @@
 
 
 
-        </com.google.android.material.card.MaterialCardView>
+        
 
 
         <View
@@ -1856,7 +1288,7 @@
             android:layout_alignParentBottom="true"
             android:background="@android:color/darker_gray" />
 
-        <com.google.android.material.card.MaterialCardView
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -1896,48 +1328,20 @@
 
                 </LinearLayout>
 
-        </com.google.android.material.card.MaterialCardView>
+        </androidx.cardview.widget.CardView>
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:clipChildren="false"
 
-            android:clipToPadding="false"
-            android:dividerHeight="0.0px"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="10dp"
-            app:rippleColor="@color/colorAccent"
-            app:strokeColor="@color/color_primary_variant"
-            app:strokeWidth="1dp">
 
 
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                   android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.0"
                     android:orientation="horizontal">
 
 
                 </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:clipChildren="false"
-
-            android:clipToPadding="false"
-            android:dividerHeight="0.0px"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="10dp"
-            app:rippleColor="@color/colorAccent"
-            app:strokeColor="@color/color_primary_variant"
-            app:strokeWidth="1dp">
 
 
                 <LinearLayout
@@ -1989,21 +1393,9 @@
 
                 </LinearLayout>
 
-        </com.google.android.material.card.MaterialCardView>
+        
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:clipChildren="false"
 
-            android:clipToPadding="false"
-            android:dividerHeight="0.0px"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="10dp"
-            app:rippleColor="@color/colorAccent"
-            app:strokeColor="@color/color_primary_variant"
-            app:strokeWidth="1dp">
 
 
 
@@ -2054,7 +1446,7 @@
 
                 </LinearLayout>
 
-        </com.google.android.material.card.MaterialCardView>
+        
 
 
         <View
@@ -2063,7 +1455,7 @@
             android:layout_alignParentBottom="true"
             android:background="@android:color/darker_gray" />
 
-        <com.google.android.material.card.MaterialCardView
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -2104,22 +1496,9 @@
 
                 </LinearLayout>
 
-        </com.google.android.material.card.MaterialCardView>
+        </androidx.cardview.widget.CardView>
 
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:clipChildren="false"
-
-            android:clipToPadding="false"
-            android:dividerHeight="0.0px"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="10dp"
-            app:rippleColor="@color/colorAccent"
-            app:strokeColor="@color/color_primary_variant"
-            app:strokeWidth="1dp">
 
 
 
@@ -2173,21 +1552,8 @@
                 </LinearLayout>
 
 
-        </com.google.android.material.card.MaterialCardView>
+        
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:clipChildren="false"
-
-            android:clipToPadding="false"
-            android:dividerHeight="0.0px"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="10dp"
-            app:rippleColor="@color/colorAccent"
-            app:strokeColor="@color/color_primary_variant"
-            app:strokeWidth="1dp">
 
 
                 <LinearLayout
@@ -2238,7 +1604,7 @@
                 </LinearLayout>
 
 
-        </com.google.android.material.card.MaterialCardView>
+        
 
         <View
             android:layout_width="fill_parent"

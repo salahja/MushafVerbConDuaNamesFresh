@@ -35,6 +35,7 @@ public class VerbSarfKabeerAdapter extends RecyclerView.Adapter<VerbSarfKabeerAd
     private ArrayList<ArrayList> sarfSagheer;
     private Typeface arabicTypeface;
     private boolean defaultfont;
+    private boolean aBoolean;
 
     public VerbSarfKabeerAdapter(ArrayList<ArrayList> lists, Context context) {
         this.context = context;
@@ -45,7 +46,7 @@ public class VerbSarfKabeerAdapter extends RecyclerView.Adapter<VerbSarfKabeerAd
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.getContext());
         defaultfont = prefs.getBoolean("default_font", true);
-        Boolean aBoolean = prefs.getBoolean("sarfkabeer_format_verb", true);
+        aBoolean = prefs.getBoolean("sarfkabeer_format_verb", true);
         //      View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.sarfkabeercolumn, parent, false);
         View view;
         if (aBoolean) {
@@ -123,7 +124,9 @@ public class VerbSarfKabeerAdapter extends RecyclerView.Adapter<VerbSarfKabeerAd
         MudhariMajhool(holder, 3);
         Amar(holder, 4);
         AmarNahi(holder, 5);
-        pronouns(holder);
+        if(!aBoolean) {
+            pronouns(holder);
+        }
 
     }
 
@@ -491,20 +494,22 @@ public class VerbSarfKabeerAdapter extends RecyclerView.Adapter<VerbSarfKabeerAd
                 holder.nahiamranti.setTextSize(arabicFontsize);
                 holder.nahiamrantumaf.setTextSize(arabicFontsize);
                 holder.nahiamrantunna.setTextSize(arabicFontsize);
-                holder.huaid.setTextSize(arabicFontsize);//(array[0]);
-                holder.humamid.setTextSize(arabicFontsize);//(array[1]);
-                holder.humid.setTextSize(arabicFontsize);//(array[2]);
-                holder.hiaid.setTextSize(arabicFontsize);//(array[3]);
-                holder.humafid.setTextSize(arabicFontsize);//(array[4]);
-                holder.hunnaid.setTextSize(arabicFontsize);//(array[5]);
-                holder.antaid.setTextSize(arabicFontsize);//(array[6]);
-                holder.antumamid.setTextSize(arabicFontsize);//(array[7]);
-                holder.antumid.setTextSize(arabicFontsize);//(array[8]);
-                holder.antiid.setTextSize(arabicFontsize);//(array[9]);
-                holder.antumafid.setTextSize(arabicFontsize);//(array[10]);
-                holder.antunnaid.setTextSize(arabicFontsize);//(array[11]);
-                holder.anaid.setTextSize(arabicFontsize);//(array[12]);
-                holder.nahnuid.setTextSize(arabicFontsize);//(array[13]);
+                if(!aBoolean) {
+                    holder.huaid.setTextSize(arabicFontsize);//(array[0]);
+                    holder.humamid.setTextSize(arabicFontsize);//(array[1]);
+                    holder.humid.setTextSize(arabicFontsize);//(array[2]);
+                    holder.hiaid.setTextSize(arabicFontsize);//(array[3]);
+                    holder.humafid.setTextSize(arabicFontsize);//(array[4]);
+                    holder.hunnaid.setTextSize(arabicFontsize);//(array[5]);
+                    holder.antaid.setTextSize(arabicFontsize);//(array[6]);
+                    holder.antumamid.setTextSize(arabicFontsize);//(array[7]);
+                    holder.antumid.setTextSize(arabicFontsize);//(array[8]);
+                    holder.antiid.setTextSize(arabicFontsize);//(array[9]);
+                    holder.antumafid.setTextSize(arabicFontsize);//(array[10]);
+                    holder.antunnaid.setTextSize(arabicFontsize);//(array[11]);
+                    holder.anaid.setTextSize(arabicFontsize);//(array[12]);
+                    holder.nahnuid.setTextSize(arabicFontsize);//(array[13]);
+                }
 
             }
         }

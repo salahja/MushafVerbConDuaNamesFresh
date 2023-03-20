@@ -14,11 +14,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mushafconsolidated.Activity.QuranGrammarAct;
 import com.example.mushafconsolidated.R;
-import com.example.utility.QuranGrammarApplication;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.chip.Chip;
 import com.google.android.material.textview.MaterialTextView;
 
 import org.jetbrains.annotations.NotNull;
@@ -57,7 +53,7 @@ public class SarfMujarradSarfSagheerListingAdapter extends RecyclerView.Adapter<
 
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //      View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.sarfkabeercolumn, parent, false);
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.newthulathitable, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.sarfsagheer, parent, false);
         //    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.thulathisarfsagheer, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
