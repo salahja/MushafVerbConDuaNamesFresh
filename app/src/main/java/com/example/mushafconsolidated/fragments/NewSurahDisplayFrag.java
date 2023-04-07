@@ -275,7 +275,7 @@ public class NewSurahDisplayFrag extends Fragment implements  SearchView.OnQuery
         MaterialTextView juz=view.findViewById(R.id.tiJuz);
         MaterialTextView surahtv=view.findViewById(R.id.tvSura);
 
-        setToolbarFragment();
+     //   setToolbarFragment();
         setToolbarMenu();
         Utils utils = new Utils(getContext());
         allAnaChapters = utils.getAllAnaChapters();
