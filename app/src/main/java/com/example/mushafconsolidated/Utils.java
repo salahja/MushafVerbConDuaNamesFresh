@@ -67,7 +67,9 @@ import sj.hisnul.entity.hduadetails;
 import sj.hisnul.entity.hduanames;
 //import com.example.mushafconsolidated.Entities.JoinVersesTranslationDataTranslation;
 
-public class Utils {
+public class
+
+Utils {
     private static final String TAG = "Utils";
     private static QuranAppDatabase database;
      Context thiscontext;
@@ -97,7 +99,36 @@ public class Utils {
         }
         return instance;
     }*/
-    public static List<BookMarks> getBookMarksNew() {
+
+
+
+
+    public static ArrayList<qurandictionary> getRootwordsbyLetter(String tid) {
+        StringBuilder sb = new StringBuilder();
+        String sqlverb = "SELECT distinct rootarabic FROM qurandictionary where rootarabic like \"%\\+tid ";
+        //   sb.append(sqlverb).append(" ").append("\%\")
+        String ss = "SELECT distinct ROOTARABIC FROM QURANDICTIONARY where rootarabic like  \"%" + tid + "\"";
+
+        String sss = "SELECT distinct ROOTARABIC FROM QURANDICTIONARY where rootarabic like" + tid + "  \"%" + tid + "\"";
+        sb.append("SELECT distinct ROOTARABIC FROM QURANDICTIONARY where rootarabic like ").append("\"").append("%").append(tid).append("\"");
+
+
+/*
+        "    where   CorpusExpand.surah = \""
+                + tid + "\""
+ */
+
+        //    sqlverb.concat("/).concat(" ".concat("%").concat(tid);
+        //  sqlverb.concat("%").concat(tid);
+
+
+        String let = String.format("select rootarabic from qurandictionary where (rootarabic like '%s'", tid);
+        String verb = "SELECT distinct ROOTARABIC FROM QURANDICTIONARY where rootarabic like %" + tid;
+        String fs = let.concat(")");
+        SimpleSQLiteQuery query = new SimpleSQLiteQuery(sb.toString());
+        return (ArrayList<qurandictionary>) database.RawDao().getRootsbyLetter(query);
+    }
+        public static List<BookMarks> getBookMarksNew() {
         return database.BookMarkDao().getBookMarks();
 
     }

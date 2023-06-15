@@ -780,7 +780,7 @@
         <item name="colorError">@color/errorColor</item>
         <item name="colorOnError">@color/neutral0</item>
         <item name="colorOnSecondary">@color/neutral0</item>
-        <item name="colorPrimary">@color/primaryColorBrown</item>
+        <item name="colorPrimary">@color/BlanchedAlmond</item>
         <item name="colorPrimaryDark">@color/primaryColorBrownDark</item>
         <item name="colorPrimaryLight">@color/primaryColorBrownLight</item>
         <item name="colorPrimaryVariant">@color/primaryColorBrownDark</item>

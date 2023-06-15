@@ -428,7 +428,6 @@
     <!-- TODO: Remove or change this placeholder text -->
 
 
-
     <!--    mullimmate-->
 
     <string name="mm_app_name">Checkout</string>
@@ -793,8 +792,13 @@ Stream audio when possible (non-gapless audio only)
     <string name="addtocollection">Add to Collection</string>
     <string name="pref_default_device_font">default_font</string>
     <string name="amr">AMr</string>
-    <string name="amrnahi">AmrNahi</string>>
-
+    <string name="amrnahi">AmrNahi</string>
+    <string name="title_activity_arabicroot_detail_host">arabicrootDetailHostActivity</string>
+    <string name="title_arabicroot_list">arabicrootitems</string>
+    <string name="title_arabicroot_detail">arabicroot Detail</string>
+    <string name="title_activity_test_detail_host">testDetailHostActivity</string>
+    <string name="title_test_list">testitems</string>
+    <string name="title_test_detail">test Detail</string>>
 
 
 </resources>

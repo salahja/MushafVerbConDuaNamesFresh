@@ -8,7 +8,6 @@
     <color name="text_field_background">#F3F1F1</color>
 
 
-
     <style name="Theme.DarkBlue.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.DarkBlue.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

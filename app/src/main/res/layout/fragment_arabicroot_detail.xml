@@ -1,0 +1,68 @@
+<!-- Adding the same root's ID for view binding as other layout configurations -->
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/arabicroot_detail_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="com.example.roots.arabicrootDetailHostActivity"
+    tools:ignore="MergeRootFrame">
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/arabicroot_detail_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="20dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+
+            android:clipChildren="false"
+
+            android:clipToPadding="false"
+            android:dividerHeight="0.0px"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="10dp"
+            app:rippleColor="@color/colorAccent"
+            app:strokeColor="@color/color_primary_variant"
+            app:strokeWidth="1dp">
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/arabicroot_detail"
+
+                style="?android:attr/textAppearanceMedium"
+                android:layout_width="wrap_content"
+                android:text="name"
+                android:layout_height="match_parent"
+                android:padding="16dp"
+                android:textIsSelectable="true"
+                tools:context="com.example.roots.arabicrootDetailFragment" />
+        </com.google.android.material.card.MaterialCardView>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>
+<!--
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:contentDescription="@string/_text_arabic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|start"
+        android:layout_marginEnd="@dimen/fab_margin"
+        android:layout_marginBottom="16dp"
+        app:layout_anchor="@+id/arabicroot_detail_scroll_view"
+        app:layout_anchorGravity="top|end"
+        app:srcCompat="@android:drawable/stat_notify_chat" />
+-->
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

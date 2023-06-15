@@ -22,6 +22,7 @@ import com.example.mushafconsolidated.Entities.SifaPOJO;
 import com.example.mushafconsolidated.Entities.TameezPOJO;
 import com.example.mushafconsolidated.Entities.TameezPojoList;
 import com.example.mushafconsolidated.Entities.VerbCorpusBreakup;
+import com.example.mushafconsolidated.Entities.qurandictionary;
 import com.example.mushafconsolidated.model.Juz;
 
 import java.util.List;
@@ -32,6 +33,13 @@ import sj.hisnul.entity.hduanames;
 
 @Dao
 public interface RawDao {
+
+
+    @RawQuery
+    List<qurandictionary> getRootsbyLetter(SupportSQLiteQuery query);
+
+
+
     @RawQuery
     List<CorpusNounWbwOccurance> getnounoccurance(SupportSQLiteQuery query);
 
