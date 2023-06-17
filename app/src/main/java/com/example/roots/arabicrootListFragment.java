@@ -5,6 +5,7 @@ import android.content.ClipDescription;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
@@ -22,9 +23,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mushafconsolidated.R;
-import com.example.mushafconsolidated.databinding.FragmentArabicrootListBinding;
-import com.example.mushafconsolidated.databinding.ArabicrootListContentBinding;
 
+ ;
+import com.example.mushafconsolidated.databinding.ArabicrootListContentBinding;
+import com.example.mushafconsolidated.databinding.FragmentArabicrootListBinding;
 import com.example.roots.placeholder.PlaceholderContent;
 
 import java.util.List;
@@ -70,6 +72,9 @@ public class arabicrootListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentArabicrootListBinding.inflate(inflater, container, false);
+
+
+
         return binding.getRoot();
 
     }
@@ -86,14 +91,8 @@ public class arabicrootListFragment extends Fragment {
         // layout configuration (layout, layout-sw600dp)
         View itemDetailFragmentContainer = view.findViewById(R.id.arabicroot_detail_nav_container);
 
-     /*   NavController navController = Navigation.findNavController(itemDetailFragmentContainer);
-        AppBarConfiguration appBarConfiguration =
-                new AppBarConfiguration.Builder(navController.getGraph()).build();
-        Toolbar toolbar = view.findViewById(R.id.detail_toolbar);
-        Toolbar detailToolbar = binding.detailToolbar;
 
-        NavigationUI.setupWithNavController(
-                detailToolbar, navController, appBarConfiguration);*/
+
         setupRecyclerView(recyclerView, itemDetailFragmentContainer);
     }
 
@@ -139,10 +138,13 @@ public class arabicrootListFragment extends Fragment {
         public void onBindViewHolder(final ViewHolder holder, int position) {
           //  holder.mIdView.setText(mValues.get(position).id);
          //   holder.mContentView.setText(mValues.get(position).content);
-            StringBuilder sb=new StringBuilder();
-            sb.append(mValues.get(position).id).append("-").append(mValues.get(position).content);
-            holder.mIdView.setText(mValues.get(position).content);
+         //   StringBuilder sb=new StringBuilder();
+         //   sb.append(mValues.get(position).id).append("-").append(mValues.get(position).content);
+            holder.mIdView.setText(mValues.get(position).id);
+            holder.mContentView.setText(mValues.get(position).content);
+          //  holder.mIdView.setText(mValues.get(position).content);
             holder.itemView.setTag(mValues.get(position));
+
             holder.itemView.setOnClickListener(itemView -> {
                 PlaceholderContent.PlaceholderItem item =
                         (PlaceholderContent.PlaceholderItem) itemView.getTag();

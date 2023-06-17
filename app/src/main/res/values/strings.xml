@@ -798,7 +798,8 @@ Stream audio when possible (non-gapless audio only)
     <string name="title_arabicroot_detail">arabicroot Detail</string>
     <string name="title_activity_test_detail_host">testDetailHostActivity</string>
     <string name="title_test_list">testitems</string>
-    <string name="title_test_detail">test Detail</string>>
+    <string name="title_test_detail">test Detail</string>
+    <string name="root_title">Arabic Roots</string>>
 
 
 </resources>

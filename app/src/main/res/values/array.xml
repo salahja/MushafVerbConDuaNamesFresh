@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="arabicletters">
-        <item>أ </item>
+        <item>ا </item>
         <item>ب </item>
         <item>ت </item>
         <item>ث </item>

@@ -29,8 +29,8 @@ import android.widget.Toast;
 
 import com.example.mushafconsolidated.Utils;
 
+
 import com.example.mushafconsolidated.databinding.FragmentArabicrootDetailBinding;
-import com.example.mushafconsolidated.databinding.FragmentTestDetailBinding;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.example.mushafconsolidated.R;
 import com.example.roots.placeholder.PlaceholderContent;
@@ -93,7 +93,7 @@ public class arabicrootDetailFragment extends Fragment {
             // to load content from a content provider.
             mItem = PlaceholderContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
             if(mItem==null){
-                rootsArrayList.add("test");
+                rootsArrayList.add("");
             }else{
                 rootsArrayList=mItem.details;
             }
@@ -109,8 +109,16 @@ public class arabicrootDetailFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         ArrayList<hcategory> duagrouptwo = Utils.getHcategory();
         RootDetailAdapter adapter = new RootDetailAdapter(rootsArrayList, getContext());
-     ;
-        layoutManager = new GridLayoutManager(getActivity(), 3);
+     ;   layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        layoutManager = new GridLayoutManager(getActivity(), 5);
+        ((GridLayoutManager) layoutManager).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup()
+        {
+            @Override
+            public int getSpanSize(int position)
+            {
+                  return position == 0 ? 3 : 1;
+            }
+        });
 
         recyclerView.setHasFixedSize(true);
         // recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

@@ -124,8 +124,7 @@ import com.example.mushafconsolidated.model.CorpusAyahWord;
 import com.example.mushafconsolidated.model.CorpusWbwWord;
 import com.example.mushafconsolidated.settings.Constants;
 import com.example.roots.arabicrootDetailHostActivity;
-import com.example.test.testDetailFragment;
-import com.example.test.testDetailHostActivity;
+
 import com.example.utility.CorpusUtilityorig;
 import com.example.utility.QuranGrammarApplication;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -557,15 +556,16 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
                 case id.jumptoverse:
                     drawerLayout.closeDrawers();
                  //   Intent grammar = new Intent(this, GrammarRuleDetailHostActivity.class);
-                  Intent grammar = new Intent(this, arabicrootDetailHostActivity.class);
-              //      Intent grammar = new Intent(this, testDetailHostActivity.class);
+               Intent grammar = new Intent(this, arabicrootDetailHostActivity.class);
+
                     startActivity(grammar);
                     break;
                 case id.search:
                     drawerLayout.closeDrawers();
                     materialToolbar.setTitle("Root Word Search");
-                    //  Intent conjugatorintent = new Intent(newreadactivity.this, VerbConjugationAct.class);
-                    Intent search = new Intent(this, SearchKeyBoardAct.class);
+                  //  Intent search = new Intent(this, arabicrootDetailHostActivity.class);
+
+                Intent search = new Intent(this, SearchKeyBoardAct.class);
                     startActivity(search);
                     break;
                 case id.setting:

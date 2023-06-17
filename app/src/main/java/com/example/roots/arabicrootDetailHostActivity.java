@@ -14,8 +14,10 @@ import com.example.mushafconsolidated.Activity.BaseActivity;
 import com.example.mushafconsolidated.R;
 import com.example.mushafconsolidated.databinding.ActivityArabicrootDetailBinding;
 
+import java.util.Objects;
 
-public class arabicrootDetailHostActivity extends AppCompatActivity {
+
+public class arabicrootDetailHostActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +33,15 @@ public class arabicrootDetailHostActivity extends AppCompatActivity {
                 Builder(navController.getGraph())
                 .build();
 
-         //       androidx.appcompat.widget.Toolbar toolbar=findViewById(R.id.detail_toolbar);
-      // NavigationUI.  setupWithNavController( toolbar,  navController,  appBarConfiguration);
+           // androidx.appcompat.widget.Toolbar toolbar=findViewById(R.id.detail_toolbar);
 
-  NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+
+
+  //   NavigationUI.  setupWithNavController( toolbar,  navController,  appBarConfiguration);
+        setSupportActionBar(binding.toolbarLayout);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.root_title);
+   //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
     }
 

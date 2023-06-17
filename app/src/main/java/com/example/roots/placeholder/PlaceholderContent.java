@@ -33,7 +33,7 @@ public class PlaceholderContent {
 
     static {
         // Add some sample items.
-        for (int i = 1; i <= COUNT; i++) {
+        for (int i = 0; i <= 27; i++) {
             addItem(createPlaceholderItem(i));
         }
     }

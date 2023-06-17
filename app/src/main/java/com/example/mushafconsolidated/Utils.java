@@ -110,17 +110,8 @@ Utils {
         String ss = "SELECT distinct ROOTARABIC FROM QURANDICTIONARY where rootarabic like  \"%" + tid + "\"";
 
         String sss = "SELECT distinct ROOTARABIC FROM QURANDICTIONARY where rootarabic like" + tid + "  \"%" + tid + "\"";
-        sb.append("SELECT distinct ROOTARABIC FROM QURANDICTIONARY where rootarabic like ").append("\"").append("%").append(tid).append("\"");
-
-
-/*
-        "    where   CorpusExpand.surah = \""
-                + tid + "\""
- */
-
-        //    sqlverb.concat("/).concat(" ".concat("%").concat(tid);
-        //  sqlverb.concat("%").concat(tid);
-
+     //   sb.append("SELECT distinct ROOTARABIC FROM QURANDICTIONARY where rootarabic like ").append("\"").append("%").append(tid).append("\"");
+        sb.append("SELECT distinct ROOTARABIC FROM QURANDICTIONARY where rootarabic like ").append("\"").append(tid).append("%").append("\"");
 
         String let = String.format("select rootarabic from qurandictionary where (rootarabic like '%s'", tid);
         String verb = "SELECT distinct ROOTARABIC FROM QURANDICTIONARY where rootarabic like %" + tid;
