@@ -39,6 +39,11 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
         <activity
+            android:name="com.example.roots.RootBreakupAct"
+            android:exported="false"
+            android:label="@string/title_activity_root_breakup"
+            android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar" />
+        <activity
             android:name="com.example.test.testDetailHostActivity"
             android:exported="false"
             android:label="@string/title_activity_test_detail_host"

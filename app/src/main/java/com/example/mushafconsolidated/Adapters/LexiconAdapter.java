@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -69,9 +70,12 @@ public class LexiconAdapter extends RecyclerView.Adapter<LexiconAdapter.ItemView
             //   wv.loadDataWithBaseURL(null,myHtmlString, "text/html", "UTF-8", null);
             //   data .append("<HTML><HEAD><LINK href=\"entry.css\" type=\"text/css\" rel=\"stylesheet\"/></HEAD><body>");
             //    holder. wordDictionary.loadDataWithBaseURL("file:///android_asset/", data .toString(), "text/html", "utf-8", null);
-            holder.wordDictionary.loadDataWithBaseURL(null, lanes
-                    //    holder. wordDictionary.loadDataWithBaseURL("file:///android_asset/", data .toString(), "text/html", "utf-8", null);
-                    , "text/html", "utf-8", null);
+        //    holder.wordDictionary.loadDataWithBaseURL(null, lanes , "text/html", "utf-8", null);
+
+            lanes = "<link rel=\"stylesheet\" type=\"text/css\" href=\"lexicon.css\" />" + lanes;
+// lets assume we have /assets/style.css file
+            holder.wordDictionary.loadDataWithBaseURL("file:///android_asset/", lanes, "text/html", "UTF-8", null);
+
             holder.wordDictionary.getSettings().setBuiltInZoomControls(true);
 
         } else if (language.equals("hans")) {
@@ -108,7 +112,7 @@ public class LexiconAdapter extends RecyclerView.Adapter<LexiconAdapter.ItemView
         public final TextView wordDictionaryUrdu, meaning, rootwowrd, arabicword;
         final TextView referenceView;
         ImageView dismissview;
-        TweakedWebView wordDictionary;
+        WebView wordDictionary;
         int i = ContextCompat.getColor(context, R.color.kashmirigreen);
 
         public ItemViewAdapter(View view) {

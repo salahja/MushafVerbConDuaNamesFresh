@@ -47,6 +47,8 @@ public class LughatWordDetailsAct extends BaseActivity {
     private static final int NUM_PAGES_ARABICWORD_HARFNASB = 3;
     private static final int NUM_PAGES_ISMMARFU = 5;
     // Arrey of strings FOR TABS TITLES
+
+    private final String[] dictionarytitle = new String[]{"Lane Lexicon", "Hans Weir"};
     private final String[] arabicwordharfnasb = new String[]{"English lughat", "Urdu Lughat", "Harf "};
     private final String[] vocabularytitles = new String[]{"Lane Lexicon", "Hans Weir", "English lughat", "Urdu Lughat"};
     private final String[] thulathientitles = new String[]{"Lane Lexicon", "Hans Weir", "English lughat", "Urdu Lughat", "Verb Conjugaton", "Active/Passive PCPL", "N. Instrument", "N.Place/Time"};
@@ -81,7 +83,7 @@ public class LughatWordDetailsAct extends BaseActivity {
     private boolean isnoun;
     private boolean isHarf;
     private String nouncase;
-    private boolean isIsmMarfu, isIsmMansub, isIsmMajroor, isimperative;
+    private boolean isIsmMarfu, isIsmMansub, isIsmMajroor, isimperative, isdictionary;
     private boolean isVerbMarfu;
     private boolean isparticple;
     private boolean ismujarrad;
@@ -100,8 +102,8 @@ public class LughatWordDetailsAct extends BaseActivity {
             finish();
             //      Snackbar.make(viewById, "Call button clicked", Snackbar.LENGTH_SHORT).show();
         });
-      
-        SharedPref sharedPref=new SharedPref(this);
+
+        SharedPref sharedPref = new SharedPref(this);
         FragmentManager fm = getSupportFragmentManager();
         ViewStateAdapter sa = new ViewStateAdapter(fm, getLifecycle());
         final ViewPager2 viewPager = findViewById(R.id.pager);
@@ -109,7 +111,7 @@ public class LughatWordDetailsAct extends BaseActivity {
         final TabLayout tabLayout = findViewById(R.id.tabLayout);
         dataBundle = new Bundle();
         Bundle bundle = getIntent().getExtras();
-        bundle.getParcelableArray("dictionary");
+      //  bundle.getParcelableArray("dictionary");
         String conjugationroot = bundle.getString(QURAN_VERB_ROOT);
         String vocubaluryroot = bundle.getString(QURAN_VERB_ROOT);
         String verbformthulathi = bundle.getString(QURAN_VERB_WAZAN);
@@ -143,6 +145,7 @@ public class LughatWordDetailsAct extends BaseActivity {
         verbmood = bundle.getString(VERBMOOD);
         verbtype = bundle.getString(VERBTYPE);
         arabicword = bundle.getString("arabicword");
+        isdictionary = bundle.getBoolean("dictionary");
         isimperative = bundle.getBoolean(IMPERATIVE, false);
         isparticple = bundle.getBoolean(ISPARTICPLE, false);
         boolean isharfnasab = bundle.getBoolean(ACCUSATIVE, false);
@@ -164,16 +167,21 @@ public class LughatWordDetailsAct extends BaseActivity {
 
         }
         boolean ismazeed;
-        if (verbtype.equals("mujarrad")) {
+        if (verbtype != null && verbtype.equals("mujarrad")) {
             ismujarrad = true;
-        } else if (verbtype.equals("mazeed")) {
+        } else if (verbtype != null && verbtype.equals("mazeed")) {
             ismazeed = true;
 
         } else {
             ismujarrad = false;
             ismazeed = false;
         }
-        if (arabicword.length() == 0) {
+
+        if (isdictionary) {
+
+            dataBundle.putString(QURAN_VERB_ROOT, verbroot);
+        }else
+        if (arabicword != null && arabicword.length() == 0) {
             try {
                 dataBundle.putString(QURAN_VERB_ROOT, verbroot);
                 dataBundle.putString(QURAN_VERB_WAZAN, verbform);
@@ -376,7 +384,15 @@ public class LughatWordDetailsAct extends BaseActivity {
             languages[2] = "english";
             languages[3] = "urdu";
 
-        } else {
+        } else if(isdictionary){
+            new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> tab.setText(dictionarytitle[position])).attach();
+            languages[0] = "lanes";
+            languages[1] = "hans";
+      ;
+        }
+
+
+        else {
             Toast.makeText(this, "not found", Toast.LENGTH_SHORT).show();
             this.finish();
         }
@@ -412,16 +428,10 @@ public class LughatWordDetailsAct extends BaseActivity {
         @NonNull
         @Override
         public Fragment createFragment(int position) {
-            // Hardcoded in this order, you'll want to use lists and make sure the titles match
 
-
-          /*
-            if (isAugmentedWazan && isparticple && (isIsmMajroor || isIsmMansub || isIsmMarfu)) {
-
-
-            } else
-           */
-            if (ismujarrad && isparticple && (isIsmMajroor || isIsmMansub || isIsmMarfu)) {
+            if (isdictionary) {
+                return getdictionary(position);
+            } else if (ismujarrad && isparticple && (isIsmMajroor || isIsmMansub || isIsmMarfu)) {
                 return getMujarradParticiple(position);
 
             } else if (ismujarrad && (isVerbMajzoom || isVerbMansub)) {
@@ -450,6 +460,23 @@ public class LughatWordDetailsAct extends BaseActivity {
             }
             return getMujarradMajzoomOrMansub(position);
 
+        }
+
+        private Fragment getdictionary(int position) {
+            if (position == 0) {
+                //hanes
+                Dictionary_frag fragv = new Dictionary_frag(LughatWordDetailsAct.this, languages[0]);
+                fragv.setArguments(dataBundle);
+                return fragv.newInstance();
+            } else if (position == 1) {
+                //kabes
+                Dictionary_frag fragv = new Dictionary_frag(LughatWordDetailsAct.this, languages[1]);
+                fragv.setArguments(dataBundle);
+                return fragv.newInstance();
+            }
+            org.sj.conjugator.fragments.FragmentVerb fragv = new org.sj.conjugator.fragments.FragmentVerb();
+            fragv.setArguments(dataBundle);
+            return fragv.newInstance();
         }
 
         private Fragment getMazeedParticiple(int position) {
@@ -854,7 +881,10 @@ public class LughatWordDetailsAct extends BaseActivity {
 
         @Override
         public int getItemCount() {
-            if (isimperative && isAugmentedWazan) {
+            if(isdictionary){
+                return 2;
+            }
+          else   if (isimperative && isAugmentedWazan) {
                 return 8;
             } else if (isimperative && ismujarrad) {
                 return 10;

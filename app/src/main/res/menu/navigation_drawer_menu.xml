@@ -19,6 +19,13 @@
         app:showAsAction="always" />
 
     <item
+        android:id="@+id/rootdetails"
+        android:icon="@drawable/expand_list"
+        android:title="Grammar"
+
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/search"
         android:contentDescription="@string/content_description_one"
         android:icon="@drawable/ic_baseline_search_36"

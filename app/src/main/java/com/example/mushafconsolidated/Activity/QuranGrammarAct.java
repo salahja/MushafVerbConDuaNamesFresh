@@ -553,10 +553,21 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
                     transactions.replace(id.frame_container, bookmarkFragment).addToBackStack("mujarrad");
                     transactions.commit();
                     break;
-                case id.jumptoverse:
+                case id.rootdetails:
                     drawerLayout.closeDrawers();
                  //   Intent grammar = new Intent(this, GrammarRuleDetailHostActivity.class);
-               Intent grammar = new Intent(this, arabicrootDetailHostActivity.class);
+                  Intent roots = new Intent(this, arabicrootDetailHostActivity.class);
+
+                    startActivity(roots);
+                    break;
+
+
+
+
+                case id.jumptoverse:
+                    drawerLayout.closeDrawers();
+                 Intent grammar = new Intent(this, GrammarRuleDetailHostActivity.class);
+             //  Intent grammar = new Intent(this, arabicrootDetailHostActivity.class);
 
                     startActivity(grammar);
                     break;

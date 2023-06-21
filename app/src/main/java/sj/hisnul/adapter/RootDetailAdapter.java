@@ -19,6 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mushafconsolidated.R;
 import com.example.mushafconsolidated.intrface.OnItemClickListener;
 import com.example.utility.QuranGrammarApplication;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.textview.MaterialTextView;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -87,17 +89,21 @@ public class RootDetailAdapter extends RecyclerView.Adapter<RootDetailAdapter.Vi
             implements View.OnClickListener // current clickListerner
     {
        // public final ImageView id;
-        public final TextView arabicroot_detail;
+        public final Chip arabicroot_detail;
         public CardView cardview;
 
         public ViewHolder(View view) {
             super(view);
+            view.setTag(this);
+            itemView.setOnClickListener(this);
           //  id = view.findViewById(R.id.imgview);
             arabicroot_detail = view.findViewById(R.id.arabicroot_detail);
-            view.setOnClickListener(this);
+            arabicroot_detail.setTag("root");
             arabicroot_detail.setOnClickListener(this);
+            view.setOnClickListener(this);
 
         }
+
 
         @Override
         public void onClick(View v) {
@@ -105,6 +111,10 @@ public class RootDetailAdapter extends RecyclerView.Adapter<RootDetailAdapter.Vi
                 mItemClickListener.onItemClick(v, getLayoutPosition());
             }
         }
+
+
+
+
 
     }
 

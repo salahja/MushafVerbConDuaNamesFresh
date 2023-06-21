@@ -1,7 +1,18 @@
 package com.example.roots;
 
+import static com.example.Constant.AYAHNUMBER;
+import static com.example.Constant.AYAH_ID;
+import static com.example.Constant.CHAPTER;
+import static com.example.Constant.CHAPTERORPART;
+import static com.example.Constant.MUFRADATFRAGTAG;
+import static com.example.Constant.QURAN_VERB_ROOT;
+import static com.example.Constant.SURAH_ARABIC_NAME;
+import static com.example.Constant.SURAH_ID;
+import static com.example.Constant.WBW;
+
 import android.content.ClipData;
 import android.content.ClipDescription;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,6 +23,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -24,13 +37,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mushafconsolidated.Activity.QuranGrammarAct;
+import com.example.mushafconsolidated.Activity.SearchKeyBoardAct;
+import com.example.mushafconsolidated.Activity.SearchResult;
+import com.example.mushafconsolidated.Entities.BookMarks;
 import com.example.mushafconsolidated.Utils;
 
 
 import com.example.mushafconsolidated.databinding.FragmentArabicrootDetailBinding;
+import com.example.mushafconsolidated.fragments.NewSurahDisplayFrag;
+import com.example.mushafconsolidated.intrface.OnItemClickListener;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.example.mushafconsolidated.R;
 import com.example.roots.placeholder.PlaceholderContent;
@@ -49,14 +69,14 @@ import sj.hisnul.entity.hcategory;
  * in two-pane mode (on larger screen devices) or self-contained
  * on handsets.
  */
-public class arabicrootDetailFragment extends Fragment {
+public class arabicrootDetailFragment extends Fragment implements AdapterView.OnItemClickListener{
 
     /**
      * The fragment argument representing the item ID that this fragment
      * represents.
      */
     public static final String ARG_ITEM_ID = "item_id";
-
+    private OnItemClickListener mItemClickListener;
     /**
      * The placeholder content this fragment is presenting.
      */
@@ -75,6 +95,7 @@ public class arabicrootDetailFragment extends Fragment {
         return true;
     };
     private FragmentArabicrootDetailBinding binding;
+    private RootDetailAdapter adapter;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -108,7 +129,7 @@ public class arabicrootDetailFragment extends Fragment {
         Utils utils = new Utils(getContext());
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         ArrayList<hcategory> duagrouptwo = Utils.getHcategory();
-        RootDetailAdapter adapter = new RootDetailAdapter(rootsArrayList, getContext());
+         adapter = new RootDetailAdapter(rootsArrayList, getContext());
      ;   layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         layoutManager = new GridLayoutManager(getActivity(), 5);
         ((GridLayoutManager) layoutManager).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup()
@@ -160,68 +181,53 @@ public class arabicrootDetailFragment extends Fragment {
             }
         }
     }
-
-
-
-
-
-
-
-}
-
-/*
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
- //       ViewCompat.addOnUnhandledKeyEventListener(view, unhandledKeyEventListenerCompat);
-        RecyclerView recyclerView =   view.findViewById(R.id.arabicroot_detaillist_rec);
-     //   TextView arabicrootDetail = binding.arabicrootDetailContainer;
-        //  recyclerView.setAdapter(sarfsagheerAdapter);
-        recyclerView.setHasFixedSize(true);
-    
+        adapter.SetOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+              String bmark = (String) adapter.getItem(position);
+                //        ChaptersAnaEntity surah = (ChaptersAnaEntity) bookmarksShowAdapter.getItem(position);
+                Bundle dataBundle = new Bundle();
+                String rootword=         bmark;
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(layoutManager);
+                dataBundle.putString("root", rootword);
+                Bundle bundle = new Bundle();
 
-        RootDetailAdapter adapter = new RootDetailAdapter(rootsArrayList, getContext());
-      ;
-        layoutManager = new GridLayoutManager(getActivity(), 4);
+                Intent intent = new Intent(getActivity(), RootBreakupAct.class);
 
+                bundle.putString(QURAN_VERB_ROOT, rootword);
+                intent.putExtras(bundle);
 
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+                startActivity(intent);
 
-        // recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
+/*
 
-
-
-
-
-        // Leaving this not using view binding as it relies on if the view is visible the current
-        // layout configuration (layout, layout-sw600dp)
-    //    View itemDetailFragmentContainer = view.findViewById(R.id.arabicroot_detaillist_rec);
-
+                FragmentManager fragmentManager =getActivity(). getSupportFragmentManager();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.setCustomAnimations(R.anim.slide_down, R.anim.slide_up);
+                RootBreakFragment rootBreakFragment = RootBreakFragment.newInstance(rootword);
+                transaction.replace(R.id.frame_container, rootBreakFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+*/
 
 
-     //   setupRecyclerView(recyclerView, itemDetailFragmentContainer);
 
+            }
+        });
 
-        binding = FragmentTestDetailBinding.inflate(inflater, container, false);
-        View rootView = binding.getRoot();
-
-        mToolbarLayout = rootView.findViewById(R.id.toolbar_layout);
-        mTextView = binding.arabicrootDetail;
-
-        // Show the placeholder content as text in a TextView & in the toolbar if available.
-        updateContent();
-        rootView.setOnDragListener(dragListener);
-        return rootView;
-        
-        
-        
     }
 
- */
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        System.out.printf("check");
+
+    }
+}
+
+
+
+

@@ -12,6 +12,10 @@ public interface qurandictionaryDao {
     @Query("select *  from qurandictionary  group by rootarabic  ")
     List<qurandictionary> getDictionary();
 
+    @Query("select *  from qurandictionary where rootarabic=:root  order by rootarabic  ")
+    List<qurandictionary> getDictionaryroot(String root);
+
+
 }
 
 

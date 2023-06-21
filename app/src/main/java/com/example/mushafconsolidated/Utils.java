@@ -34,6 +34,7 @@ import com.example.mushafconsolidated.Entities.NounCorpusBreakup;
 import com.example.mushafconsolidated.Entities.Qari;
 import com.example.mushafconsolidated.Entities.QuranEntity;
 import com.example.mushafconsolidated.Entities.QuranMetaEntity;
+import com.example.mushafconsolidated.Entities.RootWordDetails;
 import com.example.mushafconsolidated.Entities.ShartPOJO;
 import com.example.mushafconsolidated.Entities.SifaEntity;
 import com.example.mushafconsolidated.Entities.SifaPOJO;
@@ -743,6 +744,32 @@ Utils {
         return (ArrayList<CorpusNounWbwOccurance>) database.RawDao().getnounoccurance(query);
     }
 
+
+    public ArrayList<RootWordDetails> getRootDetails(String tid) {
+        String sqlverb = "SELECT CorpusExpand.araone ||CorpusExpand. aratwo ||CorpusExpand. arathree || CorpusExpand.arafour ||CorpusExpand. arafive as arabic,\n" +
+                "CorpusExpand.lemaraone ||CorpusExpand. lemaratwo ||CorpusExpand. lemarathree || CorpusExpand.lemarafour ||CorpusExpand. lemarafive as lemma,\n" +
+                "CorpusExpand.tagone,CorpusExpand.tagtwo,CorpusExpand.tagthree,CorpusExpand.tagfour,CorpusExpand.tagfive,\n" +
+                "CorpusExpand.tagone||\"-\" ||CorpusExpand. tagtwo||\"-\" ||CorpusExpand. tagthree ||\"-\"|| CorpusExpand.tagfour ||CorpusExpand. tagfive as tag,\n" +
+                "       qurandictionary.surah,\n" +
+                "       qurandictionary.ayah,\n" +
+                "       qurandictionary.rootarabic,\n" +
+                "\t   wbw.en,\n" +
+                "\t   chaptersana.abjadname,chaptersana.namearabic,chaptersana.nameenglish \n" +
+                "\t  \n" +
+                " \n" +
+                "      FROM corpusexpand,qurandictionary,wbw,chaptersana\n" +
+                "\t  where  qurandictionary.surah = CorpusExpand.surah AND  qurandictionary.ayah = CorpusExpand.ayah  \n" +
+                "\tand qurandictionary.wordno = CorpusExpand.wordno  AND qurandictionary.surah=wbw.surah and qurandictionary.ayah=wbw.ayah\n" +
+                "and qurandictionary.wordno=wbw.wordno and qurandictionary.surah=chaptersana.chapterid and qurandictionary.rootarabic=  \""
+                + tid + "\"";
+
+        SimpleSQLiteQuery query = new SimpleSQLiteQuery(sqlverb);
+        //  List<Book> result = booksDao.getBooks(query);
+        return (ArrayList<RootWordDetails>) database.RawDao().getrootdetails(query);
+    }
+
+
+
     public ArrayList<CorpusNounWbwOccurance> getnounoccurancebysurahayah(int tid, int vid) {
         String sqlverb = "SELECT CorpusExpand.rootaraone || rootaratwo || rootarathree || rootarafour || rootarafive as root_a,\n" +
                 "       CorpusExpand.surah,\n" +
@@ -885,6 +912,11 @@ Utils {
         return (ArrayList<qurandictionary>) database.qurandictionaryDao().getDictionary();
 
     }
+    public ArrayList<qurandictionary> getQuranDictionarybyroot(String root) {
+        return (ArrayList<qurandictionary>) database.qurandictionaryDao().getDictionaryroot(root);
+
+    }
+
 
     public ArrayList<quranexplorer> getTopicSearch(String id) {
         return (ArrayList<quranexplorer>) database.QuranExplorerDao().getFilter(id);
