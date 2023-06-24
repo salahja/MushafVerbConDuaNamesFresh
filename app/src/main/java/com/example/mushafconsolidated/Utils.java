@@ -748,6 +748,7 @@ Utils {
     public ArrayList<RootWordDetails> getRootDetails(String tid) {
         String sqlverb = "SELECT CorpusExpand.araone ||CorpusExpand. aratwo ||CorpusExpand. arathree || CorpusExpand.arafour ||CorpusExpand. arafive as arabic,\n" +
                 "CorpusExpand.lemaraone ||CorpusExpand. lemaratwo ||CorpusExpand. lemarathree || CorpusExpand.lemarafour ||CorpusExpand. lemarafive as lemma,\n" +
+                "CorpusExpand.araone,CorpusExpand.aratwo,CorpusExpand.arathree,CorpusExpand.arafour,CorpusExpand.arafive,\n" +
                 "CorpusExpand.tagone,CorpusExpand.tagtwo,CorpusExpand.tagthree,CorpusExpand.tagfour,CorpusExpand.tagfive,\n" +
                 "CorpusExpand.tagone||\"-\" ||CorpusExpand. tagtwo||\"-\" ||CorpusExpand. tagthree ||\"-\"|| CorpusExpand.tagfour ||CorpusExpand. tagfive as tag,\n" +
                 "       qurandictionary.surah,\n" +

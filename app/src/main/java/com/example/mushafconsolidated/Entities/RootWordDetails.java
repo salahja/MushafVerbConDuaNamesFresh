@@ -17,7 +17,11 @@ public class RootWordDetails {
 
     private String arabic;
     private String lemma;
-
+    private String araone;
+    private String aratwo;
+    private String arathree;
+    private String arafour;
+    private String arafive;
     private String tagone;
     private String tagtwo;
     private String tagthree;
@@ -47,25 +51,6 @@ public class RootWordDetails {
 
     public void setArabic(String arabic) {
         this.arabic = arabic;
-    }
-
-    public RootWordDetails(String arabic, String lemma, String tagone, String tagtwo, String tagthree, String tagfour, String tagfive, String tag, int wordcount, int surah, int ayah, String rootarabic, String en, String abjadname, String namearabic, String nameenglish) {
-        this.arabic = arabic;
-        this.lemma = lemma;
-        this.tagone = tagone;
-        this.tagtwo = tagtwo;
-        this.tagthree = tagthree;
-        this.tagfour = tagfour;
-        this.tagfive = tagfive;
-        this.tag = tag;
-        this.wordcount = wordcount;
-        this.surah = surah;
-        this.ayah = ayah;
-        this.rootarabic = rootarabic;
-        this.en = en;
-        this.abjadname = abjadname;
-        this.namearabic = namearabic;
-        this.nameenglish = nameenglish;
     }
 
     public String getLemma() {
@@ -185,6 +170,71 @@ public class RootWordDetails {
     }
 
     public void setNameenglish(String nameenglish) {
+        this.nameenglish = nameenglish;
+    }
+
+    public String getAraone() {
+        return araone;
+    }
+
+    public void setAraone(String araone) {
+        this.araone = araone;
+    }
+
+    public String getAratwo() {
+        return aratwo;
+    }
+
+    public void setAratwo(String aratwo) {
+        this.aratwo = aratwo;
+    }
+
+    public String getArathree() {
+        return arathree;
+    }
+
+    public void setArathree(String arathree) {
+        this.arathree = arathree;
+    }
+
+    public String getArafour() {
+        return arafour;
+    }
+
+    public void setArafour(String arafour) {
+        this.arafour = arafour;
+    }
+
+    public String getArafive() {
+        return arafive;
+    }
+
+    public void setArafive(String arafive) {
+        this.arafive = arafive;
+    }
+
+
+    public RootWordDetails(String arabic, String lemma, String araone, String aratwo, String arathree, String arafour, String arafive, String tagone, String tagtwo, String tagthree, String tagfour, String tagfive, String tag, int wordcount, int surah, int ayah, String rootarabic, String en, String abjadname, String namearabic, String nameenglish) {
+        this.arabic = arabic;
+        this.lemma = lemma;
+        this.araone = araone;
+        this.aratwo = aratwo;
+        this.arathree = arathree;
+        this.arafour = arafour;
+        this.arafive = arafive;
+        this.tagone = tagone;
+        this.tagtwo = tagtwo;
+        this.tagthree = tagthree;
+        this.tagfour = tagfour;
+        this.tagfive = tagfive;
+        this.tag = tag;
+        this.wordcount = wordcount;
+        this.surah = surah;
+        this.ayah = ayah;
+        this.rootarabic = rootarabic;
+        this.en = en;
+        this.abjadname = abjadname;
+        this.namearabic = namearabic;
         this.nameenglish = nameenglish;
     }
 }

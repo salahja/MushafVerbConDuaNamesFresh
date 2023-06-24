@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -60,6 +61,13 @@ public class LexiconAdapter extends RecyclerView.Adapter<LexiconAdapter.ItemView
         holder.wordDictionary.getSettings().setBuiltInZoomControls(true);
         holder.wordDictionary.getSettings().setBuiltInZoomControls(true);
         holder.wordDictionary.getSettings().setSupportZoom(true);
+        WebSettings webSettings = holder.wordDictionary.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        //  mTextView.setInitialScale(1);
+        //   mTextView.getSettings().setLoadWithOverviewMode(true);
+        //    mTextView.getSettings().setUseWideViewPort(true);
+      //  mTextView.getSettings().setBuiltInZoomControls(true);
+        StringBuilder data=new StringBuilder();
         if (language.equals("imperative") || language.equals("genetivenoun") || language.equals("accusativenoun") || language.equals("nominativenoun") || language.equals("accusative") || language.equals("preposition") || language.equals("conditonal") || language.equals("relative")
                 || language.equals("dem") || language.equals("Jussive") || language.equals("Subjunctive")) {
             // webView.loadDataWithBaseURL(htmlData, "text/html", "utf-8", null);
@@ -68,15 +76,18 @@ public class LexiconAdapter extends RecyclerView.Adapter<LexiconAdapter.ItemView
 
         } else if (language.equals("lanes")) {
             //   wv.loadDataWithBaseURL(null,myHtmlString, "text/html", "UTF-8", null);
-            //   data .append("<HTML><HEAD><LINK href=\"entry.css\" type=\"text/css\" rel=\"stylesheet\"/></HEAD><body>");
+            data.append("<!DOCTYPE html><html lang=\"en\"><head>");
+               data .append("<LINK href=\"lexicon.css\" type=\"text/css\" rel=\"stylesheet\"/></head>").append(lanes);
             //    holder. wordDictionary.loadDataWithBaseURL("file:///android_asset/", data .toString(), "text/html", "utf-8", null);
         //    holder.wordDictionary.loadDataWithBaseURL(null, lanes , "text/html", "utf-8", null);
 
-            lanes = "<link rel=\"stylesheet\" type=\"text/css\" href=\"lexicon.css\" />" + lanes;
+        lanes = "<link rel=\"stylesheet\" type=\"text/css\" href=\"lexicon.css\" />" + lanes;
 // lets assume we have /assets/style.css file
-            holder.wordDictionary.loadDataWithBaseURL("file:///android_asset/", lanes, "text/html", "UTF-8", null);
+
+           // holder.wordDictionary.loadDataWithBaseURL("file:///android_asset/", data.toString(), "text/html", "UTF-8", null);
 
             holder.wordDictionary.getSettings().setBuiltInZoomControls(true);
+            holder.wordDictionary.loadDataWithBaseURL("file:///android_asset/", lanes, "text/html", "utf-8", null);
 
         } else if (language.equals("hans")) {
             //   data .append("<HTML><HEAD><LINK href=\"entry.css\" type=\"text/css\" rel=\"stylesheet\"/></HEAD><body>");

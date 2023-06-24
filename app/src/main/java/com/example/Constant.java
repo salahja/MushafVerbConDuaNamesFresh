@@ -143,6 +143,8 @@ public class Constant {
     public static final String WBW = "wbw";
     public static final String AYAHNUMBER = "aya";
     public static final String SURAH_ARABIC_NAME = "arabicname";
+    public static final String ARABICWORD = "arabicword";
+    public static final String WORDMEANING = "wordmeaning";
     public static final String CHAPTER = "chapter";
     public static final String LASTAYA="lastaya";
     public static final String CHAPTERORPART = "chapterorpart";

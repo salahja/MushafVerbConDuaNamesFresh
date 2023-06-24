@@ -28,6 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
+        android:fontFamily="cursive"
         app:lineSpacing="-4dp"
         android:lineSpacingExtra="-4dp"
 
@@ -36,7 +37,7 @@
 
         style="@android:style/TextAppearance.DeviceDefault.Large"
         android:text="flow"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
     <TextView
         style="@android:style/TextAppearance.DeviceDefault.Small"

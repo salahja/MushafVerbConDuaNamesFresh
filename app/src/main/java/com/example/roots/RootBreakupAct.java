@@ -1,9 +1,12 @@
 package com.example.roots;
 
+import static com.example.Constant.ARABICWORD;
 import static com.example.Constant.AYAHNUMBER;
+import static com.example.Constant.AYAH_ID;
 import static com.example.Constant.QURAN_VERB_ROOT;
 import static com.example.Constant.SURAH_ARABIC_NAME;
 import static com.example.Constant.SURAH_ID;
+import static com.example.Constant.WORDMEANING;
 import static com.example.Constant.WORDNUMBER;
 import static com.example.Constant.particlespanDark;
 
@@ -19,8 +22,10 @@ import android.os.Bundle;
 import com.example.Constant;
 import com.example.mushafconsolidated.Activity.BaseActivity;
 import com.example.mushafconsolidated.Activity.LughatWordDetailsAct;
+import com.example.mushafconsolidated.Activity.QuranTopicSearchActivity;
 import com.example.mushafconsolidated.Activity.SearchKeyBoardAct;
 import com.example.mushafconsolidated.Activity.SearchResult;
+import com.example.mushafconsolidated.Activity.TopicDetailAct;
 import com.example.mushafconsolidated.Activity.WordOccuranceAct;
 import com.example.mushafconsolidated.Adapters.NounVerbOccuranceListAdapter;
 import com.example.mushafconsolidated.Entities.CorpusNounWbwOccurance;
@@ -34,6 +39,7 @@ import com.example.mushafconsolidated.Entities.lughat;
 import com.example.mushafconsolidated.Entities.qurandictionary;
 import com.example.mushafconsolidated.Utils;
 import com.example.mushafconsolidated.fragments.QuranMorphologyDetails;
+import com.example.mushafconsolidated.fragments.SelectedWordAyah;
 import com.example.mushafconsolidated.fragments.WordAnalysisBottomSheet;
 import com.example.mushafconsolidated.intrface.OnItemClickListener;
 import com.example.utility.CorpusUtilityorig;
@@ -53,9 +59,11 @@ import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 import androidx.core.view.WindowCompat;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
@@ -71,6 +79,7 @@ import com.example.mushafconsolidated.databinding.ActivityRootBreakupBinding;
 import com.example.mushafconsolidated.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -104,6 +113,7 @@ public class RootBreakupAct extends BaseActivity implements OnItemClickListener,
     LinkedHashMap<String, List<SpannableString>> expandVerbVerses = new LinkedHashMap<>();
     private Utils utils;
     Chip lanes,hanes;
+    private ArrayList<RootWordDetails> rootdetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,7 +169,7 @@ public class RootBreakupAct extends BaseActivity implements OnItemClickListener,
         }
 
        utils=new Utils(this);
-        ArrayList<RootWordDetails> rootdetails=                                 utils.getRootDetails(root);
+       rootdetails=                                 utils.getRootDetails(root);
         ArrayList<lughat> rootDictionary = utils.getRootDictionary(root);
         ArrayList<lanelexicon>  lanes= utils.getLanesDifinition(root);
         ArrayList<hanslexicon> hans=   utils.getHansDifinition(root);
@@ -178,12 +188,41 @@ public class RootBreakupAct extends BaseActivity implements OnItemClickListener,
             ExecuteNounOcurrance();
 
         }
-
-        rootDictionary.get(0).getHansweir();
+        MyRootBreakRecyclerViewAdapter adapter=new MyRootBreakRecyclerViewAdapter(rootdetails);
+    //    rootDictionary.get(0).getHansweir();
         lanelexicon.setText("Lanes");
 
         recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
-        recyclerView.setAdapter(new MyRootBreakRecyclerViewAdapter( rootdetails));
+        recyclerView.setAdapter(adapter);
+        adapter.SetOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                RootWordDetails wordDetails = rootdetails.get(position);
+                HashMap<String, String> datas = new HashMap<>();
+
+                Bundle newbundle=new Bundle();
+                newbundle.putInt(SURAH_ID,wordDetails.getSurah());
+                newbundle.putInt(AYAH_ID,wordDetails.getAyah());
+                newbundle.putString(SURAH_ARABIC_NAME,wordDetails.getNamearabic());
+                newbundle.putString(ARABICWORD,wordDetails.getArabic());
+                newbundle.putString(WORDMEANING,wordDetails.getEn());
+
+
+                newbundle.putSerializable("map", datas);
+                Intent intents = new Intent(RootBreakupAct.this, TopicDetailAct.class);
+                intents.putExtras(newbundle);
+                startActivity(intents);
+
+             //   Fragment ayahfragment=new Fragment();
+             //   ayahfragment.setArguments(newbundle);
+              //  SelectedWordAyah item = new SelectedWordAyah();
+              //  item.setArguments(newbundle);
+             //  String[] data = {String.valueOf(wordDetails.getSurah()), String.valueOf(wordDetails.getAyah()), wordDetails.getNamearabic(), String.valueOf((wordDetails.getArabic())), wordDetails.getEn()};
+             //   SelectedWordAyah.newInstance(data).show(getSupportFragmentManager(), SelectedWordAyah.TAG);
+
+             //   Toast.makeText(RootBreakupAct.this, "chipclecked", Toast.LENGTH_LONG).show();
+            }
+        });
 
     }
 
@@ -203,14 +242,22 @@ public class RootBreakupAct extends BaseActivity implements OnItemClickListener,
                 //  occurances = utils.getNounOccuranceBreakVerses(root);
                 int vroot = root.indexOf("ء");
                 String nounroot = "";
+                int verb=root.indexOf("ا");
+
+                String verbroot="";
                 if (vroot != -1) {
                     nounroot = root.replace("ء", "ا");
 
                 } else {
                     nounroot = root;
                 }
+                if(verb!=-1){
+                    verbroot=root.replace("ا","ء");
+                }else{
+                    verbroot=root;
+                }
                 nounCorpusArrayList = utils.getNounBreakup(nounroot);
-                verbCorpusArrayList = utils.getVerbBreakUp(root);
+                verbCorpusArrayList = utils.getVerbBreakUp(verbroot);
                 String Lemma = "";
                 int incexofgroup = 0;
                 List alist = new ArrayList();
@@ -627,11 +674,11 @@ public class RootBreakupAct extends BaseActivity implements OnItemClickListener,
 
     @Override
     public void onItemClick(View v, int position) {
-
+        Toast.makeText(this, "itemclicked", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onClick(View view) {
-
+        Toast.makeText(this, "itemclicked", Toast.LENGTH_SHORT).show();
     }
 }

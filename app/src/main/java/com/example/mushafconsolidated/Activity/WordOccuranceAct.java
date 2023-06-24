@@ -209,14 +209,22 @@ public class WordOccuranceAct extends BaseActivity {
                 //  occurances = utils.getNounOccuranceBreakVerses(root);
                 int vroot = root.indexOf("ء");
                 String nounroot = "";
+                int verb=root.indexOf("ا");
+
+                String verbroot="";
                 if (vroot != -1) {
                     nounroot = root.replace("ء", "ا");
 
                 } else {
                     nounroot = root;
                 }
+                if(verb!=-1){
+                    verbroot=root.replace("ا","ء");
+                }else{
+                    verbroot=root;
+                }
                 nounCorpusArrayList = utils.getNounBreakup(nounroot);
-                verbCorpusArrayList = utils.getVerbBreakUp(root);
+                verbCorpusArrayList = utils.getVerbBreakUp(verbroot);
                 String Lemma = "";
                 int incexofgroup = 0;
                 List alist = new ArrayList();

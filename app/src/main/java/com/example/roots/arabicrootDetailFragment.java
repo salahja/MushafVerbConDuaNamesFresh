@@ -131,7 +131,7 @@ public class arabicrootDetailFragment extends Fragment implements AdapterView.On
         ArrayList<hcategory> duagrouptwo = Utils.getHcategory();
          adapter = new RootDetailAdapter(rootsArrayList, getContext());
      ;   layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        layoutManager = new GridLayoutManager(getActivity(), 5);
+        layoutManager = new GridLayoutManager(getActivity(), 4);
         ((GridLayoutManager) layoutManager).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup()
         {
             @Override

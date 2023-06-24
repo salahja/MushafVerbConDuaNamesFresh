@@ -10,7 +10,7 @@
         style="@style/TextAppearance.AppCompat.Headline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="5dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="25dp"
         android:text="Lane - Hans Lexicon"
         app:layout_constraintHorizontal_bias="0.048"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,14 +38,14 @@
         android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="0dp"/>
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-48dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rootbreakup"
         android:layout_width="match_parent"
         android:layout_height="400dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="70dp"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +54,7 @@
     </androidx.recyclerview.widget.RecyclerView>
 
     <ExpandableListView
-        android:layout_marginTop="600dp"
+        android:layout_marginTop="455dp"
         android:id="@+id/expandableListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

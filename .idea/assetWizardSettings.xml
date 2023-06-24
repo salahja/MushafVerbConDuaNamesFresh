@@ -36,7 +36,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="file:$PROJECT_DIR$/../../Android/Sdk/icons/material/materialicons/swipe_left/baseline_swipe_left_24.xml" />
+                                                <entry key="url" value="file:$PROJECT_DIR$/../Sdk/icons/material/materialicons/swipe_left/baseline_swipe_left_24.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -343,7 +343,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:$PROJECT_DIR$/../../Android/Sdk/icons/material/materialicons/people_alt/baseline_people_alt_24.xml" />
+                                      <entry key="url" value="jar:file:/home/anons/.local/share/JetBrains/Toolbox/apps/AndroidStudio/ch-0/222.4459.24.2221.10121639/plugins/android/lib/android.jar!/images/material/icons/materialicons/list/baseline_list_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -354,7 +354,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="d93375" />
-                            <entry key="outputName" value="baseline_people_alt_24" />
+                            <entry key="outputName" value="baseline_list_24" />
                             <entry key="sourceFile" value="$USER_HOME$/Pictures/814070.svg" />
                           </map>
                         </option>

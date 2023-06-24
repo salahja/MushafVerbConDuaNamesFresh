@@ -3,6 +3,8 @@ package com.example.roots;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.SpannableString;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import com.example.mushafconsolidated.Entities.qurandictionary;
 import com.example.mushafconsolidated.R;
 import com.example.mushafconsolidated.intrface.OnItemClickListener;
 import com.example.roots.placeholder.PlaceholderContent.PlaceholderItem;
+import com.example.utility.CorpusUtilityorig;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.textview.MaterialTextView;
 
@@ -42,10 +45,17 @@ public class MyRootBreakRecyclerViewAdapter extends RecyclerView.Adapter<MyRootB
     public void onBindViewHolder(final ViewHolder holder, int position) {
         RootWordDetails lughat = mValues.get(position);
         StringBuilder sb=new StringBuilder();
-      //  sb.append(lughat.getSurah()).append("   ").append(lughat.getNamearabic()).append(lughat.getAyah()).append(" ").append(lughat.getArabic());
-        sb.append(lughat.getArabic()).append("  ").append(lughat.getAyah()).append("  ").append(lughat.getNamearabic()).append("   ").append(lughat.getSurah());
+
+        SpannableString spannableString = CorpusUtilityorig.NewSetWordSpan(lughat.getTagone(), lughat.getTagtwo(), lughat.getTagthree(), lughat.getTagfour(), lughat.getTagfive(),
+                lughat.getAraone(), lughat.getAratwo(), lughat.getArathree(), lughat.getArafour(), lughat.getArafive());
+        //  sb.append(lughat.getSurah()).append("   ").append(lughat.getNamearabic()).append(lughat.getAyah()).append(" ").append(lughat.getArabic());
+
+        sb.append(lughat.getAyah()).append("  ").append(lughat.getNamearabic()).append("   ").append(lughat.getSurah());
+        SpannableString sbs=new SpannableString(sb);
+        CharSequence charSequence = TextUtils.concat(spannableString,sb);
+       // charSequence=TextUtils.concat(sb);
      //   sb.append(lughat.getSurah()).append(":").append(lughat.getAyah()).append(":").append(lughat.getArabic()).append("-").append(lughat.getAbjadname());
-       holder.arabicroot_detail.setText(sb.toString()    );
+       holder.arabicroot_detail.setText(charSequence    );
 
    //     holder.mIdView.setText(mValues.get(position).id);
     //    holder.mContentView.setText(mValues.get(position).content);

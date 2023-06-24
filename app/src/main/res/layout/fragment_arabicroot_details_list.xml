@@ -40,7 +40,7 @@
         android:layout_marginTop="10dp"
         android:id="@+id/arabicroot_detaillist_rec"
         android:name="com.example.roots.arabicrootListFragment"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="16dp"

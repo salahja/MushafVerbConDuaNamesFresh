@@ -1,6 +1,7 @@
 package com.example.mushafconsolidated.Activity;
 
 import static android.text.TextUtils.concat;
+import static com.example.Constant.ARABICWORD;
 import static com.example.Constant.AYAHNUMBER;
 import static com.example.Constant.AYAH_ID;
 import static com.example.Constant.SURAH_ARABIC_NAME;
@@ -49,7 +50,7 @@ import java.util.Objects;
 import java.util.Set;
 //import com.example.mushafconsolidated.Entities.JoinVersesTranslationDataTranslation;
 
-public class TopicDetailAct extends BaseActivity implements OnItemClickListenerOnLong {
+public class  TopicDetailAct extends BaseActivity implements OnItemClickListenerOnLong {
     // --Commented out by Inspection (24/10/22, 10:04 PM):int mudhafColoragainstBlack, // --Commented out by Inspection (24/10/22, 10:04 PM):mausofColoragainstBlack, sifatColoragainstBlack, // --Commented out by Inspection (24/10/22, 10:03 PM):brokenPlurarColoragainstBlack, shartagainstback;
     // --Commented out by Inspection (24/10/22, 10:04 PM):private NavigationView navigationView;
     // --Commented out by Inspection (24/10/22, 10:04 PM):private MaterialToolbar materialToolbar;
@@ -103,7 +104,7 @@ public class TopicDetailAct extends BaseActivity implements OnItemClickListenerO
             case "green":
                 switchTheme("light");
                 break;
-            case "brwon":
+            case "brown":
                 switchTheme("brown");
                 break;
 
@@ -117,20 +118,29 @@ public class TopicDetailAct extends BaseActivity implements OnItemClickListenerO
         Intent bundle = getIntent();
         if (!(bundle.getExtras() == null)) {
             Bundle bundles = getIntent().getExtras();
+
             HashMap<String, String> map = (HashMap<String, String>) bundle.getSerializableExtra("map");
-            bundles.getSerializable("map");
-            //  LinkedHashMap map = (LinkedHashMap) bundles.get("map");
-            Set<String> keys = map.keySet();
-            corpusayahWordArrayList = new ArrayList<>();
-            for (String key : keys) {
-                String splits = map.get(key);
-                assert splits != null;
-                String[] split = splits.split(",");
-                for (String s : split) {
-                    getwbwy(s, key);
+            if(map.size()!=0) {
+                bundles.getSerializable("map");
+                //  LinkedHashMap map = (LinkedHashMap) bundles.get("map");
+                Set<String> keys = map.keySet();
+                corpusayahWordArrayList = new ArrayList<>();
+                for (String key : keys) {
+                    String splits = map.get(key);
+                    assert splits != null;
+                    String[] split = splits.split(",");
+                    for (String s : split) {
+                        getwbwy(s, key);
+
+                    }
 
                 }
-
+            }else{
+         int surah=       bundle.getExtras().getInt(SURAH_ID);
+          int ayah=      bundle.getExtras().         getInt(AYAH_ID);
+      String header= bundle.getExtras().getString(ARABICWORD);
+                corpusayahWordArrayList = new ArrayList<>();
+                getwbwy( surah,ayah,header);
             }
             //  getwbwy(aref);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -146,12 +156,19 @@ public class TopicDetailAct extends BaseActivity implements OnItemClickListenerO
         }
 
     }
+    private void getwbwy(int surah, int ayah, String header) {
 
+        preparewbwarray(header, surah, ayah);
+    }
     private void getwbwy(String str, String header) {
         String[] ss = str.split(":");
         int suraid = Integer.parseInt(ss[0].trim());
         int ayah = Integer.parseInt(ss[1].trim());
-        Utils utils = new Utils(this);
+        preparewbwarray(header, suraid, ayah);
+    }
+
+    private void preparewbwarray(String header, int suraid, int ayah) {
+        Utils utils = new Utils(TopicDetailAct.this);
         //  CorpusWbwWord word = new CorpusWbwWord();
         CorpusAyahWord ayahWord = new CorpusAyahWord();
         ArrayList<CorpusWbwWord> wordArrayList = new ArrayList<>();
@@ -213,6 +230,7 @@ public class TopicDetailAct extends BaseActivity implements OnItemClickListenerO
             ayahWord.setEn_jalalayn((pojo.getEn_jalalayn()));
             //  ayahWord.setSpannableverse(SpannableStringBuilder.valueOf(pojo.getQuranverses()));
             ayahWord.setEn_arberry(pojo.getEn_arberry());
+            ayahWord.setQuranTranslate(pojo.getTranslation());
             ayahWord.setUr_jalalayn((pojo.getUr_jalalayn()));
             //  ayahWord.setSpannableverse(SpannableStringBuilder.valueOf(pojo.getQuranverses()));
             ayahWord.setUr_junagarhi(pojo.getUr_junagarhi());

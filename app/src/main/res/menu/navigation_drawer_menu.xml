@@ -20,8 +20,8 @@
 
     <item
         android:id="@+id/rootdetails"
-        android:icon="@drawable/expand_list"
-        android:title="Grammar"
+        android:icon="@drawable/baseline_list_24"
+        android:title="Root List"
 
         app:showAsAction="always" />
 
@@ -30,7 +30,7 @@
         android:contentDescription="@string/content_description_one"
         android:icon="@drawable/ic_baseline_search_36"
         
-        android:title="@string/qurandictionary"
+        android:title="Root Search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="always|collapseActionView" />
 

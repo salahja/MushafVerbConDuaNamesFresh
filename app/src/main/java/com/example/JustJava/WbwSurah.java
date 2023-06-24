@@ -68,7 +68,8 @@ public class WbwSurah {
 
         int versesnumbers;
         //    versesnumbers = getVersescount();
-        ArrayList<CorpusExpandWbwPOJO> wbw = utils.getCorpusWbwBySurah(surah);
+   //     ArrayList<CorpusExpandWbwPOJO> wbw = utils.getCorpusWbwBySurah(surah);
+        ArrayList<CorpusExpandWbwPOJO> wbw = utils.getCorpusWbwBySurahAyahtopic(2,1);
         //  ArrayList<MafoolBihi> mafoolbihiquran = utils.getMafoolbihiquran();
         int verseglobal = 0;
         int tempVerseWord;
@@ -161,11 +162,14 @@ public class WbwSurah {
             wordArrayListpassage.add(words);
             ayahWord.setWord(wordArrayList);
             int asize = wordArrayList.size();
-            int ispassage = wordArrayList.get(asize - 1).getPassage_no();
-            if (ispassage != 0) {
-                ruku.put(ispassage, wordArrayListpassage);
-                wordArrayListpassage = new ArrayList<>();
+            if(asize>=1) {
+                int ispassage = wordArrayList.get(asize - 1).getPassage_no();
 
+                if (ispassage != 0) {
+                    ruku.put(ispassage, wordArrayListpassage);
+                    wordArrayListpassage = new ArrayList<>();
+
+                }
             }
             corpusayahWordArrayList.add(ayahWord);
 
