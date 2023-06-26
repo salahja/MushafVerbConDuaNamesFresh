@@ -192,7 +192,7 @@ public class RootBreakupAct extends BaseActivity implements OnItemClickListener,
     //    rootDictionary.get(0).getHansweir();
         lanelexicon.setText("Lanes");
 
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerView.setAdapter(adapter);
         adapter.SetOnItemClickListener(new OnItemClickListener() {
             @Override

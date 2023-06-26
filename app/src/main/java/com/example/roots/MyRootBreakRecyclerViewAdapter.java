@@ -50,7 +50,7 @@ public class MyRootBreakRecyclerViewAdapter extends RecyclerView.Adapter<MyRootB
                 lughat.getAraone(), lughat.getAratwo(), lughat.getArathree(), lughat.getArafour(), lughat.getArafive());
         //  sb.append(lughat.getSurah()).append("   ").append(lughat.getNamearabic()).append(lughat.getAyah()).append(" ").append(lughat.getArabic());
 
-        sb.append(lughat.getAyah()).append("  ").append(lughat.getNamearabic()).append("   ").append(lughat.getSurah());
+        sb.append(lughat.getAyah()).append("  ").append(lughat.getNamearabic()).append("   ").append(lughat.getSurah()).append(" ").append(lughat.getEn());
         SpannableString sbs=new SpannableString(sb);
         CharSequence charSequence = TextUtils.concat(spannableString,sb);
        // charSequence=TextUtils.concat(sb);

@@ -114,6 +114,18 @@ public class TopicFlowAyahWordAdapter extends RecyclerView.Adapter<TopicFlowAyah
         translationfontsize = sharedPreferences.getInt("pref_font_englsh_key", 18);
     }
 
+    public TopicFlowAyahWordAdapter(ArrayList<CorpusAyahWord> corpusayahWordArrayList, OnItemClickListenerOnLong listener, String surahname) {
+        this.ayahWordArrayList = corpusayahWordArrayList;
+        this.mItemClickListener = listener;
+        //  mItemClickListener = listener;
+        SharedPreferences sharedPreferences = getDefaultSharedPreferences(QuranGrammarApplication.getContext());
+        sharedPreferences.getBoolean(Config.SHOW_Erab, Config.defaultShowErab);
+        issentence = sharedPreferences.getBoolean("grammarsentence", false);
+        arabicfontSize = sharedPreferences.getInt("pref_font_arabic_key", 18);
+        translationfontsize = sharedPreferences.getInt("pref_font_englsh_key", 18);
+        this.SurahName=surahname;
+    }
+
     public void addContext(Context context) {
         this.context = context;
 

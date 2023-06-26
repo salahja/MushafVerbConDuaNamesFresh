@@ -173,7 +173,7 @@ public class TranslationListPrefrence extends BottomSheetDialogFragment  {
                 public void onClick(View v) {
                     SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getActivity()).edit();
                     //     SharedPreferences.Editor editor = getActivity().getSharedPreferences("properties", 0).edit();
-                    editor.putString("selecttranslation", "en_erberry");
+                    editor.putString("selecttranslation", "en_arberry");
                     editor.apply();
                     dismiss();
                 }

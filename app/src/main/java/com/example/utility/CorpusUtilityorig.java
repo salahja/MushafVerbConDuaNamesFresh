@@ -970,10 +970,14 @@ Activity activity;
                             mudhafspansDark = new BackgroundColorSpan(GREENYELLOW);
 
                         }
-                        spannableverse.setSpan(mudhafspansDark, indexstart, indexend, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        if(null!=spannableverse) {
+                            spannableverse.setSpan(mudhafspansDark, indexstart, indexend, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        }
                         //   spannableverse.setSpan(new UnderlineSpan(),indexstart, indexend, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                     } else
+                    if(null!=spannableverse) {
                         spannableverse.setSpan(frameshartharf, indexstart, indexend, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    }
 
                 }
 

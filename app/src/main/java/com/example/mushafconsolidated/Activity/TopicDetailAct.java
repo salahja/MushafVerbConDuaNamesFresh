@@ -4,6 +4,7 @@ import static android.text.TextUtils.concat;
 import static com.example.Constant.ARABICWORD;
 import static com.example.Constant.AYAHNUMBER;
 import static com.example.Constant.AYAH_ID;
+import static com.example.Constant.SURAHNAME;
 import static com.example.Constant.SURAH_ARABIC_NAME;
 import static com.example.Constant.SURAH_ID;
 
@@ -111,16 +112,17 @@ public class  TopicDetailAct extends BaseActivity implements OnItemClickListener
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.topic_search_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+          Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+   //     Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
         Intent bundle = getIntent();
         if (!(bundle.getExtras() == null)) {
             Bundle bundles = getIntent().getExtras();
 
             HashMap<String, String> map = (HashMap<String, String>) bundle.getSerializableExtra("map");
-            if(map.size()!=0) {
+            String surahname = null;
+            if (map.size() != 0) {
                 bundles.getSerializable("map");
                 //  LinkedHashMap map = (LinkedHashMap) bundles.get("map");
                 Set<String> keys = map.keySet();
@@ -135,17 +137,18 @@ public class  TopicDetailAct extends BaseActivity implements OnItemClickListener
                     }
 
                 }
-            }else{
-         int surah=       bundle.getExtras().getInt(SURAH_ID);
-          int ayah=      bundle.getExtras().         getInt(AYAH_ID);
-      String header= bundle.getExtras().getString(ARABICWORD);
+            } else {
+                int surah = bundle.getExtras().getInt(SURAH_ID);
+                int ayah = bundle.getExtras().getInt(AYAH_ID);
+                String header = bundle.getExtras().getString(ARABICWORD);
+                surahname = bundle.getExtras().getString(SURAH_ARABIC_NAME);
                 corpusayahWordArrayList = new ArrayList<>();
-                getwbwy( surah,ayah,header);
+                getwbwy(surah, ayah, header);
             }
             //  getwbwy(aref);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
             OnItemClickListenerOnLong listener = this;
-            TopicFlowAyahWordAdapter flowAyahWordAdapter = new TopicFlowAyahWordAdapter(corpusayahWordArrayList, listener);
+            TopicFlowAyahWordAdapter flowAyahWordAdapter = new TopicFlowAyahWordAdapter(corpusayahWordArrayList, listener, surahname);
             RecyclerView parentRecyclerView = findViewById(R.id.recycler_view);
             parentRecyclerView.setLayoutManager(linearLayoutManager);
             flowAyahWordAdapter.addContext(TopicDetailAct.this);

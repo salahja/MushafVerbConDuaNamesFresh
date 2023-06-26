@@ -68,8 +68,11 @@ public class WbwSurah {
 
         int versesnumbers;
         //    versesnumbers = getVersescount();
-   //     ArrayList<CorpusExpandWbwPOJO> wbw = utils.getCorpusWbwBySurah(surah);
-        ArrayList<CorpusExpandWbwPOJO> wbw = utils.getCorpusWbwBySurahAyahtopic(2,1);
+         ArrayList<CorpusExpandWbwPOJO> wbw = utils.getCorpusWbwBySurah(surah);
+
+      //  ArrayList<CorpusExpandWbwPOJO> wbw = utils.getCorpusWbwBySurahAyahtopic(2,1);
+
+
         //  ArrayList<MafoolBihi> mafoolbihiquran = utils.getMafoolbihiquran();
         int verseglobal = 0;
         int tempVerseWord;

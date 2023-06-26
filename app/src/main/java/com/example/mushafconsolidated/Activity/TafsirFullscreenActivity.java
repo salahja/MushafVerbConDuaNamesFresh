@@ -86,7 +86,7 @@ public class TafsirFullscreenActivity extends BaseActivity {
         Utils utils = new Utils(this);
         MaterialToolbar materialToolbar = findViewById(R.id.toolbarmain);
         setSupportActionBar(materialToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+     //   getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         if (materialToolbar != null) {
             setSupportActionBar(materialToolbar);
             getSupportActionBar().setDisplayShowHomeEnabled(true);

@@ -170,10 +170,14 @@ public class Constant {
     public static final int TEAL = ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.teal300);
     public static final int GOLD = ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.Gold);
     public static final int DARKGOLDENROD = ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.DarkGoldenrod);
+    public static final int MARIGOLD = ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.marigold);
+
+
     public static final int WMIDNIHTBLUE = ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.midnightblue);
     public static final int WBURNTUMBER = ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.burntamber);
     public static final int GREENDARK = ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.DarkGreen);
     public static final int WHOTPINK = ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.hotred);
+  //  public static final int MARIGOLD = ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.marigold);
     public static final int FORESTGREEN = ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.sforestgreen);
     public static final int LIME = ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.Lime);
     public static final int KASHMIRIGREEN = ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.kashmirigreen);
@@ -264,6 +268,7 @@ public class Constant {
     };
     public static ForegroundColorSpan verbalnounspanDark = new ForegroundColorSpan(WHOTPINK);
     public static ForegroundColorSpan nounspanDark = new ForegroundColorSpan(YELLOW);
+    //    public static ForegroundColorSpan nounspanDark = new ForegroundColorSpan(MARIGOLD);
     public static BackgroundColorSpan sifaspansDark = new BackgroundColorSpan(WBURNTUMBER);
     public static BackgroundColorSpan sifaspanDark = new BackgroundColorSpan(CYANLIGHTEST);
     //   public static BackgroundColorSpan mudhafspanDark = new BackgroundColorSpan(CYANLIGHT);

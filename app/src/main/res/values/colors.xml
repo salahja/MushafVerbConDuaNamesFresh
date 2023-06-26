@@ -374,6 +374,9 @@
     <color name="OrangeRed">#FF4500</color>
     <color name="DeepPink">#FF1493</color>
     <color name="hotred">#D93375</color>
+    <color name="marigold">#FFAD4A</color>
+
+
     <color name="Fuchsia">#FF00FF</color>
     <color name="Magenta">#FF00FF</color>
     <color name="Salmon">#FA8072</color>
