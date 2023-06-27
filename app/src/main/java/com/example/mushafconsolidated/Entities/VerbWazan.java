@@ -1,5 +1,9 @@
 package com.example.mushafconsolidated.Entities;
 
+import static com.example.Constant.VERBMOOD;
+
+import com.example.mushafconsolidated.R;
+
 public class VerbWazan {
     public final static String BNASARA = "نصر"; //   A-U // NASRA-YANSURU
     public final static String BZARABA = "ضرب";  //   A-I // ZARABA-YASZRIBU
@@ -8,7 +12,7 @@ public class VerbWazan {
     public final static String BKARUMU = "كرم";   //   U-U  //KARUMA-YAKRUMU
     public final static String BHASIBA = "حسب";    //  I-I  //HASIBA-YAHSIU
     private String root;
-    private String wazan;
+    private static String wazan;
     private String arabicword;
 
     public VerbWazan(String root, String wazan) {
@@ -58,7 +62,7 @@ public class VerbWazan {
             return wazan;
         }
      */
-    public String getWazan() {
+    public static String getWazan() {
         if (wazan.equals("N")) {
             wazan = "1";
         } else if (wazan.equals("Z")) {
@@ -76,6 +80,59 @@ public class VerbWazan {
         }
         return wazan;
     }
+
+    public static String getMazeedWazan(String form) {
+        String formdetails = "";
+        switch (form) {
+            case "IV":
+                formdetails = "1";
+                break;
+            case "II":
+                formdetails = "2";
+                break;
+            case "III":
+                formdetails = "3";
+                break;
+            case "VII":
+                formdetails = "4";
+                break;
+            case "VIII":
+                formdetails = "5";
+                break;
+            case "VI":
+                formdetails = "8";
+                break;
+            case "V":
+                formdetails = "7";
+                break;
+            case "X":
+                formdetails = "9";
+                break;
+            default:
+                String s = "";
+
+        }
+        return formdetails;
+    }
+   public static String getVerbMood(String selected){
+            String vmood="" ;
+       switch (selected) {
+           case "IND":
+               vmood= "Indicative";
+               break;
+           case "SUBJ":
+               vmood= "Subjunctive";
+               break;
+           case "JUS":
+               vmood= "Jussive";
+               break;
+           default:
+               vmood= "";
+               break;
+       }
+return vmood;
+   }
+
 
     public void setWazan(String wazan) {
         this.wazan = wazan;

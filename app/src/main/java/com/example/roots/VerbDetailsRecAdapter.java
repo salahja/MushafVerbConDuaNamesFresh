@@ -17,6 +17,7 @@ import com.example.mushafconsolidated.fragments.QuranMorphologyDetails;
 import com.example.mushafconsolidated.intrface.OnItemClickListener;
 import com.example.roots.placeholder.PlaceholderContent.PlaceholderItem;
 import com.example.utility.CorpusUtilityorig;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.chip.Chip;
 
 import java.util.ArrayList;
@@ -104,7 +105,7 @@ public class VerbDetailsRecAdapter extends RecyclerView.Adapter<VerbDetailsRecAd
             implements View.OnClickListener // current clickListerner
     {
         // public final ImageView id;
-        public final Chip conjugate;
+        public final MaterialButton conjugate;
         public CardView cardview;
         public TextView arabicsurahname,verbsaw,arabicword,wazan,tensevoicegendernumbermood,tensevoice;
 
@@ -117,12 +118,15 @@ public class VerbDetailsRecAdapter extends RecyclerView.Adapter<VerbDetailsRecAd
             arabicsurahname.setTag("root");
             arabicsurahname.setOnClickListener(this);
             conjugate=view.findViewById(R.id.conjugate);
+
             arabicsurahname=view.findViewById(R.id.arabicsurahname);
             verbsaw=view.findViewById(R.id.verbsaw);
             arabicword=view.findViewById(R.id.arabicword);
             wazan=view.findViewById(R.id.wazan);
             tensevoicegendernumbermood=view.findViewById(R.id.tensevoicegendernumbermood);
             tensevoice=view.findViewById(R.id.tensevoice);
+            conjugate.setTag("conjugate");
+            conjugate.setOnClickListener(this);
             view.setOnClickListener(this);
 
         }

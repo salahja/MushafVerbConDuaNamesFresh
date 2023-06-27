@@ -73,7 +73,7 @@ public class QuranMorphologyDetails {
                 formdetails = "Form-II(تَفْعِيل)";
                 break;
             case "III":
-                formdetails = "Form-II(فَاعَلَ)";
+                formdetails = "Form-III(فَاعَلَ)";
                 break;
             case "VII":
                 formdetails = "Form-VII(اِنْفِعَال)";

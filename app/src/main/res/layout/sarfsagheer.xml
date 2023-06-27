@@ -304,8 +304,9 @@
             android:layout_toEndOf="@+id/ismzarfheader"
             android:gravity="center|end"
             android:paddingStart="5.0dip"
+            android:text="اِسْم الْظَرفْ"
             android:paddingEnd="3.0dip"
-            android:text="اِسْم الآلَة"
+
             android:textAlignment="center"
             android:textSize="20sp" />
 
@@ -323,10 +324,10 @@
             android:layout_width="0.0dip"
             android:layout_height="wrap_content"
             android:layout_weight="0.2"
-
+            android:text="اِسْم الآلَة"
             android:paddingStart="5.0dip"
             android:paddingEnd="3.0dip"
-            android:text="اِسْم الْظَرفْ"
+
             android:textAlignment="center"
             android:textSize="20sp" />
 

@@ -681,7 +681,7 @@ public class GatherAll {
                 }
 
             }
-            for (Object s : zarffinalmafil) {
+            for (Object s : zarfinalmafal) {
                 if (s.toString().length() > 0) {
                     listlzarfmafal.add(s.toString());
                 }

@@ -84,11 +84,12 @@
         app:layout_constraintStart_toEndOf="@+id/tensevoicegendernumbermood"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.chip.Chip
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/conjugate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/baseline_translate_24"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:background="@drawable/ic_baseline_construction_24"
+        style="@style/ThemeOverlay.Material3.Button.ElevatedButton"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
