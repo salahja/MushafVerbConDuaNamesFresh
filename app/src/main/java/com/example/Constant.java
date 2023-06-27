@@ -90,6 +90,8 @@ public class Constant {
     public static final String QURAN_VERB_WAZAN = "form";
     public static final String SARFKABEER = "sarfkabeer";
     public static final String QURAN_VERB_ROOT = "root";
+    public static final String VERBDETAILS = "verb";
+    public static final String WORDDETAILS = "worddetails";
     public static final String QURAN_VOCUBALORY_ROOT = "vroot";
     public static final String MUJARRADVERBTAG = "thulathiverblist";
     public static final String TAFEEL = "تَفْعِيل-II";

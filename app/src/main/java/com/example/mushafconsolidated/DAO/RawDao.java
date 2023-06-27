@@ -16,6 +16,7 @@ import com.example.mushafconsolidated.Entities.MudhafPOJO;
 import com.example.mushafconsolidated.Entities.NasbPOJO;
 import com.example.mushafconsolidated.Entities.NewCorpusExpandWbwPOJO;
 import com.example.mushafconsolidated.Entities.NounCorpusBreakup;
+import com.example.mushafconsolidated.Entities.RootVerbDetails;
 import com.example.mushafconsolidated.Entities.RootWordDetails;
 import com.example.mushafconsolidated.Entities.ShartPOJO;
 import com.example.mushafconsolidated.Entities.SifaEntityPojo;
@@ -46,6 +47,9 @@ public interface RawDao {
 
     @RawQuery
     List<RootWordDetails> getrootdetails(SupportSQLiteQuery query);
+
+    @RawQuery
+    List<RootVerbDetails> getverbdetails(SupportSQLiteQuery query);
     @RawQuery
     List<CorpusNounWbwOccurance> getnounoccurancebysurahayah(SupportSQLiteQuery query);
 

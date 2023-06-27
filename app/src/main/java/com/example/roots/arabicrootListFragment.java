@@ -1,18 +1,15 @@
 package com.example.roots;
 
+import static com.example.Constant.WORDDETAILS;
+
 import android.content.ClipData;
 import android.content.ClipDescription;
 import android.os.Build;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.KeyEvent;
@@ -41,6 +38,8 @@ import java.util.List;
  */
 public class arabicrootListFragment extends Fragment {
 
+    public String iswordorverb;
+
     /**
      * Method to intercept global key events in the
      * item list fragment to trigger keyboard shortcuts
@@ -65,6 +64,16 @@ public class arabicrootListFragment extends Fragment {
         }
         return false;
     };
+    public static arabicrootListFragment newInstance(String wordorverb) {
+        arabicrootListFragment fragment = new arabicrootListFragment();
+
+        final Bundle args = new Bundle();
+        args.putString(WORDDETAILS, wordorverb);
+        fragment.setArguments(args);
+
+        return fragment;
+
+    }
 
     private FragmentArabicrootListBinding binding;
 
@@ -72,12 +81,14 @@ public class arabicrootListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentArabicrootListBinding.inflate(inflater, container, false);
-
+        Bundle bundle = this.getArguments();
+      iswordorverb=  bundle.getString(WORDDETAILS);
 
 
         return binding.getRoot();
 
     }
+
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -91,7 +102,7 @@ public class arabicrootListFragment extends Fragment {
         // layout configuration (layout, layout-sw600dp)
         View itemDetailFragmentContainer = view.findViewById(R.id.arabicroot_detail_nav_container);
 
-
+        getArguments().getString(WORDDETAILS);
 
         setupRecyclerView(recyclerView, itemDetailFragmentContainer);
     }
@@ -103,7 +114,7 @@ public class arabicrootListFragment extends Fragment {
 
         recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(
                 PlaceholderContent.ITEMS,
-                itemDetailFragmentContainer
+                itemDetailFragmentContainer,iswordorverb
         ));
     }
 
@@ -118,11 +129,13 @@ public class arabicrootListFragment extends Fragment {
 
         private final List<PlaceholderContent.PlaceholderItem> mValues;
         private final View mItemDetailFragmentContainer;
+        private final String iswordorverb;
 
         SimpleItemRecyclerViewAdapter(List<PlaceholderContent.PlaceholderItem> items,
-                                      View itemDetailFragmentContainer) {
+                                      View itemDetailFragmentContainer, String iswordorverb) {
             mValues = items;
             mItemDetailFragmentContainer = itemDetailFragmentContainer;
+            this.iswordorverb=iswordorverb;
         }
 
         @Override
@@ -150,6 +163,7 @@ public class arabicrootListFragment extends Fragment {
                         (PlaceholderContent.PlaceholderItem) itemView.getTag();
                 Bundle arguments = new Bundle();
                 arguments.putString(arabicrootDetailFragment.ARG_ITEM_ID, item.id);
+                arguments.putString(WORDDETAILS,iswordorverb);
                 if (mItemDetailFragmentContainer != null) {
                     Navigation.findNavController(mItemDetailFragmentContainer)
                             .navigate(R.id.fragment_arabicroot_detail, arguments);

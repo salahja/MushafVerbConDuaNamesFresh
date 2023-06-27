@@ -24,6 +24,12 @@
         android:title="Root List"
 
         app:showAsAction="always" />
+    <item
+        android:id="@+id/verbdetails"
+        android:icon="@drawable/baseline_list_24"
+        android:title="Verb Detail List"
+
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/search"

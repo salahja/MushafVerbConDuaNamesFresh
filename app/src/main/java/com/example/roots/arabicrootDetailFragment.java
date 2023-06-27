@@ -9,6 +9,7 @@ import static com.example.Constant.QURAN_VERB_ROOT;
 import static com.example.Constant.SURAH_ARABIC_NAME;
 import static com.example.Constant.SURAH_ID;
 import static com.example.Constant.WBW;
+import static com.example.Constant.WORDDETAILS;
 
 import android.content.ClipData;
 import android.content.ClipDescription;
@@ -194,7 +195,9 @@ public class arabicrootDetailFragment extends Fragment implements AdapterView.On
 
                 dataBundle.putString("root", rootword);
                 Bundle bundle = new Bundle();
-
+                 if(getArguments().containsKey(WORDDETAILS)){
+                     bundle.putString(WORDDETAILS,getArguments().getString(WORDDETAILS));
+                 }
                 Intent intent = new Intent(getActivity(), RootBreakupAct.class);
 
                 bundle.putString(QURAN_VERB_ROOT, rootword);

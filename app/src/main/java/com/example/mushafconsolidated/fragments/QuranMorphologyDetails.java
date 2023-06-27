@@ -149,14 +149,14 @@ public class QuranMorphologyDetails {
             }
             sb.append(" ");
             if (gender.equals("M")) {
-                sb.append("Masculine");
+                sb.append("Mas.");
             } else if (gender.equals("F")) {
-                sb.append("Feminine");
+                sb.append("Fem.");
             }
             sb.append(" ");
             switch (number) {
                 case "S":
-                    sb.append("Singular");
+                    sb.append("Sing.");
                     break;
                 case "P":
                     sb.append("Plural");
@@ -173,11 +173,11 @@ public class QuranMorphologyDetails {
             if ((chars[0] >= 'a' && chars[0] <= 'z') || (chars[0] >= 'A' && chars[0] <= 'Z')) {
                 switch (person) {
                     case "M":
-                        sb.append("Masculine");
+                        sb.append("Masc.");
                         sb.append(" ");
                         break;
                     case "F":
-                        sb.append("Feminine");
+                        sb.append("Fem.");
                         sb.append(" ");
                         break;
                 }
@@ -245,19 +245,19 @@ public class QuranMorphologyDetails {
                     sb.append("Dual");
                     break;
                 case "1":
-                    sb.append("1st Person");
+                    sb.append("1st Per.");
                     break;
                 case "2":
-                    sb.append("2nd Person");
+                    sb.append("2nd Per.");
                     break;
                 case "3":
-                    sb.append("3rd Person");
+                    sb.append("3rd Per.");
                     break;
                 case "M":
-                    sb.append("Masculine");
+                    sb.append("Mas.");
                     break;
                 case "F":
-                    sb.append("Feminine");
+                    sb.append("Fem.");
                     break;
 
             }

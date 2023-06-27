@@ -17,6 +17,7 @@ import static com.example.Constant.RUKUCOUNT;
 import static com.example.Constant.SURAH_ARABIC_NAME;
 import static com.example.Constant.SURAH_ID;
 import static com.example.Constant.VERSESCOUNT;
+import static com.example.Constant.WORDDETAILS;
 import static com.example.mushafconsolidated.R.*;
 import static com.example.mushafconsolidated.R.drawable.custom_search_box;
 
@@ -555,10 +556,24 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
                     break;
                 case id.rootdetails:
                     drawerLayout.closeDrawers();
+
+                    Bundle bundle = new Bundle();
+                    //   Intent intent = new Intent(getActivity(), NounOccuranceAsynKAct.class);
+                    Intent roots = new Intent(this, arabicrootDetailHostActivity.class);
+                    bundle.putString(WORDDETAILS,"word");
+                    roots.putExtras(bundle);
                  //   Intent grammar = new Intent(this, GrammarRuleDetailHostActivity.class);
-                  Intent roots = new Intent(this, arabicrootDetailHostActivity.class);
+
 
                     startActivity(roots);
+                    break;
+                case id.verbdetails:
+                    drawerLayout.closeDrawers();
+                    //   Intent grammar = new Intent(this, GrammarRuleDetailHostActivity.class);
+
+                    Intent verbdetails = new Intent(this, arabicrootDetailHostActivity.class);
+                    verbdetails.putExtra(WORDDETAILS,"verb");
+                    startActivity(verbdetails);
                     break;
 
 
