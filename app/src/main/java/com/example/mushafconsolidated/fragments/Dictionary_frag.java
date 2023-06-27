@@ -29,6 +29,7 @@ import com.example.mushafconsolidated.Adapters.WordLughatAdapter;
 import com.example.mushafconsolidated.Entities.GrammarRules;
 import com.example.mushafconsolidated.Entities.hanslexicon;
 import com.example.mushafconsolidated.Entities.lanelexicon;
+import com.example.mushafconsolidated.Entities.lanerootdictionary;
 import com.example.mushafconsolidated.Entities.lughat;
 import com.example.mushafconsolidated.R;
 import com.example.mushafconsolidated.Utils;
@@ -146,41 +147,47 @@ public class Dictionary_frag extends Fragment {
             }
             StringBuilder difinitionbuilder = new StringBuilder();
             ArrayList<lanelexicon> lanesdictionary = utils.getLanesDifinition(verbroot);
-            if (!lanesdictionary.isEmpty())
+            ArrayList<lanerootdictionary> lanerootdictionaries=          utils.getLanesRootDefinition(verbroot);
+            if(!lanerootdictionaries.isEmpty()){
+                worddifinition.add(lanerootdictionaries.get(0).getDefinition().toString());
                 islanes = true;
-            //  <p style="margin-left:200px; margin-right:50px;">
-            difinitionbuilder.append(html);
-            String replaced;
-            for (lanelexicon lanes : lanesdictionary) {
-                //  replaced = getString(lanes);
-                replaced = lanes.getDefinition();
-                int indexOf = replaced.indexOf("<orth extent=\"full\" lang=\"ar\">ذ</orth>");
-                int indexofForm = replaced.indexOf("<form>");
-                int indexofFormclose = replaced.indexOf("</form>");
-                int indexofforminfl = replaced.indexOf("<form n=\"infl\">");
-                difinitionbuilder.append("<p dir='ltr' style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">");
-                if (indexOf != -1) {
-                    replaced = replaced.replaceAll("<orth extent=\"full\" lang=\"ar\">ذ</orth>", "");
-                    //     difinitionbuilder.append(replaced);
-                }
-                if (indexofForm != -1) {
-                    replaced = replaced.replaceAll("<form>", "");
-                    //     difinitionbuilder.append(replaced);
-                }
-                if (indexofFormclose != -1) {
-                    replaced = replaced.replaceAll("</form>", "");
-                    //    difinitionbuilder.append(replaced);
-                }
-                if (indexofforminfl != -1) {
-                    replaced = replaced.replaceAll("<form n=\"infl\">", "");
-                    //    difinitionbuilder.append(replaced);
-                }
-                difinitionbuilder.append(replaced);
-                difinitionbuilder.append("</p>");
-                difinitionbuilder.append("<hr size=\"1\" width=\"100%\" color=\"red\">  ");
+            }else
+            if (!lanesdictionary.isEmpty()) {
+                islanes = true;
+                //  <p style="margin-left:200px; margin-right:50px;">
+                difinitionbuilder.append(html);
+                String replaced;
+                for (lanelexicon lanes : lanesdictionary) {
+                    //  replaced = getString(lanes);
+                    replaced = lanes.getDefinition();
+                    int indexOf = replaced.indexOf("<orth extent=\"full\" lang=\"ar\">ذ</orth>");
+                    int indexofForm = replaced.indexOf("<form>");
+                    int indexofFormclose = replaced.indexOf("</form>");
+                    int indexofforminfl = replaced.indexOf("<form n=\"infl\">");
+                    difinitionbuilder.append("<p dir='ltr' style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">");
+                    if (indexOf != -1) {
+                        replaced = replaced.replaceAll("<orth extent=\"full\" lang=\"ar\">ذ</orth>", "");
+                        //     difinitionbuilder.append(replaced);
+                    }
+                    if (indexofForm != -1) {
+                        replaced = replaced.replaceAll("<form>", "");
+                        //     difinitionbuilder.append(replaced);
+                    }
+                    if (indexofFormclose != -1) {
+                        replaced = replaced.replaceAll("</form>", "");
+                        //    difinitionbuilder.append(replaced);
+                    }
+                    if (indexofforminfl != -1) {
+                        replaced = replaced.replaceAll("<form n=\"infl\">", "");
+                        //    difinitionbuilder.append(replaced);
+                    }
+                    difinitionbuilder.append(replaced);
+                    difinitionbuilder.append("</p>");
+                    difinitionbuilder.append("<hr size=\"1\" width=\"100%\" color=\"red\">  ");
 
+                }
+                worddifinition.add(difinitionbuilder.toString());
             }
-            worddifinition.add(difinitionbuilder.toString());
         } else if (language.equals("hans")) {
             String probableRoot = verbroot;
             int indexOfHamza = verbroot.indexOf(Hamza);

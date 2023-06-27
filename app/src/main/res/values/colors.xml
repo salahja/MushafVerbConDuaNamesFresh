@@ -311,7 +311,7 @@
     !-- excelent against black -->
     <color name="yellow">#FFFF00</color>
     <color name="green">#00FF00</color>
-    <color name="cyan">#00FFFF</color>
+    <color name="cyan">#3A9898</color>
     <color name="hotpink">#DB006E</color>
     <color name="bg_ayahs">#FCF4B1</color>
     <!--Color primary (dark)-->

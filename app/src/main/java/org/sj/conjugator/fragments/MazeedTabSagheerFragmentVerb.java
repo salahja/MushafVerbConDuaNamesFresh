@@ -15,10 +15,13 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mushafconsolidated.R;
+import com.example.mushafconsolidated.VerbFormsDialogFrag;
 import com.example.mushafconsolidated.fragments.VerbconjuationBottom;
 import com.example.mushafconsolidated.fragments.WordAnalysisBottomSheet;
 import com.tooltip.Tooltip;
@@ -181,13 +184,65 @@ public class MazeedTabSagheerFragmentVerb extends Fragment {
 
             @Override
             public void onItemClick(View v, int position) {
-          /*      SarfSagheer wordEntity = ssagheer.get(position);
+                SarfSagheer wordEntity = ssagheer.get(position);
+                if(v.getTag()!=null) {
+                    String form = "Form ";
+                    if (v.getTag().equals("form")) {
+                        if(wordEntity.getWazan().equals("2")){
+                            form=form.concat("II");
+
+                        }    else if(wordEntity.getWazan().equals("3")) {
+                            form = form.concat("III");
+                        }else if(wordEntity.getWazan().equals("1")) {
+                            form = form.concat("IV");
+
+
+                        }else if(wordEntity.getWazan().equals("7")){
+                            form=form.concat("V");
+                        }else if(wordEntity.getWazan().equals("8")){
+                            form=form.concat("VI");
+                        }else if(wordEntity.getWazan().equals("4")){
+                            form=form.concat("VII");
+                        }else if(wordEntity.getWazan().equals("5")){
+                            form=form.concat("VIII");
+                        }
+
+
+
+
+                        else if(wordEntity.getWazan().equals("9")){
+                            form=form.concat("X");
+                        }
+
+
+
+
+
+                        VerbFormsDialogFrag item = new VerbFormsDialogFrag();
+                            //    item.setdata(rootWordMeanings,wbwRootwords,grammarRootsCombined);
+                            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+
+                            String[] data = {form};
+                            FragmentTransaction transactions = fragmentManager.beginTransaction().setCustomAnimations(R.anim.abc_slide_in_top, android.R.anim.fade_out);
+                            transactions.show(item);
+                            VerbFormsDialogFrag.newInstance(data).show(getActivity().getSupportFragmentManager(), WordAnalysisBottomSheet.TAG);
+
+
+
+
+
+
+
+
+
+                    }
+                }
                 //      GrammarWordEntity wordEntity = (GrammarWordEntity) sarfsagheerAdapter.getItem(position);
                 Bundle dataBundles = new Bundle();
                 String wazan = wordEntity.getWazan();
                 String weakness=                     wordEntity.getWeakness();
                 String root=                wordEntity.getVerbroot();
-*/
+
                 if (isAugmented) {
                   /*  isUnAugmented = true;
                     augmentedFormula = dataBundle.getString(QURAN_VERB_WAZAN);

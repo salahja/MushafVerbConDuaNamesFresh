@@ -2,8 +2,46 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "9804fc2257a2f0aca4eb8eb877ace869",
+    "identityHash": "0d31f6fd964ba76f78cb73a0c7badea5",
     "entities": [
+      {
+        "tableName": "lanesrootdictionary",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`rootarabic` TEXT NOT NULL, `rootbuckwater` TEXT NOT NULL, `definition` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "rootarabic",
+            "columnName": "rootarabic",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rootbuckwater",
+            "columnName": "rootbuckwater",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "definition",
+            "columnName": "definition",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
       {
         "tableName": "audio",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `name_english` TEXT NOT NULL, `audiotype` INTEGER NOT NULL, `url` TEXT NOT NULL)",
@@ -2618,7 +2656,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9804fc2257a2f0aca4eb8eb877ace869')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0d31f6fd964ba76f78cb73a0c7badea5')"
     ]
   }
 }

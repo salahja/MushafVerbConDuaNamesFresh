@@ -479,6 +479,7 @@ public class ConjugatorAct extends com.example.mushafconsolidated.Activity.BaseA
                 finish();
                 startActivity(mintent);
                 break;
+
             case R.id.mufala:
                 getTypedValues();
                 InitDiaalog(mazeedVerb.get(0).getRoot(), "3", "mazeed");

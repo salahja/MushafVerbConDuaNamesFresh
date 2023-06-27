@@ -27,8 +27,10 @@
         android:layout_marginTop="25dp"
         android:text="Lane - Hans Lexicon"
         app:layout_constraintHorizontal_bias="0.048"
+        app:layout_constraintStart_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
 
     <FrameLayout

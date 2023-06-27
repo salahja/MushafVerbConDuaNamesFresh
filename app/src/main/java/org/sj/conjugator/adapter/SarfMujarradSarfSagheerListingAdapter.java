@@ -10,11 +10,13 @@ import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mushafconsolidated.R;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptionsExtension;
 import com.google.android.material.textview.MaterialTextView;
 
 import org.jetbrains.annotations.NotNull;
@@ -98,7 +100,13 @@ public class SarfMujarradSarfSagheerListingAdapter extends RecyclerView.Adapter<
 
 
 
-
+          if(sarfSagheer.get(0).getVerbtype().equals("mazeed")){
+             holder.form.setVisibility(View.VISIBLE);
+              holder.form.setText(sarfSagheer.get(0).getWazanname());
+          }
+          else{
+              holder.form.setVisibility(View.GONE);
+          }
 
         int length = sarfSagheer.size();
         Integer arabicFontsize = prefs.getInt("arabicFontSizeEntryArray", 20);
@@ -198,13 +206,18 @@ public class SarfMujarradSarfSagheerListingAdapter extends RecyclerView.Adapter<
         public final MaterialTextView amr, nahiamr, ismfail, mumaroof,
                 mamaroof, ismmafool, mumajhool, mamajhool,
                 ismzarf, ismala;
+        MaterialTextView form;
         public final TextView babno, ismalaheader, ismzarfheader, masdart, masdaro, babname, rootword, weaknessname, wazan;
 
         public ViewHolder(View view) {
             super(view);
             //    itemView.setTag(this);
             //     itemView.setOnClickListener(onItemClickListener);
+            form=view.findViewById(R.id.form);
             babno = view.findViewById(R.id.babno);
+            babno.setOnClickListener(this);
+            form.setOnClickListener(this);
+            form.setTag("form");
             ismfail = view.findViewById(R.id.ismfail);
             masdaro = view.findViewById(R.id.masdar);
             mumaroof = view.findViewById(R.id.mumaroof);
@@ -237,6 +250,12 @@ public class SarfMujarradSarfSagheerListingAdapter extends RecyclerView.Adapter<
             ismala.setOnClickListener(this);//R.id.ismaalatable);
             ismzarf.setOnClickListener(this);//R.id.zarftable);
             rootword.setOnClickListener(this);//R.id.weaknesstype);
+            babno.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
       //      verify.setOnClickListener(this);
 
         }

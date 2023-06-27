@@ -431,8 +431,8 @@ public class RootWordDisplayAdapter extends RecyclerView.Adapter<RootWordDisplay
             holder.nahiamr.setText(sagheer.getNahiamrone());
             holder.ismzarfheader.setText(zarfheader);
             holder.ismalaheader.setText(alaheader);
-            zarf.append((CharSequence) sagheer.getIsmalaone()).append(", ").append(sagheer.getIsmalatwo()).append(", ").append(sagheer.getIsmalathree());
-            ismala.append((CharSequence) sagheer.getZarfone()).append(", ").append(sagheer.getZarftwo()).append(", ").append(sagheer.getZarfthree());
+            ismala.append((CharSequence) sagheer.getIsmalaone()).append(", ").append(sagheer.getIsmalatwo()).append(", ").append(sagheer.getIsmalathree());
+            zarf       .append((CharSequence) sagheer.getZarfone()).append(", ").append(sagheer.getZarftwo()).append(", ").append(sagheer.getZarfthree());
             holder.ismzarf.setText(zarf);
             holder.ismala.setText(ismala);
             holder.weaknessname.setText(sagheer.getWeakness());

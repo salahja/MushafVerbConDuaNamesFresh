@@ -20,6 +20,7 @@ import com.example.mushafconsolidated.DAO.CorpusExpandedDao;
 import com.example.mushafconsolidated.DAO.HaliyaDao;
 import com.example.mushafconsolidated.DAO.HansDao;
 import com.example.mushafconsolidated.DAO.LaneDao;
+import com.example.mushafconsolidated.DAO.LaneRootDao;
 import com.example.mushafconsolidated.DAO.LughatDao;
 import com.example.mushafconsolidated.DAO.MafoolBihiDao;
 import com.example.mushafconsolidated.DAO.MafoolMutlaqEntDao;
@@ -65,6 +66,7 @@ import com.example.mushafconsolidated.Entities.TameezEnt;
 import com.example.mushafconsolidated.Entities.VerbCorpus;
 import com.example.mushafconsolidated.Entities.hanslexicon;
 import com.example.mushafconsolidated.Entities.lanelexicon;
+import com.example.mushafconsolidated.Entities.lanerootdictionary;
 import com.example.mushafconsolidated.Entities.lughat;
 import com.example.mushafconsolidated.Entities.qurandictionary;
 import com.example.mushafconsolidated.Entities.quranexplorer;
@@ -90,7 +92,7 @@ import sj.hisnul.entity.hduadetails;
 import sj.hisnul.entity.hduanames;
 
 //@Database(entities= {VerseEntit.class,ErabEntity.class,ChaptersAnaEntity.class},version= 1)
-@Database(entities = {Qari.class,QuranMetaEntity.class,Cities.class, Countries.class,hcategory.class, hduadetails.class, hduanames.class, surahsummary.class, quranexplorer.class, AllahNamesDetails.class, AllahNames.class, DuaGroup.class, DuaDetails.class, MafoolMutlaqEnt.class, BadalErabNotesEnt.class, HalEnt.class, MafoolBihi.class, LiajlihiEnt.class, TameezEnt.class, GrammarRules.class, hanslexicon.class, qurandictionary.class, lanelexicon.class, lughat.class, NewNasbEntity.class, NewShartEntity.class, NewKanaEntity.class, NewMudhafEntity.class, SifaEntity.class, wbwentity.class, NounCorpus.class, VerbCorpus.class, QuranEntity.class, CorpusEntity.class, BookMarks.class, ChaptersAnaEntity.class}, version = 1)
+@Database(entities = {lanerootdictionary.class,Qari.class,QuranMetaEntity.class,Cities.class, Countries.class,hcategory.class, hduadetails.class, hduanames.class, surahsummary.class, quranexplorer.class, AllahNamesDetails.class, AllahNames.class, DuaGroup.class, DuaDetails.class, MafoolMutlaqEnt.class, BadalErabNotesEnt.class, HalEnt.class, MafoolBihi.class, LiajlihiEnt.class, TameezEnt.class, GrammarRules.class, hanslexicon.class, qurandictionary.class, lanelexicon.class, lughat.class, NewNasbEntity.class, NewShartEntity.class, NewKanaEntity.class, NewMudhafEntity.class, SifaEntity.class, wbwentity.class, NounCorpus.class, VerbCorpus.class, QuranEntity.class, CorpusEntity.class, BookMarks.class, ChaptersAnaEntity.class}, version = 1)
 public abstract class QuranAppDatabase extends RoomDatabase {
 
 
@@ -118,7 +120,7 @@ public abstract class QuranAppDatabase extends RoomDatabase {
                     .fallbackToDestructiveMigration()
                     .addCallback(initialCallBack)
                     .allowMainThreadQueries()
-              //   .openHelperFactory(factory)
+
                      .build();
 
 
@@ -131,8 +133,8 @@ public abstract class QuranAppDatabase extends RoomDatabase {
                     .build();
 
         }
-   //    return quranAppDatabaseInstance;
-    return quranAppDatabaseInstanceasset;
+   return quranAppDatabaseInstance;
+  //return quranAppDatabaseInstanceasset;
     }
 
     public abstract AnaQuranChapterDao AnaQuranChapterDao();
@@ -169,6 +171,11 @@ public abstract class QuranAppDatabase extends RoomDatabase {
     public abstract LughatDao LughatDao();
 
     public abstract LaneDao LaneDao();
+
+    public abstract LaneRootDao LaneRootDao();
+
+
+
 
     public abstract HansDao HansDao();
 

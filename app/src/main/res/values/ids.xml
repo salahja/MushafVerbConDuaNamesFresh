@@ -402,6 +402,7 @@
     <item name="tvJuz" type="id" />
     <item name="test_detail_nav_container" type="id" />
     <item name="test_list" type="id" />
+    <item name="form" type="id" />
 
 
 </resources>

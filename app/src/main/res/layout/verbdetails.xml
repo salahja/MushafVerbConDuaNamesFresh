@@ -22,6 +22,7 @@
         android:textIsSelectable="true"
         app:layout_constraintEnd_toStartOf="@+id/verbsaw"
         app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:context="com.example.roots.arabicrootDetailFragment" />
@@ -33,7 +34,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
         android:text="surahayah"
-        app:layout_constraintEnd_toStartOf="@+id/arabicword"
+        app:layout_constraintEnd_toStartOf="@+id/wordmeaning"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/arabicsurahname"
         app:layout_constraintTop_toTopOf="parent" />
@@ -46,7 +47,7 @@
         android:text="arabicword"
         app:layout_constraintEnd_toStartOf="@+id/wazan"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/verbsaw"
+        app:layout_constraintStart_toEndOf="@+id/wordmeaning"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -57,43 +58,73 @@
         android:layout_marginTop="4dp"
 
         android:text="wazan"
-        app:layout_constraintEnd_toStartOf="@+id/tensevoicegendernumbermood"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/arabicword"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tensevoicegendernumbermood"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="details"
-        app:layout_constraintEnd_toStartOf="@+id/tensevoice"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/wazan"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tensevoice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="details"
-        app:layout_constraintEnd_toStartOf="@+id/conjugate"
+
+        android:layout_marginTop="40dp"
+        android:text="Tense Voice"
+        app:layout_constraintEnd_toStartOf="@+id/wordmeaning"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tensevoicegendernumbermood"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.chip.Chip
-        android:id="@+id/conjugate"
+    <TextView
+        android:id="@+id/wordmeaning"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/baseline_translate_24"
 
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/tensevoice"
+        android:layout_marginTop="40dp"
+        android:text="Tense Voice"
+        app:layout_constraintEnd_toStartOf="@+id/tensevoice"
+        app:layout_constraintHorizontal_bias="0.39"
+        app:layout_constraintStart_toEndOf="@+id/conjugate"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tensevoicegendernumbermood"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
+
+        android:text="Gender Number"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/conjugate"
+        style="@style/ThemeOverlay.Material3.Button.ElevatedButton"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+
+        android:layout_marginTop="40dp"
+
+        android:background="@drawable/ic_baseline_construction_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.78"
+        app:layout_constraintStart_toEndOf="@+id/wordmeaning"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+
+        android:layout_width="match_parent"
+        android:layout_height="1sp"
+
+        android:background="@android:color/darker_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -47,7 +47,13 @@ public class VerbFormsDialogFrag extends BottomSheetDialogFragment {
         WebView wv = (WebView) view.findViewById(R.id.webview);
         Utils utils = new Utils(QuranGrammarApplication.getContext());
         String formstr = "Form";
-        formstr = formstr.concat(" ").concat(form);
+        if(!form.contains("Form")){
+
+            formstr = formstr.concat(" ").concat(form);
+        }else{
+            formstr=form;
+        }
+
         ArrayList<GrammarRules> list = utils.getGrammarRulesByRules(formstr);
         if (!list.isEmpty()) {
             wv.loadDataWithBaseURL(null, list.get(0).getDetailsrules(), "text/html", "utf-8", null);

@@ -1,6 +1,6 @@
 package com.example;
 
-import static android.graphics.Color.CYAN;
+
 import static android.graphics.Color.GREEN;
 import static android.graphics.Color.RED;
 import static android.graphics.Color.YELLOW;
@@ -242,7 +242,7 @@ public class Constant {
     public static ForegroundColorSpan harfkhabarspanLight = new ForegroundColorSpan(YELLOW);
     public static ForegroundColorSpan harfshartspanLight = new ForegroundColorSpan(PeachPuff);
     public static ForegroundColorSpan shartspanLight = new ForegroundColorSpan(GREENDARK);
-    public static ForegroundColorSpan jawabshartspanLight = new ForegroundColorSpan(CYAN);
+    public static ForegroundColorSpan jawabshartspanLight = new ForegroundColorSpan(BCYAN);
     public static ForegroundColorSpan interrogativespanLight = new ForegroundColorSpan(RED);
     public static ForegroundColorSpan emphspanLight = new ForegroundColorSpan(WHOTPINK);
     public static ForegroundColorSpan lamtaleelspandLight = new ForegroundColorSpan(SALMON);
@@ -280,14 +280,14 @@ public class Constant {
     public static ForegroundColorSpan harfkhabarspanDark = new ForegroundColorSpan(YELLOW);
     public static ForegroundColorSpan harfshartspanDark = new ForegroundColorSpan(PURPLE);
     public static ForegroundColorSpan shartspanDark = new ForegroundColorSpan(GREENDARK);
-    public static ForegroundColorSpan jawabshartspanDark = new ForegroundColorSpan(CYAN);
+    public static ForegroundColorSpan jawabshartspanDark = new ForegroundColorSpan(BCYAN);
     public static ForegroundColorSpan propernounspanDark = new ForegroundColorSpan(GOLD);
-    public static ForegroundColorSpan verbspanDark = new ForegroundColorSpan(CYAN);
+    public static ForegroundColorSpan verbspanDark = new ForegroundColorSpan(BCYAN);
     public static ForegroundColorSpan adjectivespanDark = new ForegroundColorSpan(GREENYELLOW);
     public static ForegroundColorSpan attachedpronounspanDark = new ForegroundColorSpan(ORANGE400);
     public static ForegroundColorSpan relativespanDark = new ForegroundColorSpan(DARKGOLDENROD);
     public static ForegroundColorSpan demonstrativespanDark = new ForegroundColorSpan(TEAL);
-    public static ForegroundColorSpan pronounspanDark = new ForegroundColorSpan(YELLOW);
+    public static ForegroundColorSpan pronounspanDark = new ForegroundColorSpan(DARKGOLDENROD);
     public static ForegroundColorSpan particlespanDark = new ForegroundColorSpan(WHOTPINK);
     public static ForegroundColorSpan interrogativespanDark = new ForegroundColorSpan(RED);
     public static ForegroundColorSpan determinerspanDark = new ForegroundColorSpan(ORANGE100);

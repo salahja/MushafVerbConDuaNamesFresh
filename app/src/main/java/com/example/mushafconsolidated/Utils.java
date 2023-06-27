@@ -46,6 +46,8 @@ import com.example.mushafconsolidated.Entities.VerbCorpus;
 import com.example.mushafconsolidated.Entities.VerbCorpusBreakup;
 import com.example.mushafconsolidated.Entities.hanslexicon;
 import com.example.mushafconsolidated.Entities.lanelexicon;
+import com.example.mushafconsolidated.Entities.lanerootdictionary;
+
 import com.example.mushafconsolidated.Entities.lughat;
 import com.example.mushafconsolidated.Entities.qurandictionary;
 import com.example.mushafconsolidated.Entities.quranexplorer;
@@ -924,6 +926,11 @@ Utils {
 
     public ArrayList<lanelexicon> getLanesDifinition(String id) {
         return (ArrayList<lanelexicon>) database.LaneDao().getLanesDefinition(id.trim());
+
+    }
+
+    public ArrayList<lanerootdictionary> getLanesRootDefinition(String id) {
+        return (ArrayList<lanerootdictionary>) database.LaneRootDao().getLanesRootDefinition(id.trim());
 
     }
 

@@ -4,8 +4,12 @@ import static com.example.Constant.ARABICWORD;
 import static com.example.Constant.AYAHNUMBER;
 import static com.example.Constant.AYAH_ID;
 import static com.example.Constant.QURAN_VERB_ROOT;
+import static com.example.Constant.QURAN_VERB_WAZAN;
+import static com.example.Constant.SARFKABEER;
 import static com.example.Constant.SURAH_ARABIC_NAME;
 import static com.example.Constant.SURAH_ID;
+import static com.example.Constant.VERBMOOD;
+import static com.example.Constant.VERBTYPE;
 import static com.example.Constant.WORDDETAILS;
 import static com.example.Constant.WORDMEANING;
 import static com.example.Constant.WORDNUMBER;
@@ -31,6 +35,7 @@ import com.example.mushafconsolidated.Entities.NounCorpusBreakup;
 import com.example.mushafconsolidated.Entities.RootVerbDetails;
 import com.example.mushafconsolidated.Entities.RootWordDetails;
 import com.example.mushafconsolidated.Entities.VerbCorpusBreakup;
+import com.example.mushafconsolidated.Entities.VerbWazan;
 import com.example.mushafconsolidated.Entities.hanslexicon;
 import com.example.mushafconsolidated.Entities.lanelexicon;
 import com.example.mushafconsolidated.Entities.lughat;
@@ -67,6 +72,9 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.mushafconsolidated.databinding.ActivityRootBreakupBinding;
 
 import com.example.mushafconsolidated.R;
+
+import org.sj.conjugator.activity.ConjugatorAct;
+import org.sj.conjugator.activity.ConjugatorTabsActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -160,7 +168,7 @@ public class RootBreakupAct extends BaseActivity implements OnItemClickListener,
         }
 
        utils=new Utils(this);
-        verbdetails=    utils.getRootVerbDetails(root);
+
        rootdetails=                                 utils.getRootDetails(root);
         ArrayList<lughat> rootDictionary = utils.getRootDictionary(root);
         ArrayList<lanelexicon>  lanes= utils.getLanesDifinition(root);
@@ -221,9 +229,58 @@ public class RootBreakupAct extends BaseActivity implements OnItemClickListener,
         } else{
             recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
             recyclerView.setAdapter(adapter);
-
-            verbDetailsRecAdapter=new VerbDetailsRecAdapter(utils.getRootVerbDetails(root));
+            verbdetails=    utils.getRootVerbDetails(root);
+            verbDetailsRecAdapter=new VerbDetailsRecAdapter(verbdetails);
             recyclerView.setAdapter(verbDetailsRecAdapter);
+
+            verbDetailsRecAdapter.SetOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void onItemClick(View v, int position) {
+                    Bundle dataBundle = new Bundle();
+                    Bundle newbundle = new Bundle();
+                    RootVerbDetails wordDetails = verbdetails.get(position);
+                    HashMap<String, String> datas = new HashMap<>();
+                    if (v.getTag().equals("conjugate")) {
+                        newbundle.putInt(SURAH_ID, wordDetails.getSurah());
+                        newbundle.putInt(AYAH_ID, wordDetails.getAyah());
+                        newbundle.putString(SURAH_ARABIC_NAME, wordDetails.getNamearabic());
+                        newbundle.putString(ARABICWORD, wordDetails.getArabic());
+                        newbundle.putString(WORDMEANING, wordDetails.getEn());
+
+                        newbundle.putString(VERBMOOD, VerbWazan.getVerbMood(wordDetails.getMood_kananumbers()));
+                        if(wordDetails.getThulathibab().length()==0){
+
+                           ;
+                            newbundle.putString(QURAN_VERB_WAZAN,  VerbWazan.getMazeedWazan(wordDetails.getForm()));
+                            newbundle.putString(VERBTYPE,"mazeed");
+                        }else{
+                            newbundle.putString(QURAN_VERB_WAZAN, wordDetails.getThulathibab());
+                            newbundle.putString(VERBTYPE,"mujarrad");
+                        }
+
+                        newbundle.putString(QURAN_VERB_ROOT, wordDetails.getRootarabic());
+                 //       dataBundle.putString(VERBTYPE, verbtype);
+                        newbundle.putBoolean(SARFKABEER, true);
+
+                        Intent intent = new Intent(RootBreakupAct.this, ConjugatorTabsActivity.class);
+                        intent.putExtras(newbundle);
+                        startActivity(intent);
+                    } else{
+
+                    newbundle.putInt(SURAH_ID, wordDetails.getSurah());
+                    newbundle.putInt(AYAH_ID, wordDetails.getAyah());
+                    newbundle.putString(SURAH_ARABIC_NAME, wordDetails.getNamearabic());
+                    newbundle.putString(ARABICWORD, wordDetails.getArabic());
+                    newbundle.putString(WORDMEANING, wordDetails.getEn());
+
+
+                    newbundle.putSerializable("map", datas);
+                    Intent intents = new Intent(RootBreakupAct.this, TopicDetailAct.class);
+                    intents.putExtras(newbundle);
+                    startActivity(intents);
+                }
+            }
+            });
 
         }
     //    rootDictionary.get(0).getHansweir();

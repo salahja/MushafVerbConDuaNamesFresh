@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import com.example.mushafconsolidated.Activity.placeholder.PlaceholderContent;
 import com.example.mushafconsolidated.Entities.GrammarRules;
 import com.example.mushafconsolidated.R;
+
 import com.example.mushafconsolidated.databinding.FragmentGrammarruleDetailBinding;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
@@ -66,16 +67,19 @@ public class GrammarRuleDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentGrammarruleDetailBinding.inflate(inflater, container, false);
-        View rootView = binding.getRoot();
+        View rootView = inflater.inflate(R.layout.fragment_grammarrule_detail, container, false);
+     //   binding = FragmentGrammarruleDetailBinding.inflate(inflater, container, false);
+      //  View rootView = binding.getRoot();
         mToolbarLayout = rootView.findViewById(R.id.toolbar_layout);
-        mTextView = binding.grammarruleDetail;
+
+        mTextView = rootView.findViewById(R.id.grammarrule_detail);
         WebSettings webSettings = mTextView.getSettings();
         webSettings.setJavaScriptEnabled(true);
       //  mTextView.setInitialScale(1);
      //   mTextView.getSettings().setLoadWithOverviewMode(true);
     //    mTextView.getSettings().setUseWideViewPort(true);
-        mTextView.getSettings().setBuiltInZoomControls(true);
+
+  //      mTextView.getSettings().setBuiltInZoomControls(true);
         // Show the placeholder content as text in a TextView & in the toolbar if available.
         updateContent();
         rootView.setOnDragListener(dragListener);
