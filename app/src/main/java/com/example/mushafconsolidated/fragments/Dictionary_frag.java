@@ -115,6 +115,7 @@ public class Dictionary_frag extends Fragment {
         String verbroot = dataBundle.getString(QURAN_VERB_ROOT);
         String arabicword = dataBundle.getString("arabicword");
         vocabroot = dataBundle.getString(QURAN_VERB_ROOT);
+    String    lanesroot= dataBundle.getString(QURAN_VERB_ROOT);
         //for lughat convert hamaza to alif
         int starts = vocabroot.indexOf(ArabicLiterals.Hamza);
         String hamza = "ء";
@@ -131,6 +132,12 @@ public class Dictionary_frag extends Fragment {
             if (indexOfHamza != -1) {
                 verbroot = verbroot.replaceAll(Hamza, LALIF);
             }
+
+         int   indexofya=lanesroot.indexOf("ى");
+            if (indexofya != -1) {
+                lanesroot = lanesroot.replaceAll("ى", "ي");
+            }
+
             Character C2 = verbroot.charAt(1);
             Character C3 = verbroot.charAt(2);
             if (verbroot.equals("يدي")) {
@@ -142,12 +149,17 @@ public class Dictionary_frag extends Fragment {
                 verbroot = verbroot.replace(Ya, AlifMaksuraString);
             } else if (C3.toString().equals(LALIF)) {
                 verbroot = verbroot.replace(LALIF, AlifHamzaAbove);
-            } else if (C2.toString().equals(C3.toString())) {
+            }  else if (C2.toString().equals(C3.toString())) {
                 verbroot = verbroot.substring(0, 2);
             }
+
+            ArrayList<lanerootdictionary> lanerootdictionaries=          utils.getLanesRootDefinition(lanesroot);
+
+
+
             StringBuilder difinitionbuilder = new StringBuilder();
             ArrayList<lanelexicon> lanesdictionary = utils.getLanesDifinition(verbroot);
-            ArrayList<lanerootdictionary> lanerootdictionaries=          utils.getLanesRootDefinition(verbroot);
+
             if(!lanerootdictionaries.isEmpty()){
                 worddifinition.add(lanerootdictionaries.get(0).getDefinition().toString());
                 islanes = true;
