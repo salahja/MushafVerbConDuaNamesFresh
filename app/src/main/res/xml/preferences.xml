@@ -99,7 +99,7 @@
 
     <PreferenceCategory
 
-        android:title="Grmmatical Syntax" />
+        android:title="Grmmatical Syntax-Experimental" />
 
     <SwitchPreference
         android:defaultValue="true"

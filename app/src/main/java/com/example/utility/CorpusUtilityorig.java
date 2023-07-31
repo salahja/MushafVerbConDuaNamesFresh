@@ -12,6 +12,7 @@ import static com.example.Constant.FORESTGREEN;
 import static com.example.Constant.GOLD;
 import static com.example.Constant.GREENDARK;
 import static com.example.Constant.GREENYELLOW;
+import static com.example.Constant.KASHMIRIGREEN;
 import static com.example.Constant.MIDNIGHTBLUE;
 import static com.example.Constant.ORANGE400;
 import static com.example.Constant.RECKT;
@@ -893,7 +894,7 @@ Activity activity;
                     if (dark) {
                         harfinnaspanDark = new ForegroundColorSpan(GREEN);
                     } else {
-                        harfinnaspanDark = new ForegroundColorSpan(GREENDARK);
+                        harfinnaspanDark = new ForegroundColorSpan(KASHMIRIGREEN);
                     }
                     //  harfinnaspanDark=new ForegroundColorSpan(GREEN);
                     spannableverse.setSpan(harfinnaspanDark, indexstart, indexend, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -1026,26 +1027,29 @@ Activity activity;
 
     private void ColoredShart(FrameSpan frameshartharf, FrameSpan frameshart, FrameSpan framejawabshart, ArrayList<CorpusAyahWord> corpusayahWordArrayList, NewShartEntity shart, int indexstart, int indexend, int shartsindex, int sharteindex, int jawabstartindex, int jawabendindex) {
         SpannableString spannableverse;
+        Map<String, ForegroundColorSpan> spanhash = getStringForegroundColorSpanMap();
+        if (dark) {
+            harfshartspanDark = new ForegroundColorSpan(GOLD);
+            shartspanDark = new ForegroundColorSpan(ORANGE400);
+            jawabshartspanDark = new ForegroundColorSpan(CYAN);
+        } else {
+            harfshartspanDark = new ForegroundColorSpan(FORESTGREEN);
+            shartspanDark = new ForegroundColorSpan(KASHMIRIGREEN);
+            jawabshartspanDark = new ForegroundColorSpan(WHOTPINK);
+        }
+
         try {
             spannableverse = corpusayahWordArrayList.get(shart.getAyah() - 1).getSpannableverse();
             //   spannableString = SpannableString.valueOf(corpusayahWordArrayList.get(shart.getAyah() - 1).getSpannableverse());
             try {
                 if (indexstart == 0 || indexstart > 0) {
-                    if (dark) {
-                        harfshartspanDark = new ForegroundColorSpan(GOLD);
-                    } else {
-                        harfshartspanDark = new ForegroundColorSpan(FORESTGREEN);
-                    }
+
                     spannableverse.setSpan(harfshartspanDark, indexstart, indexend, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                     spannableverse.setSpan(new UnderlineSpan(), indexstart, indexend, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
                 }
                 if (shartsindex == 0 || shartsindex > 0) {
-                    if (dark) {
-                        shartspanDark = new ForegroundColorSpan(ORANGE400);
-                    } else {
-                        shartspanDark = new ForegroundColorSpan(GREENDARK);
-                    }
+
                     spannableverse.setSpan(shartspanDark, shartsindex, sharteindex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                     spannableverse.setSpan(new UnderlineSpan(), shartsindex, sharteindex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
@@ -1054,11 +1058,7 @@ Activity activity;
                     Drawable myDrawable = AppCompatResources.getDrawable(context, R.drawable.oval_circle);
                     assert myDrawable != null;
                     myDrawable.setBounds(0, 0, myDrawable.getIntrinsicWidth(), myDrawable.getIntrinsicHeight());
-                    if (dark) {
-                        jawabshartspanDark = new ForegroundColorSpan(CYAN);
-                    } else {
-                        jawabshartspanDark = new ForegroundColorSpan(WHOTPINK);
-                    }
+
                     spannableverse.setSpan(jawabshartspanDark, jawabstartindex, jawabendindex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                     spannableverse.setSpan(new UnderlineSpan(), jawabstartindex, jawabendindex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
@@ -1076,6 +1076,20 @@ Activity activity;
     public void setKana(ArrayList<CorpusAyahWord> corpusayahWordArrayList, int surah_id) {
         Utils utils = new Utils(context.getApplicationContext());
         ArrayList<NewKanaEntity> kanalist = utils.getKananew(surah_id);
+
+        ForegroundColorSpan harfkana;
+        ForegroundColorSpan kanaism;
+        ForegroundColorSpan kanakhbar;
+        if (dark) {
+            harfkana = new ForegroundColorSpan(GOLD);
+            kanaism = new ForegroundColorSpan(ORANGE400);
+            kanakhbar = new ForegroundColorSpan(CYAN);
+        } else {
+            harfkana = new ForegroundColorSpan(FORESTGREEN);
+            kanaism = new ForegroundColorSpan(KASHMIRIGREEN);
+            kanakhbar = new ForegroundColorSpan(WHOTPINK);
+        }
+
         if (surah_id > 1 && surah_id <= 10 || surah_id > 58 && surah_id <= 114) {
             for (NewKanaEntity kana : kanalist) {
 
@@ -1083,11 +1097,11 @@ Activity activity;
 
                 SpannableString spannableverse = corpusayahWordArrayList.get(kana.getAyah() - 1).getSpannableverse();
                 try {
-                    spannableverse.setSpan(new ForegroundColorSpan(GOLD), kana.getIndexstart(), kana.getIndexend(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    spannableverse.setSpan(harfkana, kana.getIndexstart(), kana.getIndexend(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                     //    shart.setSpannedverse(spannableverse);
-                    spannableverse.setSpan(new ForegroundColorSpan(CYAN), kana.getKhabarstart(), kana.getKhabarend(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    spannableverse.setSpan(kanakhbar, kana.getKhabarstart(), kana.getKhabarend(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                     //   shart.setSpannedverse(spannableverse);
-                    spannableverse.setSpan(new ForegroundColorSpan(GREENDARK), kana.getIsmkanastart(), kana.getIsmkanaend(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    spannableverse.setSpan(kanaism, kana.getIsmkanastart(), kana.getIsmkanaend(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                     //   shart.setSpannedverse(spannableverse);
                 } catch (IndexOutOfBoundsException e) {
                     //System.out.println(e.getMessage());

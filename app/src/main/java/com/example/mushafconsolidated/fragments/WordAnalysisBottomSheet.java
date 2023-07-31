@@ -683,7 +683,13 @@ public class WordAnalysisBottomSheet extends DialogFragment {
             shartspanDark = new ForegroundColorSpan(GREEN);
             jawabshartspanDark = new ForegroundColorSpan(CYAN);
             this.spannable.setSpan(harfshartspanDark, kanaEntity.getIndexstart(), kanaEntity.getIndexend(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            this.spannable.setSpan(shartspanDark, kanaEntity.getIsmkanastart(), kanaEntity.getIsmkanaend(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            try {
+                this.spannable.setSpan(shartspanDark, kanaEntity.getIsmkanastart(), kanaEntity.getIsmkanaend(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }catch (IndexOutOfBoundsException indexOutOfBoundsException)
+            {
+                System.out.println(indexOutOfBoundsException.getMessage());
+            }
+
             this.spannable.setSpan(jawabshartspanDark, kanaEntity.getKhabarstart(), kanaEntity.getKhabarend(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         }

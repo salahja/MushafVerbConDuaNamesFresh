@@ -9,6 +9,7 @@
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar_layout"
         android:layout_width="wrap_content"
+
         android:layout_height="@dimen/toolbar_height"
         app:layout_constraintBottom_toTopOf="@+id/nav_host_fragment_arabicroot_detail"
         app:layout_constraintEnd_toEndOf="parent"

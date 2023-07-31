@@ -851,7 +851,7 @@ public class GatherAll {
                     Integer.parseInt(augmentedFormula));
             MazeedConjugationResult ismmafoolresult = ActiveParticipleModifier.getInstance().build((AugmentedTrilateralRoot) augmentedRoot, rule.getKov(),
                     Integer.parseInt(augmentedRoot.getForm()), ismmafool, true);
-            ismmafool = conjResult.getFinalResult();
+            ismmafool = ismmafoolresult.getFinalResult();
             madhi = madhiconjresult.getFinalResult();
             madhimajhool = madhimajhoolconj.getFinalResult();
             mudharay = mudharayconj.getFinalResult();

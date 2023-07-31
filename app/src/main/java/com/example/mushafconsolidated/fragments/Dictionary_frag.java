@@ -160,7 +160,7 @@ public class Dictionary_frag extends Fragment {
             StringBuilder difinitionbuilder = new StringBuilder();
             ArrayList<lanelexicon> lanesdictionary = utils.getLanesDifinition(verbroot);
 
-            if(!lanerootdictionaries.isEmpty()){
+            if(!lanerootdictionaries.isEmpty() && lanerootdictionaries.get(0).getDefinition()!=null){
                 worddifinition.add(lanerootdictionaries.get(0).getDefinition().toString());
                 islanes = true;
             }else
