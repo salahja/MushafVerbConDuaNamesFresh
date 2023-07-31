@@ -22,6 +22,7 @@ import com.example.mushafconsolidated.databinding.ActivityArabicrootDetailBindin
 import com.example.mushafconsolidated.fragments.NewSurahDisplayFrag;
 import com.example.mushafconsolidated.fragments.WbwTranslationListPrefrence;
 import com.example.mushafconsolidated.fragments.WordAnalysisBottomSheet;
+import com.google.android.material.appbar.MaterialToolbar;
 
 import java.util.Objects;
 
@@ -41,6 +42,15 @@ public class arabicrootDetailHostActivity extends BaseActivity {
         wordorverb = bundle.getString(WORDDETAILS);
         Bundle arguments = new Bundle();
         arguments.putString(WORDDETAILS, wordorverb);
+        MaterialToolbar toolbar=findViewById(R.id.toolbar_layout);
+        toolbar.setTitle("Root List");
+        if(wordorverb.equals("word")){
+            toolbar.setTitle("Root List(Nouns/Verbs");
+        }else {
+            toolbar.setTitle("Verb Root List");
+        }
+
+
         arabicrootListFragment afrag=new arabicrootListFragment();
 
 
