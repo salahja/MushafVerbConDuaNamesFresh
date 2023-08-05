@@ -396,6 +396,19 @@ public class ExpandableListData {
 
     private void newsetKana(List<SpannableStringBuilder> kanaarray) {
         ArrayList<NewKanaEntity> kanaSurahAyahnew = utils.getKanaSurahAyahnew(chapterid, ayanumber);
+        ForegroundColorSpan harfkana;
+        ForegroundColorSpan kanaism;
+        ForegroundColorSpan kanakhbar;
+        if (dark) {
+            harfkana = new ForegroundColorSpan(GOLD);
+            kanaism = new ForegroundColorSpan(ORANGE400);
+            kanakhbar = new ForegroundColorSpan(CYAN);
+        } else {
+            harfkana = new ForegroundColorSpan(FORESTGREEN);
+            kanaism = new ForegroundColorSpan(KASHMIRIGREEN);
+            kanakhbar = new ForegroundColorSpan(WHOTPINK);
+        }
+
         for (NewKanaEntity kana : kanaSurahAyahnew) {
             if (kana.getSurah() == 3 && kana.getAyah() == 118) {
                 //System.out.println("CHECK");
@@ -424,9 +437,7 @@ public class ExpandableListData {
             boolean d = isharfb && isjawab;
             boolean b = isharfb && isism;
             boolean c = isharfb;
-            harfshartspanDark = new ForegroundColorSpan(GOLD);
-            shartspanDark = new ForegroundColorSpan(GREEN);
-            jawabshartspanDark = new ForegroundColorSpan(CYAN);
+
             int harfword = kana.getHarfwordno();
             int ismSword = kana.getIsmwordo();
             int ismEword = kana.getIsmendword();
@@ -444,9 +455,9 @@ public class ExpandableListData {
                 harfspannble = new SpannableStringBuilder(harfofverse);
                 harfismspannable = new SpannableStringBuilder(ismofverse);
                 khabarofversespannable = new SpannableStringBuilder(khabarofverse);
-                harfspannble.setSpan(harfshartspanDark, 0, harfofverse.length(), SPAN_EXCLUSIVE_EXCLUSIVE);
-                harfismspannable.setSpan(shartspanDark, 0, ismofverse.length(), SPAN_EXCLUSIVE_EXCLUSIVE);
-                khabarofversespannable.setSpan(jawabshartspanDark, 0, khabarofverse.length(), SPAN_EXCLUSIVE_EXCLUSIVE);
+                harfspannble.setSpan(harfkana, 0, harfofverse.length(), SPAN_EXCLUSIVE_EXCLUSIVE);
+                harfismspannable.setSpan(kanaism, 0, ismofverse.length(), SPAN_EXCLUSIVE_EXCLUSIVE);
+                khabarofversespannable.setSpan(kanakhbar, 0, khabarofverse.length(), SPAN_EXCLUSIVE_EXCLUSIVE);
                 if (kana.getIsmkanastart() > kana.getKhabarstart()) {
                     CharSequence charSequence = TextUtils.concat(harfspannble, " ", khabarofversespannable, " ", harfismspannable);
                     kanaarray.add(SpannableStringBuilder.valueOf(charSequence));
@@ -497,10 +508,19 @@ public class ExpandableListData {
                 }
                 //  CharSequence first = TextUtils.concat(harfspannble," ",shartofverse);
             } else if (d) {
+                if (dark) {
+                    harfkana = new ForegroundColorSpan(GOLD);
+                    kanaism = new ForegroundColorSpan(ORANGE400);
+                    kanakhbar = new ForegroundColorSpan(CYAN);
+                } else {
+                    harfkana = new ForegroundColorSpan(FORESTGREEN);
+                    kanaism = new ForegroundColorSpan(KASHMIRIGREEN);
+                    kanakhbar = new ForegroundColorSpan(WHOTPINK);
+                }
                 harfspannble = new SpannableStringBuilder(harfofverse);
                 khabarofversespannable = new SpannableStringBuilder(khabarofverse);
-                harfspannble.setSpan(harfshartspanDark, 0, harfofverse.length(), SPAN_EXCLUSIVE_EXCLUSIVE);
-                khabarofversespannable.setSpan(jawabshartspanDark, 0, khabarofverse.length(), SPAN_EXCLUSIVE_EXCLUSIVE);
+                harfspannble.setSpan(harfkana, 0, harfofverse.length(), SPAN_EXCLUSIVE_EXCLUSIVE);
+                khabarofversespannable.setSpan(kanakhbar, 0, khabarofverse.length(), SPAN_EXCLUSIVE_EXCLUSIVE);
                 CharSequence charSequence = TextUtils.concat(harfspannble, " ", khabarofversespannable);
                 kanaarray.add(SpannableStringBuilder.valueOf(charSequence));
                 StringBuilder sb = new StringBuilder();
@@ -555,13 +575,19 @@ public class ExpandableListData {
                 }
 
             } else if (b) {
-                harfshartspanDark = new ForegroundColorSpan(GOLD);
-                shartspanDark = new ForegroundColorSpan(GREEN);
-                jawabshartspanDark = new ForegroundColorSpan(CYAN);
+                if (dark) {
+                    harfkana = new ForegroundColorSpan(GOLD);
+                    kanaism = new ForegroundColorSpan(ORANGE400);
+                    kanakhbar = new ForegroundColorSpan(CYAN);
+                } else {
+                    harfkana = new ForegroundColorSpan(FORESTGREEN);
+                    kanaism = new ForegroundColorSpan(KASHMIRIGREEN);
+                    kanakhbar = new ForegroundColorSpan(WHOTPINK);
+                }
                 harfspannble = new SpannableStringBuilder(harfofverse);
                 harfismspannable = new SpannableStringBuilder(ismofverse);
-                harfspannble.setSpan(harfshartspanDark, 0, harfofverse.length(), SPAN_EXCLUSIVE_EXCLUSIVE);
-                harfismspannable.setSpan(shartspanDark, 0, ismofverse.length(), SPAN_EXCLUSIVE_EXCLUSIVE);
+                harfspannble.setSpan(harfkana, 0, harfofverse.length(), SPAN_EXCLUSIVE_EXCLUSIVE);
+                harfismspannable.setSpan(kanaism, 0, ismofverse.length(), SPAN_EXCLUSIVE_EXCLUSIVE);
                 CharSequence charSequences = TextUtils.concat(harfspannble, " " + harfismspannable);
                 kanaarray.add(SpannableStringBuilder.valueOf(charSequences));
                 //    kanaarray.add(SpannableStringBuilder.valueOf(charSequence));
@@ -606,7 +632,7 @@ public class ExpandableListData {
 
             } else if (c) {
                 harfspannble = new SpannableStringBuilder(harfofverse);
-                harfspannble.setSpan(harfshartspanDark, 0, harfofverse.length(), SPAN_EXCLUSIVE_EXCLUSIVE);
+                harfspannble.setSpan(harfkana, 0, harfofverse.length(), SPAN_EXCLUSIVE_EXCLUSIVE);
                 CharSequence charSequence = TextUtils.concat(harfspannble);
                 kanaarray.add(SpannableStringBuilder.valueOf(charSequence));
                 int wordfroms = kana.getHarfwordno();
