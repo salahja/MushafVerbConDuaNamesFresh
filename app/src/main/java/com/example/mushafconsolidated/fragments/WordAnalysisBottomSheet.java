@@ -17,6 +17,7 @@ import static com.example.Constant.GREENDARK;
 import static com.example.Constant.IMPERATIVE;
 import static com.example.Constant.INDICATIVE;
 import static com.example.Constant.ISPARTICPLE;
+import static com.example.Constant.KASHMIRIGREEN;
 import static com.example.Constant.NOUNCASE;
 import static com.example.Constant.ORANGE400;
 import static com.example.Constant.PREPOSITION;
@@ -655,10 +656,9 @@ public class WordAnalysisBottomSheet extends DialogFragment {
     protected void SetShart(Utils utils) {
         ArrayList<NewShartEntity> shart = utils.getShartSurahAyahNew(chapterid, ayanumber);
         //  this.spannable = new SpannableStringBuilder(quranverses);
+
         for (NewShartEntity shartEntity : shart) {
-            harfshartspanDark = new ForegroundColorSpan(GOLD);
-            shartspanDark = new ForegroundColorSpan(GREEN);
-            jawabshartspanDark = new ForegroundColorSpan(CYAN);
+
             if (dark) {
                 harfshartspanDark = new ForegroundColorSpan(GOLD);
                 shartspanDark = new ForegroundColorSpan(ORANGE400);
@@ -678,19 +678,29 @@ public class WordAnalysisBottomSheet extends DialogFragment {
     protected void SetKana(Utils utils) {
         ArrayList<NewKanaEntity> kana = utils.getKanaSurahAyahnew(chapterid, ayanumber);
         //  this.spannable = new SpannableStringBuilder(quranverses);
+        ForegroundColorSpan harfkana;
+        ForegroundColorSpan kanaism;
+        ForegroundColorSpan kanakhbar;
+        if (dark) {
+            harfkana = new ForegroundColorSpan(GOLD);
+            kanaism = new ForegroundColorSpan(ORANGE400);
+            kanakhbar = new ForegroundColorSpan(CYAN);
+        } else {
+            harfkana = new ForegroundColorSpan(FORESTGREEN);
+            kanaism = new ForegroundColorSpan(KASHMIRIGREEN);
+            kanakhbar = new ForegroundColorSpan(WHOTPINK);
+        }
         for (NewKanaEntity kanaEntity : kana) {
-            harfshartspanDark = new ForegroundColorSpan(GOLD);
-            shartspanDark = new ForegroundColorSpan(GREEN);
-            jawabshartspanDark = new ForegroundColorSpan(CYAN);
-            this.spannable.setSpan(harfshartspanDark, kanaEntity.getIndexstart(), kanaEntity.getIndexend(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+            this.spannable.setSpan(harfkana, kanaEntity.getIndexstart(), kanaEntity.getIndexend(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             try {
-                this.spannable.setSpan(shartspanDark, kanaEntity.getIsmkanastart(), kanaEntity.getIsmkanaend(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                this.spannable.setSpan(kanaism, kanaEntity.getIsmkanastart(), kanaEntity.getIsmkanaend(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }catch (IndexOutOfBoundsException indexOutOfBoundsException)
             {
                 System.out.println(indexOutOfBoundsException.getMessage());
             }
 
-            this.spannable.setSpan(jawabshartspanDark, kanaEntity.getKhabarstart(), kanaEntity.getKhabarend(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            this.spannable.setSpan(kanakhbar, kanaEntity.getKhabarstart(), kanaEntity.getKhabarend(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         }
     }

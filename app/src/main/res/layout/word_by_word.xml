@@ -21,7 +21,7 @@
          android:shadowRadius="5"
         android:shadowColor="@color/redhot"
         style="@android:style/TextAppearance.DeviceDefault.Large"
-        android:text="flow"
+
         android:visibility="gone" />
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/word_arabic_textView"
@@ -36,7 +36,7 @@
 
 
         style="@android:style/TextAppearance.DeviceDefault.Large"
-        android:text="flow"
+
         android:visibility="visible" />
 
     <TextView
