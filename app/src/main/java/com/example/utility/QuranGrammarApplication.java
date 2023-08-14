@@ -26,7 +26,7 @@ import androidx.preference.PreferenceManager;
 
 import com.example.mushafconsolidated.Entities.Page;
 import com.example.mushafconsolidated.Entities.QuranEntity;
-import com.example.mushafconsolidated.Entities.QuranMetaEntity;
+
 import com.example.mushafconsolidated.Utils;
 
 import java.util.ArrayList;

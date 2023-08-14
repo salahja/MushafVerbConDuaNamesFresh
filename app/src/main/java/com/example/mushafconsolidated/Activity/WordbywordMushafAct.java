@@ -1410,18 +1410,6 @@ public class WordbywordMushafAct extends BaseActivity implements
         startPosition = C.TIME_UNSET;
     }
 
-    private int getPosFromSurahAndAyah(int surah, int ayah) {
-        return repository.getPageFromSurahAndAyah(surah, ayah);
-    }
-
-    private int getPageFromJuz(int pos) {
-        return repository.getPageFromJuz(pos);
-    }
-
-    private int getStartPageFromIndex(int pos) {
-        return repository.getSuraStartpage(pos);
-    }
-
     @SuppressLint("WrongViewCast")
     private void initRV() {
         ExecuteSurahWordByWord();
@@ -1686,14 +1674,17 @@ public class WordbywordMushafAct extends BaseActivity implements
         Mutlaqent = utils.getMutlaqsurah(surah);
         BadalErabNotesEnt = utils.getBadalrabSurah(surah);
         ExecutorService ex = Executors.newSingleThreadExecutor();
+
         ex.execute(() -> {
             //do inbackground
             WordbywordMushafAct.this.bysurah(dialog, ex);
 
         });
 
+
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private void bysurah(AlertDialog dialog, ExecutorService ex) {
         runOnUiThread(dialog::show);
         WbwSurah wbwSurah=new WbwSurah(WordbywordMushafAct.this, surah, corpusayahWordArrayList,ruku);

@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.cardview.widget.CardView;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mushafconsolidated.R;
@@ -48,6 +48,7 @@ public class RootDetailAdapter extends RecyclerView.Adapter<RootDetailAdapter.Vi
 
     public void onBindViewHolder(@NotNull ViewHolder holder, int position) {
         TypedArray imgs = this.context.getResources().obtainTypedArray(R.array.cat_img);
+        imgs.recycle();
         String catOne = catTwoArrayList.get(position);
       //  Drawable icon = imgs.getDrawable(catOne.getId() - 1);
       //  imgs.recycle();
@@ -90,7 +91,7 @@ public class RootDetailAdapter extends RecyclerView.Adapter<RootDetailAdapter.Vi
     {
        // public final ImageView id;
         public final Chip arabicroot_detail;
-        public CardView cardview;
+
 
         public ViewHolder(View view) {
             super(view);

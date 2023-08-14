@@ -38,30 +38,6 @@ public class VerbWazan {
         this.root = root;
     }
 
-    /*
-        public String getWazan() {
-            if(wazan.equals("N")){
-                wazan="1";
-            }else if(wazan.equals("Z")){
-
-                wazan= Constants.BZARABA;
-            }else if(wazan.equals("F")){
-                wazan=BFATAH;
-
-            }else if(wazan.equals("S")){
-                wazan=BSAMIA;
-
-            }else if(wazan.equals("K")){
-
-                wazan=BKARUMU;
-            }else if(wazan.equals("H")){
-
-                wazan=BHASIBA;
-            }
-
-            return wazan;
-        }
-     */
     public static String getWazan() {
         if (wazan.equals("N")) {
             wazan = "1";
@@ -109,7 +85,7 @@ public class VerbWazan {
                 formdetails = "9";
                 break;
             default:
-                String s = "";
+            formdetails = "";
 
         }
         return formdetails;

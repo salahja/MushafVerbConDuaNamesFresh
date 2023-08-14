@@ -33,7 +33,7 @@ import com.example.mushafconsolidated.Entities.NounCorpus;
 import com.example.mushafconsolidated.Entities.NounCorpusBreakup;
 import com.example.mushafconsolidated.Entities.Qari;
 import com.example.mushafconsolidated.Entities.QuranEntity;
-import com.example.mushafconsolidated.Entities.QuranMetaEntity;
+
 import com.example.mushafconsolidated.Entities.RootVerbDetails;
 import com.example.mushafconsolidated.Entities.RootWordDetails;
 import com.example.mushafconsolidated.Entities.ShartPOJO;
@@ -1222,13 +1222,6 @@ Utils {
     }
 
 
-    public static List<QuranMetaEntity> getAyahsByPage(int i) {
-        return database.QuranMetaDao().getAyahsByPage(i);
-    }
-
-    public int getSuraStartpage(int index) {
-        return database.QuranMetaDao().getSuraStartpage(index);
-    }
 
 
     public static List<QuranEntity> getAyahsByPageQuran(int surah,int pageno) {
@@ -1239,72 +1232,12 @@ Utils {
     }
 
 
-    // ayah db operation
-/*
-    public void addAyah( QuranMetaEntity item) {
-        database.QuranMetaDao().addAyah(item);
-    }
-*/
 
-    public int getTotlaAyahs() {
-        return database.QuranMetaDao().getAyahCount();
-    }
 
-    public List< QuranMetaEntity> getAyahsOfSura(int index) {
-        return database.QuranMetaDao().getAllAyahOfSurahIndex(index);
-    }
-
-    public List< QuranMetaEntity> getAyahSInRange(int start, int end) {
-        return database.QuranMetaDao().getAyahSInRange(start, end);
-    }
-
-    public List< QuranMetaEntity> getAyahByAyahText(String text) {
-        return database.QuranMetaDao().getAyahByAyahText(text);
-    }
-
-/*
-    public List<Integer> getAyahNumberNotAudioDownloaded() {
-        return database.QuranMetaDao().getAyahNumberNotAudioDownloaded();
-
-    }
-*/
-
-    public  QuranMetaEntity getAyahByInSurahIndex(int index, int ayahIndex) {
-        return database.QuranMetaDao().getAyahByInSurahIndex(index, ayahIndex);
-    }
-
-    public  QuranMetaEntity getAyahByIndex(int index) {
-        return database.QuranMetaDao().getAyahByIndex(index);
-    }
-    public List<Integer> getHizbQuaterStart() {
-        return database.QuranMetaDao().getHizbQuaterStart();
-    }
-    public int getPageFromSurahAndAyah(int surah, int ayah) {
-        return database.QuranMetaDao().getPageFromSurahAndAyah(surah, ayah);
-    }
-    public List<QuranMetaEntity> getPageAyat(int page) {
-        return database.QuranMetaDao().getPageAyat(page);
-    }
-    public int getPageFromJuz(int pos) {
-        return database.QuranMetaDao().getPageFromJuz(pos);
-    }
 
     public List<Qari> getQaris(){
         return database.QariDao().getQaris();
     }
-/*
-    public void updateAyahItem( QuranMetaEntity item) {
-        database.QuranMetaDao().updateAyah(item);
-    }
-*/
-
- /*   public int getLastDownloadedChapter() {
-        return database.QuranMetaDao().getLastChapter();
-    }
-
-    public int getLastDownloadedAyahAudio() {
-        return database.QuranMetaDao().getLastDownloadedAyahAudio();
-    }*/
 
 
 

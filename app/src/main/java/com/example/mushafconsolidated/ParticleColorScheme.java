@@ -171,7 +171,7 @@ public class ParticleColorScheme extends BottomSheetDialogFragment {
             String sample = "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ";
             Typeface mequran = Typeface.createFromAsset(getContext().getAssets(), "me_quran.ttf");
             Typeface qalam = Typeface.createFromAsset(getContext().getAssets(), "AlQalam.ttf");
-            Typeface amiri = Typeface.createFromAsset(getContext().getAssets(), "Pdms.ttf");
+
             String s = particle.get(position);
             String[] split = s.split("\\s");
             ForegroundColorSpan foregroundColorSpan = spanhash.get(split[0]);

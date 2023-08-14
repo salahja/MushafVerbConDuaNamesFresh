@@ -26,12 +26,9 @@ import androidx.window.layout.WindowMetrics;
 import androidx.window.layout.WindowMetricsCalculator;
 
 
-import com.example.mushafconsolidated.Entities.Page;
-import com.example.mushafconsolidated.Entities.QuranEntity;
+
 import com.example.mushafconsolidated.R;
-import com.example.mushafconsolidated.Utils;
-import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.navigation.NavigationView;
+
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -40,8 +37,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.zip.ZipEntry;
@@ -51,7 +47,7 @@ public class MainActivity extends BaseActivity {
     private static final int REQUEST_WRITE_STORAGE = 112;
     private File newquran;
     RecyclerView recview;
-    private List<Page> fullQuranPages;
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

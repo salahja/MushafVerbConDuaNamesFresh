@@ -54,8 +54,7 @@ public class LineMushaAudioAdapter extends RecyclerView.Adapter<LineMushaAudioAd
 {
 
     private final boolean defaultfont;
-    BroadcastReceiver broadcastReceiver;
-    private boolean isFABOpen=false;
+    private final boolean isFABOpen=false;
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
     final long surah_id;

@@ -73,13 +73,9 @@ public class BottomOptionDialog extends BottomSheetDialogFragment  {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-    /*    ContextThemeWrapper contextThemeWrapper= new ContextThemeWrapper(getActivity(),R.style.Theme_DarkBlue);
-
-
-   return      inflater.cloneInContext(contextThemeWrapper).inflate(R.layout.quran_list_dialog, container, false);*/
-        super.onCreateView(inflater, container, savedInstanceState);
+          super.onCreateView(inflater, container, savedInstanceState);
         return inflater.inflate(R.layout.quran_list_dialog, container, false);
-        //  return inflater.inflate(R.layout.quranFontselection, container, false);
+
     }
 
 

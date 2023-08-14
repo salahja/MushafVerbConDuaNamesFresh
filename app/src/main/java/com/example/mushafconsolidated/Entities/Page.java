@@ -3,7 +3,7 @@ package com.example.mushafconsolidated.Entities;
 import java.util.List;
 
 public class Page {
-   private List<QuranMetaEntity> ayahItems;
+
     private List<QuranEntity> ayahItemsquran;
     private int pageNum;
     private int rubHizb;
@@ -25,13 +25,7 @@ public class Page {
         this.ayahItemsquran = ayahItemsquran;
     }
 
-    public List<QuranMetaEntity> getAyahItems() {
-        return ayahItems;
-    }
 
-    public void setAyahItems(List<QuranMetaEntity> ayahItems) {
-        this.ayahItems = ayahItems;
-    }
 
     public int getPageNum() {
         return pageNum;

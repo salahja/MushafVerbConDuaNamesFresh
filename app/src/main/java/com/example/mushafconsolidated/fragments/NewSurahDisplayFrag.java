@@ -6,6 +6,7 @@ import static com.example.Constant.AYAH_ID;
 import static com.example.Constant.CHAPTER;
 import static com.example.mushafconsolidated.R.drawable.custom_search_box;
 
+import android.annotation.SuppressLint;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -262,7 +263,6 @@ public class NewSurahDisplayFrag extends Fragment implements  SearchView.OnQuery
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -281,7 +281,7 @@ public class NewSurahDisplayFrag extends Fragment implements  SearchView.OnQuery
         allAnaChapters = utils.getAllAnaChapters();
          parts = utils.getJuz();
         chapterfilered=allAnaChapters;
-        TypedArray imgs = getContext().getResources().obtainTypedArray(R.array.sura_imgs);
+      //  TypedArray imgs = getContext().getResources().obtainTypedArray(R.array.sura_imgs);
         GridLayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
         // parentRecyclerView = view.findViewById(R.id.juzRecyclerView);
         parentRecyclerView = view.findViewById(R.id.wordByWordRecyclerView);
@@ -291,7 +291,10 @@ public class NewSurahDisplayFrag extends Fragment implements  SearchView.OnQuery
         SharedPreferences pref = getContext().getSharedPreferences("lastread", MODE_PRIVATE);
         lastreadchapterno = pref.getInt(CHAPTER, 1);
         lastreadverseno = pref.getInt(AYAH_ID, 1);
-        lastread.setText("Last read" + ":" + "Surah:" + lastreadchapterno + " " + "Ayah:" + lastreadverseno);
+        StringBuilder sbss=new StringBuilder();
+        sbss.append("Last read").append(":").append("Surah").append(lastreadchapterno).append(" ").append("Ayah").append(lastreadverseno);
+     lastread.setText(sbss.toString());
+        //lastread.setText("Last read" + ":" + "Surah:" + lastreadchapterno + " " + "Ayah:" + lastreadverseno);
         juz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -377,6 +380,7 @@ public class NewSurahDisplayFrag extends Fragment implements  SearchView.OnQuery
             //  toggleHideSeek();
         });
         bottomNavigationView.setOnItemReselectedListener(new NavigationBarView.OnItemReselectedListener() {
+            @SuppressLint("NonConstantResourceId")
             @Override
             public void onNavigationItemReselected(@NonNull MenuItem item) {
 

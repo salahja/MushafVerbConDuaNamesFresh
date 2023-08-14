@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "0d31f6fd964ba76f78cb73a0c7badea5",
+    "identityHash": "51bcb3b342321ea8777877eb7164c19e",
     "entities": [
       {
         "tableName": "lanesrootdictionary",
@@ -82,86 +82,6 @@
             "id"
           ],
           "autoGenerate": true
-        },
-        "indices": [],
-        "foreignKeys": []
-      },
-      {
-        "tableName": "quranmeta",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`ayahInSurahIndex` INTEGER NOT NULL, `ayahIndex` INTEGER NOT NULL, `hizbQuarter` INTEGER NOT NULL, `juz` INTEGER NOT NULL, `manzil` INTEGER NOT NULL, `pageNum` INTEGER NOT NULL, `sajda` TEXT NOT NULL, `surahIndex` INTEGER NOT NULL, `text` TEXT NOT NULL, `cleantext` TEXT NOT NULL, `id` INTEGER NOT NULL, PRIMARY KEY(`id`))",
-        "fields": [
-          {
-            "fieldPath": "ayahInSurahIndex",
-            "columnName": "ayahInSurahIndex",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "ayahIndex",
-            "columnName": "ayahIndex",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "hizbQuarter",
-            "columnName": "hizbQuarter",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "juz",
-            "columnName": "juz",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "manzil",
-            "columnName": "manzil",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "pageNum",
-            "columnName": "pageNum",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "sajda",
-            "columnName": "sajda",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "surahIndex",
-            "columnName": "surahIndex",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "text",
-            "columnName": "text",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "cleantext",
-            "columnName": "cleantext",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "id",
-            "columnName": "id",
-            "affinity": "INTEGER",
-            "notNull": true
-          }
-        ],
-        "primaryKey": {
-          "columnNames": [
-            "id"
-          ],
-          "autoGenerate": false
         },
         "indices": [],
         "foreignKeys": []
@@ -2656,7 +2576,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0d31f6fd964ba76f78cb73a0c7badea5')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '51bcb3b342321ea8777877eb7164c19e')"
     ]
   }
 }

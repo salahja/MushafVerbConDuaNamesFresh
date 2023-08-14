@@ -131,7 +131,7 @@ public class PageMushaAudioAdapter extends RecyclerView.Adapter<PageMushaAudioAd
 
     public Object getItem(int position) {
 
-        return fullQuranPages.get(position).getAyahItems();
+        return fullQuranPages.get(position).getAyahItemsquran();
     }
 
     @SuppressLint("ResourceType")
@@ -227,7 +227,8 @@ public class PageMushaAudioAdapter extends RecyclerView.Adapter<PageMushaAudioAd
         } else {
             Page page = fullQuranPages.get(position-1);
             //  String s=      passage.get(position);
-            holder.pagenum.setText(Integer.toString(page.getPageNum()));
+            String pageNum = String.valueOf(page.getPageNum());
+            holder.pagenum.setText((pageNum));
          String aya="";
             StringBuilder builder = new StringBuilder();
             for (QuranEntity ayahItem : page.getAyahItemsquran()) {

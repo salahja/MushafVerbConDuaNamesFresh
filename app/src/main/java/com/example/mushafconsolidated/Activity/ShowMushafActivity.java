@@ -2215,19 +2215,7 @@ public class ShowMushafActivity extends BaseActivity implements
         startPosition = C.TIME_UNSET;
     }
 
-    private int getPosFromSurahAndAyah(int surah, int ayah) {
-        return repository.getPageFromSurahAndAyah(surah, ayah);
-    }
-
-    private int getPageFromJuz(int pos) {
-        return repository.getPageFromJuz(pos);
-    }
-
-    private int getStartPageFromIndex(int pos) {
-        return repository.getSuraStartpage(pos);
-    }
-
-    @SuppressLint("WrongViewCast")
+    @SuppressLint({"WrongViewCast", "NotifyDataSetChanged"})
     private void initRV() {
         ayaprogress = (MaterialTextView) findViewById(R.id.ayaprogress);
         canceldownload = (MaterialButton) findViewById(R.id.canceldownload);
@@ -2784,9 +2772,12 @@ public class ShowMushafActivity extends BaseActivity implements
 
             startBeforeDownload = true;
 
+
+
             Intent intent = new Intent(ShowMushafActivity.this, DownloadService.class);
             intent.putStringArrayListExtra(AudioAppConstants.Download.DOWNLOAD_LINKS, Links);
             intent.putExtra(AudioAppConstants.Download.DOWNLOAD_LOCATION, app_folder_path);
+
             startService(intent);
 
         }
