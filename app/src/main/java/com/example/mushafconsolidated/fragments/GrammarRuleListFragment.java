@@ -1,4 +1,4 @@
-package com.example.mushafconsolidated.Activity;
+package com.example.mushafconsolidated.fragments;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mushafconsolidated.Activity.placeholder.PlaceholderContent;
+import com.example.mushafconsolidated.Activity.placeholder.GrammarRulesContent;
 import com.example.mushafconsolidated.Entities.GrammarRules;
 import com.example.mushafconsolidated.R;
 import com.example.mushafconsolidated.databinding.FragmentGrammarruleListBinding;
@@ -97,8 +97,8 @@ public class GrammarRuleListFragment extends Fragment {
          * experience on larger screen devices
          */
         View.OnContextClickListener onContextClickListener = itemView -> {
-            PlaceholderContent.PlaceholderItem item =
-                    (PlaceholderContent.PlaceholderItem) itemView.getTag();
+            GrammarRulesContent.PlaceholderItem item =
+                    (GrammarRulesContent.PlaceholderItem) itemView.getTag();
             Toast.makeText(
                     itemView.getContext(),
                     "Context click of item " + item.id,
@@ -115,7 +115,7 @@ public class GrammarRuleListFragment extends Fragment {
             View.OnContextClickListener onContextClickListener
     ) {
         recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(
-                PlaceholderContent.ITEMS,
+                GrammarRulesContent.ITEMS,
                 onClickListener,
                 onContextClickListener
         ));

@@ -19,7 +19,7 @@ import java.util.List;
  * @version 1.0
  */
 public class EinMahmouz extends AbstractEinMahmouz {
-    List substitutions = new LinkedList();
+    List<InfixSubstitution> substitutions = new LinkedList<InfixSubstitution>();
 
     public EinMahmouz() {
         substitutions.add(new InfixSubstitution("اءٍ", "اءٍ"));// EX: (متراءٍ، متشاءٍ)

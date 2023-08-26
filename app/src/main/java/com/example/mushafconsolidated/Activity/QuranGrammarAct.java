@@ -175,6 +175,7 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
     private boolean kana;
     private List<QuranEntity> allofQuran;
     private SharedPreferences shared;
+
     //  private OnClickListener onClickListener;
     private ArrayList<CorpusAyahWord> corpusayahWordArrayList;
     private final LinkedHashMap<Integer, ArrayList<CorpusWbwWord>> passage = new LinkedHashMap<>();

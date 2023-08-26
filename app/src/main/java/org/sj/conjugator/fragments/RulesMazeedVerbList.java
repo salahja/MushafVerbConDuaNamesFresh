@@ -38,7 +38,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import database.DatabaseUtils;
+import database.VerbDatabaseUtils;
 import database.entity.Mazeed;
 import ru.dimorinny.floatingtextbutton.FloatingTextButton;
 
@@ -142,7 +142,7 @@ public class RulesMazeedVerbList extends Fragment {
                         dialog.show();
                     }
                 });
-                DatabaseUtils utils = new DatabaseUtils(QuranGrammarApplication.getContext());
+                VerbDatabaseUtils utils = new VerbDatabaseUtils(QuranGrammarApplication.getContext());
                 ArrayList<Mazeed> mazeedWeakness = utils.getMazeedWeakness(kov);
                 listingMazeedWeakness(ssagheer, mazeedWeakness);
                 getActivity().runOnUiThread(new Runnable() {

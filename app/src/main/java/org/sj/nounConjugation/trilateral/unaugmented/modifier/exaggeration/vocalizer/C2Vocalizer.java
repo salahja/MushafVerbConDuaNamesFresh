@@ -21,7 +21,7 @@ import java.util.List;
  * @version 1.0
  */
 public class C2Vocalizer extends TrilateralNounSubstitutionApplier implements IUnaugmentedTrilateralNounModificationApplier {
-    List substitutions = new LinkedList();
+    List<InfixSubstitution> substitutions = new LinkedList<InfixSubstitution>();
 
     public C2Vocalizer() {
         substitutions.add(new InfixSubstitution("او", "اء"));// EX: (مِعطاء )

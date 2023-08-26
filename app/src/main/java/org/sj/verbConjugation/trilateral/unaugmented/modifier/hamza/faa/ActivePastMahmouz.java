@@ -20,7 +20,7 @@ import java.util.List;
  * @version 1.0
  */
 public class ActivePastMahmouz extends AbstractFaaMahmouz {
-    private final List substitutions = new ArrayList();
+    private final List<org.sj.verbConjugation.trilateral.Substitution.Substitution> substitutions = new ArrayList<org.sj.verbConjugation.trilateral.Substitution.Substitution>();
 
     public ActivePastMahmouz() {
         substitutions.add(new PrefixSubstitution("ءَا", "آ")); // EX: (آبَ)

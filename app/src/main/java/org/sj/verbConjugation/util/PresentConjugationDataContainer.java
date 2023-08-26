@@ -23,27 +23,27 @@ import java.util.List;
 public class PresentConjugationDataContainer {
     private static final PresentConjugationDataContainer instance = new PresentConjugationDataContainer();
     //أحرف المضارعة حسب الضمير
-    private final List cpList = new ArrayList(13);
+    private final List<String> cpList = new ArrayList<>(13);
     //قائمة حركات عين الفعل حسب باب التصريف
-    private final List dpr2List = new ArrayList(6);
+    private final List<String> dpr2List = new ArrayList<String>(6);
     //قائمة  حركات لام الفعل حسب ضمير الرفع
     //مرفوع
-    private final List nominativeLastDprList = new ArrayList(13);
+    private final List<String> nominativeLastDprList = new ArrayList<>(13);
     //منصوب
-    private final List accusativeLastDprList = new ArrayList(13);
+    private final List<String> accusativeLastDprList = new ArrayList<>(13);
     //مجزوم
-    private final List jussiveLastDprList = new ArrayList(13);
+    private final List<String> jussiveLastDprList = new ArrayList<String>(13);
     //مؤكد
-    private final List emphasizedLastDprList = new ArrayList(13);
+    private final List<String> emphasizedLastDprList = new ArrayList<String>(13);
     //قائمة ضمائر الرفع المتصلة
     //مرفوع
-    private final List nominativeConnectedPronounList = new ArrayList(13);
+    private final List<String> nominativeConnectedPronounList = new ArrayList<String>(13);
     //منصوب
-    private final List accusativeConnectedPronounList = new ArrayList(13);
+    private final List<String> accusativeConnectedPronounList = new ArrayList<String>(13);
     //مجزوم
-    private final List jussiveConnectedPronounList = new ArrayList(13);
+    private final List<String> jussiveConnectedPronounList = new ArrayList<String>(13);
     //مؤكد
-    private final List emphasizedConnectedPronounList = new ArrayList(13);
+    private final List<String> emphasizedConnectedPronounList = new ArrayList<>(13);
 
     private PresentConjugationDataContainer() {
         //تهيئة القيم
@@ -192,35 +192,35 @@ public class PresentConjugationDataContainer {
         return instance;
     }
 
-    public List getNominativeLastDprList() {
+    public List<String> getNominativeLastDprList() {
         return nominativeLastDprList;
     }
 
-    public List getNominativeConnectedPronounList() {
+    public List<String> getNominativeConnectedPronounList() {
         return nominativeConnectedPronounList;
     }
 
-    public List getEmphasizedLastDprList() {
+    public List<String> getEmphasizedLastDprList() {
         return emphasizedLastDprList;
     }
 
-    public List getEmphasizedConnectedPronounList() {
+    public List<String> getEmphasizedConnectedPronounList() {
         return emphasizedConnectedPronounList;
     }
 
-    public List getJussiveLastDprList() {
+    public List<String> getJussiveLastDprList() {
         return jussiveLastDprList;
     }
 
-    public List getJussiveConnectedPronounList() {
+    public List<String> getJussiveConnectedPronounList() {
         return jussiveConnectedPronounList;
     }
 
-    public List getAccusativeLastDprList() {
+    public List<String> getAccusativeLastDprList() {
         return accusativeLastDprList;
     }
 
-    public List getAccusativeConnectedPronounList() {
+    public List<String> getAccusativeConnectedPronounList() {
         return accusativeConnectedPronounList;
     }
 
@@ -232,7 +232,7 @@ public class PresentConjugationDataContainer {
      */
     public String getDpr2(UnaugmentedTrilateralRoot root) {
         //بسبب أن ترقيم الباب التصريفي يبدأ من الواحد على حين أن القائمة تبدأ من الصفر جرى طرح العدد واحد
-        return (String) dpr2List.get((Integer.parseInt(root.getConjugation()) - 1));
+        return dpr2List.get((Integer.parseInt(root.getConjugation()) - 1));
     }
 
     /**
@@ -242,6 +242,6 @@ public class PresentConjugationDataContainer {
      * @return String
      */
     public String getCp(int pronounIndex) {
-        return (String) cpList.get(pronounIndex);
+        return cpList.get(pronounIndex);
     }
 }

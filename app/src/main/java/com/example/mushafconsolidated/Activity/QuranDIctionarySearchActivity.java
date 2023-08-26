@@ -2,8 +2,6 @@ package com.example.mushafconsolidated.Activity;
 
 import static com.example.Constant.QURAN_VERB_ROOT;
 import static com.example.mushafconsolidated.R.drawable.custom_search_box;
-import static com.example.mushafconsolidated.R.drawable.search_round;
-import static com.example.mushafconsolidated.R.drawable.search_rounded_borderline;
 
 import android.app.Activity;
 import android.app.SearchManager;
@@ -28,6 +26,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mushafconsolidated.Adapters.SearchAdapter;
 import com.example.mushafconsolidated.Entities.qurandictionary;
 import com.example.mushafconsolidated.R;
 import com.example.mushafconsolidated.Utils;
@@ -107,7 +106,7 @@ public class QuranDIctionarySearchActivity extends BaseActivity implements OnIte
                 // View id3 =      v.findViewById(R.id.languagename);
                 Bundle bundle = new Bundle();
                 //   Intent intent = new Intent(getActivity(), NounOccuranceAsynKAct.class);
-                Intent intent = new Intent(QuranDIctionarySearchActivity.this, SearchResult.class);
+                Intent intent = new Intent(QuranDIctionarySearchActivity.this, KeyboardSearchResult.class);
                 bundle.putString(QURAN_VERB_ROOT, entity.getRootarabic());
                 intent.putExtras(bundle);
                 //   intent.putExtra(QURAN_VERB_ROOT,vb.getRoot());

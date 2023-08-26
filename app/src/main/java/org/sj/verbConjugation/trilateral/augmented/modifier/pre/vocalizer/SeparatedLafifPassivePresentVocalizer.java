@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class SeparatedLafifPassivePresentVocalizer extends SubstitutionsApplier implements IAugmentedTrilateralModifier {
-    private final List substitutions = new LinkedList();
+    private final List<InfixSubstitution> substitutions = new LinkedList<>();
 
     public SeparatedLafifPassivePresentVocalizer() {
         substitutions.add(new InfixSubstitution("ُوْ", "ُو"));// EX: (يُوصَى)

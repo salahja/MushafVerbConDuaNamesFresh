@@ -21,7 +21,7 @@ import java.util.List;
  * @version 1.0
  */
 public class SpecialSubstituter1 extends TrilateralNounSubstitutionApplier implements IAugmentedTrilateralModifier {
-    private final List substitutions = new LinkedList();
+    private final List<InfixSubstitution> substitutions = new LinkedList<>();
 
     public SpecialSubstituter1() {
         substitutions.add(new InfixSubstitution("وْت", "تّ"));// EX: (اتِّصال، اتِّقاء، اتِّأء)

@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class NounLamAlefModifier extends SubstitutionsApplier {
     private static final NounLamAlefModifier instance = new NounLamAlefModifier();
-    protected static List appliedProunounsIndecies = new ArrayList(13);
+    protected static List<String> appliedProunounsIndecies = new ArrayList<String>(13);
 
     static {
         for (int i = 0; i < 18; i++) {
@@ -30,7 +30,7 @@ public class NounLamAlefModifier extends SubstitutionsApplier {
         }
     }
 
-    List substitutions = new LinkedList();
+    List<InfixSubstitution> substitutions = new LinkedList<InfixSubstitution>();
 
     private NounLamAlefModifier() {
         substitutions.add(new InfixSubstitution("لَا", "لا"));// EX: (قالا)

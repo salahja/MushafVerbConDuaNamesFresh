@@ -70,7 +70,7 @@ public class IsmAlaSarfKabeerAdapter extends RecyclerView.Adapter<IsmAlaSarfKabe
         if (isTraditional) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.ismalasktraditional, parent, false);
         } else {
-            //view = LayoutInflater.from(parent.getContext()).inflate(R.layout.ismalacolumkabeer, parent, false);
+
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.ismalacolumkabeer, parent, false);
         }
         //  View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.thulathisarfsagheer, parent, false);

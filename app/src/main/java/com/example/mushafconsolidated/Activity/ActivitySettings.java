@@ -5,12 +5,12 @@ import static com.example.Constant.CHAPTER;
 import static com.example.Constant.MUFRADATFRAGTAG;
 import static com.example.Constant.SURAH_ARABIC_NAME;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -29,7 +29,6 @@ import com.example.mushafconsolidated.fragments.WbwTranslationListPrefrence;
 import com.example.mushafconsolidated.fragments.FontQuranListDialogFragment;
 import com.example.mushafconsolidated.fragments.WordAnalysisBottomSheet;
 import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class ActivitySettings extends BaseActivity implements
         PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
@@ -37,18 +36,13 @@ public class ActivitySettings extends BaseActivity implements
     static final String SHARED_PREFERENCE_SEEKBAR_VALUE = "seek_value";
     private static final String TAG = ActivitySettings.class.getSimpleName();
     private static final String TITLE_TAG = "settingsActivityTitle";
-    ImageView backa;
-    MaterialToolbar materialToolbar;
-    FloatingActionButton btnBottomSheet;
-    private ActivitySettings activity;
     // RelativeLayout layoutBottomSheet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_activity);
-        activity = this;
-        initView();
+
         //    backa=findViewById(R.id.back);
         if (savedInstanceState == null) {
             getSupportFragmentManager()
@@ -65,12 +59,9 @@ public class ActivitySettings extends BaseActivity implements
 
     }
 
-    private void initView() {
-        //  setSupportActionBar(materialToolbar);
-    }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         // Save current activity title so we can set it again after a configuration change
         outState.putCharSequence(TITLE_TAG, getTitle());
@@ -79,11 +70,6 @@ public class ActivitySettings extends BaseActivity implements
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        // Intent intent = getIntent();
-        //   startActivity(intent);
-        //   finish();
-        //  Intent intents = new Intent(this, QuranGrammarAct.class);
-        //  Intent intents = new Intent(this, ReadingSurahPartActivity.class);
         Intent readingintent = getIntent();
         finish();
         startActivity(readingintent);
@@ -111,7 +97,7 @@ public class ActivitySettings extends BaseActivity implements
     }
 
     @Override
-    public boolean onPreferenceStartFragment(PreferenceFragmentCompat caller, Preference pref) {
+    public boolean onPreferenceStartFragment(@NonNull PreferenceFragmentCompat caller, Preference pref) {
 
         if(pref.getKey().equals("wbw")){
             WbwTranslationListPrefrence item = new WbwTranslationListPrefrence();
@@ -119,7 +105,7 @@ public class ActivitySettings extends BaseActivity implements
             FragmentManager fragmentManager = ActivitySettings.this.getSupportFragmentManager();
 
 
-            FragmentTransaction transactions = fragmentManager.beginTransaction().setCustomAnimations(R.anim.abc_slide_in_top, android.R.anim.fade_out);
+            @SuppressLint("CommitTransaction") FragmentTransaction transactions = fragmentManager.beginTransaction().setCustomAnimations(R.anim.abc_slide_in_top, android.R.anim.fade_out);
             transactions.show(item);
             WbwTranslationListPrefrence.newInstance().show(ActivitySettings.this.getSupportFragmentManager(), WordAnalysisBottomSheet.TAG);
             setTitle(pref.getTitle());
@@ -130,7 +116,7 @@ public class ActivitySettings extends BaseActivity implements
             FragmentManager fragmentManager = ActivitySettings.this.getSupportFragmentManager();
 
 
-            FragmentTransaction transactions = fragmentManager.beginTransaction().setCustomAnimations(R.anim.abc_slide_in_top, android.R.anim.fade_out);
+            @SuppressLint("CommitTransaction") FragmentTransaction transactions = fragmentManager.beginTransaction().setCustomAnimations(R.anim.abc_slide_in_top, android.R.anim.fade_out);
             transactions.show(item);
             TranslationListPrefrence.newInstance().show(ActivitySettings.this.getSupportFragmentManager(), WordAnalysisBottomSheet.TAG);
             setTitle(pref.getTitle());
@@ -141,7 +127,7 @@ public class ActivitySettings extends BaseActivity implements
             FragmentManager fragmentManager = ActivitySettings.this.getSupportFragmentManager();
 
 
-            FragmentTransaction transactions = fragmentManager.beginTransaction().setCustomAnimations(R.anim.abc_slide_in_top, android.R.anim.fade_out);
+            @SuppressLint("CommitTransaction") FragmentTransaction transactions = fragmentManager.beginTransaction().setCustomAnimations(R.anim.abc_slide_in_top, android.R.anim.fade_out);
             transactions.show(item);
             ThemeListPrefrence.newInstance().show(ActivitySettings.this.getSupportFragmentManager(), WordAnalysisBottomSheet.TAG);
             setTitle(pref.getTitle());
@@ -151,15 +137,13 @@ public class ActivitySettings extends BaseActivity implements
             //    item.setdata(rootWordMeanings,wbwRootwords,grammarRootsCombined);
             FragmentManager fragmentManager = ActivitySettings.this.getSupportFragmentManager();
 
-            FragmentTransaction transactions = fragmentManager.beginTransaction().setCustomAnimations(R.anim.abc_slide_in_top, android.R.anim.fade_out);
+            @SuppressLint("CommitTransaction") FragmentTransaction transactions = fragmentManager.beginTransaction().setCustomAnimations(R.anim.abc_slide_in_top, android.R.anim.fade_out);
             transactions.show(item);
             FontQuranListDialogFragment.newInstance().show(ActivitySettings.this.getSupportFragmentManager(), WordAnalysisBottomSheet.TAG);
             setTitle(pref.getTitle());
 
         } else if (pref.getKey().equals("Exit")) {
             Intent readingintent = getIntent();
-            //   Intent intent = getIntent();
-            //   Intent intents = new Intent(this, ReadingSurahPartActivity.class);
             finish();
             startActivity(readingintent);
         }
@@ -172,101 +156,44 @@ public class ActivitySettings extends BaseActivity implements
             setPreferencesFromResource(R.xml.preferences, rootKey);
             Preference button = (Preference) getPreferenceManager().findPreference("exitlink");
             if (button != null) {
-                button.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                    @Override
-                    public boolean onPreferenceClick(Preference arg0) {
-                        Intent intents = new Intent(getActivity(), QuranGrammarAct.class);
-                        //  finish();
-                        startActivity(intents);
-                        return true;
-                    }
+                button.setOnPreferenceClickListener(arg0 -> {
+                    Intent intents = new Intent(getActivity(), QuranGrammarAct.class);
+                    //  finish();
+                    startActivity(intents);
+                    return true;
                 });
             }
             SeekBarPreference fetchBar = (SeekBarPreference) findPreference("pref_seekbar_key");
             if (fetchBar != null) {
-                fetchBar.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                    @Override
-                    public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        if (newValue instanceof Integer) {
-                            Integer newValueInt;
-                            try {
-                                newValueInt = (Integer) newValue;
-                            } catch (NumberFormatException nfe) {
-                                Log.e(TAG,
-                                        "SeekBarPreference is a Integer, but it caused a NumberFormatException");
-                                return false;
-                            }
-                            if (preference.getContext() == null) {
-                                return false;
-                            }
-                            final SharedPreferences.Editor editor =
-                                    preference.getContext().getSharedPreferences(SHARED_PREFERENCE_EDITOR_NAME, Context.MODE_PRIVATE).edit();
-                            editor.putInt(SHARED_PREFERENCE_SEEKBAR_VALUE, newValueInt);
-                            editor.apply();
-                            return true;
-                        } else {
-                            String objType = newValue.getClass().getName();
-                            Log.e(TAG, "SeekBarPreference is not a Integer, it is " + objType);
+                fetchBar.setOnPreferenceChangeListener((preference, newValue) -> {
+                    if (newValue instanceof Integer) {
+                        int newValueInt;
+                        try {
+                            newValueInt = (Integer) newValue;
+                        } catch (NumberFormatException nfe) {
+                            Log.e(TAG,
+                                    "SeekBarPreference is a Integer, but it caused a NumberFormatException");
                             return false;
                         }
+
+                        final SharedPreferences.Editor editor =
+                                preference.getContext().getSharedPreferences(SHARED_PREFERENCE_EDITOR_NAME, Context.MODE_PRIVATE).edit();
+                        editor.putInt(SHARED_PREFERENCE_SEEKBAR_VALUE, newValueInt);
+                        editor.apply();
+                        return true;
+                    } else {
+                        String objType = newValue.getClass().getName();
+                        Log.e(TAG, "SeekBarPreference is not a Integer, it is " + objType);
+                        return false;
                     }
                 });
             }
-      /*
-
-            ListPreference selectionPreference = findPreference("selecttranslation");
-            if (selectionPreference != null) {
-                selectionPreference.setOnPreferenceChangeListener(
-                        new Preference.OnPreferenceChangeListener() {
-                            @Override
-                            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                                String selectionOption = (String) newValue;
-                                SharedPreferences.Editor editor =  getContext().getSharedPreferences("properties", 0).edit();
-                                editor.putString("selecttranslation", selectionOption);
-                                editor.apply();
-
-
-
-                                return true;
-                            }
-                        });
-            }
-
-
-
-            ListPreference listPreferenceCategory = (ListPreference) findPreference("selecttranslation");
-            if (listPreferenceCategory != null) {
-                Utils util = new Utils(getActivity());
-                ArrayList<TranslationEntity> loadedTranslation = util.getLoadedTranslation(1,2);
-                //   ArrayList<TranslationEntity> availableTranslation = util.getLoadedTranslation(0);
-
-                CharSequence entries[] = new String[loadedTranslation.size()];
-                CharSequence entryValues[] = new String[loadedTranslation.size()];
-                int i = 0;
-
-                for (TranslationEntity entity : loadedTranslation) {
-                    entries[i] = entity.getTranslation_id();
-                    entryValues[i] = entity.getTranslation_id();
-                    i++;
-                }
-
-
-                listPreferenceCategory.setEntries(entries);
-                listPreferenceCategory.setEntryValues(entryValues);
-            }
-
-       */
             ListPreference themePreference = findPreference("theme");
             if (themePreference != null) {
                 themePreference.setOnPreferenceChangeListener(
-                        new Preference.OnPreferenceChangeListener() {
-                            @Override
-                            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                                String themeOption = (String) newValue;
-                                //  ThemeHelper.applyTheme(themeOption);
-                                return true;
-                            }
-
+                        (preference, newValue) -> {
+                            //  ThemeHelper.applyTheme(themeOption);
+                            return true;
                         });
             }
 
@@ -280,8 +207,7 @@ public class ActivitySettings extends BaseActivity implements
             BottomOptionDialog item = new BottomOptionDialog();
             //    item.setdata(rootWordMeanings,wbwRootwords,grammarRootsCombined);
             FragmentManager fragmentManager = ActivitySettings.this.getSupportFragmentManager();
-            String[] data = {"surah_id"};
-            FragmentTransaction transactions = fragmentManager.beginTransaction().setCustomAnimations(R.anim.abc_slide_in_top, android.R.anim.fade_out);
+            @SuppressLint("CommitTransaction") FragmentTransaction transactions = fragmentManager.beginTransaction().setCustomAnimations(R.anim.abc_slide_in_top, android.R.anim.fade_out);
             transactions.show(item);
             //     WordAnalysisBottomSheet.newInstance(data).show(ActivitySettings.this.getSupportFragmentManager(), WordAnalysisBottomSheet.TAG);
         }

@@ -23,18 +23,19 @@ import java.util.Map;
  * @author Haytham Mohtasseb Billah
  * @version 1.0
  */
+//TODO CASTING
 public class NonStandardInstrumentalConjugator implements IUnaugmentedTrilateralNounConjugator {
     private static final NonStandardInstrumentalConjugator instance = new NonStandardInstrumentalConjugator();
-    private final Map formulaClassNamesMap = new HashMap();
+    private final Map<String, Class<NonStandardInstrumentalNounFormula>> formulaClassNamesMap = new HashMap<String, Class<NonStandardInstrumentalNounFormula>>();
     //map <symbol,formulaName>
-    private final Map formulaSymbolsNamesMap = new HashMap();
+    private final Map<String, String> formulaSymbolsNamesMap = new HashMap<>();
 
     private NonStandardInstrumentalConjugator() {
         for (int i = 1; i <= 15; i++) {
             String formulaClassName = getClass().getPackage().getName() + ".nonstandard.NounFormula" + i;
             try {
-                Class formulaClass = Class.forName(formulaClassName);
-                NonStandardInstrumentalNounFormula instrumentalNounFormula = (NonStandardInstrumentalNounFormula) formulaClass.newInstance();
+                Class<NonStandardInstrumentalNounFormula> formulaClass = (Class<NonStandardInstrumentalNounFormula>) Class.forName(formulaClassName);
+                NonStandardInstrumentalNounFormula instrumentalNounFormula = formulaClass.newInstance();
                 formulaClassNamesMap.put(instrumentalNounFormula.getFormulaName(), formulaClass);
                 formulaSymbolsNamesMap.put(instrumentalNounFormula.getSymbol(), instrumentalNounFormula.getFormulaName());
             } catch (Exception ex) {
@@ -50,7 +51,7 @@ public class NonStandardInstrumentalConjugator implements IUnaugmentedTrilateral
     public NounFormula createNoun(UnaugmentedTrilateralRoot root, int suffixNo, String formulaName) {
         Object[] parameters = {root, suffixNo + ""};
         try {
-            Class formulaClass = (Class) formulaClassNamesMap.get(formulaName);
+            Class<NonStandardInstrumentalNounFormula> formulaClass = formulaClassNamesMap.get(formulaName);
             NounFormula noun = (NounFormula) formulaClass.getConstructors()[1].newInstance(parameters);
             return noun;
         } catch (Exception ex) {
@@ -60,7 +61,7 @@ public class NonStandardInstrumentalConjugator implements IUnaugmentedTrilateral
     }
 
     public List createNounList(UnaugmentedTrilateralRoot root, String formulaName) {
-        List result = new LinkedList();
+        List<NounFormula> result = new LinkedList<>();
         for (int i = 0; i < 18; i++) {
             NounFormula noun = createNoun(root, i, formulaName);
             result.add(noun);
@@ -79,10 +80,10 @@ public class NonStandardInstrumentalConjugator implements IUnaugmentedTrilateral
         if (formulaTree == null) {
             return null;
         }
-        List result = new LinkedList();
-        Iterator iter = formulaTree.getFormulaList().iterator();
+        List<String> result = new LinkedList<String>();
+        Iterator<XmlNonStandardInstrumentalNounFormula> iter = formulaTree.getFormulaList().iterator();
         while (iter.hasNext()) {
-            XmlNonStandardInstrumentalNounFormula formula = (XmlNonStandardInstrumentalNounFormula) iter.next();
+            XmlNonStandardInstrumentalNounFormula formula = iter.next();
             if (formula.getC2() == root.getC2() && formula.getC3() == root.getC3()) {
                 if (formula.getForm1() != null && formula.getForm1() != "") {
                     //add the formula pattern insteaed of the symbol (form1)

@@ -19,7 +19,7 @@ import java.util.List;
  * @version 1.0
  */
 public class ImperativeAjwafWawiVocalizer extends AbstractAjwafWawiVocalizer {
-    private final List substitutions = new LinkedList();
+    private final List<ExpressionInfixSubstitution> substitutions = new LinkedList<>();
 
     public ImperativeAjwafWawiVocalizer() {
         substitutions.add(new ExpressionInfixSubstitution("اC1ْوُC3ُ", "C1ُوC3ُ"));// EX: (قُومُوا، قُومُنَّ، بوءوا، أوبوا)

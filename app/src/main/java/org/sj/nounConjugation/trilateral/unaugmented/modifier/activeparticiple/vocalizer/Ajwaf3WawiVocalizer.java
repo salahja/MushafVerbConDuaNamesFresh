@@ -21,7 +21,7 @@ import java.util.List;
  * @version 1.0
  */
 public class Ajwaf3WawiVocalizer extends TrilateralNounSubstitutionApplier implements IUnaugmentedTrilateralNounModificationApplier {
-    List substitutions = new LinkedList();
+    List<InfixSubstitution> substitutions = new LinkedList<InfixSubstitution>();
 
     public Ajwaf3WawiVocalizer() {
         substitutions.add(new InfixSubstitution("اوِ", "ائِ"));// EX: (قائِمٌ)

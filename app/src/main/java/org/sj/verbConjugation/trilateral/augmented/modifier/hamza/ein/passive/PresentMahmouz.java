@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class PresentMahmouz extends AbstractEinMahmouz {
-    private final List substitutions = new LinkedList();
+    private final List<InfixSubstitution> substitutions = new LinkedList<InfixSubstitution>();
 
     public PresentMahmouz() {
         substitutions.add(new InfixSubstitution("يْءَ", "يْئَ")); // EX: (يُسْتَيْئَسُ، )

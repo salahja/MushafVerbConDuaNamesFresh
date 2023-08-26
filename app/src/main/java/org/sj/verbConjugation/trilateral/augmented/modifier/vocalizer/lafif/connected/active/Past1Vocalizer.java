@@ -11,7 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Past1Vocalizer extends SubstitutionsApplier implements IAugmentedTrilateralModifier {
-    private final List substitutions = new LinkedList();
+    private final List<org.sj.verbConjugation.trilateral.Substitution.Substitution> substitutions = new LinkedList<org.sj.verbConjugation.trilateral.Substitution.Substitution>();
 
     public Past1Vocalizer() {
         substitutions.add(new SuffixSubstitution("َيَ", "َا"));// EX: (أحْيَا، حَيَّا، حايا، ازدَيَا، تحايا، تحَيَّا، استحيا)

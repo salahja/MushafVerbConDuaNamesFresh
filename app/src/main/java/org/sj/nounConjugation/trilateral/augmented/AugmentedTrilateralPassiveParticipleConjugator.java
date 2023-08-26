@@ -20,8 +20,8 @@ import java.util.List;
  */
 public class AugmentedTrilateralPassiveParticipleConjugator {
     private static final AugmentedTrilateralPassiveParticipleConjugator instance = new AugmentedTrilateralPassiveParticipleConjugator();
-    static List timeAndPlaceIndeciesList = new LinkedList();
-    static List meemGerundIndeciesList = new LinkedList();
+    static List<String> timeAndPlaceIndeciesList = new LinkedList<>();
+    static List<String> meemGerundIndeciesList = new LinkedList<>();
 
     static {
         //��� ������ ������
@@ -61,8 +61,8 @@ public class AugmentedTrilateralPassiveParticipleConjugator {
         return null;
     }
 
-    public List createNounList(AugmentedTrilateralRoot root, int formulaNo) {
-        List result = new LinkedList();
+    public List<AugmentedTrilateralNoun> createNounList(AugmentedTrilateralRoot root, int formulaNo) {
+        List<AugmentedTrilateralNoun> result = new LinkedList<>();
         for (int i = 0; i < 18; i++) {
             AugmentedTrilateralNoun noun = createNoun(root, i, formulaNo);
             result.add(noun);
@@ -72,8 +72,8 @@ public class AugmentedTrilateralPassiveParticipleConjugator {
     }
 
     //������ �� ��� ������ ������� ������� ������
-    private List createNounList(AugmentedTrilateralRoot root, int formulaNo, List indecies) {
-        List result = new LinkedList();
+    private List<Object> createNounList(AugmentedTrilateralRoot root, int formulaNo, List<String> indecies) {
+        List<Object> result = new LinkedList<>();
         for (int i = 0; i < 18; i++) {
             result.add("");
         }
@@ -86,11 +86,11 @@ public class AugmentedTrilateralPassiveParticipleConjugator {
 
     }
 
-    public List createTimeAndPlaceNounList(AugmentedTrilateralRoot root, int formulaNo) {
+    public List<Object> createTimeAndPlaceNounList(AugmentedTrilateralRoot root, int formulaNo) {
         return createNounList(root, formulaNo, timeAndPlaceIndeciesList);
     }
 
-    public List createMeemGerundNounList(AugmentedTrilateralRoot root, int formulaNo) {
+    public List<Object> createMeemGerundNounList(AugmentedTrilateralRoot root, int formulaNo) {
         return createNounList(root, formulaNo, meemGerundIndeciesList);
     }
 

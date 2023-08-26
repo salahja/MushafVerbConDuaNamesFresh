@@ -15,8 +15,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -25,7 +23,6 @@ import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Lifecycle;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -33,7 +30,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.mushafconsolidated.Activity.BookMarkActivity;
 import com.example.mushafconsolidated.Activity.QuranGrammarAct;
 import com.example.mushafconsolidated.Adapters.BookmarksShowAdapter;
 import com.example.mushafconsolidated.Entities.BookMarks;
@@ -44,14 +40,6 @@ import com.example.utility.SwipeToDeleteCallback;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-
-import java.util.List;
-
-import database.entity.MujarradVerbs;
-import mm.prayer.muslimmate.fragments.CalendarFragment;
-import mm.prayer.muslimmate.fragments.IslamicEventsFragment;
-import mm.prayer.muslimmate.fragments.PrayingFragment;
-import mm.prayer.muslimmate.fragments.WeatherFragment;
 
 /**
  * Bookmark fragment class

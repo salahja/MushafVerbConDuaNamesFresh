@@ -19,7 +19,7 @@ import java.util.List;
  * @version 1.0
  */
 public class FaaMahmouz extends AbstractFaaMahmouz {
-    List substitutions = new LinkedList();
+    List<InfixSubstitution> substitutions = new LinkedList<InfixSubstitution>();
 
     public FaaMahmouz() {
         substitutions.add(new InfixSubstitution("ءَا", "آ"));// EX: (آكِلٌ)

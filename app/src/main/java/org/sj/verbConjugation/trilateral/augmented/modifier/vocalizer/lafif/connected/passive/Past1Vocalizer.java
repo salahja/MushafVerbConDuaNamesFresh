@@ -10,7 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Past1Vocalizer extends SubstitutionsApplier implements IAugmentedTrilateralModifier {
-    private final List substitutions = new LinkedList();
+    private final List<InfixSubstitution> substitutions = new LinkedList<InfixSubstitution>();
 
     public Past1Vocalizer() {
         substitutions.add(new InfixSubstitution("ِيُ", "ُ"));// EX: (أُحْيُوا، أُذْوُوا، دُووُوا، حُويُوا، انزُوُوا، احتُوُوا، تُدُووُوا، استُهْوُوا)

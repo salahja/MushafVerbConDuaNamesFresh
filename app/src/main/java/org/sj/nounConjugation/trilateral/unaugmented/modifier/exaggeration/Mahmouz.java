@@ -25,7 +25,7 @@ import java.util.List;
  * @version 1.0
  */
 public class Mahmouz {
-    private final List modifiers = new LinkedList();
+    private final List<IUnaugmentedTrilateralNounModificationApplier> modifiers = new LinkedList<>();
     private final NakesLafifMahmouz nakesLafifMahmouz = new NakesLafifMahmouz();
 
     public Mahmouz() {
@@ -35,9 +35,9 @@ public class Mahmouz {
     }
 
     public void apply(ConjugationResult conjResult) {
-        Iterator iter = modifiers.iterator();
+        Iterator<IUnaugmentedTrilateralNounModificationApplier> iter = modifiers.iterator();
         while (iter.hasNext()) {
-            IUnaugmentedTrilateralNounModificationApplier modifier = (IUnaugmentedTrilateralNounModificationApplier) iter.next();
+            IUnaugmentedTrilateralNounModificationApplier modifier = iter.next();
             if (modifier.isApplied(conjResult)) {
                 ((SubstitutionsApplier) modifier).apply(conjResult.getFinalResult(), conjResult.getRoot());
                 break;

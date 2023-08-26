@@ -20,18 +20,18 @@ import java.util.ArrayList;
 public class ElativeSuffixContainer implements INounSuffixContainer {
     private static final ElativeSuffixContainer instance = new ElativeSuffixContainer();
     //حالة المعرفة
-    private final ArrayList definiteSuffixList = new ArrayList(18);
+    private final ArrayList<String> definiteSuffixList = new ArrayList<>(18);
     //جدول تصريف اسم التفضيل المضاف إلى معرفة
-    private final ArrayList annexedDefiniteSuffixList = new ArrayList(18);
+    private final ArrayList<String> annexedDefiniteSuffixList = new ArrayList<>(18);
     // جدول تصريف اسم التفضيل المضاف إلى نكرة
-    private final ArrayList annexedIndefiniteSuffixList = new ArrayList(18);
+    private final ArrayList<String> annexedIndefiniteSuffixList = new ArrayList<String>(18);
     //جدول تصريف اسم التفضيل غير المضاف
     //notAnnexedSuffixList is same as annexedIndefiniteSuffixList
-    private final ArrayList notAnnexedSuffixList = new ArrayList(18);
+    private final ArrayList<String> notAnnexedSuffixList = new ArrayList<String>(18);
     //تكون لها قيمة عندما تكون الحالة هي معرفة
     private String prefix = "";
     //يمثل القائمة المختارة تبعاً للحالة
-    private ArrayList currentSuffixList = annexedIndefiniteSuffixList;
+    private ArrayList<String> currentSuffixList = annexedIndefiniteSuffixList;
 
     private ElativeSuffixContainer() {
         annexedIndefiniteSuffixList.add(ArabCharUtil.DAMMA);
@@ -149,7 +149,7 @@ public class ElativeSuffixContainer implements INounSuffixContainer {
     }
 
     public String get(int index) {
-        return (String) currentSuffixList.get(index);
+        return currentSuffixList.get(index);
     }
 
     public boolean isAnnexed() {

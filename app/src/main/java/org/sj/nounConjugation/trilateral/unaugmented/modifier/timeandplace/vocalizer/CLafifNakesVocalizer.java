@@ -21,7 +21,7 @@ import java.util.List;
  * @version 1.0
  */
 public class CLafifNakesVocalizer extends TrilateralNounSubstitutionApplier implements IUnaugmentedTrilateralNounModificationApplier {
-    List substitutions = new LinkedList();
+    List<InfixSubstitution> substitutions = new LinkedList<InfixSubstitution>();
 
     public CLafifNakesVocalizer() {
         substitutions.add(new InfixSubstitution("َوَ", "َا")); // EX: (مَشتاة )

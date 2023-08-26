@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Imperative2Vocalizer extends SubstitutionsApplier implements IUnaugmentedTrilateralModifier {
 
-    private final List substitutions = new LinkedList();
+    private final List<org.sj.verbConjugation.trilateral.Substitution.Substitution> substitutions = new LinkedList<org.sj.verbConjugation.trilateral.Substitution.Substitution>();
 
     public Imperative2Vocalizer() {
         substitutions.add(new ExpressionSuffixSubstitution("اوْC2ِيْ", "C2ِ")); // EX: (قِ، لِ)

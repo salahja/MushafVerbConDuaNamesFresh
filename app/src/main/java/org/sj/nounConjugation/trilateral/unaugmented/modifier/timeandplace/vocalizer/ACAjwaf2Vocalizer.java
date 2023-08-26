@@ -21,7 +21,7 @@ import java.util.List;
  * @version 1.0
  */
 public class ACAjwaf2Vocalizer extends TrilateralNounSubstitutionApplier implements IUnaugmentedTrilateralNounModificationApplier {
-    List substitutions = new LinkedList();
+    List<InfixSubstitution> substitutions = new LinkedList<InfixSubstitution>();
 
     public ACAjwaf2Vocalizer() {
         substitutions.add(new InfixSubstitution("ْيَ", "َا"));// EX: (مَفاض، مَفاضة)

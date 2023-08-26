@@ -22,15 +22,15 @@ public class ConjugationResult {
     protected UnaugmentedTrilateralRoot root;
 
     //13 conjugated verbs
-    protected List originalResult;
+    List originalResult;
     //القائمة بعد  الادغام والاعلال والهمزة
-    protected List finalResult;
+    protected ArrayList finalResult;
 
     public ConjugationResult(int kov, UnaugmentedTrilateralRoot root, List originalResult) {
         this.kov = kov;
         this.originalResult = originalResult;
         this.root = root;
-        this.finalResult = new ArrayList(originalResult);
+        this.finalResult = new ArrayList<Object>(originalResult);
     }
 
     public List getFinalResult() {
@@ -39,10 +39,6 @@ public class ConjugationResult {
 
     public int getKov() {
         return kov;
-    }
-
-    public List getOriginalResult() {
-        return originalResult;
     }
 
     public UnaugmentedTrilateralRoot getRoot() {

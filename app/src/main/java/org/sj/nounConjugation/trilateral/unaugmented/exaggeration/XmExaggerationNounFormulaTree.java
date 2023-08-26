@@ -16,7 +16,7 @@ import java.util.List;
  * @version 1.0
  */
 public class XmExaggerationNounFormulaTree {
-    private final List formulas = new LinkedList();
+    private final List<XmExaggerationNounFormula> formulas = new LinkedList<XmExaggerationNounFormula>();
 
     public XmExaggerationNounFormulaTree() {
     }
@@ -25,7 +25,7 @@ public class XmExaggerationNounFormulaTree {
         formulas.add(formula);
     }
 
-    public List getFormulaList() {
+    public List<XmExaggerationNounFormula> getFormulaList() {
         return formulas;
     }
 

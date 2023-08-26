@@ -21,7 +21,7 @@ import java.util.List;
  * @version 1.0
  */
 public class Substituter extends TrilateralNounSubstitutionApplier implements IUnaugmentedTrilateralNounModificationApplier {
-    List substitutions = new LinkedList();
+    List<InfixSubstitution> substitutions = new LinkedList<InfixSubstitution>();
 
     public Substituter() {
         substitutions.add(new InfixSubstitution("اءَا", "اوَا"));// EX: (عَمْياوان)

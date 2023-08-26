@@ -1,103 +1,55 @@
 package org.sj.conjugator.CustomKeyboard;
 
-import static com.example.Constant.QURAN_VERB_ROOT;
-import static com.example.Constant.QURAN_VERB_WAZAN;
-
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.inputmethod.InputConnection;
-import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.RadioGroup;
 
 import androidx.annotation.Nullable;
 
 import com.example.mushafconsolidated.R;
 import com.google.android.material.button.MaterialButton;
 
-import org.sj.conjugator.activity.ConjugatorAct;
-
 public class OvalCustomKeyboard extends LinearLayout implements View.OnClickListener {
     private final SparseArray<String> keyValues = new SparseArray<>();
-    private final String LogTag = "Keyboard";
+
     public Context mycontext;
-    OvalCustomKeyboard keyboard;
-    private MaterialButton key1, key2, key3, key4, key5, key6, key7, key8, key9, key0, key00;
-    private MaterialButton key_delete, key_AC, key_dot, key_enter, key_exit;
-    private MaterialButton dhad, suwad, qaf, fa, ghain, ayn, haaa, kha, ha, jeem;
-    private MaterialButton sheen, seen, ya, ba, lam, alif, ta, nun, meem, kaf;
-    private MaterialButton zoay, toay, dhal, dal, zaa, raa, waw, tamarboot, tha;
-    private RadioGroup formone, formtwo;
-    private String inputtext;
-    private InputConnection inputConnection;
-    private CharSequence charSequence;
-    //  private com.sjconjugatortwo.keyboard.KeyBoardInitActivity InitActivity;
-    private String radioText;
-    private String bab;
+   OvalCustomKeyboard keyboard;
 
-    public OvalCustomKeyboard(ConjugatorAct keyBoardInitActivity) {
-        super(keyBoardInitActivity);
-        mycontext = keyBoardInitActivity;
-    }
 
-    public OvalCustomKeyboard(ConjugatorAct context, String s) {
-        super(context);
-        this.bab = s;
-    }
+   private String radioText;
 
     public OvalCustomKeyboard(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        init(context, attrs);
+        init(context);
     }
 
     public OvalCustomKeyboard(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context, attrs);
+        init(context);
     }
 
-    public String getInputtext() {
-        return inputtext;
-    }
 
-    public void setInputtext(String inputtext) {
-        this.inputtext = inputtext;
-    }
-
-    public String getRadioText() {
-        return radioText;
-    }
-
-    public void setRadioText(String radioText) {
-        this.radioText = radioText;
-    }
-
-    public CharSequence getCharSequence() {
-        return charSequence;
-    }
-
-    private void init(Context context, AttributeSet attrs) {
+    private void init(Context context) {
      LayoutInflater.from(context).inflate(R.layout.round_arabic_keyboard, this, true);
-      //  LayoutInflater.from(context).inflate(R.layout.back_round_arabic_keyboard, this, true);
-        key_delete = findViewById(R.id.key_delete);
-        key_AC = findViewById(R.id.key_AC);
-        key_enter = findViewById(R.id.key_enter);
+
+        MaterialButton key_delete = findViewById(R.id.key_delete);
+        MaterialButton key_AC = findViewById(R.id.key_AC);
+       MaterialButton key_enter = findViewById(R.id.key_enter);
         keyboard = findViewById(R.id.arabic_keyboard);
-        //   key_exit=findViewById(R.id.key_exit);
-        dhad = findViewById(R.id.dhad);
-        suwad = findViewById(R.id.suwad);
-        qaf = findViewById(R.id.qaf);
-        fa = findViewById(R.id.fa);
-        ghain = findViewById(R.id.ghain);
-        ayn = findViewById(R.id.ayn);
-        haaa = findViewById(R.id.haaa);
-        kha = findViewById(R.id.kha);
-        ha = findViewById(R.id.ha);
-        jeem = findViewById(R.id.jeem);
+
+        MaterialButton dhad = findViewById(R.id.dhad);
+        MaterialButton suwad = findViewById(R.id.suwad);
+        MaterialButton qaf = findViewById(R.id.qaf);
+        MaterialButton fa = findViewById(R.id.fa);
+        MaterialButton ghain = findViewById(R.id.ghain);
+        MaterialButton ayn = findViewById(R.id.ayn);
+        MaterialButton haaa = findViewById(R.id.haaa);
+        MaterialButton kha = findViewById(R.id.kha);
+        MaterialButton ha = findViewById(R.id.ha);
+        MaterialButton jeem = findViewById(R.id.jeem);
         dhad.setOnClickListener(this);
         suwad.setOnClickListener(this);
         qaf.setOnClickListener(this);
@@ -118,16 +70,16 @@ public class OvalCustomKeyboard extends LinearLayout implements View.OnClickList
         keyValues.put(R.id.kha, "خ");
         keyValues.put(R.id.ha, "ح");
         keyValues.put(R.id.jeem, "ج");
-        sheen = findViewById(R.id.sheen);
-        seen = findViewById(R.id.seen);
-        ya = findViewById(R.id.ya);
-        ba = findViewById(R.id.ba);
-        lam = findViewById(R.id.lam);
-        alif = findViewById(R.id.hamza);
-        ta = findViewById(R.id.ta);
-        nun = findViewById(R.id.nun);
-        meem = findViewById(R.id.meem);
-        kaf = findViewById(R.id.kaf);
+        MaterialButton sheen = findViewById(R.id.sheen);
+        MaterialButton seen = findViewById(R.id.seen);
+        MaterialButton ya = findViewById(R.id.ya);
+        MaterialButton ba = findViewById(R.id.ba);
+        MaterialButton lam = findViewById(R.id.lam);
+        MaterialButton alif = findViewById(R.id.hamza);
+        MaterialButton ta = findViewById(R.id.ta);
+        MaterialButton nun = findViewById(R.id.nun);
+        MaterialButton meem = findViewById(R.id.meem);
+        MaterialButton kaf = findViewById(R.id.kaf);
         sheen.setOnClickListener(this);
         seen.setOnClickListener(this);
         ya.setOnClickListener(this);
@@ -142,9 +94,7 @@ public class OvalCustomKeyboard extends LinearLayout implements View.OnClickList
         key_delete.setOnClickListener(this);
         key_AC.setOnClickListener(this);
         key_enter.setOnClickListener(this);
-        //  key_exit.setOnClickListener(this);
-        //  key_dot.setOnClickListener(this);
-        keyValues.put(R.id.sheen, "ش");
+     keyValues.put(R.id.sheen, "ش");
         keyValues.put(R.id.seen, "س");
         keyValues.put(R.id.ya, "ي");
         keyValues.put(R.id.ba, "ب");
@@ -154,15 +104,15 @@ public class OvalCustomKeyboard extends LinearLayout implements View.OnClickList
         keyValues.put(R.id.nun, "ن");
         keyValues.put(R.id.meem, "م");
         keyValues.put(R.id.kaf, "ك");
-        zoay = findViewById(R.id.zoay);
-        toay = findViewById(R.id.toay);
-        dhal = findViewById(R.id.dhal);
-        dal = findViewById(R.id.dal);
-        zaa = findViewById(R.id.zaa);
-        raa = findViewById(R.id.raa);
-        waw = findViewById(R.id.waw);
-        tamarboot = findViewById(R.id.tamarboota);
-        tha = findViewById(R.id.tha);
+        MaterialButton zoay = findViewById(R.id.zoay);
+        MaterialButton toay = findViewById(R.id.toay);
+        MaterialButton dhal = findViewById(R.id.dhal);
+        MaterialButton dal = findViewById(R.id.dal);
+        MaterialButton zaa = findViewById(R.id.zaa);
+        MaterialButton raa = findViewById(R.id.raa);
+        MaterialButton waw = findViewById(R.id.waw);
+        MaterialButton tamarboot = findViewById(R.id.tamarboota);
+        MaterialButton tha = findViewById(R.id.tha);
         zoay.setOnClickListener(this);
         toay.setOnClickListener(this);
         dhal.setOnClickListener(this);
@@ -181,42 +131,6 @@ public class OvalCustomKeyboard extends LinearLayout implements View.OnClickList
         keyValues.put(R.id.waw, "و");
         keyValues.put(R.id.tamarboota, "ة");
         keyValues.put(R.id.tha, "ث");
-        //    keyValues.put(R.id.key_00, "00");
-        //    keyValues.put(R.id.key_dot, ".");
-    }
-
-    public Button getKey_enter() {
-        return key_enter;
-    }
-
-    public void setInputConnection(InputConnection ic) {
-        inputConnection = ic;
-    }
-
-    private void InitDiaalog(String root) {
-        Context applicationContext = ConjugatorAct.getContextOfApplication();
-        //   GRadioGroup gr=new GRadioGroup(nasara,zaraba,samia,fatha,karuma,hasiba);
-        SharedPreferences sp = applicationContext.getSharedPreferences("key", 0);
-        String babs = sp.getString("bab", "");
-        Bundle dataBundle = new Bundle();
-        dataBundle.putString(QURAN_VERB_WAZAN, getRadioText());
-        dataBundle.putString(QURAN_VERB_WAZAN, babs);
-        dataBundle.putString(QURAN_VERB_ROOT, root);
-        //   QuranVerbConjDialog dialog = new QuranVerbConjDialog(getContext());
-        //  dialog.setArguments(dataBundle);
-        //   Intent i = new Intent(getContext(), VerbQueryActivity.class);
-        //   i.putExtra(QURAN_VERB_ROOT,root);
-        //   i.putExtra(QURAN_VERB_FORM,babs);
-        //   getContext().startActivity(i);
-        //      FragmentActivity activity = (FragmentActivity) getContext();
-        //      final FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
-        //     transaction.add(R.id.frame_container ,dialog,VERSEFRAGMENT);
-        //     transaction.commit();
-    }
-
-    private void inputConnectionCommitText(View view) {
-        String value = keyValues.get(view.getId());
-        inputConnection.commitText(value, 1);
     }
 
     @Override

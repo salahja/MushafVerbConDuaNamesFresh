@@ -22,7 +22,7 @@ import java.util.List;
  * @version 1.0
  */
 public class Ajwaf3WawiListedVocalizer extends AbstractAjwafWawiListedVocalizer implements IUnaugmentedTrilateralNounModificationApplier {
-    protected static List appliedProunounsIndecies = new ArrayList(18);
+    protected static List<String> appliedProunounsIndecies = new ArrayList<String>(18);
 
     static {
         for (int i = 0; i < 18; i++) {
@@ -30,7 +30,7 @@ public class Ajwaf3WawiListedVocalizer extends AbstractAjwafWawiListedVocalizer 
         }
     }
 
-    private final List substitutions = new LinkedList();
+    private final List<InfixSubstitution> substitutions = new LinkedList<InfixSubstitution>();
 
     public Ajwaf3WawiListedVocalizer() {
         substitutions.add(new InfixSubstitution("اوِ", "ائِ"));// EX: (قائِمٌ)

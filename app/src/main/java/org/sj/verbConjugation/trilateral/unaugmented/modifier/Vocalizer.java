@@ -24,14 +24,14 @@ import java.util.Map;
  */
 public class Vocalizer {
     //المعلوم  و  المجهول تحتوي قائمة بالأنواع الخمسة لاعلال لماضي والمضارع والأمر حسب
-    private final Map vocalizerMap = new HashMap();
+    private final Map<String, List<SubstitutionsApplier>> vocalizerMap = new HashMap<>();
 
     public Vocalizer() {
-        List activePastList = new LinkedList();
-        List passivePastList = new LinkedList();
-        List activePresentList = new LinkedList();
-        List passivePresentList = new LinkedList();
-        List imperativeList = new LinkedList();
+        List<SubstitutionsApplier> activePastList = new LinkedList<SubstitutionsApplier>();
+        List<SubstitutionsApplier> passivePastList = new LinkedList<>();
+        List<SubstitutionsApplier> activePresentList = new LinkedList<SubstitutionsApplier>();
+        List<SubstitutionsApplier> passivePresentList = new LinkedList<SubstitutionsApplier>();
+        List<SubstitutionsApplier> imperativeList = new LinkedList<>();
 
         //خمس أنواع  أساسية  للاعلال للمعلوم والمبني لمجهول في الماضي والمضارع والأمر
         vocalizerMap.put(SystemConstants.PAST_TENSE + "true", activePastList);
@@ -118,8 +118,8 @@ public class Vocalizer {
      * @param conjResult ConjugationResult
      */
     public void apply(String tense, boolean active, ConjugationResult conjResult) {
-        List vocalizers = (List) vocalizerMap.get(tense + active);
-        Iterator iter = vocalizers.iterator();
+        List<SubstitutionsApplier> vocalizers = vocalizerMap.get(tense + active);
+        Iterator<SubstitutionsApplier> iter = vocalizers.iterator();
         while (iter.hasNext()) {
             IUnaugmentedTrilateralModifier vocalizer = (IUnaugmentedTrilateralModifier) iter.next();
             if (vocalizer.isApplied(conjResult)) {

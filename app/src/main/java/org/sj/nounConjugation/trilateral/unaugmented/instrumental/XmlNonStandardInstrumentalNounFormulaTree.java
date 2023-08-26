@@ -16,7 +16,7 @@ import java.util.List;
  * @version 1.0
  */
 public class XmlNonStandardInstrumentalNounFormulaTree {
-    private final List formulas = new LinkedList();
+    private final List<XmlNonStandardInstrumentalNounFormula> formulas = new LinkedList<XmlNonStandardInstrumentalNounFormula>();
 
     public XmlNonStandardInstrumentalNounFormulaTree() {
     }
@@ -25,7 +25,7 @@ public class XmlNonStandardInstrumentalNounFormulaTree {
         formulas.add(formula);
     }
 
-    public List getFormulaList() {
+    public List<XmlNonStandardInstrumentalNounFormula> getFormulaList() {
         return formulas;
     }
 

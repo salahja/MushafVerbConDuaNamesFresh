@@ -3,7 +3,6 @@ package org.sj.conjugator.utilities;
 import androidx.annotation.NonNull;
 
 import org.sj.conjugator.activity.SystemConstants;
-import org.sj.nounConjugation.GenericNounSuffixContainer;
 import org.sj.nounConjugation.TrilateralUnaugmentedNouns;
 import org.sj.nounConjugation.trilateral.augmented.AugmentedTrilateralActiveParticipleConjugator;
 import org.sj.nounConjugation.trilateral.augmented.AugmentedTrilateralPassiveParticipleConjugator;
@@ -49,8 +48,12 @@ public class GatherAll {
     }
 
     public ArrayList<ArrayList> getMujarradListing(String verbmood, String verbroot) {
-        ArrayList<ArrayList> skabeer = buildUnaugmentedLists(verbmood, verbroot);
+        return buildUnaugmentedLists(verbmood, verbroot);
+
+        /*
+          ArrayList<ArrayList> skabeer = buildUnaugmentedLists(verbmood, verbroot);
         return skabeer;
+         */
     }
 
     public ArrayList<ArrayList> getMazeedListing(String verbmood, String verbroot) {
@@ -61,51 +64,16 @@ public class GatherAll {
         return buildUnAugmentedParticpleList(verbroot, unaugmentedFormula);
     }
 
-    public ArrayList<ArrayList> getMujarradIsmAla(String verbmood, String verbroot, String unaugmentedFormula) {
-        return buildUnAugmentedNounofInstrument(verbmood, verbroot, unaugmentedFormula);
+    public ArrayList<ArrayList> getMujarradIsmAla(String verbroot, String unaugmentedFormula) {
+        return buildUnAugmentedNounofInstrument(verbroot, unaugmentedFormula);
 
     }
 
-    public ArrayList<ArrayList> getMujarradZarf(String verbmood, String verbroot, String unaugmentedFormula) {
-        return buildUnAugmentedNounofTimeAndPlace(verbmood, verbroot, unaugmentedFormula);
+    public ArrayList<ArrayList> getMujarradZarf(String verbroot, String unaugmentedFormula) {
+        return buildUnAugmentedNounofTimeAndPlace(verbroot, unaugmentedFormula);
     }
 
-    private ArrayList<ArrayList> origbuildUnAugmentedNounofTimeAndPlace(String verbmood, String verbroot, String unaugmentedFormula) {
-        ArrayList<ArrayList> skabeer = new ArrayList<>();
-        char c1 = verbroot.charAt(0);
-        char c2 = verbroot.charAt(1);
-        char c3 = verbroot.charAt(2);
-        TrilateralKovRule rule = KovRulesManager.getInstance().getTrilateralKovRule(c1, c2, c3);
-        final UnaugmentedTrilateralRoot unaugmentedTrilateralRoot = SarfDictionary.getInstance().getUnaugmentedTrilateralRoots(verbroot, unaugmentedFormula);
-
-   /*
-    "A" -> "مَفْعَل"
-"B" -> "مَفْعِل"
-"C" -> "مَفْعَلَة"
-     */
-        TimeAndPlaceConjugator zarfconjugator = TimeAndPlaceConjugator.getInstance();
-        TimeAndPlaceModifier zarfmodifier = TimeAndPlaceModifier.getInstance();
-        List mafalconjuationlist = zarfconjugator.createNounList(unaugmentedTrilateralRoot, "مَفْعَل");
-        org.sj.nounConjugation.trilateral.unaugmented.modifier.ConjugationResult mafal = zarfmodifier.build(unaugmentedTrilateralRoot, rule.getKov(), mafalconjuationlist, "مَفْعَل");
-        List zarfinalmafal = mafal.getFinalResult();
-        List mafilconjugationlist = zarfconjugator.createNounList(unaugmentedTrilateralRoot, "مَفْعِل");
-        org.sj.nounConjugation.trilateral.unaugmented.modifier.ConjugationResult mafil = zarfmodifier.build(unaugmentedTrilateralRoot, rule.getKov(), mafilconjugationlist, "مَفْعِل");
-        List zarffinalmafil = mafal.getFinalResult();
-        List mafalatunconjugationlist = zarfconjugator.createNounList(unaugmentedTrilateralRoot, "مَفْعَلَة");
-        org.sj.nounConjugation.trilateral.unaugmented.modifier.ConjugationResult mafalatun = zarfmodifier.build(unaugmentedTrilateralRoot, rule.getKov(), mafalatunconjugationlist, "مَفْعَلَة");
-        List zarffinalmafalatun = mafal.getFinalResult();
-        List<String> zarfmafal = new ArrayList<>();
-        List<String> zarfmafil = new ArrayList<>();
-        List<String> zarfmafalatun = new ArrayList<>();
-        List<String> all = new ArrayList<>();
-        all.addAll(zarfinalmafal);
-        all.addAll(zarffinalmafalatun);
-        all.addAll(zarffinalmafil);
-        skabeer.add((ArrayList) all);
-        return skabeer;
-    }
-
-    private ArrayList<ArrayList> buildUnAugmentedNounofTimeAndPlace(String verbmood, String verbroot, String unaugmentedFormula) {
+    private ArrayList<ArrayList> buildUnAugmentedNounofTimeAndPlace(String verbroot, String unaugmentedFormula) {
         ArrayList<ArrayList> skabeer = new ArrayList<>();
         char c1 = verbroot.charAt(0);
         char c2 = verbroot.charAt(1);
@@ -119,7 +87,6 @@ public class GatherAll {
      */
         if (unaugmentedTrilateralRoot != null) {
             TrilateralUnaugmentedNouns nounsObject = new TrilateralUnaugmentedNouns(unaugmentedTrilateralRoot);
-            List timeAndPlaces = nounsObject.getTimeAndPlaces();
             TimeAndPlaceConjugator zarfconjugator = TimeAndPlaceConjugator.getInstance();
             TimeAndPlaceModifier zarfmodifier = TimeAndPlaceModifier.getInstance();
             List mafalconjuationlist = zarfconjugator.createNounList(unaugmentedTrilateralRoot, "مَفْعَل");
@@ -161,7 +128,7 @@ public class GatherAll {
         return skabeer;
     }
 
-    private ArrayList<ArrayList> buildUnAugmentedNounofInstrument(String verbmood, String
+    private ArrayList<ArrayList> buildUnAugmentedNounofInstrument(String
             verbroot, String unaugmentedFormula) {
         ArrayList<ArrayList> skabeer = new ArrayList<>();
         char c1 = verbroot.charAt(0);
@@ -170,7 +137,6 @@ public class GatherAll {
         TrilateralKovRule rule = KovRulesManager.getInstance().getTrilateralKovRule(c1, c2, c3);
         final UnaugmentedTrilateralRoot unaugmentedTrilateralRoot = SarfDictionary.getInstance().getUnaugmentedTrilateralRoots(verbroot, unaugmentedFormula);
         if (unaugmentedTrilateralRoot != null) {
-            TrilateralUnaugmentedNouns nounsObject = new TrilateralUnaugmentedNouns(unaugmentedTrilateralRoot);
             StandardInstrumentalConjugator conjugator = StandardInstrumentalConjugator.getInstance();
             InstrumentalModifier modifier = InstrumentalModifier.getInstance();
             List mifal = conjugator.createNounList(unaugmentedTrilateralRoot, "مِفْعَل");
@@ -278,39 +244,36 @@ public class GatherAll {
         final UnaugmentedTrilateralRoot unaugmentedTrilateralRoot = SarfDictionary.getInstance().getUnaugmentedTrilateralRoots(verbroot);
         if (unaugmentedTrilateralRoot != null) {
             //   madhi = org.sj.verb.trilateral.unaugmented.active.ActivePastConjugator.getInstance().createVerbList((UnaugmentedTrilateralRoot) unaugmentedTrilateralRoot);
-            madhi = org.sj.verbConjugation.trilateral.unaugmented.active.ActivePastConjugator.getInstance().createVerbList((UnaugmentedTrilateralRoot) unaugmentedTrilateralRoot);
-            final ConjugationResult build = UnaugmentedTrilateralModifier.getInstance()
-                    .build((UnaugmentedTrilateralRoot) unaugmentedTrilateralRoot, rule.getKov(), madhi,
-                            SystemConstants.PAST_TENSE, true, true);
-            madhimajhool = org.sj.verbConjugation.trilateral.unaugmented.passive.PassivePastConjugator.getInstance().createVerbList((UnaugmentedTrilateralRoot) unaugmentedTrilateralRoot);
+            madhi = org.sj.verbConjugation.trilateral.unaugmented.active.ActivePastConjugator.getInstance().createVerbList(unaugmentedTrilateralRoot);
+            madhimajhool = org.sj.verbConjugation.trilateral.unaugmented.passive.PassivePastConjugator.getInstance().createVerbList(unaugmentedTrilateralRoot);
             switch (verbmood) {
                 case "Indicative":
                     mudharay = org.sj.verbConjugation.trilateral.unaugmented.active.ActivePresentConjugator.getInstance().
-                            createNominativeVerbList((UnaugmentedTrilateralRoot) unaugmentedTrilateralRoot);
+                            createNominativeVerbList(unaugmentedTrilateralRoot);
                     mudharaymajhool = org.sj.verbConjugation.trilateral.unaugmented.passive.PassivePresentConjugator.getInstance().
-                            createNominativeVerbList((UnaugmentedTrilateralRoot) unaugmentedTrilateralRoot);
+                            createNominativeVerbList(unaugmentedTrilateralRoot);
                     break;
                 case "Subjunctive":
                     mudharay = org.sj.verbConjugation.trilateral.unaugmented.active.ActivePresentConjugator.getInstance().
-                            createAccusativeVerbList((UnaugmentedTrilateralRoot) unaugmentedTrilateralRoot);
+                            createAccusativeVerbList(unaugmentedTrilateralRoot);
                     mudharaymajhool = org.sj.verbConjugation.trilateral.unaugmented.passive.PassivePresentConjugator.getInstance().
-                            createAccusativeVerbList((UnaugmentedTrilateralRoot) unaugmentedTrilateralRoot);
+                            createAccusativeVerbList(unaugmentedTrilateralRoot);
                     break;
                 case "Jussive":
                     mudharay = org.sj.verbConjugation.trilateral.unaugmented.active.ActivePresentConjugator.getInstance().
-                            createJussiveVerbList((UnaugmentedTrilateralRoot) unaugmentedTrilateralRoot);
+                            createJussiveVerbList(unaugmentedTrilateralRoot);
                     mudharaymajhool = org.sj.verbConjugation.trilateral.unaugmented.passive.PassivePresentConjugator.getInstance().
-                            createJussiveVerbList((UnaugmentedTrilateralRoot) unaugmentedTrilateralRoot);
+                            createJussiveVerbList(unaugmentedTrilateralRoot);
                     break;
                 case "Emphasized":
                     mudharay = org.sj.verbConjugation.trilateral.unaugmented.active.ActivePresentConjugator.getInstance().
-                            createEmphasizedVerbList((UnaugmentedTrilateralRoot) unaugmentedTrilateralRoot);
+                            createEmphasizedVerbList(unaugmentedTrilateralRoot);
                     mudharaymajhool = org.sj.verbConjugation.trilateral.unaugmented.passive.PassivePresentConjugator.getInstance().
-                            createEmphasizedVerbList((UnaugmentedTrilateralRoot) unaugmentedTrilateralRoot);
+                            createEmphasizedVerbList(unaugmentedTrilateralRoot);
                     break;
             }
             nahiamr = org.sj.verbConjugation.trilateral.unaugmented.active.ActivePresentConjugator.getInstance().
-                    createJussiveVerbList((UnaugmentedTrilateralRoot) unaugmentedTrilateralRoot);
+                    createJussiveVerbList(unaugmentedTrilateralRoot);
             amr = org.sj.verbConjugation.trilateral.unaugmented.UnaugmentedImperativeConjugator.getInstance().createVerbList(unaugmentedTrilateralRoot);
             //    public ConjugationResult build(UnaugmentedTrilateralRoot root, int kov, List conjugations, String tense, boolean active, boolean applyGemination) {
             //   result =  AugmentedActivePastConjugator.getInstance().createVerbList(augmentedRoot, getForm());
@@ -357,12 +320,10 @@ public class GatherAll {
             ConjugationResult conjResultmifaal = modifier.build(unaugmentedTrilateralRoot, rule.getKov(), mifaal, "مِفْعَال");
             List finalAlamifaal = conjResultmifaal.getFinalResult();
             List faalatun = conjugator.createNounList(unaugmentedTrilateralRoot, "فَعَّالَة");
-            ConjugationResult conjResultfaalatun = modifier.build(unaugmentedTrilateralRoot, rule.getKov(), faalatun, "فَعَّالَة");
             //zarf
             TimeAndPlaceConjugator zarfconjugator = TimeAndPlaceConjugator.getInstance();
             TimeAndPlaceModifier zarfmodifier = TimeAndPlaceModifier.getInstance();
             List mafalconjuationlist = zarfconjugator.createNounList(unaugmentedTrilateralRoot, "مَفْعَل");
-            org.sj.nounConjugation.trilateral.unaugmented.modifier.ConjugationResult mafal = zarfmodifier.build(unaugmentedTrilateralRoot, rule.getKov(), mafalconjuationlist, "مَفْعَل");
             List mafilconjugationlist = zarfconjugator.createNounList(unaugmentedTrilateralRoot, "مَفْعِل");
             org.sj.nounConjugation.trilateral.unaugmented.modifier.ConjugationResult mafil = zarfmodifier.build(unaugmentedTrilateralRoot, rule.getKov(), mafilconjugationlist, "مَفْعِل");
             List zarffinalmafil = mafil.getFinalResult();
@@ -378,13 +339,15 @@ public class GatherAll {
             amr.removeAll(Collections.singleton(null));
             String la = "لا";
             final List list = nahiamr.subList(6, 11);
+
             ArrayList<String> nm = new ArrayList<>();
             StringBuilder sb;
-            for (Object o : list) {
+        /*    for (Object o : list) {
                 sb = new StringBuilder();
                 nm.add(sb.append(la).append(" ").append(o.toString()).toString());
 
-            }
+            }*/
+
             List<String> listmadhi = new ArrayList<>();
             List<String> listmadhimajhool = new ArrayList<>();
             List<String> listmudharay = new ArrayList<>();
@@ -524,7 +487,6 @@ public class GatherAll {
         char c1 = verbroot.charAt(0);
         char c2 = verbroot.charAt(1);
         char c3 = verbroot.charAt(2);
-        Character C1 = verbroot.charAt(0);
         List madhimajhool;
         List mudharay = null;
         List amr, nahiamr;
@@ -534,40 +496,39 @@ public class GatherAll {
         final UnaugmentedTrilateralRoot unaugmentedTrilateralRoot = SarfDictionary.getInstance().getUnaugmentedTrilateralRoots(verbroot, unaugmentedFormula);
         if (unaugmentedTrilateralRoot != null) {
             //   madhi = org.sj.verb.trilateral.unaugmented.active.ActivePastConjugator.getInstance().createVerbList((UnaugmentedTrilateralRoot) unaugmentedTrilateralRoot);
-            madhi = org.sj.verbConjugation.trilateral.unaugmented.active.ActivePastConjugator.getInstance().createVerbList((UnaugmentedTrilateralRoot) unaugmentedTrilateralRoot);
-            final ConjugationResult build = UnaugmentedTrilateralModifier.getInstance()
-                    .build((UnaugmentedTrilateralRoot) unaugmentedTrilateralRoot, rule.getKov(), madhi,
-                            SystemConstants.PAST_TENSE, true, true);
-            final List finalResult1 = build.getFinalResult();
-            madhimajhool = org.sj.verbConjugation.trilateral.unaugmented.passive.PassivePastConjugator.getInstance().createVerbList((UnaugmentedTrilateralRoot) unaugmentedTrilateralRoot);
+            madhi = org.sj.verbConjugation.trilateral.unaugmented.active.ActivePastConjugator.getInstance().createVerbList(unaugmentedTrilateralRoot);
+   /*         final ConjugationResult build = UnaugmentedTrilateralModifier.getInstance()
+                    .build(unaugmentedTrilateralRoot, rule.getKov(), madhi,
+                            SystemConstants.PAST_TENSE, true, true);*/
+            madhimajhool = org.sj.verbConjugation.trilateral.unaugmented.passive.PassivePastConjugator.getInstance().createVerbList(unaugmentedTrilateralRoot);
             switch (verbmood) {
                 case "Indicative":
                     mudharay = org.sj.verbConjugation.trilateral.unaugmented.active.ActivePresentConjugator.getInstance().
-                            createNominativeVerbList((UnaugmentedTrilateralRoot) unaugmentedTrilateralRoot);
+                            createNominativeVerbList(unaugmentedTrilateralRoot);
                     mudharaymajhool = org.sj.verbConjugation.trilateral.unaugmented.passive.PassivePresentConjugator.getInstance().
-                            createNominativeVerbList((UnaugmentedTrilateralRoot) unaugmentedTrilateralRoot);
+                            createNominativeVerbList(unaugmentedTrilateralRoot);
                     break;
                 case "Subjunctive":
                     mudharay = org.sj.verbConjugation.trilateral.unaugmented.active.ActivePresentConjugator.getInstance().
-                            createAccusativeVerbList((UnaugmentedTrilateralRoot) unaugmentedTrilateralRoot);
+                            createAccusativeVerbList(unaugmentedTrilateralRoot);
                     mudharaymajhool = org.sj.verbConjugation.trilateral.unaugmented.passive.PassivePresentConjugator.getInstance().
-                            createAccusativeVerbList((UnaugmentedTrilateralRoot) unaugmentedTrilateralRoot);
+                            createAccusativeVerbList(unaugmentedTrilateralRoot);
                     break;
                 case "Jussive":
                     mudharay = org.sj.verbConjugation.trilateral.unaugmented.active.ActivePresentConjugator.getInstance().
-                            createJussiveVerbList((UnaugmentedTrilateralRoot) unaugmentedTrilateralRoot);
+                            createJussiveVerbList(unaugmentedTrilateralRoot);
                     mudharaymajhool = org.sj.verbConjugation.trilateral.unaugmented.passive.PassivePresentConjugator.getInstance().
-                            createJussiveVerbList((UnaugmentedTrilateralRoot) unaugmentedTrilateralRoot);
+                            createJussiveVerbList(unaugmentedTrilateralRoot);
                     break;
                 case "Emphasized":
                     mudharay = org.sj.verbConjugation.trilateral.unaugmented.active.ActivePresentConjugator.getInstance().
-                            createEmphasizedVerbList((UnaugmentedTrilateralRoot) unaugmentedTrilateralRoot);
+                            createEmphasizedVerbList(unaugmentedTrilateralRoot);
                     mudharaymajhool = org.sj.verbConjugation.trilateral.unaugmented.passive.PassivePresentConjugator.getInstance().
-                            createEmphasizedVerbList((UnaugmentedTrilateralRoot) unaugmentedTrilateralRoot);
+                            createEmphasizedVerbList(unaugmentedTrilateralRoot);
                     break;
             }
             nahiamr = org.sj.verbConjugation.trilateral.unaugmented.active.ActivePresentConjugator.getInstance().
-                    createJussiveVerbList((UnaugmentedTrilateralRoot) unaugmentedTrilateralRoot);
+                    createJussiveVerbList(unaugmentedTrilateralRoot);
             amr = org.sj.verbConjugation.trilateral.unaugmented.UnaugmentedImperativeConjugator.getInstance().createVerbList(unaugmentedTrilateralRoot);
             //    public ConjugationResult build(UnaugmentedTrilateralRoot root, int kov, List conjugations, String tense, boolean active, boolean applyGemination) {
             //   result =  AugmentedActivePastConjugator.getInstance().createVerbList(augmentedRoot, getForm());
@@ -586,13 +547,11 @@ public class GatherAll {
             //ismfale and ismmafool
             List conjugatedIsmFael = UnaugmentedTrilateralActiveParticipleConjugator.getInstance().createNounList(unaugmentedTrilateralRoot,
                     unaugmentedTrilateralRoot.getConjugation());
-            final String formula = "";
             final org.sj.nounConjugation.trilateral.unaugmented.modifier.ConjugationResult conjugationResult = org.sj.nounConjugation.trilateral.unaugmented.modifier.activeparticiple.ActiveParticipleModifier.
                     getInstance().build(unaugmentedTrilateralRoot, rule.getKov(), conjugatedIsmFael, "");
             final List finalIsmFael = conjugationResult.getFinalResult();
             List conjugatedIsmMafool = UnaugmentedTrilateralPassiveParticipleConjugator.getInstance().createNounList(unaugmentedTrilateralRoot,
                     unaugmentedTrilateralRoot.getConjugation());
-            final String formulas = "";
             final org.sj.nounConjugation.trilateral.unaugmented.modifier.ConjugationResult ismmafoolresult =
                     PassiveParticipleModifier.
                             getInstance().build(unaugmentedTrilateralRoot, rule.getKov(), conjugatedIsmMafool, "");
@@ -606,7 +565,6 @@ public class GatherAll {
      */
             StandardInstrumentalConjugator conjugator = StandardInstrumentalConjugator.getInstance();
             InstrumentalModifier modifier = InstrumentalModifier.getInstance();
-            GenericNounSuffixContainer instance = GenericNounSuffixContainer.getInstance();
             final String title = "مِفْعَلَة";
             List mifal = conjugator.createNounList(unaugmentedTrilateralRoot, "مِفْعَل");
             ConjugationResult conjResultmifal = modifier.build(unaugmentedTrilateralRoot, rule.getKov(), mifal, "مِفْعَل");
@@ -619,7 +577,6 @@ public class GatherAll {
             List finalAlamifaal = conjResultmifaal.getFinalResult();
             List faalatun = conjugator.createNounList(unaugmentedTrilateralRoot, "فَعَّالَة");
             ConjugationResult conjResultfaalatun = modifier.build(unaugmentedTrilateralRoot, rule.getKov(), faalatun, "فَعَّالَة");
-            List finalfaalatun = conjResultfaalatun.getFinalResult();
             //zarf
             TimeAndPlaceConjugator zarfconjugator = TimeAndPlaceConjugator.getInstance();
             TimeAndPlaceModifier zarfmodifier = TimeAndPlaceModifier.getInstance();
@@ -798,58 +755,58 @@ public class GatherAll {
         ArrayList<ArrayList> skabeer = new ArrayList<>();
         if (augmentedRoot != null) {
             TrilateralKovRule rule = KovRulesManager.getInstance().getTrilateralKovRule(c1, c2, c3);
-            madhi = AugmentedActivePastConjugator.getInstance().createVerbList((AugmentedTrilateralRoot) augmentedRoot, Integer.parseInt(augmentedRoot.getForm()));
-            madhimajhool = AugmentedPassivePastConjugator.getInstance().createVerbList((AugmentedTrilateralRoot) augmentedRoot, Integer.parseInt(augmentedRoot.getForm()));
+            madhi = AugmentedActivePastConjugator.getInstance().createVerbList(augmentedRoot, Integer.parseInt(augmentedRoot.getForm()));
+            madhimajhool = AugmentedPassivePastConjugator.getInstance().createVerbList(augmentedRoot, Integer.parseInt(augmentedRoot.getForm()));
             switch (verbmood) {
                 case "Indicative":
                     mudharay = AugmentedActivePresentConjugator.getInstance().
-                            getNominativeConjugator().createVerbList((AugmentedTrilateralRoot) augmentedRoot, Integer.parseInt(augmentedFormula));
+                            getNominativeConjugator().createVerbList(augmentedRoot, Integer.parseInt(augmentedFormula));
                     mudharaymajhool = AugmentedPassivePresentConjugator.getInstance().
-                            getNominativeConjugator().createVerbList((AugmentedTrilateralRoot) augmentedRoot, Integer.parseInt(augmentedFormula));
+                            getNominativeConjugator().createVerbList(augmentedRoot, Integer.parseInt(augmentedFormula));
                     break;
                 case "Subjunctive":
                     mudharay = AugmentedActivePresentConjugator.getInstance().
-                            getAccusativeConjugator().createVerbList((AugmentedTrilateralRoot) augmentedRoot, Integer.parseInt(augmentedFormula));
+                            getAccusativeConjugator().createVerbList(augmentedRoot, Integer.parseInt(augmentedFormula));
                     mudharaymajhool = AugmentedPassivePresentConjugator.getInstance().
-                            getAccusativeConjugator().createVerbList((AugmentedTrilateralRoot) augmentedRoot, Integer.parseInt(augmentedFormula));
+                            getAccusativeConjugator().createVerbList(augmentedRoot, Integer.parseInt(augmentedFormula));
                     break;
                 case "Jussive":
                     mudharay = AugmentedActivePresentConjugator.getInstance().
-                            getJussiveConjugator().createVerbList((AugmentedTrilateralRoot) augmentedRoot, Integer.parseInt(augmentedFormula));
+                            getJussiveConjugator().createVerbList(augmentedRoot, Integer.parseInt(augmentedFormula));
                     mudharaymajhool = AugmentedPassivePresentConjugator.getInstance().
-                            getJussiveConjugator().createVerbList((AugmentedTrilateralRoot) augmentedRoot, Integer.parseInt(augmentedFormula));
+                            getJussiveConjugator().createVerbList(augmentedRoot, Integer.parseInt(augmentedFormula));
                     break;
                 case "Emphasized":
                     mudharay = AugmentedActivePresentConjugator.getInstance().
-                            getEmphasizedConjugator().createVerbList((AugmentedTrilateralRoot) augmentedRoot, Integer.parseInt(augmentedFormula));
+                            getEmphasizedConjugator().createVerbList(augmentedRoot, Integer.parseInt(augmentedFormula));
                     mudharaymajhool = AugmentedPassivePresentConjugator.getInstance().
-                            getEmphasizedConjugator().createVerbList((AugmentedTrilateralRoot) augmentedRoot, Integer.parseInt(augmentedFormula));
+                            getEmphasizedConjugator().createVerbList(augmentedRoot, Integer.parseInt(augmentedFormula));
                     break;
             }
             nahiamr = AugmentedActivePresentConjugator.getInstance().
-                    getJussiveConjugator().createVerbList((AugmentedTrilateralRoot) augmentedRoot, Integer.parseInt(augmentedFormula));
+                    getJussiveConjugator().createVerbList(augmentedRoot, Integer.parseInt(augmentedFormula));
             amr = AugmentedImperativeConjugator.getInstance().
-                    getNotEmphsizedConjugator().createVerbList((AugmentedTrilateralRoot) augmentedRoot, Integer.parseInt(augmentedFormula));
-            final MazeedConjugationResult madhiconjresult = AugmentedTrilateralModifier.getInstance().build((AugmentedTrilateralRoot) augmentedRoot, rule.getKov(), Integer.parseInt(augmentedRoot.getForm()), madhi,
+                    getNotEmphsizedConjugator().createVerbList(augmentedRoot, Integer.parseInt(augmentedFormula));
+            final MazeedConjugationResult madhiconjresult = AugmentedTrilateralModifier.getInstance().build(augmentedRoot, rule.getKov(), Integer.parseInt(augmentedRoot.getForm()), madhi,
                     SystemConstants.PAST_TENSE, true, true);
-            final MazeedConjugationResult madhimajhoolconj = AugmentedTrilateralModifier.getInstance().build((AugmentedTrilateralRoot) augmentedRoot, rule.getKov(), Integer.parseInt(augmentedRoot.getForm()), madhimajhool,
+            final MazeedConjugationResult madhimajhoolconj = AugmentedTrilateralModifier.getInstance().build(augmentedRoot, rule.getKov(), Integer.parseInt(augmentedRoot.getForm()), madhimajhool,
                     SystemConstants.PAST_TENSE, true, true);
-            final MazeedConjugationResult mudharayconj = AugmentedTrilateralModifier.getInstance().build((AugmentedTrilateralRoot) augmentedRoot, rule.getKov(), Integer.parseInt(augmentedRoot.getForm()), mudharay,
+            final MazeedConjugationResult mudharayconj = AugmentedTrilateralModifier.getInstance().build(augmentedRoot, rule.getKov(), Integer.parseInt(augmentedRoot.getForm()), mudharay,
                     SystemConstants.PRESENT_TENSE, true, true);
-            final MazeedConjugationResult mudharaymajhoolconj = AugmentedTrilateralModifier.getInstance().build((AugmentedTrilateralRoot) augmentedRoot, rule.getKov(), Integer.parseInt(augmentedRoot.getForm()), mudharaymajhool,
+            final MazeedConjugationResult mudharaymajhoolconj = AugmentedTrilateralModifier.getInstance().build(augmentedRoot, rule.getKov(), Integer.parseInt(augmentedRoot.getForm()), mudharaymajhool,
                     SystemConstants.PRESENT_TENSE, false, true);
-            final MazeedConjugationResult amrconj = AugmentedTrilateralModifier.getInstance().build((AugmentedTrilateralRoot) augmentedRoot, rule.getKov(), Integer.parseInt(augmentedRoot.getForm()), amr,
+            final MazeedConjugationResult amrconj = AugmentedTrilateralModifier.getInstance().build(augmentedRoot, rule.getKov(), Integer.parseInt(augmentedRoot.getForm()), amr,
                     SystemConstants.NOT_EMPHASIZED_IMPERATIVE_TENSE, true, true);
-            final MazeedConjugationResult nahiamrconj = AugmentedTrilateralModifier.getInstance().build((AugmentedTrilateralRoot) augmentedRoot, rule.getKov(), Integer.parseInt(augmentedRoot.getForm()), nahiamr,
+            final MazeedConjugationResult nahiamrconj = AugmentedTrilateralModifier.getInstance().build(augmentedRoot, rule.getKov(), Integer.parseInt(augmentedRoot.getForm()), nahiamr,
                     SystemConstants.PRESENT_TENSE, true, true);
-            ismfael = AugmentedTrilateralActiveParticipleConjugator.getInstance().createNounList((AugmentedTrilateralRoot) augmentedRoot,
+            ismfael = AugmentedTrilateralActiveParticipleConjugator.getInstance().createNounList(augmentedRoot,
                     Integer.parseInt(augmentedFormula));
-            MazeedConjugationResult conjResult = ActiveParticipleModifier.getInstance().build((AugmentedTrilateralRoot) augmentedRoot, rule.getKov(),
+            MazeedConjugationResult conjResult = ActiveParticipleModifier.getInstance().build(augmentedRoot, rule.getKov(),
                     Integer.parseInt(augmentedRoot.getForm()), ismfael, true);
             ismfael = conjResult.getFinalResult();
-            ismmafool = AugmentedTrilateralPassiveParticipleConjugator.getInstance().createNounList((AugmentedTrilateralRoot) augmentedRoot,
+            ismmafool = AugmentedTrilateralPassiveParticipleConjugator.getInstance().createNounList(augmentedRoot,
                     Integer.parseInt(augmentedFormula));
-            MazeedConjugationResult ismmafoolresult = ActiveParticipleModifier.getInstance().build((AugmentedTrilateralRoot) augmentedRoot, rule.getKov(),
+            MazeedConjugationResult ismmafoolresult = ActiveParticipleModifier.getInstance().build(augmentedRoot, rule.getKov(),
                     Integer.parseInt(augmentedRoot.getForm()), ismmafool, true);
             ismmafool = ismmafoolresult.getFinalResult();
             madhi = madhiconjresult.getFinalResult();
@@ -970,59 +927,57 @@ public class GatherAll {
         TrilateralKovRule rule = KovRulesManager.getInstance().getTrilateralKovRule(c1, c2, c3);
         if (augmentedRoot != null) {
             //    if (selectionInfo.isAugmented()) {
-            madhi = AugmentedActivePastConjugator.getInstance().createVerbList((AugmentedTrilateralRoot) augmentedRoot, Integer.parseInt(augmentedRoot.getForm()));
-            madhimajhool = AugmentedPassivePastConjugator.getInstance().createVerbList((AugmentedTrilateralRoot) augmentedRoot, Integer.parseInt(augmentedRoot.getForm()));
+            madhi = AugmentedActivePastConjugator.getInstance().createVerbList(augmentedRoot, Integer.parseInt(augmentedRoot.getForm()));
+            madhimajhool = AugmentedPassivePastConjugator.getInstance().createVerbList(augmentedRoot, Integer.parseInt(augmentedRoot.getForm()));
             switch (verbmood) {
                 case "Indicative":
                     mudharay = AugmentedActivePresentConjugator.getInstance().
-                            getNominativeConjugator().createVerbList((AugmentedTrilateralRoot) augmentedRoot, Integer.parseInt(augmentedRoot.getForm()));
+                            getNominativeConjugator().createVerbList(augmentedRoot, Integer.parseInt(augmentedRoot.getForm()));
                     mudharaymajhool = AugmentedPassivePresentConjugator.getInstance().
-                            getNominativeConjugator().createVerbList((AugmentedTrilateralRoot) augmentedRoot, Integer.parseInt(augmentedRoot.getForm()));
+                            getNominativeConjugator().createVerbList(augmentedRoot, Integer.parseInt(augmentedRoot.getForm()));
                     break;
                 case "Subjunctive":
                     mudharay = AugmentedActivePresentConjugator.getInstance().
-                            getAccusativeConjugator().createVerbList((AugmentedTrilateralRoot) augmentedRoot, Integer.parseInt(augmentedRoot.getForm()));
+                            getAccusativeConjugator().createVerbList(augmentedRoot, Integer.parseInt(augmentedRoot.getForm()));
                     mudharaymajhool = AugmentedPassivePresentConjugator.getInstance().
-                            getAccusativeConjugator().createVerbList((AugmentedTrilateralRoot) augmentedRoot, Integer.parseInt(augmentedRoot.getForm()));
+                            getAccusativeConjugator().createVerbList(augmentedRoot, Integer.parseInt(augmentedRoot.getForm()));
                     break;
                 case "Jussive":
                     mudharay = AugmentedActivePresentConjugator.getInstance().
-                            getJussiveConjugator().createVerbList((AugmentedTrilateralRoot) augmentedRoot, Integer.parseInt(augmentedRoot.getForm()));
+                            getJussiveConjugator().createVerbList(augmentedRoot, Integer.parseInt(augmentedRoot.getForm()));
                     mudharaymajhool = AugmentedPassivePresentConjugator.getInstance().
-                            getJussiveConjugator().createVerbList((AugmentedTrilateralRoot) augmentedRoot, Integer.parseInt(augmentedRoot.getForm()));
+                            getJussiveConjugator().createVerbList(augmentedRoot, Integer.parseInt(augmentedRoot.getForm()));
                     break;
                 case "Emphasized":
                     mudharay = AugmentedActivePresentConjugator.getInstance().
-                            getEmphasizedConjugator().createVerbList((AugmentedTrilateralRoot) augmentedRoot, Integer.parseInt(augmentedRoot.getForm()));
+                            getEmphasizedConjugator().createVerbList(augmentedRoot, Integer.parseInt(augmentedRoot.getForm()));
                     mudharaymajhool = AugmentedPassivePresentConjugator.getInstance().
-                            getEmphasizedConjugator().createVerbList((AugmentedTrilateralRoot) augmentedRoot, Integer.parseInt(augmentedRoot.getForm()));
+                            getEmphasizedConjugator().createVerbList(augmentedRoot, Integer.parseInt(augmentedRoot.getForm()));
                     break;
             }
             nahiamr = AugmentedActivePresentConjugator.getInstance().
-                    getJussiveConjugator().createVerbList((AugmentedTrilateralRoot) augmentedRoot, Integer.parseInt(augmentedRoot.getForm()));
+                    getJussiveConjugator().createVerbList(augmentedRoot, Integer.parseInt(augmentedRoot.getForm()));
             amr = AugmentedImperativeConjugator.getInstance().
-                    getNotEmphsizedConjugator().createVerbList((AugmentedTrilateralRoot) augmentedRoot, Integer.parseInt(augmentedRoot.getForm()));
-            final MazeedConjugationResult madhiconjresult = AugmentedTrilateralModifier.getInstance().build((AugmentedTrilateralRoot) augmentedRoot, rule.getKov(), Integer.parseInt(augmentedRoot.getForm()), madhi,
+                    getNotEmphsizedConjugator().createVerbList(augmentedRoot, Integer.parseInt(augmentedRoot.getForm()));
+            final MazeedConjugationResult madhiconjresult = AugmentedTrilateralModifier.getInstance().build(augmentedRoot, rule.getKov(), Integer.parseInt(augmentedRoot.getForm()), madhi,
                     SystemConstants.PAST_TENSE, true, true);
-            final MazeedConjugationResult madhimajhoolconj = AugmentedTrilateralModifier.getInstance().build((AugmentedTrilateralRoot) augmentedRoot, rule.getKov(), Integer.parseInt(augmentedRoot.getForm()), madhimajhool,
+            final MazeedConjugationResult madhimajhoolconj = AugmentedTrilateralModifier.getInstance().build(augmentedRoot, rule.getKov(), Integer.parseInt(augmentedRoot.getForm()), madhimajhool,
                     SystemConstants.PAST_TENSE, true, true);
-            final MazeedConjugationResult mudharayconj = AugmentedTrilateralModifier.getInstance().build((AugmentedTrilateralRoot) augmentedRoot, rule.getKov(), Integer.parseInt(augmentedRoot.getForm()), mudharay,
+            final MazeedConjugationResult mudharayconj = AugmentedTrilateralModifier.getInstance().build(augmentedRoot, rule.getKov(), Integer.parseInt(augmentedRoot.getForm()), mudharay,
                     SystemConstants.PRESENT_TENSE, true, true);
-            final MazeedConjugationResult mudharaymajhoolconj = AugmentedTrilateralModifier.getInstance().build((AugmentedTrilateralRoot) augmentedRoot, rule.getKov(), Integer.parseInt(augmentedRoot.getForm()), mudharaymajhool,
+            final MazeedConjugationResult mudharaymajhoolconj = AugmentedTrilateralModifier.getInstance().build(augmentedRoot, rule.getKov(), Integer.parseInt(augmentedRoot.getForm()), mudharaymajhool,
                     SystemConstants.PRESENT_TENSE, false, true);
-            final MazeedConjugationResult amrconj = AugmentedTrilateralModifier.getInstance().build((AugmentedTrilateralRoot) augmentedRoot, rule.getKov(), Integer.parseInt(augmentedRoot.getForm()), amr,
+            final MazeedConjugationResult amrconj = AugmentedTrilateralModifier.getInstance().build(augmentedRoot, rule.getKov(), Integer.parseInt(augmentedRoot.getForm()), amr,
                     SystemConstants.NOT_EMPHASIZED_IMPERATIVE_TENSE, true, true);
-            final MazeedConjugationResult nahiamrconj = AugmentedTrilateralModifier.getInstance().build((AugmentedTrilateralRoot) augmentedRoot, rule.getKov(), Integer.parseInt(augmentedRoot.getForm()), nahiamr,
+            final MazeedConjugationResult nahiamrconj = AugmentedTrilateralModifier.getInstance().build(augmentedRoot, rule.getKov(), Integer.parseInt(augmentedRoot.getForm()), nahiamr,
                     SystemConstants.PRESENT_TENSE, true, true);
-            ismfael = AugmentedTrilateralActiveParticipleConjugator.getInstance().createNounList((AugmentedTrilateralRoot) augmentedRoot,
+            ismfael = AugmentedTrilateralActiveParticipleConjugator.getInstance().createNounList(augmentedRoot,
                     Integer.parseInt(augmentedRoot.getForm()));
-            MazeedConjugationResult conjResult = ActiveParticipleModifier.getInstance().build((AugmentedTrilateralRoot) augmentedRoot, rule.getKov(),
+            MazeedConjugationResult conjResult = ActiveParticipleModifier.getInstance().build(augmentedRoot, rule.getKov(),
                     Integer.parseInt(augmentedRoot.getForm()), ismfael, true);
             ismfael = conjResult.getFinalResult();
-            ismmafool = AugmentedTrilateralPassiveParticipleConjugator.getInstance().createNounList((AugmentedTrilateralRoot) augmentedRoot,
+            ismmafool = AugmentedTrilateralPassiveParticipleConjugator.getInstance().createNounList(augmentedRoot,
                     Integer.parseInt(augmentedRoot.getForm()));
-            MazeedConjugationResult ismmafoolresult = ActiveParticipleModifier.getInstance().build((AugmentedTrilateralRoot) augmentedRoot, rule.getKov(),
-                    Integer.parseInt(augmentedRoot.getForm()), ismmafool, true);
             ismmafool = conjResult.getFinalResult();
             madhi = madhiconjresult.getFinalResult();
             madhimajhool = madhimajhoolconj.getFinalResult();
@@ -1130,9 +1085,6 @@ public class GatherAll {
         char c1 = verbroot.charAt(0);
         char c2 = verbroot.charAt(1);
         char c3 = verbroot.charAt(2);
-        Character C1 = verbroot.charAt(0);
-        Character C2 = verbroot.charAt(1);
-        Character C3 = verbroot.charAt(2);
         int aleph = verbroot.indexOf("ا");
         int alephhamza = verbroot.indexOf("أ");
         if (aleph != -1) {
@@ -1146,21 +1098,21 @@ public class GatherAll {
         ArrayList<ArrayList> skabeer = new ArrayList<>();
         if (augmentedRoot != null) {
             TrilateralKovRule rule = KovRulesManager.getInstance().getTrilateralKovRule(c1, c2, c3);
-            ismfael = AugmentedTrilateralActiveParticipleConjugator.getInstance().createNounList((AugmentedTrilateralRoot) augmentedRoot,
+            ismfael = AugmentedTrilateralActiveParticipleConjugator.getInstance().createNounList(augmentedRoot,
                     Integer.parseInt(augmentedFormula));
-            MazeedConjugationResult conjResult = ActiveParticipleModifier.getInstance().build((AugmentedTrilateralRoot) augmentedRoot, rule.getKov(),
+            MazeedConjugationResult conjResult = ActiveParticipleModifier.getInstance().build(augmentedRoot, rule.getKov(),
                     Integer.parseInt(augmentedRoot.getForm()), ismfael, true);
             ismfael = conjResult.getFinalResult();
-            ismmafool = AugmentedTrilateralPassiveParticipleConjugator.getInstance().createNounList((AugmentedTrilateralRoot) augmentedRoot,
+            ismmafool = AugmentedTrilateralPassiveParticipleConjugator.getInstance().createNounList(augmentedRoot,
                     Integer.parseInt(augmentedFormula));
-            MazeedConjugationResult ismmafoolresult = ActiveParticipleModifier.getInstance().build((AugmentedTrilateralRoot) augmentedRoot, rule.getKov(),
+            MazeedConjugationResult ismmafoolresult = ActiveParticipleModifier.getInstance().build(augmentedRoot, rule.getKov(),
                     Integer.parseInt(augmentedRoot.getForm()), ismmafool, true);
             ismmafool = ismmafoolresult.getFinalResult();
             List<String> listismfael = new ArrayList<String>(ismfael);
             List<String> listismmafool = new ArrayList<String>(ismmafool);
-            List<String> vdetails = new ArrayList<>();
-            vdetails.add(String.valueOf(rule.getDesc()));
-            vdetails.add(augmentedRoot.getBabname());
+         //   List<String> vdetails = new ArrayList<>();
+          //  vdetails.add(String.valueOf(rule.getDesc()));
+           // vdetails.add(augmentedRoot.getBabname());
             skabeer.add((ArrayList) listismfael);
             skabeer.add((ArrayList) listismmafool);
             return skabeer;

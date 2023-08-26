@@ -19,15 +19,15 @@ import java.util.ArrayList;
 public class AssimilateFormulaCSuffixContainer implements INounSuffixContainer {
     private static final AssimilateFormulaCSuffixContainer instance = new AssimilateFormulaCSuffixContainer();
     //حالة النكرة
-    private final ArrayList indefiniteSuffixList = new ArrayList(18);
+    private final ArrayList<String> indefiniteSuffixList = new ArrayList<>(18);
     //حالة المعرفة
-    private final ArrayList definiteSuffixList = new ArrayList(18);
+    private final ArrayList<String> definiteSuffixList = new ArrayList<String>(18);
     //حالة الاضافة
-    private final ArrayList annexedSuffixList = new ArrayList(18);
+    private final ArrayList<String> annexedSuffixList = new ArrayList<String>(18);
     //تكون لها قيمة عندما تكون الحالة هي معرفة
     private String prefix = "";
     //يمثل القائمة المختارة تبعاً للحالة
-    private ArrayList currentSuffixList = indefiniteSuffixList;
+    private ArrayList<String> currentSuffixList = indefiniteSuffixList;
 
     private AssimilateFormulaCSuffixContainer() {
         indefiniteSuffixList.add("ُ");
@@ -111,7 +111,7 @@ public class AssimilateFormulaCSuffixContainer implements INounSuffixContainer {
     }
 
     public String get(int index) {
-        return (String) currentSuffixList.get(index);
+        return currentSuffixList.get(index);
     }
 
 }

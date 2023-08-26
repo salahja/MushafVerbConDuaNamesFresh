@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class WawiPastVocalizer extends SubstitutionsApplier implements IAugmentedTrilateralModifier {
-    private final List substitutions = new LinkedList();
+    private final List<InfixSubstitution> substitutions = new LinkedList<>();
 
     public WawiPastVocalizer() {
         substitutions.add(new InfixSubstitution("ِيْ", "ِي"));// EX: (أنا أُوصِيتُ، وُفِّيتُ، وُولِيتُ، اتُّقِيتُ، تُوُوريتُ، تُوُلِّيتُ، استُوفِيتُ)

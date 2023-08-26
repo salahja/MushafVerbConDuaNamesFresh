@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class ElativeNounConjugator implements IUnaugmentedTrilateralNounConjugator {
     private static final ElativeNounConjugator instance = new ElativeNounConjugator();
-    static List formulas = new ArrayList(1);
+    static List<String> formulas = new ArrayList<>(1);
 
     static {
         formulas.add("أَفْعَل");
@@ -38,7 +38,7 @@ public class ElativeNounConjugator implements IUnaugmentedTrilateralNounConjugat
     }
 
     public List createNounList(UnaugmentedTrilateralRoot root, String formulaName) {
-        List result = new LinkedList();
+        List<NounFormula> result = new LinkedList<>();
         for (int i = 0; i < 18; i++) {
             NounFormula noun = new GenericElativeNounFormula(root, i + "");
             result.add(noun);
@@ -54,9 +54,9 @@ public class ElativeNounConjugator implements IUnaugmentedTrilateralNounConjugat
             return null;
         if (formulaTree == null)
             return null;
-        Iterator iter = formulaTree.getFormulaList().iterator();
+        Iterator<ElativeNounFormula> iter = formulaTree.getFormulaList().iterator();
         while (iter.hasNext()) {
-            ElativeNounFormula formula = (ElativeNounFormula) iter.next();
+            ElativeNounFormula formula = iter.next();
             if (formula.getC2() == root.getC2() && formula.getC3() == root.getC3()) {
                 return formulas;
             }

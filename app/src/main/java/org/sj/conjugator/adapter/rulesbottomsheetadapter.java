@@ -60,26 +60,20 @@ public class rulesbottomsheetadapter extends RecyclerView.Adapter<rulesbottomshe
     }
 
     public void onBindViewHolder(@NotNull ViewHolder holder, int position) {
-        //  final List sarf = sarfSagheer.get(position);
-//        final String[] array = (String[]) sarfSagheer.get(position).toArray.get();
-        SharedPreferences shared = getDefaultSharedPreferences(QuranGrammarApplication.getContext());
-        String preferences = shared.getString("theme", "dark");
-        int cweakness = 0;
-        int crootword = 0;
-        final int cbabcolor;
+
+
+
         kov toArray = kovArrayList.get(position);
-        //  final Object[] toArray.get = sarfSagheer.get(position).toArray.get();
-        //  final ArrayList arrayList = (ArrayList) sarfSagheer.get(position).get(position);
-        // final Typeface mequran = Typeface.createFromAsset(context.getAssets(), shared.getString("arabic_font_category","me_quran.tff"));
+
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.getContext());
         String fonts = prefs.getString("Arabic_Font_Size", "25");
-        //  String arabic_font_category = prefs.getString("arabic_font_category", "kitab.tff");
+
         Typeface mequran = Typeface.createFromAsset(QuranGrammarApplication.getContext().getAssets(), "me_quran.ttf");
         final Integer arabicFontsize = Integer.valueOf(fonts);
-        //    holder.rulenumber.setTextSize(arabicFontsize);
-        holder.rulenumber.setText(toArray.getRulename() + "(" + toArray.getExample() + ")"
-                //    holder.rulenumber.setTextSize(arabicFontsize);
-        );
+
+        holder.rulenumber.setText(new StringBuilder().append(toArray.getRulename()).append("(").append(toArray.getExample()).append(")").toString());
+
+
         holder.rulenumber.setTextSize(arabicFontsize);
         holder.rulenumber.setTypeface(mequran);
 

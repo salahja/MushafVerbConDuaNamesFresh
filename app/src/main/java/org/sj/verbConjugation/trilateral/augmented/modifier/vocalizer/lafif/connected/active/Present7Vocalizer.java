@@ -11,7 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Present7Vocalizer extends SubstitutionsApplier implements IAugmentedTrilateralModifier {
-    private final List substitutions = new LinkedList();
+    private final List<org.sj.verbConjugation.trilateral.Substitution.Substitution> substitutions = new LinkedList<>();
 
     public Present7Vocalizer() {
         substitutions.add(new SuffixSubstitution("وُ", "ي")); // EX: (يُسْوِي، يُساوِي، تنغوي، يستوي، يستغوي)

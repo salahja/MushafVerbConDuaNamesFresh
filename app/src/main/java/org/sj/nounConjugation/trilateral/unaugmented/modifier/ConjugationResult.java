@@ -2,6 +2,7 @@ package org.sj.nounConjugation.trilateral.unaugmented.modifier;
 
 import org.sj.verbConjugation.trilateral.unaugmented.UnaugmentedTrilateralRoot;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**

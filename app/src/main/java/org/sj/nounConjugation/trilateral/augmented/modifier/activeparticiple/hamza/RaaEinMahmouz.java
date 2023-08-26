@@ -22,7 +22,7 @@ import java.util.List;
  * @version 1.0
  */
 public class RaaEinMahmouz extends TrilateralNounSubstitutionApplier implements IAugmentedTrilateralModifier {
-    List substitutions = new LinkedList();
+    List<InfixSubstitution> substitutions = new LinkedList<InfixSubstitution>();
 
     public RaaEinMahmouz() {
         substitutions.add(new InfixSubstitution("ْءٍ", "ٍ"));// EX: (مُرٍ، )

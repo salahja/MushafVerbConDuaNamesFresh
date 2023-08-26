@@ -22,7 +22,7 @@ import java.util.List;
  * @version 1.0
  */
 public class YaeiLafifNakesVocalizer extends TrilateralNounSubstitutionApplier implements IUnaugmentedTrilateralNounModificationApplier {
-    List substitutions = new LinkedList();
+    List<org.sj.verbConjugation.trilateral.Substitution.Substitution> substitutions = new LinkedList<org.sj.verbConjugation.trilateral.Substitution.Substitution>();
 
     public YaeiLafifNakesVocalizer() {
         substitutions.add(new InfixSubstitution("ِيٌ", "ٍ")); // EX: (هذا رامٍ)

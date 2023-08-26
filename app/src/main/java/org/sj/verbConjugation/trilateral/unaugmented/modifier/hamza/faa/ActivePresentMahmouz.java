@@ -19,7 +19,7 @@ import java.util.List;
  * @version 1.0
  */
 public class ActivePresentMahmouz extends AbstractFaaMahmouz {
-    private final List substitutions = new ArrayList();
+    private final List<InfixSubstitution> substitutions = new ArrayList<InfixSubstitution>();
 
     public ActivePresentMahmouz() {
         substitutions.add(new InfixSubstitution("أَءْ", "آ")); // EX: (آكُل)

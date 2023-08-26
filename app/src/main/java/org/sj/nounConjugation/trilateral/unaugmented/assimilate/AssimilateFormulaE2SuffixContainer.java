@@ -19,15 +19,15 @@ import java.util.ArrayList;
 public class AssimilateFormulaE2SuffixContainer implements INounSuffixContainer {
     private static final AssimilateFormulaE2SuffixContainer instance = new AssimilateFormulaE2SuffixContainer();
     //حالة النكرة
-    private final ArrayList indefiniteSuffixList = new ArrayList(18);
+    private final ArrayList<String> indefiniteSuffixList = new ArrayList<>(18);
     //حالة المعرفة
-    private final ArrayList definiteSuffixList = new ArrayList(18);
+    private final ArrayList<String> definiteSuffixList = new ArrayList<String>(18);
     //حالة الاضافة
-    private final ArrayList annexedSuffixList = new ArrayList(18);
+    private final ArrayList<String> annexedSuffixList = new ArrayList<String>(18);
     //تكون لها قيمة عندما تكون الحالة هي معرفة
     private String prefix = "";
     //يمثل القائمة المختارة تبعاً للحالة
-    private ArrayList currentSuffixList = indefiniteSuffixList;
+    private ArrayList<String> currentSuffixList = indefiniteSuffixList;
 
     private AssimilateFormulaE2SuffixContainer() {
         indefiniteSuffixList.add("");
@@ -115,24 +115,24 @@ public class AssimilateFormulaE2SuffixContainer implements INounSuffixContainer 
         return prefix;
     }
 
-    public ArrayList getAnnexedSuffixList() {
+    public ArrayList<String> getAnnexedSuffixList() {
         return annexedSuffixList;
     }
 
-    public ArrayList getCurrentSuffixList() {
+    public ArrayList<String> getCurrentSuffixList() {
         return currentSuffixList;
     }
 
-    public ArrayList getDefiniteSuffixList() {
+    public ArrayList<String> getDefiniteSuffixList() {
         return definiteSuffixList;
     }
 
-    public ArrayList getIndefiniteSuffixList() {
+    public ArrayList<String> getIndefiniteSuffixList() {
         return indefiniteSuffixList;
     }
 
     public String get(int index) {
-        return (String) currentSuffixList.get(index);
+        return currentSuffixList.get(index);
     }
 
 }

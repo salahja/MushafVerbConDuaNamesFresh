@@ -1,15 +1,10 @@
 package com.example.mushafconsolidated.Adapters;
 
-import static android.content.Context.MODE_PRIVATE;
-import static com.example.Constant.CHAPTER;
-import static com.example.Constant.SURAH_ARABIC_NAME;
 import static com.example.utility.QuranGrammarApplication.getContext;
 
 import android.annotation.SuppressLint;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -19,13 +14,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.Group;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,16 +26,10 @@ import com.example.mushafconsolidated.Entities.Page;
 import com.example.mushafconsolidated.Entities.QuranEntity;
 import com.example.mushafconsolidated.R;
 import com.example.mushafconsolidated.intrface.OnItemClickListenerOnLong;
-import com.example.mushafconsolidated.model.CorpusAyahWord;
 import com.example.utility.CorpusUtilityorig;
-import com.example.utility.QuranGrammarApplication;
-import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
 
 //import com.example.mushafconsolidated.Entities.JoinVersesTranslationDataTranslation;
 //public class CustomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements OnItemClickListenerOnLong {
@@ -52,35 +38,25 @@ public class PageMushaAudioAdapter extends RecyclerView.Adapter<PageMushaAudioAd
 {
 
     private final ArrayList<Page> fullQuranPages;
-    BroadcastReceiver broadcastReceiver;
-    private boolean isFABOpen = false;
+    // --Commented out by Inspection (25/08/23, 7:28 pm):BroadcastReceiver broadcastReceiver;
+    // --Commented out by Inspection (25/08/23, 7:28 pm):private final boolean isFABOpen = false;
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
     final long surah_id;
 
-    private LinkedHashMap<Integer, String> passage = new LinkedHashMap<>();
-
-    private final List<QuranEntity> allofQuran;
     private final ArrayList<String> header;
-    private final String SurahName;
     private final int isMakkiMadani;
-    public Context context;
-    public TextView arabic, rootword;
+    public final Context context;
+    // --Commented out by Inspection (25/08/23, 7:28 pm):public TextView arabic, rootword;
     final int arabicfontSize;
     final int translationfontsize;
     final OnItemClickListenerOnLong mItemClickListener;
-    private String isNightmode;
-    private int headercolor;
-    private WebView kathir_translation;
-    private Typeface colorwordfont;
-    private CorpusAyahWord ayahWord;
-    private boolean defaultfont;
 
-    public PageMushaAudioAdapter(ArrayList<Page> fullQuranPages, LinkedHashMap<Integer, String> passage, Context context, List<QuranEntity> quranbySurah, OnItemClickListenerOnLong listener, long surah_id, String surahName, int ismakki, ArrayList<String> header) {
+    // --Commented out by Inspection (25/08/23, 7:28 pm):private CorpusAyahWord ayahWord;
+
+    public PageMushaAudioAdapter(ArrayList<Page> fullQuranPages, Context context, OnItemClickListenerOnLong listener, long surah_id, String surahName, int ismakki, ArrayList<String> header) {
     this.fullQuranPages=fullQuranPages;
-        this.passage = passage;
         this.context = context;
-        this.allofQuran = quranbySurah;
         this.mItemClickListener = listener;
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         sharedPreferences.getBoolean(Config.SHOW_Erab, Config.defaultShowErab);
@@ -88,15 +64,16 @@ public class PageMushaAudioAdapter extends RecyclerView.Adapter<PageMushaAudioAd
         arabicfontSize = sharedPreferences.getInt("pref_font_arabic_key", 18);
         translationfontsize = sharedPreferences.getInt("pref_font_englsh_key", 18);
         this.surah_id = surah_id;
-        this.SurahName = surahName;
         this.isMakkiMadani = ismakki;
         this.header = header;
     }
 
-    public void addContext(Context context) {
-        this.context = context;
-
-    }
+// --Commented out by Inspection START (25/08/23, 7:28 pm):
+//    public void addContext(Context context) {
+//        this.context = context;
+//
+//    }
+// --Commented out by Inspection STOP (25/08/23, 7:28 pm)
 
     @Override
     public int getItemViewType(int position) {
@@ -122,17 +99,12 @@ public class PageMushaAudioAdapter extends RecyclerView.Adapter<PageMushaAudioAd
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.surah_header, parent, false);
         } else {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.mushaf_row_ayah_word, parent, false);
-            //  view = LayoutInflater.from(parent.getContext()).inflate(R.layout.new_mushaf_row_ayah_word, parent, false);
-            //   view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_viewer_aya_cardview, parent, false);
+
         }
         return new ItemViewAdapter(view, viewType);
 
     }
 
-    public Object getItem(int position) {
-
-        return fullQuranPages.get(position).getAyahItemsquran();
-    }
 
     @SuppressLint("ResourceType")
     @Override
@@ -141,23 +113,15 @@ public class PageMushaAudioAdapter extends RecyclerView.Adapter<PageMushaAudioAd
 
         SharedPreferences sharedPreferences =
                 androidx.preference.PreferenceManager.getDefaultSharedPreferences(context);
-        isNightmode = sharedPreferences.getString("themepref", "dark");
-        //  String arabic_font_selection = sharedPreferences.getString("Arabic_Font_Selection", String.valueOf(MODE_PRIVATE));
+        String isNightmode = sharedPreferences.getString("themepref", "dark");
+
         String islamicfont = "AlQalam.ttf";
         String arabic_font_selection = sharedPreferences.getString("Arabic_Font_Selection", "quranicfontregular.ttf");
         Typeface custom_font = Typeface.createFromAsset(context.getAssets(),
                 islamicfont);
         final String FONTS_LOCATION_PATH = "fonts/DejaVuSans.ttf";
-        colorwordfont = Typeface.createFromAsset(QuranGrammarApplication.getContext().getAssets(), FONTS_LOCATION_PATH);
-        boolean showrootkey = sharedPreferences.getBoolean("showrootkey", true);
-        boolean showErab = sharedPreferences.getBoolean("showErabKey", true);
-        boolean showWordColor = sharedPreferences.getBoolean("colortag", true);
-        boolean showTransliteration = sharedPreferences.getBoolean("showtransliterationKey", true);
-        boolean showJalalayn = sharedPreferences.getBoolean("showEnglishJalalayn", true);
-        boolean showTranslation = sharedPreferences.getBoolean("showTranslationKey", true);
-        boolean showWordByword = sharedPreferences.getBoolean("wordByWord", false);
-        boolean showKathir = sharedPreferences.getBoolean("showKathir", false);
-        defaultfont = sharedPreferences.getBoolean("default_font", true);
+
+        boolean defaultfont = sharedPreferences.getBoolean("default_font", true);
 //bg_black
         if (position % 2 == 1) {
             switch (isNightmode) {
@@ -211,14 +175,13 @@ public class PageMushaAudioAdapter extends RecyclerView.Adapter<PageMushaAudioAd
             final Drawable drawable = imgs.getDrawable(Integer.parseInt(chapterno) - 1);
             imgs.recycle();
             holder.ivSurahIcon.setImageDrawable(drawable);
+            int headercolor;
             if (isNightmode.equals("dark") || isNightmode.equals("blue")  || isNightmode.equals("green")) {
-                headercolor = Color.YELLOW;
                 holder.ivLocationmakki.setColorFilter(Color.CYAN);
                 holder.ivSurahIcon.setColorFilter(Color.CYAN);
                 holder.ivLocationmadani.setColorFilter(Color.CYAN);
 
             } else {
-                headercolor = Color.BLUE;
                 holder.ivLocationmakki.setColorFilter(Color.BLACK);
                 holder.ivSurahIcon.setColorFilter(Color.BLACK);
                 holder.ivLocationmadani.setColorFilter(Color.BLACK);
@@ -229,7 +192,7 @@ public class PageMushaAudioAdapter extends RecyclerView.Adapter<PageMushaAudioAd
             //  String s=      passage.get(position);
             String pageNum = String.valueOf(page.getPageNum());
             holder.pagenum.setText((pageNum));
-         String aya="";
+         String aya;
             StringBuilder builder = new StringBuilder();
             for (QuranEntity ayahItem : page.getAyahItemsquran()) {
                 aya = ayahItem.getQurantext();
@@ -252,178 +215,135 @@ public class PageMushaAudioAdapter extends RecyclerView.Adapter<PageMushaAudioAd
 
     }
 
-    public void displayAyats(boolean showrootkey, PageMushaAudioAdapter.ItemViewAdapter holder, int position, SharedPreferences sharedPreferences, Typeface custom_font, boolean showErab, boolean showWordColor, boolean showTransliteration, boolean showJalalayn, boolean showTranslation, boolean showWordByword, String whichtranslation, boolean showKathir) {
-        //   holder.flowwbw.setBackgroundColor(R.style.Theme_DarkBlue);
-        QuranEntity entity = null;
-
-        //   String wbw = sharedPreferences.getString("wordByWord", String.valueOf(Context.MODE_PRIVATE));
-
-
-
-
-    /*    if(entity.getPassage_no()!=0){
-            StringBuilder builder = new StringBuilder();
-            builder.append(entity.getQurantext());
-            builder.append(MessageFormat.format("{0} ﴿ {1} ﴾ {2}", aya, entity.getAyah(),R.drawable.ruku_new));
-            //     builder.append("۩");
-            holder.quran_textView.setText(entity.getQurantext());
-            holder.quran_textView.setTextSize(arabicfontSize);
-            holder.quran_textView.setTypeface(custom_font);
-
-          //  holder.sajdaverse.setImageResource(R.drawable.ruku_new);
-
-        }*/
-
-     /*   if(entity.getHas_prostration()==1) {
-
-            StringBuilder builders = new StringBuilder();
-            builder.append(entity.getQurantext());
-            builder.append(MessageFormat.format("{0} ﴿ {1} ﴾ ۩", aya, entity.getAyah()));
-       //     builder.append("۩");
-            holder.quran_textView.setText(builder.toString());
-            holder.quran_textView.setTextSize(arabicfontSize);
-            holder.quran_textView.setTypeface(custom_font);
-        }else{
-            StringBuilder builders = new StringBuilder();
-            builder.append(entity.getQurantext());
-            builder.append(MessageFormat.format("{0} ﴿ {1} ﴾ ", aya, entity.getAyah()));
-
-            holder.quran_textView.setText(builder.toString());
-            holder.quran_textView.setTextSize(arabicfontSize);
-            holder.quran_textView.setTypeface(custom_font);
-        }
-*/
-
-        System.out.println("Position" + position);
-
-        if (showTranslation) {
-            if (whichtranslation.equals("en_arberry")) {
-                if (entity != null) {
-                    holder.translate_textView.setText(entity.getEn_arberry());
-                }
-                holder.translate_textViewnote.setText(R.string.arberry);
-                holder.translate_textView.setTextSize(translationfontsize);
-                holder.translate_textView.setTextSize(translationfontsize);
-                holder.translate_textView.setVisibility(View.VISIBLE);
-                holder.translate_textViewnote.setVisibility(View.VISIBLE);
-            }
-            if (whichtranslation.equals("en_sahih")) {
-                if (entity != null) {
-                    holder.translate_textView.setText(entity.getTranslation());
-                }
-                holder.translate_textViewnote.setText(R.string.ensahih);
-                holder.translate_textView.setTextSize(translationfontsize);
-                holder.translate_textView.setTextSize(translationfontsize);
-                holder.translate_textView.setVisibility(View.VISIBLE);
-                holder.translate_textViewnote.setVisibility(View.VISIBLE);
-            }
-            if (whichtranslation.equals("en_jalalayn")) {
-                if (entity != null) {
-                    holder.translate_textView.setText(entity.getEn_jalalayn());
-                }
-                holder.translate_textViewnote.setText(R.string.enjalalayn);
-                holder.translate_textView.setTextSize(translationfontsize);
-                holder.translate_textView.setTextSize(translationfontsize);
-                holder.translate_textView.setVisibility(View.VISIBLE);
-                holder.translate_textViewnote.setVisibility(View.VISIBLE);
-            }
-            if (whichtranslation.equals("ur_jalalayn")) {
-                if (entity != null) {
-                    holder.translate_textView.setText(entity.getUr_jalalayn());
-                }
-                holder.translate_textViewnote.setText(R.string.enjalalayn);
-                holder.translate_textView.setTextSize(translationfontsize);
-                holder.translate_textView.setTextSize(translationfontsize);
-                holder.translate_textView.setVisibility(View.VISIBLE);
-                holder.translate_textViewnote.setVisibility(View.VISIBLE);
-            }
-            if (whichtranslation.equals("ur_junagarhi")) {
-                if (entity != null) {
-                    holder.translate_textView.setText(entity.getUr_junagarhi());
-                }
-                holder.translate_textViewnote.setText(R.string.urjunagadi);
-                holder.translate_textView.setTextSize(translationfontsize);
-                holder.translate_textView.setTextSize(translationfontsize);
-                holder.translate_textView.setVisibility(View.VISIBLE);
-                holder.translate_textViewnote.setVisibility(View.VISIBLE);
-            }
-            holder.translate_textView.setTextSize(translationfontsize);
-            holder.translate_textView.setTextSize(translationfontsize);
-            holder.translate_textView.setVisibility(View.VISIBLE);
-            holder.translate_textViewnote.setVisibility(View.VISIBLE);
-
-        }
-
-    }
-
-    private void storepreferences(Page page) {
-        SharedPreferences pref = context.getSharedPreferences("lastreadmushaf", MODE_PRIVATE);
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putInt(CHAPTER, page.getAyahItemsquran().get(0).getSurah());
-        editor.putInt("page", page.getAyahItemsquran().get(0).getPage());
-
-        editor.putString(SURAH_ARABIC_NAME, SurahName);
-        editor.apply();
-        //  editor.commit();
-
-    }
-
-    private void setChapterInfo(ItemViewAdapter holder, QuranEntity verse) {
-        StringBuilder surahInfo = new StringBuilder();
-//        surahInfo.append(surahName+".");
-
-        surahInfo.append(verse.getSurah()).append(".");
-        surahInfo.append(verse.getAyah()).append("-");
-        surahInfo.append(SurahName);
-        SharedPreferences sharedPreferences =
-                androidx.preference.PreferenceManager.getDefaultSharedPreferences(context);
-        String isNightmode = sharedPreferences.getString("theme", "dark");
-        if (isMakkiMadani == 1) {
-            holder.surah_info.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_makkah_48, 0, 0, 0);
-
-        } else {
-            holder.surah_info.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_madinah_48, 0, 0, 0);
-        }
-        if (isNightmode.equals("dark") || isNightmode.equals("blue")   || isNightmode.equals("green")) {
-//TextViewCompat.setCompoundDrawableTintList()
-            holder.surah_info.setCompoundDrawableTintList(ColorStateList.valueOf(Color.CYAN));
-        } else {
-            holder.surah_info.setCompoundDrawableTintList(ColorStateList.valueOf(Color.BLUE));
-
-        }
-        holder.surah_info.setText(surahInfo);
-        holder.surah_info.setTextSize(16);
-        //  holder.surah_info.setTextColor(ContextCompat.getColor(context,R.color.colorOnPrimary));
-    }
+// --Commented out by Inspection START (25/08/23, 7:28 pm):
+//    public void displayAyats(boolean showrootkey, PageMushaAudioAdapter.ItemViewAdapter holder, int position, SharedPreferences sharedPreferences, Typeface custom_font, boolean showErab, boolean showWordColor, boolean showTransliteration, boolean showJalalayn, boolean showTranslation, boolean showWordByword, String whichtranslation, boolean showKathir) {
+//        //   holder.flowwbw.setBackgroundColor(R.style.Theme_DarkBlue);
+//        QuranEntity entity = null;
+//
+//        //   String wbw = sharedPreferences.getString("wordByWord", String.valueOf(Context.MODE_PRIVATE));
+//
+//
+//
+//
+//    /*    if(entity.getPassage_no()!=0){
+//            StringBuilder builder = new StringBuilder();
+//            builder.append(entity.getQurantext());
+//            builder.append(MessageFormat.format("{0} ﴿ {1} ﴾ {2}", aya, entity.getAyah(),R.drawable.ruku_new));
+//            //     builder.append("۩");
+//            holder.quran_textView.setText(entity.getQurantext());
+//            holder.quran_textView.setTextSize(arabicfontSize);
+//            holder.quran_textView.setTypeface(custom_font);
+//
+//          //  holder.sajdaverse.setImageResource(R.drawable.ruku_new);
+//
+//        }*/
+//
+//     /*   if(entity.getHas_prostration()==1) {
+//
+//            StringBuilder builders = new StringBuilder();
+//            builder.append(entity.getQurantext());
+//            builder.append(MessageFormat.format("{0} ﴿ {1} ﴾ ۩", aya, entity.getAyah()));
+//       //     builder.append("۩");
+//            holder.quran_textView.setText(builder.toString());
+//            holder.quran_textView.setTextSize(arabicfontSize);
+//            holder.quran_textView.setTypeface(custom_font);
+//        }else{
+//            StringBuilder builders = new StringBuilder();
+//            builder.append(entity.getQurantext());
+//            builder.append(MessageFormat.format("{0} ﴿ {1} ﴾ ", aya, entity.getAyah()));
+//
+//            holder.quran_textView.setText(builder.toString());
+//            holder.quran_textView.setTextSize(arabicfontSize);
+//            holder.quran_textView.setTypeface(custom_font);
+//        }
+//*/
+//
+//        System.out.println("Position" + position);
+//
+//        if (showTranslation) {
+//            if (whichtranslation.equals("en_arberry")) {
+//                if (entity != null) {
+//                    holder.translate_textView.setText(entity.getEn_arberry());
+//                }
+//                holder.translate_textViewnote.setText(R.string.arberry);
+//                holder.translate_textView.setTextSize(translationfontsize);
+//                holder.translate_textView.setTextSize(translationfontsize);
+//                holder.translate_textView.setVisibility(View.VISIBLE);
+//                holder.translate_textViewnote.setVisibility(View.VISIBLE);
+//            }
+//            if (whichtranslation.equals("en_sahih")) {
+//                if (entity != null) {
+//                    holder.translate_textView.setText(entity.getTranslation());
+//                }
+//                holder.translate_textViewnote.setText(R.string.ensahih);
+//                holder.translate_textView.setTextSize(translationfontsize);
+//                holder.translate_textView.setTextSize(translationfontsize);
+//                holder.translate_textView.setVisibility(View.VISIBLE);
+//                holder.translate_textViewnote.setVisibility(View.VISIBLE);
+//            }
+//            if (whichtranslation.equals("en_jalalayn")) {
+//                if (entity != null) {
+//                    holder.translate_textView.setText(entity.getEn_jalalayn());
+//                }
+//                holder.translate_textViewnote.setText(R.string.enjalalayn);
+//                holder.translate_textView.setTextSize(translationfontsize);
+//                holder.translate_textView.setTextSize(translationfontsize);
+//                holder.translate_textView.setVisibility(View.VISIBLE);
+//                holder.translate_textViewnote.setVisibility(View.VISIBLE);
+//            }
+//            if (whichtranslation.equals("ur_jalalayn")) {
+//                if (entity != null) {
+//                    holder.translate_textView.setText(entity.getUr_jalalayn());
+//                }
+//                holder.translate_textViewnote.setText(R.string.enjalalayn);
+//                holder.translate_textView.setTextSize(translationfontsize);
+//                holder.translate_textView.setTextSize(translationfontsize);
+//                holder.translate_textView.setVisibility(View.VISIBLE);
+//                holder.translate_textViewnote.setVisibility(View.VISIBLE);
+//            }
+//            if (whichtranslation.equals("ur_junagarhi")) {
+//                if (entity != null) {
+//                    holder.translate_textView.setText(entity.getUr_junagarhi());
+//                }
+//                holder.translate_textViewnote.setText(R.string.urjunagadi);
+//                holder.translate_textView.setTextSize(translationfontsize);
+//                holder.translate_textView.setTextSize(translationfontsize);
+//                holder.translate_textView.setVisibility(View.VISIBLE);
+//                holder.translate_textViewnote.setVisibility(View.VISIBLE);
+//            }
+//            holder.translate_textView.setTextSize(translationfontsize);
+//            holder.translate_textView.setTextSize(translationfontsize);
+//            holder.translate_textView.setVisibility(View.VISIBLE);
+//            holder.translate_textViewnote.setVisibility(View.VISIBLE);
+//
+//        }
+//
+//    }
+// --Commented out by Inspection STOP (25/08/23, 7:28 pm)
 
     public class ItemViewAdapter extends RecyclerView.ViewHolder implements View.OnClickListener, OnLongClickListener {
-        public TextView quran_jalalayn, kathir_translation;
-        public TextView quran_transliteration;
-        public TextView translate_textView;
-        //   public TextView erab_textView;
-        public TextView erab_textView;
-        public TextView surah_info, mafoolbihi,pagenum;
-        public TextView bismilla;
 
-        public TextView quran_transliterationnote;
-        public TextView quran_jalalaynnote;
-        public TextView erab_textViewnote;
-        public TextView translate_textViewnote;
-        public ImageView bookmark, jumpto, makkimadaniicon, ivSummary;
-        public ImageView expandImageButton, ivBismillah, erabexpand, erab_notes_expand;
+
+
+
+        public TextView pagenum;
+
+
+
+
+
+        public ImageView  ivBismillah ;
         TextView tvSura, tvRukus, tvVerses, quran_textView;
 
-        public ImageView sajdaverse;
-        View rukuview;
-        ImageView ivSurahIcon, ivLocationmakki, ivLocationmadani, ivhelp, ivoverflow, ivoverflow2, arrowforward, arrowback;
 
 
-        //   RelativeLayout colllayout;
-        CardView erabnotescardView, kahteercardview;
-        ImageView mafoolatarow;
-        Group hiddenGroup, card_group;
-        MaterialCardView base_cardview;
-        FloatingActionButton tafsir, jumptofb, bookmarfb, fabmenu, helpfb, summbaryfb, sharescreenfb;
+        ImageView ivSurahIcon;
+        ImageView ivLocationmakki;
+        ImageView ivLocationmadani;
+
+
+
+
 
         ItemViewAdapter(View view, int viewType) {
             super(view);
@@ -441,28 +361,23 @@ public class PageMushaAudioAdapter extends RecyclerView.Adapter<PageMushaAudioAd
             } else {
                 //     kathir_note = view.findViewById(R.id.kathir_note);
                 pagenum=view.findViewById(R.id.pagenum);
-                rukuview = view.findViewById(R.id.rukuview);
-                sajdaverse = view.findViewById(R.id.sajda);
-                makkimadaniicon = view.findViewById(R.id.makkimadaniicon);
 
-                translate_textViewnote = view.findViewById(R.id.translate_textViewnote);
 
-                surah_info = view.findViewById(R.id.chaptername);
+
+
+
                 //    verse_idTextView = view.findViewById(R.id.verse_id_textView);
 
-                translate_textView = view.findViewById(R.id.translate_textView);
+
 
                 //     erab_textView.setTextIsSelectable(true);
                 quran_textView = view.findViewById(R.id.quran_textView);
 
-                base_cardview = view.findViewById(R.id.base_cardview);
 
                 view.setOnClickListener(this);
                 view.setOnLongClickListener(this);
                 quran_textView.setOnClickListener(this);
                 quran_textView.setTag("verse");
-                SharedPreferences shared = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getContext());
-                boolean colortag = shared.getBoolean("colortag", true);
 
 
             }

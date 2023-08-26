@@ -60,7 +60,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -87,6 +86,7 @@ import com.example.mushafconsolidated.Entities.wbwentity;
 import com.example.mushafconsolidated.R;
 import com.example.mushafconsolidated.Utils;
 import com.example.mushafconsolidated.VerbFormsDialogFrag;
+import com.example.mushafconsolidated.intrface.OnItemClickListener;
 import com.example.utility.QuranGrammarApplication;
 import com.google.android.material.button.MaterialButton;
 
@@ -101,7 +101,7 @@ import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import database.DatabaseUtils;
+import database.VerbDatabaseUtils;
 import database.entity.Mazeed;
 import database.entity.MujarradVerbs;
 
@@ -269,7 +269,7 @@ public class WordAnalysisBottomSheet extends DialogFragment {
         dialog = builder.create();
         rwAdapter = new RootWordDisplayAdapter(getContext());
         ex.execute(() -> {
-            getActivity().runOnUiThread(() -> dialog.show());
+            Objects.requireNonNull(requireActivity()).runOnUiThread(() -> dialog.show());
             ArrayList<HalEnt> HaliaSentence = utils.getHaliaErab(chapterid, ayanumber);
             ArrayList<TameezEnt> tameez = utils.getTameezWord(chapterid, ayanumber, wordno);
             ArrayList<MafoolBihi> mafoolbihi = utils.getMafoolbihiword(chapterid, ayanumber, wordno);
@@ -281,6 +281,7 @@ public class WordAnalysisBottomSheet extends DialogFragment {
             ArrayList<NounCorpus> corpusNounWord = utils.getQuranNouns(chapterid, ayanumber, wordno);
             ArrayList<VerbCorpus> verbCorpusRootWord = utils.getQuranRoot(chapterid, ayanumber, wordno);
             QuranMorphologyDetails am = new QuranMorphologyDetails(corpusSurahWord, corpusNounWord, verbCorpusRootWord, getContext());
+
             vb = new VerbWazan();
             wordbdetail = am.getWordDetails();
             if (verbCorpusRootWord.size() > 0 && verbCorpusRootWord.get(0).getTag().equals("V")) {
@@ -328,7 +329,7 @@ public class WordAnalysisBottomSheet extends DialogFragment {
             }
             isnoun = wordbdetail.get("noun") != null;
             if (isparticple) {
-                if (wordbdetail.get("form").toString().equals("I")) {
+                if (Objects.requireNonNull(wordbdetail.get("form")).toString().equals("I")) {
                     ismujarradparticple = true;
                     ismujarrad = true;
                 } else {
@@ -394,7 +395,7 @@ public class WordAnalysisBottomSheet extends DialogFragment {
                 } else if (second != -1) {
                     root = root.replace("أ", "ء");
                 }
-                DatabaseUtils dutils = new DatabaseUtils(getActivity());
+                VerbDatabaseUtils dutils = new VerbDatabaseUtils(getActivity());
                 final ArrayList<MujarradVerbs> triVerb = dutils.getMujarradVerbs(root);
                 verbDictList = new ArrayList<>();
                 for (MujarradVerbs tri : triVerb) {
@@ -403,8 +404,8 @@ public class WordAnalysisBottomSheet extends DialogFragment {
                 }
 
             } else if (isroot && ismazeed && !isparticple) {
-                DatabaseUtils databaseUtils = new DatabaseUtils(QuranGrammarApplication.getContext());
-                ArrayList<Mazeed> mazeedRoot = databaseUtils.getMazeedRoot(root);
+                VerbDatabaseUtils verbDatabaseUtils = new VerbDatabaseUtils(QuranGrammarApplication.getContext());
+                ArrayList<Mazeed> mazeedRoot = verbDatabaseUtils.getMazeedRoot(root);
                 if (!mazeedRoot.isEmpty()) {
                     setMazeedSarfSagheer(true);
                     setThulathiSarfSagheer(false);
@@ -466,8 +467,8 @@ public class WordAnalysisBottomSheet extends DialogFragment {
                     } else if (second != -1) {
                         root = root.replace("أ", "ء");
                     }
-                    DatabaseUtils databaseUtils = new DatabaseUtils(getActivity());
-                    ArrayList<MujarradVerbs> triVerb = databaseUtils.getMujarradVerbs(root);
+                    VerbDatabaseUtils verbDatabaseUtils = new VerbDatabaseUtils(getActivity());
+                    ArrayList<MujarradVerbs> triVerb = verbDatabaseUtils.getMujarradVerbs(root);
                     verbDictList = new ArrayList<>();
                     for (MujarradVerbs tri : triVerb) {
                         verbDictList.add(new MujarradVerbs(tri.getVerb(), tri.getRoot(), tri.getBabname(), tri.getVerbtype()));
@@ -507,6 +508,18 @@ public class WordAnalysisBottomSheet extends DialogFragment {
                     setIsarabicword(false);
 
                 }
+
+
+
+
+
+
+
+
+
+
+
+
             }
             corpusNounWord.size();
             try {
@@ -576,6 +589,10 @@ public class WordAnalysisBottomSheet extends DialogFragment {
                     grammarFragmentsListAdapter = new GrammarFragmentsListAdapter(getContext(), expandableListTitle, expandableListDetail);
 
                 } else {
+            /*        rwAdapter = new RootWordDisplayAdapter(getContext(),HaliaSentence, tameez, mafoolbihi,mutlaqword,liajlihiEntArrayList, isVerb(), wazannumberslist, spannable,
+                            isNoun(), ismfaelmafool, isParticiples(),
+                            isIsverbconjugaton(), corpusSurahWord, wordbdetail, vbdetail,
+                            isMazeedSarfSagheer(), isThulathiSarfSagheer(), sarfSagheerList);*/
                     rwAdapter.setRootWordsAndMeanings(HaliaSentence, tameez, mafoolbihi,mutlaqword,liajlihiEntArrayList, isVerb(), wazannumberslist, spannable,
                             isNoun(), ismfaelmafool, isParticiples(),
                             isIsverbconjugaton(), corpusSurahWord, wordbdetail, vbdetail,
@@ -633,7 +650,7 @@ public class WordAnalysisBottomSheet extends DialogFragment {
     protected void SetMudhaf(Utils utils) {
         ArrayList<NewMudhafEntity> mudhafSurahAyah = utils.getMudhafSurahAyahNew(chapterid, ayanumber);
         for (NewMudhafEntity mudhafEntity : mudhafSurahAyah) {
-            mudhafspansDark = getSpancolor(themepreference, true);
+            mudhafspansDark = getSpancolor(true);
             spannable.setSpan(mudhafspansDark, mudhafEntity.getStartindex(), mudhafEntity.getEndindex(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         }
@@ -643,7 +660,7 @@ public class WordAnalysisBottomSheet extends DialogFragment {
         ArrayList<SifaEntity> sifabySurahAyah = utils.getSifabySurahAyah(chapterid, ayanumber);
         String quranverses = corpusSurahWord.get(0).getQurantext();
         for (SifaEntity shartEntity : sifabySurahAyah) {
-            sifaspansDark = getSpancolor(themepreference, false);
+            sifaspansDark = getSpancolor(false);
             try {
                 spannable.setSpan(sifaspansDark, shartEntity.getStartindex(), shartEntity.getEndindex(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             } catch (IndexOutOfBoundsException e) {
@@ -708,209 +725,212 @@ public class WordAnalysisBottomSheet extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        rwAdapter.SetOnItemClickListener((v, position) -> {
-            CharSequence text;
-            CharSequence text2 = null;
-            View viewVerbConjugation = v.findViewById(R.id.verbconjugationbtn);
-            View verboccuranceid = v.findViewById(R.id.verboccurance);
-            View nouns = v.findViewById(R.id.wordoccurance);
-            View verse = v.findViewById(R.id.spannableverse);
-            View wordview = v.findViewById(R.id.wordView);
-            View formview = v.findViewById(R.id.mazeedmeaning);
-            if (formview != null) {
-                VerbFormsDialogFrag item = new VerbFormsDialogFrag();
-                //    item.setdata(rootWordMeanings,wbwRootwords,grammarRootsCombined);
-                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-                String vbform;
-                if (!vbdetail.isEmpty()) {
-                    vbform = vbdetail.get("formnumber");
-                } else {
-                    vbform = String.valueOf(wordbdetail.get("formnumber"));
-                    vbform = vbform.replaceAll("\\(", "").replaceAll("\\)", "");
-                }
-                if (null != vbform) {
-                    String[] data = {vbform};
-                    FragmentTransaction transactions = fragmentManager.beginTransaction().setCustomAnimations(R.anim.abc_slide_in_top, android.R.anim.fade_out);
-                    transactions.show(item);
-                    VerbFormsDialogFrag.newInstance(data).show(getActivity().getSupportFragmentManager(), WordAnalysisBottomSheet.TAG);
-
-                }
-            } else if (wordview != null) {
-                Bundle dataBundle = new Bundle();
-                if (isHarf) {
-                    if (isharfnasb) {
-                        dataBundle.putBoolean(ACCUSATIVE, true);
-
-                    } else if (isprep) {
-                        dataBundle.putBoolean(PREPOSITION, true);
-                    } else if (isrelative) {
-                        dataBundle.putBoolean(RELATIVE, true);
-                    } else if (isdem) {
-                        dataBundle.putBoolean(DEMONSTRATIVE, true);
-                    } else if (isShart) {
-                        dataBundle.putBoolean(CONDITIONAL, true);
-                    }
-                    dataBundle.putString("arabicword", String.valueOf(wordbdetail.get("arabicword")));
-                    dataBundle.putString(VERBMOOD, "");
-                    dataBundle.putString(QURAN_VERB_WAZAN, "");
-                    dataBundle.putString(QURAN_VERB_ROOT, "");
-                    dataBundle.putString(VERBTYPE, "");
-                    Intent intent = new Intent(getActivity(), LughatWordDetailsAct.class);
-                    intent.putExtras(dataBundle);
-                    startActivity(intent);
-                } else if (quadrilateral) {
-                    dataBundle.putString(QURAN_VERB_ROOT, vb.getRoot());
-                    dataBundle.putString(QURAN_VERB_WAZAN, " ");
-                    dataBundle.putString("arabicword", "");
-                } else if (isarabicword && !isroot) {
-                    dataBundle.putString("arabicword", String.valueOf(wordbdetail.get("arabicword")));
-                    dataBundle.putString(QURAN_VERB_WAZAN, " ");
-                    dataBundle.putString(QURAN_VERB_ROOT, " ");
-                } else if (isroot) {
-                    dataBundle.putString("arabicword", "");
-                    dataBundle.putString(VERBMOOD, vbdetail.get("verbmood"));
+        rwAdapter.SetOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                CharSequence text;
+                CharSequence text2 = null;
+                View viewVerbConjugation = v.findViewById(R.id.verbconjugationbtn);
+                View verboccuranceid = v.findViewById(R.id.verboccurance);
+                View nouns = v.findViewById(R.id.wordoccurance);
+                View verse = v.findViewById(R.id.spannableverse);
+                View wordview = v.findViewById(R.id.wordView);
+                View formview = v.findViewById(R.id.mazeedmeaning);
+                if (formview != null) {
+                    VerbFormsDialogFrag item = new VerbFormsDialogFrag();
+                    //    item.setdata(rootWordMeanings,wbwRootwords,grammarRootsCombined);
+                    FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                    String vbform;
                     if (!vbdetail.isEmpty()) {
-                        dataBundle.putString(QURAN_VERB_WAZAN, vb.getWazan());
-                        dataBundle.putString(QURAN_VERB_ROOT, vb.getRoot());
-                    } else if (isParticiples()) {
-                        dataBundle.putString(VERBMOOD, INDICATIVE);
-                        dataBundle.putString(QURAN_VERB_WAZAN, vb.getWazan());
-                        dataBundle.putString(QURAN_VERB_ROOT, vb.getRoot());
-                        dataBundle.putBoolean(ISPARTICPLE, true);
-                        if (noun) {
-                            dataBundle.putString(NOUNCASE, String.valueOf(wordbdetail.get("nouncase")));
-                        }
-
+                        vbform = vbdetail.get("formnumber");
                     } else {
-                        if (noun) {
-                            dataBundle.putString(NOUNCASE, String.valueOf(wordbdetail.get("nouncase")));
-                        }
-                        dataBundle.putString(QURAN_VERB_ROOT, vb.getRoot());
-                        dataBundle.putString(QURAN_VERB_WAZAN, " ");
+                        vbform = String.valueOf(wordbdetail.get("formnumber"));
+                        vbform = vbform.replaceAll("\\(", "").replaceAll("\\)", "");
                     }
+                    if (null != vbform) {
+                        String[] data = {vbform};
+                        VerbFormsDialogFrag.newInstance(data).show(Objects.requireNonNull(requireActivity()).getSupportFragmentManager(), WordAnalysisBottomSheet.TAG);
 
-                } else {
-                    //   dataBundle.putString("arabicword", String.valueOf(wordbdetail.get("arabicword")));
-                    String arabicword = String.valueOf(wordbdetail.get("arabicword"));
-                    int inkasra = arabicword.indexOf(Kasra);
-                    int intshadda = arabicword.indexOf(SHADDA);
-                    int intfatha = arabicword.indexOf(Fatha);
-                    int intdamma = arabicword.indexOf(Damma);
-                    if (inkasra != -1) {
-                        arabicword = arabicword.replaceAll(Kasra, "");
                     }
-                    if (intshadda != -1) {
-                        arabicword = arabicword.replaceAll(SHADDA, "");
-                    }
-                    if (intfatha != -1) {
-                        arabicword = arabicword.replaceAll(Fatha, "");
-                    }
-                    if (intdamma != -1) {
-                        arabicword = arabicword.replaceAll(Damma, "");
-                    }
-                    dataBundle.putString("arabicword", arabicword);
-                    dataBundle.putString(VERBMOOD, "");
-                    dataBundle.putString(QURAN_VERB_WAZAN, "");
-                    dataBundle.putString(QURAN_VERB_ROOT, "");
-                    dataBundle.putString(VERBTYPE, "");
-                    //    Intent intent = new Intent(getActivity(), WordDictionaryAct.class);
-                    Intent intent = new Intent(getActivity(), LughatWordDetailsAct.class);
-                    intent.putExtras(dataBundle);
-                    startActivity(intent);
-                }
-                if (isroot || isarabicword) {
-                    try {
-                        if (ismujarrad) {
-                            dataBundle.putString(VERBTYPE, "mujarrad");
-                        } else if (ismazeed) {
-                            dataBundle.putString(VERBTYPE, "mazeed");
-                        } else {
-                            dataBundle.putString(VERBTYPE, "");
+                } else if (wordview != null) {
+                    Bundle dataBundle = new Bundle();
+                    if (isHarf) {
+                        if (isharfnasb) {
+                            dataBundle.putBoolean(ACCUSATIVE, true);
+
+                        } else if (isprep) {
+                            dataBundle.putBoolean(PREPOSITION, true);
+                        } else if (isrelative) {
+                            dataBundle.putBoolean(RELATIVE, true);
+                        } else if (isdem) {
+                            dataBundle.putBoolean(DEMONSTRATIVE, true);
+                        } else if (isShart) {
+                            dataBundle.putBoolean(CONDITIONAL, true);
                         }
-                        if (isimperative) {
-                            dataBundle.putBoolean(IMPERATIVE, true);
-                        }
-                        //     Intent intent = new Intent(getActivity(), WordDictionaryAct.class);
+                        dataBundle.putString("arabicword", String.valueOf(wordbdetail.get("arabicword")));
+                        dataBundle.putString(VERBMOOD, "");
+                        dataBundle.putString(QURAN_VERB_WAZAN, "");
+                        dataBundle.putString(QURAN_VERB_ROOT, "");
+                        dataBundle.putString(VERBTYPE, "");
                         Intent intent = new Intent(getActivity(), LughatWordDetailsAct.class);
                         intent.putExtras(dataBundle);
                         startActivity(intent);
-                    } catch (NullPointerException e) {
-                        System.out.println("null pointer");
-                    }
-                } else {
-                    Toast.makeText(getContext(), "not found", Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (verse != null) {
-                GrammerFragmentsBottomSheet item = new GrammerFragmentsBottomSheet();
-                //    item.setdata(rootWordMeanings,wbwRootwords,grammarRootsCombined);
-                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-                Bundle dataBundle = new Bundle();
-                dataBundle.putInt(SURAH_ID, chapterid);
-                dataBundle.putInt(AYAHNUMBER, ayanumber);
-                item.setArguments(dataBundle);
-                String[] data = {String.valueOf(chapterid), String.valueOf(ayanumber)};
-                GrammerFragmentsBottomSheet.newInstance(data).show((getActivity().getSupportFragmentManager()), WordAnalysisBottomSheet.TAG);
-
-            } else if (nouns != null) {
-                Bundle bundle = new Bundle();
-                //   Intent intent = new Intent(getActivity(), NounOccuranceAsynKAct.class);
-                Intent intent = new Intent(getActivity(), WordOccuranceAct.class);
-                try {
-                    if (vb.getRoot() != null) {
-                        bundle.putString(QURAN_VERB_ROOT, vb.getRoot());
-                    } else if (getHarfNasbAndZarf() != null) {
-                        bundle.putString(QURAN_VERB_ROOT, getHarfNasbAndZarf());
-                    }
-                } catch (NullPointerException e1) {
-                    bundle.putString(QURAN_VERB_ROOT, getHarfNasbAndZarf());
-                    e1.printStackTrace();
-
-                }
-                intent.putExtras(bundle);
-                //   intent.putExtra(QURAN_VERB_ROOT,vb.getRoot());
-                startActivity(intent);
-
-            } else if (viewVerbConjugation != null) {
-                text = ((MaterialButton) viewVerbConjugation).getText();
-                if (text.toString().equals("Click for Verb Conjugation")) {
-                    if (isroot && isconjugation) {
-                        Bundle dataBundle = new Bundle();
-                        //      ArrayList arrayList = ThulathiMazeedConjugatonList.get(position);
-                        //   arrayList.get(0).ge
-                        if (ismujarrad) {
-                            dataBundle.putString(VERBTYPE, "mujarrad");
-                        } else if (ismazeed) {
-                            dataBundle.putString(VERBTYPE, "mazeed");
-                        }
-                        if (vbdetail.isEmpty()) {
-                            dataBundle.putString(VERBMOOD, "Indicative");
-                        } else {
-                            dataBundle.putString(VERBMOOD, vbdetail.get("verbmood"));
-                        }
-                        dataBundle.putString(QURAN_VERB_WAZAN, vb.getWazan());
+                    } else if (quadrilateral) {
                         dataBundle.putString(QURAN_VERB_ROOT, vb.getRoot());
-                        Intent intent = new Intent(getActivity(), ConjugatorTabsActivity.class);
+                        dataBundle.putString(QURAN_VERB_WAZAN, " ");
+                        dataBundle.putString("arabicword", "");
+                    } else if (isarabicword && !isroot) {
+                        dataBundle.putString("arabicword", String.valueOf(wordbdetail.get("arabicword")));
+                        dataBundle.putString(QURAN_VERB_WAZAN, " ");
+                        dataBundle.putString(QURAN_VERB_ROOT, " ");
+                    } else if (isroot) {
+                        dataBundle.putString("arabicword", "");
+                        dataBundle.putString(VERBMOOD, vbdetail.get("verbmood"));
+                        if (!vbdetail.isEmpty()) {
+                            dataBundle.putString(QURAN_VERB_WAZAN, vb.getWazan());
+                            dataBundle.putString(QURAN_VERB_ROOT, vb.getRoot());
+                        } else if (isParticiples()) {
+                            dataBundle.putString(VERBMOOD, INDICATIVE);
+                            dataBundle.putString(QURAN_VERB_WAZAN, vb.getWazan());
+                            dataBundle.putString(QURAN_VERB_ROOT, vb.getRoot());
+                            dataBundle.putBoolean(ISPARTICPLE, true);
+                            if (noun) {
+                                dataBundle.putString(NOUNCASE, String.valueOf(wordbdetail.get("nouncase")));
+                            }
+
+                        } else {
+                            if (noun) {
+                                dataBundle.putString(NOUNCASE, String.valueOf(wordbdetail.get("nouncase")));
+                            }
+                            dataBundle.putString(QURAN_VERB_ROOT, vb.getRoot());
+                            dataBundle.putString(QURAN_VERB_WAZAN, " ");
+                        }
+
+                    } else {
+                        //   dataBundle.putString("arabicword", String.valueOf(wordbdetail.get("arabicword")));
+                        String arabicword = String.valueOf(wordbdetail.get("arabicword"));
+                        int inkasra = arabicword.indexOf(Kasra);
+                        int intshadda = arabicword.indexOf(SHADDA);
+                        int intfatha = arabicword.indexOf(Fatha);
+                        int intdamma = arabicword.indexOf(Damma);
+                        if (inkasra != -1) {
+                            arabicword = arabicword.replaceAll(Kasra, "");
+                        }
+                        if (intshadda != -1) {
+                            arabicword = arabicword.replaceAll(SHADDA, "");
+                        }
+                        if (intfatha != -1) {
+                            arabicword = arabicword.replaceAll(Fatha, "");
+                        }
+                        if (intdamma != -1) {
+                            arabicword = arabicword.replaceAll(Damma, "");
+                        }
+                        dataBundle.putString("arabicword", arabicword);
+                        dataBundle.putString(VERBMOOD, "");
+                        dataBundle.putString(QURAN_VERB_WAZAN, "");
+                        dataBundle.putString(QURAN_VERB_ROOT, "");
+                        dataBundle.putString(VERBTYPE, "");
+                        //    Intent intent = new Intent(getActivity(), WordDictionaryAct.class);
+                        Intent intent = new Intent(getActivity(), LughatWordDetailsAct.class);
                         intent.putExtras(dataBundle);
                         startActivity(intent);
+                    }
+                    if (isroot || isarabicword) {
+                        try {
+                            if (ismujarrad) {
+                                dataBundle.putString(VERBTYPE, "mujarrad");
+                            } else if (ismazeed) {
+                                dataBundle.putString(VERBTYPE, "mazeed");
+                            } else {
+                                dataBundle.putString(VERBTYPE, "");
+                            }
+                            if (isimperative) {
+                                dataBundle.putBoolean(IMPERATIVE, true);
+                            }
+                            //     Intent intent = new Intent(getActivity(), WordDictionaryAct.class);
+                            Intent intent = new Intent(getActivity(), LughatWordDetailsAct.class);
+                            intent.putExtras(dataBundle);
+                            startActivity(intent);
+                        } catch (NullPointerException e) {
+                            System.out.println("null pointer");
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "not found", Toast.LENGTH_SHORT).show();
+                    }
+
+                } else if (verse != null) {
+                    GrammerFragmentsBottomSheet item = new GrammerFragmentsBottomSheet();
+                    //    item.setdata(rootWordMeanings,wbwRootwords,grammarRootsCombined);
+                    FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                    Bundle dataBundle = new Bundle();
+                    dataBundle.putInt(SURAH_ID, chapterid);
+                    dataBundle.putInt(AYAHNUMBER, ayanumber);
+                    item.setArguments(dataBundle);
+                    String[] data = {String.valueOf(chapterid), String.valueOf(ayanumber)};
+                    GrammerFragmentsBottomSheet.newInstance(data).show((Objects.requireNonNull(requireActivity()).getSupportFragmentManager()), WordAnalysisBottomSheet.TAG);
+
+                } else if (nouns != null) {
+                    Bundle bundle = new Bundle();
+                    //   Intent intent = new Intent(getActivity(), NounOccuranceAsynKAct.class);
+                    Intent intent = new Intent(getActivity(), WordOccuranceAct.class);
+                    try {
+                        if (vb.getRoot() != null) {
+                            bundle.putString(QURAN_VERB_ROOT, vb.getRoot());
+                        } else if (getHarfNasbAndZarf() != null) {
+                            bundle.putString(QURAN_VERB_ROOT, getHarfNasbAndZarf());
+                        }
+                    } catch (NullPointerException e1) {
+                        bundle.putString(QURAN_VERB_ROOT, getHarfNasbAndZarf());
+                        e1.printStackTrace();
 
                     }
-                }
-
-            } else if (verboccuranceid != null) {
-          //      text2 = ((MaterialButton) verboccuranceid).getText();
-                if (!(vb == null)) {
-                    Bundle bundle = new Bundle();
-                    Intent intent = new Intent(getActivity(), WordOccuranceAct.class);
-                    bundle.putString(QURAN_VERB_ROOT, vb.getRoot());
                     intent.putExtras(bundle);
                     //   intent.putExtra(QURAN_VERB_ROOT,vb.getRoot());
                     startActivity(intent);
+
+                } else if (viewVerbConjugation != null) {
+                    text = ((MaterialButton) viewVerbConjugation).getText();
+                    if (text.toString().equals("Click for Verb Conjugation")) {
+                        if (isroot && isconjugation) {
+                            Bundle dataBundle = new Bundle();
+                            //      ArrayList arrayList = ThulathiMazeedConjugatonList.get(position);
+                            //   arrayList.get(0).ge
+                            if (ismujarrad) {
+                                dataBundle.putString(VERBTYPE, "mujarrad");
+                            } else if (ismazeed) {
+                                dataBundle.putString(VERBTYPE, "mazeed");
+                            }
+                            if (vbdetail.isEmpty()) {
+                                dataBundle.putString(VERBMOOD, "Indicative");
+                            } else {
+                                dataBundle.putString(VERBMOOD, vbdetail.get("verbmood"));
+                            }
+                            dataBundle.putString(QURAN_VERB_WAZAN, vb.getWazan());
+                            dataBundle.putString(QURAN_VERB_ROOT, vb.getRoot());
+                            Intent intent = new Intent(getActivity(), ConjugatorTabsActivity.class);
+                            intent.putExtras(dataBundle);
+                            startActivity(intent);
+
+                        }
+                    }
+
+                } else if (verboccuranceid != null) {
+                    //      text2 = ((MaterialButton) verboccuranceid).getText();
+                    if (!(vb == null)) {
+                        Bundle bundle = new Bundle();
+                        Intent intent = new Intent(getActivity(), WordOccuranceAct.class);
+                        bundle.putString(QURAN_VERB_ROOT, vb.getRoot());
+                        intent.putExtras(bundle);
+                        //   intent.putExtra(QURAN_VERB_ROOT,vb.getRoot());
+                        startActivity(intent);
+                    }
+
                 }
-
             }
-
         });
+
+
+
 
     }
 

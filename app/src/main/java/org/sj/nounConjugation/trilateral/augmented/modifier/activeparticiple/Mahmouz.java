@@ -25,7 +25,7 @@ import java.util.List;
  * @version 1.0
  */
 public class Mahmouz {
-    private final List modifiers = new LinkedList();
+    private final List<org.sj.nounConjugation.TrilateralNounSubstitutionApplier> modifiers = new LinkedList<>();
 
     public Mahmouz() {
         modifiers.add(new RaaEinMahmouz());
@@ -35,7 +35,7 @@ public class Mahmouz {
     }
 
     public void apply(MazeedConjugationResult conjResult) {
-        Iterator iter = modifiers.iterator();
+        Iterator<org.sj.nounConjugation.TrilateralNounSubstitutionApplier> iter = modifiers.iterator();
         while (iter.hasNext()) {
             IAugmentedTrilateralModifier modifier = (IAugmentedTrilateralModifier) iter.next();
             if (modifier.isApplied(conjResult)) {

@@ -39,9 +39,9 @@ public abstract class ListedVocalizer extends SubstitutionsApplier implements IU
         //فحص الباب التصريفي أولاً
         if (!root.getConjugation().equals(getNoc() + "")) return false;
 
-        Iterator iter = getAppliedRoots().iterator();
+        Iterator<String> iter = getAppliedRoots().iterator();
         while (iter.hasNext()) {
-            String appliedRoot = (String) iter.next();
+            String appliedRoot = iter.next();
             char c1 = appliedRoot.charAt(0);
             char c2 = appliedRoot.charAt(1);
             char c3 = appliedRoot.charAt(2);
@@ -51,7 +51,7 @@ public abstract class ListedVocalizer extends SubstitutionsApplier implements IU
         return false;
     }
 
-    protected abstract List getAppliedRoots();
+    protected abstract List<String> getAppliedRoots();
 
     protected abstract int getNoc();
 }

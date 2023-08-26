@@ -18,7 +18,7 @@
         app:autoSizeMaxTextSize="50sp"
         app:autoSizeStepGranularity="2sp"
         android:layout_width="match_parent"
-        android:text="my name is"
+
         android:layout_height="match_parent"
         android:padding="1dp"
         android:textIsSelectable="false"

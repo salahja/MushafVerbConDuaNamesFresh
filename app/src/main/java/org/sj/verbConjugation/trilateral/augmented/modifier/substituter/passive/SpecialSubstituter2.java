@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class SpecialSubstituter2 extends SubstitutionsApplier implements IAugmentedTrilateralModifier {
-    private final List substitutions = new LinkedList();
+    private final List<InfixSubstitution> substitutions = new LinkedList<InfixSubstitution>();
 
     public SpecialSubstituter2() {
         substitutions.add(new InfixSubstitution("يْت", "تّ"));// EX: (اتُّسِرَ)

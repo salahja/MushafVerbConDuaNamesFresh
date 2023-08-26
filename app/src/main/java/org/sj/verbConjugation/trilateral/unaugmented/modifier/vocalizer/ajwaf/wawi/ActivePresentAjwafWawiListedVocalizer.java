@@ -19,7 +19,7 @@ import java.util.List;
  * @version 1.0
  */
 public class ActivePresentAjwafWawiListedVocalizer extends AbstractAjwafWawiListedVocalizer {
-    private final List substitutions = new LinkedList();
+    private final List<ExpressionInfixSubstitution> substitutions = new LinkedList<ExpressionInfixSubstitution>();
 
     public ActivePresentAjwafWawiListedVocalizer() {
         substitutions.add(new ExpressionInfixSubstitution("ْوَC3ُ", "َاC3ُ"));

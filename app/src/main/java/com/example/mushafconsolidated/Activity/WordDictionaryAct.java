@@ -1047,7 +1047,7 @@ public class WordDictionaryAct extends BaseActivity {
                                 FragmentManager fragmentManager = getSupportFragmentManager();
                                 item.setArguments(dataBundle);
                                 String[] data = {surah, ayah, "", wordno};
-                                FragmentTransaction transactions = fragmentManager.beginTransaction().setCustomAnimations(R.anim.abc_slide_in_top, android.R.anim.fade_out);
+                           //     FragmentTransaction transactions = fragmentManager.beginTransaction().setCustomAnimations(R.anim.abc_slide_in_top, android.R.anim.fade_out);
                                 //     transactions.show(item);
                                 WordAnalysisBottomSheet.newInstance(data).show(getSupportFragmentManager(), WordAnalysisBottomSheet.TAG);
                                 //   WordAnalysisBottomSheet.newInstance(data).show(WordOccuranceAsynKAct.this).getSupportFragmentManager(), WordAnalysisBottomSheet.TAG);

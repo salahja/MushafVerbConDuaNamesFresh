@@ -2,9 +2,7 @@ package com.example.mushafconsolidated.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -23,6 +21,7 @@ public class GrammarRuleDetailHostActivity extends BaseActivity {
         setContentView(binding.getRoot());
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.nav_host_fragment_grammarrule_detail);
+        assert navHostFragment != null;
         NavController navController = navHostFragment.getNavController();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -33,14 +32,6 @@ public class GrammarRuleDetailHostActivity extends BaseActivity {
                 .build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(toolbar, navController);
-
-//        val navHostFragment: NavHostFragment = nav_host_fragment as NavHostFragment
-//        NavigationUI.setupWithNavController(toolbar, navHostFragment.navController)
-
-
-
-
-
 
 
 

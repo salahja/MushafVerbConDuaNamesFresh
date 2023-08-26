@@ -21,7 +21,7 @@ import java.util.List;
  * @version 1.0
  */
 public class Vocalizer31 extends TrilateralNounSubstitutionApplier implements IUnaugmentedTrilateralNounModificationApplier {
-    List substitutions = new LinkedList();
+    List<InfixSubstitution> substitutions = new LinkedList<InfixSubstitution>();
 
     public Vocalizer31() {
         substitutions.add(new InfixSubstitution("ِيو", "ِيّ"));// EX: (بهيّ، سويّ، )

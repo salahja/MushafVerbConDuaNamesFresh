@@ -20,7 +20,7 @@ import java.util.List;
  * @version 1.0
  */
 public class LamMahmouz extends AbstractLamMahmouz {
-    List substitutions = new LinkedList();
+    List<org.sj.verbConjugation.trilateral.Substitution.Substitution> substitutions = new LinkedList<>();
 
     public LamMahmouz() {
         substitutions.add(new SuffixSubstitution("ُوءِ", "ُوءِ"));// EX: (المَبْدُوءِ )

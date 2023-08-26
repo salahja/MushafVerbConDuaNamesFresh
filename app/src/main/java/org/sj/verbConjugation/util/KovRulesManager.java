@@ -4,7 +4,7 @@ import com.example.utility.QuranGrammarApplication;
 
 import java.util.ArrayList;
 
-import database.DatabaseUtils;
+import database.VerbDatabaseUtils;
 import database.entity.kov;
 
 public class KovRulesManager {
@@ -92,9 +92,9 @@ public class KovRulesManager {
         this.example = example;
     }
 
-    private ArrayList buildTrilateral() throws Exception {
+    private ArrayList<database.entity.kov> buildTrilateral() throws Exception {
         // Context context = DarkThemeApplication.getContext();
-        DatabaseUtils utils = new DatabaseUtils(QuranGrammarApplication.getContext());
+        VerbDatabaseUtils utils = new VerbDatabaseUtils(QuranGrammarApplication.getContext());
         trilateralRulesList = utils.getKov();
         return trilateralRulesList;
     }

@@ -10,7 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class PastVocalizer extends SubstitutionsApplier implements IAugmentedTrilateralModifier {
-    private final List substitutions = new LinkedList();
+    private final List<org.sj.verbConjugation.trilateral.Substitution.Substitution> substitutions = new LinkedList<org.sj.verbConjugation.trilateral.Substitution.Substitution>();
 
     public PastVocalizer() {
         substitutions.add(new SuffixSubstitution("وَ", "ى"));// EX: (هو أدنى، سَمَّى ، حابى، انجلى، ارتضى، ارعَوَى، تسامى، تزكّى ، استرضى، احلولى)

@@ -19,7 +19,8 @@ import java.util.List;
  * @version 1.0
  */
 public class EinMahmouz extends AbstractEinMahmouz {
-    List substitutions = new LinkedList();
+    List<InfixSubstitution> substitutions = new LinkedList<>();
+
 
     public EinMahmouz() {
         substitutions.add(new InfixSubstitution("وْءَ", "وْءَ")); // EX: (مُسْتَوْءَل)

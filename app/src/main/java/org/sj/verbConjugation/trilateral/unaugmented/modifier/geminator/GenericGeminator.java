@@ -26,7 +26,7 @@ import java.util.Map;
  * @version 1.0
  */
 public class GenericGeminator implements IUnaugmentedTrilateralModifier {
-    private final Map geminators = new HashMap();
+    private final Map<String, SubstitutionsApplier> geminators = new HashMap<>();
 
     public GenericGeminator() {
         //خمس أنواع للادغام للمعلوم والمبني لمجهول في الماضي والمضارع والأمر
@@ -49,7 +49,7 @@ public class GenericGeminator implements IUnaugmentedTrilateralModifier {
     }
 
     public void apply(String tense, boolean active, ConjugationResult conjResult) {
-        SubstitutionsApplier geminator = (SubstitutionsApplier) geminators.get(tense + active);
+        SubstitutionsApplier geminator = geminators.get(tense + active);
         geminator.apply(conjResult.getFinalResult(), conjResult.getRoot());
     }
 }

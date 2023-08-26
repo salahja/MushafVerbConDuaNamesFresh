@@ -21,7 +21,7 @@ import java.util.List;
  * @version 1.0
  */
 public class YaeiLafifNakesVocalizer extends TrilateralNounSubstitutionApplier implements IUnaugmentedTrilateralNounModificationApplier {
-    List substitutions = new LinkedList();
+    List<InfixSubstitution> substitutions = new LinkedList<>();
 
     public YaeiLafifNakesVocalizer() {
         substitutions.add(new InfixSubstitution("ُوي", "ِيّ"));// EX: (مأتِيّ، مرئِيّ، مرمِيّ، مَشْوِيّ، )

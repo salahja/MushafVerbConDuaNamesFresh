@@ -2,7 +2,6 @@ package com.example.mushafconsolidated.Activity;
 
 import static com.example.Constant.QURAN_VERB_ROOT;
 import static com.example.mushafconsolidated.R.drawable.custom_search_box;
-import static com.example.mushafconsolidated.R.drawable.search_rounded_borderline;
 
 import android.app.Activity;
 import android.app.SearchManager;
@@ -20,7 +19,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -28,6 +26,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mushafconsolidated.Adapters.SearchAdapter;
 import com.example.mushafconsolidated.Entities.qurandictionary;
 import com.example.mushafconsolidated.R;
 import com.example.mushafconsolidated.Utils;
@@ -105,7 +104,7 @@ public class SearchActivity extends BaseActivity implements OnItemClickListener 
                 // View id3 =      v.findViewById(R.id.languagename);
                 Bundle bundle = new Bundle();
                 //   Intent intent = new Intent(getActivity(), NounOccuranceAsynKAct.class);
-                Intent intent = new Intent(SearchActivity.this, SearchResult.class);
+                Intent intent = new Intent(SearchActivity.this, KeyboardSearchResult.class);
                 bundle.putString(QURAN_VERB_ROOT, entity.getRootarabic());
                 intent.putExtras(bundle);
                 //   intent.putExtra(QURAN_VERB_ROOT,vb.getRoot());

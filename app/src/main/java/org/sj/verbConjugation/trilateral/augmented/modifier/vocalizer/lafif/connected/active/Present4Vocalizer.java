@@ -11,7 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Present4Vocalizer extends SubstitutionsApplier implements IAugmentedTrilateralModifier {
-    private final List substitutions = new LinkedList();
+    private final List<org.sj.verbConjugation.trilateral.Substitution.Substitution> substitutions = new LinkedList<>();
 
     public Present4Vocalizer() {
         substitutions.add(new SuffixSubstitution("ِيُ", "ِي"));// EX: (يُذْوِي، يداوي، ينزوي، يحتوي، يستهوي)

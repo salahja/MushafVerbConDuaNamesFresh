@@ -18,7 +18,7 @@ import java.util.List;
  * @version 1.0
  */
 public abstract class TrilateralNounSubstitutionApplier extends SubstitutionsApplier {
-    protected static List appliedProunounsIndecies = new ArrayList(18);
+    protected static List<String> appliedProunounsIndecies = new ArrayList<String>(18);
 
     static {
         for (int i = 0; i < 18; i++) {

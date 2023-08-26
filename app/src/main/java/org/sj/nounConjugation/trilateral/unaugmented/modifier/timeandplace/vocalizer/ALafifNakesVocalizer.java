@@ -21,7 +21,7 @@ import java.util.List;
  * @version 1.0
  */
 public class ALafifNakesVocalizer extends TrilateralNounSubstitutionApplier implements IUnaugmentedTrilateralNounModificationApplier {
-    List substitutions = new LinkedList();
+    List<InfixSubstitution> substitutions = new LinkedList<InfixSubstitution>();
 
     public ALafifNakesVocalizer() {
         substitutions.add(new InfixSubstitution("يَيٌ", "يَا")); // EX: (هذا المَحيا )

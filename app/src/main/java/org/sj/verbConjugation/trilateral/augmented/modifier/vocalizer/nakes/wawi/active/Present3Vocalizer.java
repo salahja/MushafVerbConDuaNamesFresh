@@ -10,7 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Present3Vocalizer extends SubstitutionsApplier implements IAugmentedTrilateralModifier {
-    private final List substitutions = new LinkedList();
+    private final List<org.sj.verbConjugation.trilateral.Substitution.Substitution> substitutions = new LinkedList<>();
 
     public Present3Vocalizer() {
         substitutions.add(new SuffixSubstitution("وُ", "ي")); // EX: (هو يُسَمِّي)

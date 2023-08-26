@@ -21,7 +21,7 @@ import java.util.List;
  * @version 1.0
  */
 public class Vocalizer1 extends TrilateralNounSubstitutionApplier implements IUnaugmentedTrilateralNounModificationApplier {
-    List substitutions = new LinkedList();
+    List<SuffixSubstitution> substitutions = new LinkedList<SuffixSubstitution>();
 
     public Vocalizer1() {
         substitutions.add(new SuffixSubstitution("َيُ", "َى")); // EX: (هذا الأعمى، )

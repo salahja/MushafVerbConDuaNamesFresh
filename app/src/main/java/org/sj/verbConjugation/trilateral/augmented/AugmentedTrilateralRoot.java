@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AugmentedTrilateralRoot implements TrilateralRoot {
-    private final Map augmentations = new HashMap();
+    private final Map<String, AugmentationFormula> augmentations = new HashMap<>();
     private char c1;
     private char c2;
     private char c3;
@@ -71,11 +71,11 @@ public class AugmentedTrilateralRoot implements TrilateralRoot {
         this.c3 = c3;
     }
 
-    public Collection getAugmentationList() {
+    public Collection<AugmentationFormula> getAugmentationList() {
         return augmentations.values();
     }
 
     public AugmentationFormula getAugmentationFormula(int formulaNo) {
-        return (AugmentationFormula) augmentations.get(formulaNo + "");
+        return augmentations.get(formulaNo + "");
     }
 }

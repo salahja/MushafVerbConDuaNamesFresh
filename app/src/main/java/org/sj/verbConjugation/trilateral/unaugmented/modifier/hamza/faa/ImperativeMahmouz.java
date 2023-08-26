@@ -20,7 +20,7 @@ import java.util.List;
  * @version 1.0
  */
 public class ImperativeMahmouz extends AbstractFaaMahmouz {
-    private final List substitutions = new ArrayList();
+    private final List<org.sj.verbConjugation.trilateral.Substitution.Substitution> substitutions = new ArrayList<>();
 
     public ImperativeMahmouz() {
         substitutions.add(new ExpressionInfixSubstitution("اءْC2َ", "ائْC2َ")); // EX: (ائْبَه)

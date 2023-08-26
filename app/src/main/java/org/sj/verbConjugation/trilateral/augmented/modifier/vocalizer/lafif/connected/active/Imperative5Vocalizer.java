@@ -11,7 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Imperative5Vocalizer extends SubstitutionsApplier implements IAugmentedTrilateralModifier {
-    private final List substitutions = new LinkedList();
+    private final List<org.sj.verbConjugation.trilateral.Substitution.Substitution> substitutions = new LinkedList<>();
 
     public Imperative5Vocalizer() {
         substitutions.add(new SuffixSubstitution("وْ", "")); // EX: (سَوِّ، احْوَوِّ)

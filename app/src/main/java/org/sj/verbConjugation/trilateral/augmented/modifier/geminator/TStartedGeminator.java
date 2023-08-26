@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class TStartedGeminator extends SubstitutionsApplier implements IAugmentedTrilateralModifier {
-    private final List substitutions = new LinkedList();
+    private final List<InfixSubstitution> substitutions = new LinkedList<>();
 
     public TStartedGeminator() {
         substitutions.add(new InfixSubstitution("تْت", "تّ"));// EX: (اتَّبَعَ)

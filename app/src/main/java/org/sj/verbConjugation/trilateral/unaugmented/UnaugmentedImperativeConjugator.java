@@ -67,8 +67,8 @@ public class UnaugmentedImperativeConjugator {
      * @param root TripleVerb
      * @return List
      */
-    public List createVerbList(UnaugmentedTrilateralRoot root) {
-        List result = new LinkedList();
+    public List<ImperativeVerb> createVerbList(UnaugmentedTrilateralRoot root) {
+        List<ImperativeVerb> result = new LinkedList<ImperativeVerb>();
         for (int i = 0; i < 13; i++) {
             ImperativeVerb conj = createVerb(i, root);
             result.add(conj);
@@ -84,8 +84,8 @@ public class UnaugmentedImperativeConjugator {
      * @param root TripleVerb
      * @return List
      */
-    public List createEmphasizedVerbList(UnaugmentedTrilateralRoot root) {
-        List result = new LinkedList();
+    public List<ImperativeVerb> createEmphasizedVerbList(UnaugmentedTrilateralRoot root) {
+        List<ImperativeVerb> result = new LinkedList<ImperativeVerb>();
         for (int i = 0; i < 13; i++) {
             ImperativeVerb conj = createEmphasizedVerb(i, root);
             result.add(conj);
@@ -95,8 +95,8 @@ public class UnaugmentedImperativeConjugator {
     }
 
 
-    public List createVerbHua(UnaugmentedTrilateralRoot root) {
-        List result = new LinkedList();
+    public List<ImperativeVerb> createVerbHua(UnaugmentedTrilateralRoot root) {
+        List<ImperativeVerb> result = new LinkedList<ImperativeVerb>();
         for (int i = 0; i < 1; i++) {
             ImperativeVerb conj = createVerb(i, root);
             result.add(conj);
@@ -112,8 +112,8 @@ public class UnaugmentedImperativeConjugator {
      * @param root TripleVerb
      * @return List
      */
-    public List createEmphasizedVerbHua(UnaugmentedTrilateralRoot root) {
-        List result = new LinkedList();
+    public List<ImperativeVerb> createEmphasizedVerbHua(UnaugmentedTrilateralRoot root) {
+        List<ImperativeVerb> result = new LinkedList<ImperativeVerb>();
         for (int i = 0; i < 1; i++) {
             ImperativeVerb conj = createEmphasizedVerb(i, root);
             result.add(conj);

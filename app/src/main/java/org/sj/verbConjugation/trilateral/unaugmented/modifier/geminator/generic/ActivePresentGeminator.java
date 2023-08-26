@@ -20,7 +20,7 @@ import java.util.List;
  * @version 1.0
  */
 public class ActivePresentGeminator extends SubstitutionsApplier {
-    private final List substitutions = new LinkedList();
+    private final List<org.sj.verbConjugation.trilateral.Substitution.Substitution> substitutions = new LinkedList<>();
 
     public ActivePresentGeminator() {
         substitutions.add(new ExpressionInfixSubstitution("ْC3ُC3ُ", "ُC3ُّ"));

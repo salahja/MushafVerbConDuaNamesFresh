@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ActivePresentGeminator extends SubstitutionsApplier {
-    private final List substitutions = new LinkedList();
+    private final List<org.sj.verbConjugation.trilateral.Substitution.Substitution> substitutions = new LinkedList<org.sj.verbConjugation.trilateral.Substitution.Substitution>();
 
     public ActivePresentGeminator() {
         substitutions.add(new ExpressionInfixSubstitution("ْC3ِC3ُ", "ِC3ُّ")); // EX: (يُتِمُّ)

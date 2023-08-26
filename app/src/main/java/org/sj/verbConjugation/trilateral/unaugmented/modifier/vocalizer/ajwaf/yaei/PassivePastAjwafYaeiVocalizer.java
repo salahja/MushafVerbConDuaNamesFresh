@@ -19,7 +19,7 @@ import java.util.List;
  * @version 1.0
  */
 public class PassivePastAjwafYaeiVocalizer extends AbstractAjwafYaeiVocalizer {
-    private final List substitutions = new LinkedList();
+    private final List<ExpressionInfixSubstitution> substitutions = new LinkedList<>();
 
     public PassivePastAjwafYaeiVocalizer() {
 

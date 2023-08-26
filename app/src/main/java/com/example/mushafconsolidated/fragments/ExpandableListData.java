@@ -953,35 +953,13 @@ public class ExpandableListData {
         }
     }
 
-    private void disconnected(StringBuilder sb, int harfword, int shartSword, int shartEword, int jawbSword, int jawabEword) {
-        ArrayList<wbwentity> harf = utils.getwbwQuranbTranslation(corpusSurahWord.get(0).getSurah(), corpusSurahWord.get(0).getAyah(), harfword, harfword);
-        ArrayList<wbwentity> shartlist = utils.getwbwQuranbTranslation(corpusSurahWord.get(0).getSurah(), corpusSurahWord.get(0).getAyah(), shartSword, shartEword);
-        ArrayList<wbwentity> jawablist = utils.getwbwQuranbTranslation(corpusSurahWord.get(0).getSurah(), corpusSurahWord.get(0).getAyah(), jawbSword, jawabEword);
-        for (wbwentity tr : harf) {
-            getSelectedTranslation(tr);
-            sb.append(tr.getEn()).append(" ");
-
-        }
-        for (wbwentity tr : shartlist) {
-            getSelectedTranslation(tr);
-            sb.append(tr.getEn()).append(" ");
-
-        }
-        sb.append(".......");
-        for (wbwentity tr : jawablist) {
-            getSelectedTranslation(tr);
-            sb.append(tr.getEn()).append(" ");
-
-        }
-    }
-
     @NonNull
     private SpannableStringBuilder getFragmentTranslations(String quranverses, StringBuilder sb, CharSequence charSequence, boolean ismudhaf) {
         //get the string firs wordno and last wordno
         sb = new StringBuilder();
         int firstwordindex = 0;
         int lastwordindex = 0;
-        SplitQuranVerses split = new SplitQuranVerses(QuranGrammarApplication.getContext());
+        SplitQuranVerses split = new SplitQuranVerses();
         ArrayList<Word> words = split.splitSingleVerse(quranverses);
         String trim = charSequence.toString().trim();
         String[] strings = trim.split("\\s");

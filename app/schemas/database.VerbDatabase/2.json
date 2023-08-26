@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "0b6885ceb98f334c811debac3d4fec5d",
+    "identityHash": "e4a7d384a702fe093905c1570438a6cd",
     "entities": [
       {
         "tableName": "mazeed",
@@ -405,74 +405,12 @@
         },
         "indices": [],
         "foreignKeys": []
-      },
-      {
-        "tableName": "quranicverbs",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`verb` TEXT, `root` TEXT, `thulathibab` TEXT, `form` INTEGER NOT NULL, `chaptername` TEXT, `frequency` INTEGER NOT NULL, `meaning` TEXT, `id` INTEGER NOT NULL, PRIMARY KEY(`id`))",
-        "fields": [
-          {
-            "fieldPath": "verb",
-            "columnName": "verb",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "root",
-            "columnName": "root",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "thulathibab",
-            "columnName": "thulathibab",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "form",
-            "columnName": "form",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "chaptername",
-            "columnName": "chaptername",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "frequency",
-            "columnName": "frequency",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "meaning",
-            "columnName": "meaning",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "id",
-            "columnName": "id",
-            "affinity": "INTEGER",
-            "notNull": true
-          }
-        ],
-        "primaryKey": {
-          "columnNames": [
-            "id"
-          ],
-          "autoGenerate": false
-        },
-        "indices": [],
-        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0b6885ceb98f334c811debac3d4fec5d')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e4a7d384a702fe093905c1570438a6cd')"
     ]
   }
 }

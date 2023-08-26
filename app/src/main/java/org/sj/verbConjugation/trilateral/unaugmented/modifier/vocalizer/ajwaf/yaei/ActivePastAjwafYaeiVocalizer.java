@@ -19,7 +19,7 @@ import java.util.List;
  * @version 1.0
  */
 public class ActivePastAjwafYaeiVocalizer extends AbstractAjwafYaeiVocalizer {
-    private final List substitutions = new LinkedList();
+    private final List<ExpressionInfixSubstitution> substitutions = new LinkedList<>();
 
     public ActivePastAjwafYaeiVocalizer() {
         substitutions.add(new ExpressionInfixSubstitution("َيَC3ْ", "ِC3ْ"));// EX: (بِعْتُ، قِئتُ، إِنْتُ،)

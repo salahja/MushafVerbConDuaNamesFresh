@@ -24,7 +24,7 @@ import java.util.List;
  * @version 1.0
  */
 public class Mahmouz {
-    private final List modifiers = new LinkedList();
+    private final List<org.sj.nounConjugation.TrilateralNounSubstitutionApplier> modifiers = new LinkedList<>();
 
     public Mahmouz() {
         modifiers.add(new FaaMahmouz());
@@ -33,7 +33,7 @@ public class Mahmouz {
     }
 
     public void apply(ConjugationResult conjResult) {
-        Iterator iter = modifiers.iterator();
+        Iterator<org.sj.nounConjugation.TrilateralNounSubstitutionApplier> iter = modifiers.iterator();
         while (iter.hasNext()) {
             IUnaugmentedTrilateralNounModificationApplier modifier = (IUnaugmentedTrilateralNounModificationApplier) iter.next();
             if (modifier.isApplied(conjResult)) {
@@ -43,7 +43,7 @@ public class Mahmouz {
         }
         //الأفعال الثلاثية المجردة المهموزة الفاء والمهموزة اللام (وهي: أبأ، أثأ، أجأ، أزأ، أكأ)
         if (conjResult.getRoot().getC3() == 'ء')
-            ((SubstitutionsApplier) modifiers.get(2)).apply(conjResult.getFinalResult(), conjResult.getRoot());
+            (modifiers.get(2)).apply(conjResult.getFinalResult(), conjResult.getRoot());
 
     }
 }

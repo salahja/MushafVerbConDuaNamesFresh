@@ -22,7 +22,7 @@ import java.util.List;
  * @version 1.0
  */
 public class NakesLafifMahmouz extends TrilateralNounSubstitutionApplier implements IUnaugmentedTrilateralNounModificationApplier {
-    List substitutions = new LinkedList();
+    List<org.sj.verbConjugation.trilateral.Substitution.Substitution> substitutions = new LinkedList<>();
 
     public NakesLafifMahmouz() {
         substitutions.add(new InfixSubstitution("اءٌ", "اءٌ"));// EX: (غزّاءٌ، رمَّاءٌ، مِعطاءٌ، مِجناء، مِعواء، مِيفاء)

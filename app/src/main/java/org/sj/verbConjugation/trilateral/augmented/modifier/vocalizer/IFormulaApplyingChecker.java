@@ -21,8 +21,8 @@ public abstract class IFormulaApplyingChecker {
         return NO_THING;
     }
 
-    public abstract List getNotVocalizedList();
+    public abstract List<String> getNotVocalizedList();
 
-    public abstract List getTwoStateList();
+    public abstract List<String> getTwoStateList();
 
 }

@@ -70,13 +70,6 @@ public class RootBreakFragment extends Fragment {
 
 
         recyclerView.setLayoutManager(new GridLayoutManager(context, 3));
-     //   recyclerView.setAdapter(new MyRootBreakRecyclerViewAdapter( utils.getQuranDictionarybyroot(root)));
-
-
-
-
-
-
 
 
         return view;

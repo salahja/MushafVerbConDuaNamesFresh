@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class ActivePresent1Vocalizer extends SubstitutionsApplier implements IUnaugmentedTrilateralModifier {
 
-    private final List substitutions = new LinkedList();
+    private final List<org.sj.verbConjugation.trilateral.Substitution.Substitution> substitutions = new LinkedList<>();
 
     public ActivePresent1Vocalizer() {
         substitutions.add(new ExpressionSuffixSubstitution("َيْC2ِيُ", "َC2ِي"));// EX: (يَدِي)

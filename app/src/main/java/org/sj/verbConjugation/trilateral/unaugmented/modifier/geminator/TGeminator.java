@@ -27,8 +27,8 @@ import java.util.List;
  * @version 1.0
  */
 public class TGeminator extends SubstitutionsApplier implements IUnaugmentedTrilateralModifier {
-    private final List substitutions = new LinkedList();
-    private final List appliedPronounsIndecies = new ArrayList(6);
+    private final List<InfixSubstitution> substitutions = new LinkedList<>();
+    private final List<String> appliedPronounsIndecies = new ArrayList<String>(6);
 
     public TGeminator() {
         substitutions.add(new InfixSubstitution("تْتُ", "تُّ"));

@@ -32,13 +32,13 @@ public class AbstractAugmentedPresentConjugator {
         return null;
     }
 
-    public List createVerbList(AugmentedTrilateralRoot root, int formulaNo) {
+    public List<AugmentedPresentVerb> createVerbList(AugmentedTrilateralRoot root, int formulaNo) {
         AugmentationFormula augmentationFormula = root.getAugmentationFormula(formulaNo);
         if (formulaNo == 29) {
             //   if (augmentationFormula.getTransitive() == 'ل') {
             return createLazzemVerbList(root, formulaNo);
         } else {
-            List result = new LinkedList();
+            List<AugmentedPresentVerb> result = new LinkedList<>();
             for (int i = 0; i < 13; i++) {
                 AugmentedPresentVerb verb = createVerb(root, i, formulaNo);
                 result.add(verb);
@@ -48,8 +48,8 @@ public class AbstractAugmentedPresentConjugator {
     }
 
     //������ ������ ������ ��� �� �� �� ��
-    public List createLazzemVerbList(AugmentedTrilateralRoot root, int formulaNo) {
-        List result = new LinkedList();
+    public List<AugmentedPresentVerb> createLazzemVerbList(AugmentedTrilateralRoot root, int formulaNo) {
+        List<AugmentedPresentVerb> result = new LinkedList<AugmentedPresentVerb>();
         for (int i = 0; i < 13; i++) {
             if (i == 7 || i == 8) {
                 AugmentedPresentVerb verb = createVerb(root, i, formulaNo);

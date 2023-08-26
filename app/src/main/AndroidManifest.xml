@@ -176,16 +176,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
         </activity>
-        <activity
-            android:name=".Activity.QuranGrammarAct"
-            android:exported="true"
-            android:parentActivityName=".Activity.MainActivity"
-            android:screenOrientation="fullSensor"
-            android:windowSoftInputMode="stateVisible|adjustResize">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.mushafconsolidated.Activity.MainActivity" />
-        </activity>
+
         <activity
             android:name=".Activity.QuranDIctionarySearchActivity"
             android:exported="true"
@@ -196,7 +187,7 @@
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
         </activity>
         <activity
-            android:name=".Activity.SearchResult"
+            android:name=".Activity.KeyboardSearchResult"
             android:exported="true"
             android:parentActivityName=".Activity.MainActivity"
             android:screenOrientation="fullSensor">
@@ -266,6 +257,21 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mushafconsolidated.Activity.MainActivity" />
         </activity>
+
+
+
+
+        <activity
+            android:name=".Activity.QuranGrammarAct"
+            android:exported="true"
+            android:parentActivityName=".Activity.MainActivity"
+            android:screenOrientation="fullSensor"
+            android:windowSoftInputMode="stateVisible|adjustResize">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mushafconsolidated.Activity.MainActivity" />
+        </activity>
+
 
         <meta-data
             android:name="com.google.android.gms.version"

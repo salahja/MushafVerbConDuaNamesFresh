@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class NounSunLamModifier extends SubstitutionsApplier {
     private static final NounSunLamModifier instance = new NounSunLamModifier();
-    protected static List appliedProunounsIndecies = new ArrayList(13);
+    protected static List<String> appliedProunounsIndecies = new ArrayList<>(13);
 
     static {
         for (int i = 0; i < 18; i++) {
@@ -32,10 +32,10 @@ public class NounSunLamModifier extends SubstitutionsApplier {
         }
     }
 
-    List substitutions = new LinkedList();
+    List<ListedInfixSubstitution> substitutions = new LinkedList<ListedInfixSubstitution>();
 
     private NounSunLamModifier() {
-        List sunLetters = new LinkedList();
+        List<String> sunLetters = new LinkedList<String>();
         sunLetters.add("ت");
         sunLetters.add("ث");
         sunLetters.add("د");
@@ -84,9 +84,9 @@ public class NounSunLamModifier extends SubstitutionsApplier {
     }
 
     class ListedInfixSubstitution extends Substitution {
-        private final List probableChars;
+        private final List<String> probableChars;
 
-        public ListedInfixSubstitution(List probableChars, String segment, String result) {
+        public ListedInfixSubstitution(List<String> probableChars, String segment, String result) {
             super(segment, result);
             this.probableChars = probableChars;
         }
@@ -96,9 +96,9 @@ public class NounSunLamModifier extends SubstitutionsApplier {
          * @return String
          */
         public String apply(String word, TrilateralRoot root) {
-            Iterator iter = probableChars.iterator();
+            Iterator<String> iter = probableChars.iterator();
             while (iter.hasNext()) {
-                String sl = (String) iter.next();
+                String sl = iter.next();
                 String appliedResut = apply(word, sl);
                 if (appliedResut != null) {
                     return appliedResut;

@@ -20,6 +20,7 @@ import static org.sj.conjugator.utilities.ArabicLiterals.Hamza;
 import static org.sj.conjugator.utilities.ArabicLiterals.LALIF;
 import static org.sj.conjugator.utilities.ArabicLiterals.Ya;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -113,6 +114,7 @@ public class RootBreakupAct extends BaseActivity implements OnItemClickListener,
     Chip lanes,hanes;
     private ArrayList<RootWordDetails> rootdetails;
     private ArrayList<RootVerbDetails> verbdetails;
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -353,6 +355,7 @@ public class RootBreakupAct extends BaseActivity implements OnItemClickListener,
                     }
 
                 }
+
                 for (NounCorpusBreakup noun : nounCorpusArrayList) {
                     List list = new ArrayList();
                     list.add("");
@@ -721,7 +724,7 @@ public class RootBreakupAct extends BaseActivity implements OnItemClickListener,
                                 FragmentManager fragmentManager = getSupportFragmentManager();
                                 item.setArguments(dataBundle);
                                 String[] data = {surah, ayah, "", wordno};
-                                FragmentTransaction transactions = fragmentManager.beginTransaction().setCustomAnimations(R.anim.abc_slide_in_top, android.R.anim.fade_out);
+                            //    FragmentTransaction transactions = fragmentManager.beginTransaction().setCustomAnimations(R.anim.abc_slide_in_top, android.R.anim.fade_out);
                                 //     transactions.show(item);
                                 WordAnalysisBottomSheet.newInstance(data).show(getSupportFragmentManager(), WordAnalysisBottomSheet.TAG);
                                 //   WordAnalysisBottomSheet.newInstance(data).show(WordOccuranceAsynKAct.this).getSupportFragmentManager(), WordAnalysisBottomSheet.TAG);

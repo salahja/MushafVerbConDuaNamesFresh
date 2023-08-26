@@ -22,7 +22,7 @@ import java.util.List;
  * @version 1.0
  */
 public class WawiLafifNakesVocalizer extends TrilateralNounSubstitutionApplier implements IUnaugmentedTrilateralNounModificationApplier {
-    List substitutions = new LinkedList();
+    List<org.sj.verbConjugation.trilateral.Substitution.Substitution> substitutions = new LinkedList<org.sj.verbConjugation.trilateral.Substitution.Substitution>();
 
     public WawiLafifNakesVocalizer() {
         substitutions.add(new SuffixSubstitution("َوُ", "َى"));// EX: (هذا الأعلى، )

@@ -6,14 +6,13 @@ import static com.example.Constant.AYAH_ID;
 import static com.example.Constant.CHAPTER;
 import static com.example.mushafconsolidated.R.drawable.custom_search_box;
 
-import android.annotation.SuppressLint;
+
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.TypedArray;
+
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,12 +20,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
+
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -48,18 +46,18 @@ import com.example.mushafconsolidated.Utils;
 import com.example.mushafconsolidated.intrface.OnItemClickListener;
 import com.example.mushafconsolidated.intrface.PassdataInterface;
 import com.example.mushafconsolidated.model.Juz;
-import com.example.mushafconsolidated.settings.Constants;
 import com.example.utility.QuranGrammarApplication;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
-import com.google.android.material.tabs.TabItem;
+
 import com.google.android.material.textview.MaterialTextView;
 
 import org.sj.conjugator.activity.ConjugatorAct;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import database.GridImageAct;
 import sj.hisnul.activity.HisnulBottomACT;
@@ -81,24 +79,17 @@ public class NewSurahDisplayFrag extends Fragment implements  SearchView.OnQuery
     private JuzSurahDisplayAdapter juzSurahDisplayAdapter;
     //  SurahDisplayAdapter ParentAdapter;
     private OnItemClickListener mItemClickListener;
-    private final boolean isfragmentshowing = true;
-    private ImageView drop;
-    private TextView devIndicatorView;
+
+
     FloatingActionButton btnBottomSheet;
-    private PassdataInterface passdataInterface;
     private PassdataInterface datapasser;
     private int lastreadchapterno, lastreadverseno;
     private ArrayList<ChaptersAnaEntity> allAnaChapters;
     private List<Juz> parts;
 
     private SearchView.OnQueryTextListener queryTextListener;
-    private List<ChaptersAnaEntity> chapterfilered;
     private  TextView searchint;
     private NavigationBarView bottomNavigationView;
-
-    public NewSurahDisplayFrag(PassdataInterface passdataInterface) {
-        this.setPassdataInterface(passdataInterface);
-    }
 
     public NewSurahDisplayFrag() {
         // Required empty public constructor
@@ -107,8 +98,7 @@ public class NewSurahDisplayFrag extends Fragment implements  SearchView.OnQuery
     public static NewSurahDisplayFrag newInstance() {
         NewSurahDisplayFrag fragment = new NewSurahDisplayFrag();
         Bundle args = new Bundle();
-        //    args.putString(ARG_PARAM1, param1);
-        //    args.putString(ARG_PARAM2, param2);
+
         fragment.setArguments(args);
         return fragment;
     }
@@ -118,7 +108,7 @@ public class NewSurahDisplayFrag extends Fragment implements  SearchView.OnQuery
 
      */
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         setDatapasser((PassdataInterface) context);
     }
@@ -140,10 +130,10 @@ public class NewSurahDisplayFrag extends Fragment implements  SearchView.OnQuery
             public void onPrepareMenu(@NonNull Menu menu) {
                 SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
                 MenuItem searchItem = menu.findItem(R.id.search);
-                SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+                SearchManager searchManager = (SearchManager) Objects.requireNonNull(requireActivity()).getSystemService(Context.SEARCH_SERVICE);
                 if (searchItem != null) {
                     searchView = (SearchView) searchItem.getActionView();
-                    Drawable sear = ContextCompat.getDrawable(getActivity(), custom_search_box);
+                    Drawable sear = ContextCompat.getDrawable(Objects.requireNonNull(requireActivity()), custom_search_box);
                     searchView.setClipToOutline(true);
                     searchView.setBackgroundDrawable(sear);
                     searchView.setGravity(View.TEXT_ALIGNMENT_CENTER);
@@ -235,19 +225,13 @@ public class NewSurahDisplayFrag extends Fragment implements  SearchView.OnQuery
         }
     }
 
-    private void setToolbarFragment() {
-        Toolbar materialToolbar = ((QuranGrammarAct) requireActivity()).findViewById(R.id.toolbarmain);
-        ((QuranGrammarAct) requireActivity()).   setSupportActionBar(materialToolbar)
-     ;
-    }
-
     @Override
     public void onDestroy() {
         super.onDestroy();
-        boolean removing = isRemoving();
-        Fragment fragment = getActivity().getSupportFragmentManager().findFragmentByTag("group");
+
+        Fragment fragment = Objects.requireNonNull(requireActivity()).getSupportFragmentManager().findFragmentByTag("group");
         if (fragment != null) {
-            getActivity().getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+            Objects.requireNonNull(requireActivity()).getSupportFragmentManager().beginTransaction().remove(fragment).commit();
         }
 
     }
@@ -255,18 +239,19 @@ public class NewSurahDisplayFrag extends Fragment implements  SearchView.OnQuery
     @Override
     public void onDetach() {
         super.onDetach();
-        boolean removing = isRemoving();
-        Fragment fragment = getActivity().getSupportFragmentManager().findFragmentByTag("group");
+        Fragment fragment = Objects.requireNonNull(requireActivity()).getSupportFragmentManager().findFragmentByTag("group");
         if (fragment != null) {
-            getActivity().getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+            Objects.requireNonNull(requireActivity()).getSupportFragmentManager().beginTransaction().remove(fragment).commit();
         }
 
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        container.removeAllViews();
+        if (container != null) {
+            container.removeAllViews();
+        }
 
         //     View view = inflater.inflate(R.layout.list_surah_juz, container, false);
         View view = inflater.inflate(R.layout.list_surah_juz, container, false);
@@ -280,7 +265,7 @@ public class NewSurahDisplayFrag extends Fragment implements  SearchView.OnQuery
         Utils utils = new Utils(getContext());
         allAnaChapters = utils.getAllAnaChapters();
          parts = utils.getJuz();
-        chapterfilered=allAnaChapters;
+
       //  TypedArray imgs = getContext().getResources().obtainTypedArray(R.array.sura_imgs);
         GridLayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
         // parentRecyclerView = view.findViewById(R.id.juzRecyclerView);
@@ -288,79 +273,64 @@ public class NewSurahDisplayFrag extends Fragment implements  SearchView.OnQuery
         MaterialButton lastread = view.findViewById(R.id.lastread);
         TextView kahaf = view.findViewById(R.id.kahaf);
         TextView ayakursi = view.findViewById(R.id.ayatkursi);
-        SharedPreferences pref = getContext().getSharedPreferences("lastread", MODE_PRIVATE);
+        SharedPreferences pref = Objects.requireNonNull(requireContext()).getSharedPreferences("lastread", MODE_PRIVATE);
         lastreadchapterno = pref.getInt(CHAPTER, 1);
         lastreadverseno = pref.getInt(AYAH_ID, 1);
         StringBuilder sbss=new StringBuilder();
         sbss.append("Last read").append(":").append("Surah").append(lastreadchapterno).append(" ").append("Ayah").append(lastreadverseno);
      lastread.setText(sbss.toString());
         //lastread.setText("Last read" + ":" + "Surah:" + lastreadchapterno + " " + "Ayah:" + lastreadverseno);
-        juz.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                parentRecyclerView.setLayoutManager(mLayoutManager);
-                parentRecyclerView.setHasFixedSize(true);
-                parentRecyclerView.setLayoutManager(mLayoutManager);
-                juzSurahDisplayAdapter = new JuzSurahDisplayAdapter(getContext(), parts);
+        juz.setOnClickListener(v -> {
+            parentRecyclerView.setLayoutManager(mLayoutManager);
+            parentRecyclerView.setHasFixedSize(true);
+            parentRecyclerView.setLayoutManager(mLayoutManager);
+            juzSurahDisplayAdapter = new JuzSurahDisplayAdapter(getContext(), parts);
 
-                parentRecyclerView.setAdapter(juzSurahDisplayAdapter);
-            }
+            parentRecyclerView.setAdapter(juzSurahDisplayAdapter);
         });
 
-        surahtv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                parentRecyclerView.setLayoutManager(mLayoutManager);
-                parentRecyclerView.setHasFixedSize(true);
-              
-                ParentAdapter = new NewSurahDisplayAdapter(getContext(), allAnaChapters);
-                ParentAdapter.setUp(allAnaChapters);
-                parentRecyclerView.setAdapter(ParentAdapter);
-            }
+        surahtv.setOnClickListener(v -> {
+            parentRecyclerView.setLayoutManager(mLayoutManager);
+            parentRecyclerView.setHasFixedSize(true);
+
+            ParentAdapter = new NewSurahDisplayAdapter(getContext(), allAnaChapters);
+            ParentAdapter.setUp(allAnaChapters);
+            parentRecyclerView.setAdapter(ParentAdapter);
         });
         kahaf.setText(R.string.linkkahaf);
-        lastread.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        lastread.setOnClickListener(v -> {
 //
-                Intent intent = new Intent(QuranGrammarApplication.getContext(), QuranGrammarAct.class);
-                //  Intent intent = new Intent(DarkThemeApplication.getContext(), ReadingSurahPartActivity.class);
-                intent.putExtra("chapter", lastreadchapterno);
-                intent.putExtra("chapterorpart", true);
-                intent.putExtra("partname", allAnaChapters.get(lastreadchapterno - 1).getAbjadname());
-                intent.putExtra(AYAH_ID, lastreadverseno);
-                intent.putExtra(AYAHNUMBER, lastreadverseno);
-                startActivity(intent);
+            Intent intent = new Intent(QuranGrammarApplication.getContext(), QuranGrammarAct.class);
+            //  Intent intent = new Intent(DarkThemeApplication.getContext(), ReadingSurahPartActivity.class);
+            intent.putExtra("chapter", lastreadchapterno);
+            intent.putExtra("chapterorpart", true);
+            intent.putExtra("partname", allAnaChapters.get(lastreadchapterno - 1).getAbjadname());
+            intent.putExtra(AYAH_ID, lastreadverseno);
+            intent.putExtra(AYAHNUMBER, lastreadverseno);
+            startActivity(intent);
 
-            }
         });
-        kahaf.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(QuranGrammarApplication.getContext(), QuranGrammarAct.class);
-                //  Intent intent = new Intent(DarkThemeApplication.getContext(), ReadingSurahPartActivity.class);
-                intent.putExtra("chapter", 18);
-                intent.putExtra("chapterorpart", true);
-                intent.putExtra("partname", allAnaChapters.get(18).getAbjadname());
-                intent.putExtra("verseno", 1);
-                intent.putExtra(AYAH_ID, 1);
-                startActivity(intent);
+        kahaf.setOnClickListener(v -> {
+            Intent intent = new Intent(QuranGrammarApplication.getContext(), QuranGrammarAct.class);
+            //  Intent intent = new Intent(DarkThemeApplication.getContext(), ReadingSurahPartActivity.class);
+            intent.putExtra("chapter", 18);
+            intent.putExtra("chapterorpart", true);
+            intent.putExtra("partname", allAnaChapters.get(18).getAbjadname());
+            intent.putExtra("verseno", 1);
+            intent.putExtra(AYAH_ID, 1);
+            startActivity(intent);
 
-            }
         });
-        ayakursi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(QuranGrammarApplication.getContext(), QuranGrammarAct.class);
-                //  Intent intent = new Intent(DarkThemeApplication.getContext(), ReadingSurahPartActivity.class);
-                intent.putExtra("chapter", 2);
-                intent.putExtra("chapterorpart", true);
-                intent.putExtra("partname", allAnaChapters.get(2).getAbjadname());
-                intent.putExtra("verseno", 255);
-                intent.putExtra(AYAH_ID, 255);
-                startActivity(intent);
+        ayakursi.setOnClickListener(v -> {
+            Intent intent = new Intent(QuranGrammarApplication.getContext(), QuranGrammarAct.class);
+            //  Intent intent = new Intent(DarkThemeApplication.getContext(), ReadingSurahPartActivity.class);
+            intent.putExtra("chapter", 2);
+            intent.putExtra("chapterorpart", true);
+            intent.putExtra("partname", allAnaChapters.get(2).getAbjadname());
+            intent.putExtra("verseno", 255);
+            intent.putExtra(AYAH_ID, 255);
+            startActivity(intent);
 
-            }
         });
         parentRecyclerView.setLayoutManager(mLayoutManager);
         parentRecyclerView.setHasFixedSize(true);
@@ -379,17 +349,16 @@ public class NewSurahDisplayFrag extends Fragment implements  SearchView.OnQuery
             toggleBottomSheets();
             //  toggleHideSeek();
         });
-        bottomNavigationView.setOnItemReselectedListener(new NavigationBarView.OnItemReselectedListener() {
-            @SuppressLint("NonConstantResourceId")
-            @Override
-            public void onNavigationItemReselected(@NonNull MenuItem item) {
+        bottomNavigationView.setOnItemReselectedListener(item -> {
 
 
 
-                switch (item.getItemId()) {
-                    case R.id.surahnav:
 
-                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                if(item.getItemId()==R.id.surahnav) {
+
+
+
+                        FragmentManager fragmentManager = Objects.requireNonNull(requireActivity()).getSupportFragmentManager();
                         FragmentTransaction transaction = fragmentManager.beginTransaction();
                         transaction.setCustomAnimations(R.anim.slide_down, R.anim.slide_up);
                         NewSurahDisplayFrag newCustomFragment = NewSurahDisplayFrag.newInstance();
@@ -398,57 +367,43 @@ public class NewSurahDisplayFrag extends Fragment implements  SearchView.OnQuery
                         transaction.commit();
 
 
-                        break;
-                    case R.id.conjugationnav:
+                }
 
+                    if(item.getItemId()==R.id.conjugationnav) {
 
 
                         Intent conjugatorintent = new Intent(getActivity(), ConjugatorAct.class);
                         startActivity(conjugatorintent);
-                        break;
-                    case R.id.dua:
+                    }
 
+                    if(item.getItemId()==R.id.dua) {
 
                         Intent searchintent = new Intent(getActivity(), HisnulBottomACT.class);
                         startActivity(searchintent);
 
 
+                    }
 
-
-
-
-
-                        break;
-                    case R.id.names:
-
+                    if(item.getItemId()==R.id.names) {
 
 
                         Intent settingint = new Intent(getActivity(), GridImageAct.class);
-                      //  settingint.putExtra(Constants.SURAH_INDEX, getChapterno());
+                        //  settingint.putExtra(Constants.SURAH_INDEX, getChapterno());
                         startActivity(settingint);
 
-                        break;
-                    case R.id.mushafview:
-                      //  materialToolbar.setTitle("Mushaf");
-                        //   Intent searchs = new Intent(QuranGrammarAct.this, MainTwoActivityPrayer.class);
+                    }
 
-                        //  startActivity(searchs);
+                    if(item.getItemId()==R.id.mushafview) {
+
 
                         Intent settingints = new Intent(getActivity(), ShowMushafActivity.class);
                         //      settingints.putExtra(Constants.SURAH_INDEX, getChapterno());
                         startActivity(settingints);
 
 
+                    }
 
 
-
-
-                        break;
-                    default:
-                        break;
-                }
-
-            }
         });
     }
 
@@ -469,12 +424,8 @@ public class NewSurahDisplayFrag extends Fragment implements  SearchView.OnQuery
             @Override
             public void onItemClick(View v, int position) {
                 ChaptersAnaEntity item = (ChaptersAnaEntity) ParentAdapter.getItem(position);
-                item.getChapterid();
-                //    Intent intent = new Intent(DarkThemeApplication.getContext(), ReadingSurahPartActivity.class);
-                //   intent.putExtra("chapter", item.getChapterid());
-                //  intent.putExtra("chapterorpart",true);
-                //  intent.putExtra(  "partname",item.getAbjadname());
-                //  startActivity(intent);
+
+
                 passData(item.getChapterid(), item.getAbjadname(), item.getVersescount(), item.getRukucount(), item.getIsmakki());
 
             }
@@ -502,12 +453,8 @@ public class NewSurahDisplayFrag extends Fragment implements  SearchView.OnQuery
         this.mItemClickListener = mItemClickListener;
     }
 
-    public PassdataInterface getPassdataInterface() {
-        return passdataInterface;
-    }
 
     public void setPassdataInterface(PassdataInterface passdataInterface) {
-        this.passdataInterface = passdataInterface;
     }
 
     public PassdataInterface getDatapasser() {

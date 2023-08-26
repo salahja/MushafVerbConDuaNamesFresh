@@ -7,7 +7,7 @@ import androidx.preference.PreferenceManager;
 
 public class SharedPref {
     public static SharedPreferences sharedPreferences;
-    Context sharedContext;
+    final Context sharedContext;
 
     public SharedPref(Context sharedContext) {
         //  this.sharedPreferences = sharedPreferences;
@@ -15,11 +15,6 @@ public class SharedPref {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(sharedContext);
     }
 
-
-    public static Integer arabicFontsize() {
-        return Integer.parseInt(sharedPreferences.getString("quran_arabic_font", String.valueOf(Context.MODE_PRIVATE)));
-
-    }
 
     public static int SeekarabicFontsize() {
         // return Integer.(sharedPreferences.getInt("pref_font_seekbar_key", (Context.MODE_PRIVATE)));
@@ -37,13 +32,6 @@ public class SharedPref {
         return sharedPreferences.getString("wbw", String.valueOf(Context.MODE_PRIVATE));
 
     }
-
-    public static String arabicFontSelection() {
-        return sharedPreferences.getString("Arabic_Font_Selection", String.valueOf(Context.MODE_PRIVATE));
-
-    }
-
-
 
 
     public static String themePreferences() {

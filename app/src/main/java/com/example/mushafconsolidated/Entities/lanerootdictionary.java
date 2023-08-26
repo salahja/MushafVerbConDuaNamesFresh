@@ -1,6 +1,7 @@
 package com.example.mushafconsolidated.Entities;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 //primaryKeys ={"translation_id","verse_id"}
@@ -11,9 +12,7 @@ public class lanerootdictionary {
     private String rootarabic;
     @NonNull
     private String rootbuckwater;
-
-
-    private String definition;
+ @Nullable    private String definition;
     @PrimaryKey(autoGenerate = true)
     @NonNull
     private int id;

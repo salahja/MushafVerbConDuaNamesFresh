@@ -21,7 +21,7 @@ import java.util.List;
  * @version 1.0
  */
 public class Mithal2Vocalizer extends TrilateralNounSubstitutionApplier implements IAugmentedTrilateralModifier {
-    private final List substitutions = new LinkedList();
+    private final List<InfixSubstitution> substitutions = new LinkedList<>();
 
     public Mithal2Vocalizer() {
         substitutions.add(new InfixSubstitution("ُيْ", "ُو"));// EX: (مُوقَظٌ، )

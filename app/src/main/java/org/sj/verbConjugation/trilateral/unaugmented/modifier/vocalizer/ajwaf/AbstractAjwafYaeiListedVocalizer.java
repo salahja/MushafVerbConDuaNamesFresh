@@ -19,7 +19,7 @@ import java.util.List;
  * @version 1.0
  */
 public abstract class AbstractAjwafYaeiListedVocalizer extends ListedVocalizer {
-    private final List appliedRoots = new LinkedList();
+    private final List<String> appliedRoots = new LinkedList<>();
 
     public AbstractAjwafYaeiListedVocalizer() {
         appliedRoots.add("بيت");
@@ -38,7 +38,7 @@ public abstract class AbstractAjwafYaeiListedVocalizer extends ListedVocalizer {
         appliedRoots.add("هيع");
     }
 
-    protected List getAppliedRoots() {
+    protected List<String> getAppliedRoots() {
         return appliedRoots;
     }
 

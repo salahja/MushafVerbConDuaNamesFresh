@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class YaeiPastVocalizer extends SubstitutionsApplier implements IAugmentedTrilateralModifier {
-    private final List substitutions = new LinkedList();
+    private final List<InfixSubstitution> substitutions = new LinkedList<InfixSubstitution>();
 
     public YaeiPastVocalizer() {
         substitutions.add(new InfixSubstitution("ِيْ", "ِي")); // EX: (أنا أُودِيتُ، )

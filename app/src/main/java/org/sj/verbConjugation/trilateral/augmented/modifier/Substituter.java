@@ -8,8 +8,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Substituter {
-    private final List activeList = new LinkedList();
-    private final List passiveList = new LinkedList();
+    private final List<SubstitutionsApplier> activeList = new LinkedList<SubstitutionsApplier>();
+    private final List<SubstitutionsApplier> passiveList = new LinkedList<>();
 
     public Substituter() {
         activeList.add(new org.sj.verbConjugation.trilateral.augmented.modifier.substituter.active.GenericSubstituter1());
@@ -36,13 +36,13 @@ public class Substituter {
     }
 
     public void apply(String tense, boolean active, MazeedConjugationResult conjResult) {
-        List modifiers = null;
+        List<SubstitutionsApplier> modifiers = null;
         if (!active) {
             modifiers = passiveList;
         } else {
             modifiers = activeList;
         }
-        Iterator iter = modifiers.iterator();
+        Iterator<SubstitutionsApplier> iter = modifiers.iterator();
         while (iter.hasNext()) {
             IAugmentedTrilateralModifier modifier = (IAugmentedTrilateralModifier) iter.next();
             if (modifier.isApplied(conjResult)) {

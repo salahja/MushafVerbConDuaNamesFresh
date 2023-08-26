@@ -37,7 +37,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import database.DatabaseUtils;
+import database.VerbDatabaseUtils;
 import database.entity.MujarradVerbs;
 import ru.dimorinny.floatingtextbutton.FloatingTextButton;
 
@@ -141,7 +141,7 @@ public class RulesMujarradVerbList extends Fragment {
                         dialog.show();
                     }
                 });
-                DatabaseUtils utils = new DatabaseUtils(QuranGrammarApplication.getContext());
+                VerbDatabaseUtils utils = new VerbDatabaseUtils(QuranGrammarApplication.getContext());
                 ArrayList<MujarradVerbs> mujarradBYWeakness = utils.getMujarradBYWeakness(kov);
                 listingMujarradWeakness(ssagheer, mujarradBYWeakness);
                 setVerbtype("mujarrad");

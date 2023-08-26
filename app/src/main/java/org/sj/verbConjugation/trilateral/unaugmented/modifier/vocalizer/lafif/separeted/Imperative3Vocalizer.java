@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Imperative3Vocalizer extends SubstitutionsApplier implements IUnaugmentedTrilateralModifier {
 
-    private final List substitutions = new LinkedList();
+    private final List<org.sj.verbConjugation.trilateral.Substitution.Substitution> substitutions = new LinkedList<>();
 
     public Imperative3Vocalizer() {
         substitutions.add(new SuffixSubstitution("َيْ", "َ")); // EX: (أنتَ اوْجَ)

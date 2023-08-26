@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Past2Vocalizer extends SubstitutionsApplier implements IAugmentedTrilateralModifier {
-    private final List substitutions = new LinkedList();
+    private final List<InfixSubstitution> substitutions = new LinkedList<>();
 
     public Past2Vocalizer() {
         substitutions.add(new InfixSubstitution("وْ", "ي"));// EX: (أنا سُمِّيتُ، تُزُكِّيتُ)

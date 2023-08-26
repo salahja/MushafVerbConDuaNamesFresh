@@ -1,6 +1,5 @@
 package com.example.mushafconsolidated.fragments;
 
-import android.app.Dialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,7 +28,7 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.ArrayList;
 import java.util.List;
 
-import sj.hisnul.adapter.BookmarCrateAdapter;
+import com.example.mushafconsolidated.Adapters.BookmarkCreateAdapter;
 
 /**
  * <p>A fragment that shows a list of items as a modal bottom sheet.</p>
@@ -40,7 +38,6 @@ import sj.hisnul.adapter.BookmarCrateAdapter;
  * </pre>
  */
 public class BookMarkCreateFrag extends BottomSheetDialogFragment implements OnItemClickListener, View.OnClickListener {
-    public static final String TAG = "opton";
     private RecyclerView recyclerView;
     private String suraname;
     private int chapter, verse;
@@ -59,10 +56,7 @@ public class BookMarkCreateFrag extends BottomSheetDialogFragment implements OnI
 
     // TODO: Customize parameter argument names
     private static final String ARG_OPTIONS_DATA = "item_count";
-    OnItemClickListener mItemClickListener;
     RadioGroup radioGroup;
-    private BookmarCrateAdapter bookmarCrateAdapter;
-    RelativeLayout frameLayout;
     List<BookMarksPojo> collectionC = new ArrayList<>();
     ArrayList<BookMarks> bookMarks = new ArrayList<>();
 
@@ -74,10 +68,6 @@ public class BookMarkCreateFrag extends BottomSheetDialogFragment implements OnI
         fragment.setArguments(args);
         return fragment;
 
-    }
-
-    public void SetOnItemClickListener(final OnItemClickListener mItemClickListener) {
-        this.mItemClickListener = mItemClickListener;
     }
 
     @Nullable
@@ -106,95 +96,87 @@ public class BookMarkCreateFrag extends BottomSheetDialogFragment implements OnI
         Utils utils = new Utils(getActivity());
 
         collectionC = utils.getCollectionC();
-        BookmarCrateAdapter bookmarCrateAdapter = new BookmarCrateAdapter(collectionC);
+        BookmarkCreateAdapter bookmarkCreateAdapter = new BookmarkCreateAdapter(collectionC);
         newcollection = view.findViewById(R.id.newcollection);
         addtocollection = view.findViewById(R.id.addtocollection);
         newcollection.setOnClickListener(this);
         ;
         addtocollection.setOnClickListener(this);
-        newcollection.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder dialogPicker = new AlertDialog.Builder(getActivity());
+        newcollection.setOnClickListener(v -> {
+            AlertDialog.Builder dialogPicker = new AlertDialog.Builder(getActivity());
 
-                Dialog dlg = new Dialog(getActivity());
-                //  AlertDialog dialog = builder.create();
-                //      soraList = utils.getAllAnaChapters();
+            LayoutInflater inflater = getActivity().getLayoutInflater();
+            View view1 = inflater.inflate(R.layout.folder_bookmark, null);
+            //  View view = inflater.inflate(R.layout.activity_wheel, null);
+            dialogPicker.setView(view1);
+            EditText mTextView = view1.findViewById(R.id.tvFolderName);
+            dialogPicker.setPositiveButton("Done", (dialogInterface, i) -> {
+                String str = String.valueOf(mTextView.getText());
+                bookMarkSelected(v,selectedposition, str);
+
+            });
+            dialogPicker.setNegativeButton("Cancel", (dialogInterface, i) -> {
+            });
+            dialogPicker.show();
+        });
+
+        addtocollection.setOnClickListener(v -> {
+            BookMarksPojo bookMarksPojo = collectionC.get(selectedposition);
+            bookMarkSelected(v, Integer.parseInt(bookMarksPojo.getChapterno()), bookMarksPojo.getHeader());
+
+        });
+
+        recyclerView.setAdapter(bookmarkCreateAdapter);
+        bookmarkCreateAdapter.SetOnItemClickListener(new BookmarkCreateAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+
+            }
+        });
+
+
+
+
+        bookmarkCreateAdapter.SetOnItemClickListener((v, position) -> {
+            RecyclerView.ViewHolder holder = (RecyclerView.ViewHolder) recyclerView.findViewHolderForAdapterPosition(position);
+            if (holder != null) {
+
+                CheckBox ck = holder.itemView.findViewById(R.id.checkbox);
+                if (ck != null) {
+                    selectedposition = position;
+                }
+                System.out.println("check");
+            }
+
+            Object tag = v.getTag();
+            if (tag.equals("newcollection")) {
+                AlertDialog.Builder dialogPicker = new AlertDialog.Builder(getActivity());
                 LayoutInflater inflater = getActivity().getLayoutInflater();
-                View view = inflater.inflate(R.layout.folder_bookmark, null);
+                View view12 = inflater.inflate(R.layout.folder_bookmark, null);
                 //  View view = inflater.inflate(R.layout.activity_wheel, null);
-                dialogPicker.setView(view);
-                EditText mTextView = view.findViewById(R.id.tvFolderName);
+                dialogPicker.setView(view12);
+                EditText mTextView = view12.findViewById(R.id.tvFolderName);
                 dialogPicker.setPositiveButton("Done", (dialogInterface, i) -> {
                     String str = String.valueOf(mTextView.getText());
-                    bookMarkSelected(v,selectedposition, str);
+                    bookMarkSelected(v, position, str);
 
                 });
                 dialogPicker.setNegativeButton("Cancel", (dialogInterface, i) -> {
                 });
                 dialogPicker.show();
-            }
-        });
 
-        addtocollection.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BookMarksPojo bookMarksPojo = collectionC.get(selectedposition);
-                bookMarkSelected(v, Integer.parseInt(bookMarksPojo.getChapterno()),bookMarksPojo.getHeader().toString());
 
-            }
-        });
-
-        recyclerView.setAdapter(bookmarCrateAdapter);
-        bookmarCrateAdapter.SetOnItemClickListener(new BookmarCrateAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View v, int position) {
-                RecyclerView.ViewHolder holder = (RecyclerView.ViewHolder) recyclerView.findViewHolderForAdapterPosition(position);
+            } else if (tag.equals("addcollection")) {
+                --selectedposition;
+                BookMarksPojo book = collectionC.get(selectedposition);
+                RecyclerView.ViewHolder holderS = (RecyclerView.ViewHolder) recyclerView.findViewHolderForAdapterPosition(position - 2);
                 if (holder != null) {
-
-                    CheckBox ck = holder.itemView.findViewById(R.id.checkbox);
-                    if (ck != null) {
-                        selectedposition = position;
-                    }
                     System.out.println("check");
                 }
+                bookMarkSelected(v, selectedposition, book.getHeader());
+                Toast.makeText(getActivity(), "create collections", Toast.LENGTH_SHORT).show();
 
-                Object tag = v.getTag();
-                if (tag.equals("newcollection")) {
-                    AlertDialog.Builder dialogPicker = new AlertDialog.Builder(getActivity());
-                    Dialog dlg = new Dialog(getActivity());
-                    //  AlertDialog dialog = builder.create();
-                    //      soraList = utils.getAllAnaChapters();
-                    LayoutInflater inflater = getActivity().getLayoutInflater();
-                    View view = inflater.inflate(R.layout.folder_bookmark, null);
-                    //  View view = inflater.inflate(R.layout.activity_wheel, null);
-                    dialogPicker.setView(view);
-                    EditText mTextView = view.findViewById(R.id.tvFolderName);
-                    dialogPicker.setPositiveButton("Done", (dialogInterface, i) -> {
-                        String str = String.valueOf(mTextView.getText());
-                        bookMarkSelected(v, position, str);
-
-                    });
-                    dialogPicker.setNegativeButton("Cancel", (dialogInterface, i) -> {
-                    });
-                    dialogPicker.show();
-
-
-                } else if (tag.equals("addcollection")) {
-                    --selectedposition;
-                    BookMarksPojo book = collectionC.get(selectedposition);
-                    RecyclerView.ViewHolder holderS = (RecyclerView.ViewHolder) recyclerView.findViewHolderForAdapterPosition(position - 2);
-                    if (holder != null) {
-                        CheckBox ck = holderS.itemView.findViewById(R.id.checkbox);
-                        System.out.println("check");
-                    }
-                    bookMarkSelected(v, selectedposition, book.getHeader());
-                    Toast.makeText(getActivity(), "create collections", Toast.LENGTH_SHORT).show();
-
-                }
             }
-
-
         });
 
 

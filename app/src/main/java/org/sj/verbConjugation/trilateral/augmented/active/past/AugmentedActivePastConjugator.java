@@ -35,8 +35,8 @@ public class AugmentedActivePastConjugator {
         return null;
     }
 
-    public List createVerbList(AugmentedTrilateralRoot root, int formulaNo) {
-        List result = new LinkedList();
+    public List<AugmentedPastVerb> createVerbList(AugmentedTrilateralRoot root, int formulaNo) {
+        List<AugmentedPastVerb> result = new LinkedList<AugmentedPastVerb>();
         for (int i = 0; i < 13; i++) {
             AugmentedPastVerb verb = createVerb(root, i, formulaNo);
             result.add(verb);
@@ -45,12 +45,12 @@ public class AugmentedActivePastConjugator {
 
     }
 
-    public Map createAllVerbList(AugmentedTrilateralRoot root) {
-        Map result = new HashMap();
+    public Map<String, List<AugmentedPastVerb>> createAllVerbList(AugmentedTrilateralRoot root) {
+        Map<String, List<AugmentedPastVerb>> result = new HashMap<>();
         Iterator iter = root.getAugmentationList().iterator();
         while (iter.hasNext()) {
             AugmentationFormula formula = (AugmentationFormula) iter.next();
-            List formulaVerbList = createVerbList(root, formula.getFormulaNo());
+            List<AugmentedPastVerb> formulaVerbList = createVerbList(root, formula.getFormulaNo());
             result.put(formula.getFormulaNo() + "", formulaVerbList);
         }
         return result;

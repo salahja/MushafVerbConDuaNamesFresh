@@ -4,8 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Formula9ApplyingChecker extends IFormulaApplyingChecker {
-    private final List twoStateList = new LinkedList();
-    private final List notVocalizedList = new LinkedList();
+    private final List<String> twoStateList = new LinkedList<String>();
+    private final List<String> notVocalizedList = new LinkedList<>();
 
     public Formula9ApplyingChecker() {
         twoStateList.add("جوب");
@@ -26,11 +26,11 @@ public class Formula9ApplyingChecker extends IFormulaApplyingChecker {
         notVocalizedList.add("نوك");
     }
 
-    public List getNotVocalizedList() {
+    public List<String> getNotVocalizedList() {
         return notVocalizedList;
     }
 
-    public List getTwoStateList() {
+    public List<String> getTwoStateList() {
         return twoStateList;
     }
 }

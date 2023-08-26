@@ -1,17 +1,14 @@
-package sj.hisnul.adapter;
+package com.example.roots;
 
 import static androidx.preference.PreferenceManager.getDefaultSharedPreferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,13 +17,10 @@ import com.example.mushafconsolidated.R;
 import com.example.mushafconsolidated.intrface.OnItemClickListener;
 import com.example.utility.QuranGrammarApplication;
 import com.google.android.material.chip.Chip;
-import com.google.android.material.textview.MaterialTextView;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-
-import sj.hisnul.entity.hcategory;
 
 public class RootDetailAdapter extends RecyclerView.Adapter<RootDetailAdapter.ViewHolder> {
     private final Context context;

@@ -35,7 +35,7 @@ public class UnaugmentedTrilateralActiveParticipleConjugator implements IUnaugme
     }
 
     public List createNounList(UnaugmentedTrilateralRoot root, String formulaName) {
-        List result = new ArrayList(18);
+        List<UnaugmentedTrilateralActiveParticiple> result = new ArrayList<>(18);
         for (int i = 0; i < 18; i++)
             result.add(createNoun(root, i));
         return result;

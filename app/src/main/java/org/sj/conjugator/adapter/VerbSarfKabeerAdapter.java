@@ -25,13 +25,8 @@ public class VerbSarfKabeerAdapter extends RecyclerView.Adapter<VerbSarfKabeerAd
     private final ArrayList<String> madhi = new ArrayList<>();
     int bookmarkpostion;
     OnItemClickListener mItemClickListener;
-    //    private final Integer arabicTextColor;
-    Context mycontext;
-    private boolean mazeedregular;
-    private int bookChapterno;
-    private int bookVerseno;
-    private Integer ayahNumber;
-    private String urdu_font_selection;
+
+
     private ArrayList<ArrayList> sarfSagheer;
     private Typeface arabicTypeface;
     private boolean defaultfont;
@@ -47,48 +42,26 @@ public class VerbSarfKabeerAdapter extends RecyclerView.Adapter<VerbSarfKabeerAd
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.getContext());
         defaultfont = prefs.getBoolean("default_font", true);
         aBoolean = prefs.getBoolean("sarfkabeer_format_verb", true);
-        //      View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.sarfkabeercolumn, parent, false);
+
         View view;
         if (aBoolean) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.newverbsarfkabeertraditional, parent, false);
         } else {
-            //  view = LayoutInflater.from(parent.getContext()).inflate(R.layout.test ,parent, false);
+
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.verbscolumnkabeer, parent, false);
 
         }
-        //  View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.thulathisarfsagheer, parent, false);
+
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
 
-/*
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        //  final List sarf = sarfSagheer.get(position);
-//        final String[] array = (String[]) sarfSagheer.get(position).toArray();
-        //   ArrayList list = sarfSagheer.get(position);
-        //    position++;
-        MadhiMaroof(holder, 0);
-        MudhariMaroof(holder, 1);
-        MadhiMajhool(holder, 2);
-        MudhariMajhool(holder, 3);
-        Amar(holder, 4);
-
-    }
-*/
 
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final List sarf = sarfSagheer.get(position);
-//        final String[] array = (String[]) sarfSagheer.get(position).toArray();
-        //   ArrayList list = sarfSagheer.get(position);
-        //    position++;
+
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.getContext());
-        String font_category = prefs.getString("Arabic_Font_Selection", "kitab.tff");
-        // String quranverses = corpusSurahWord.get(0).getQurantext();
-        String jumlashart = "جملة شرطية";
-        StringBuilder sb = new StringBuilder();
-        StringBuilder sbjawab = new StringBuilder();
-        //   String verse = jumlashart.concat(":" + quranverses);
-        //  this.spannable = new SpannableStringBuilder(quranverses);
+
+
         SharedPreferences sharedPreferences =
                 androidx.preference.PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.getContext());
 
@@ -101,23 +74,6 @@ public class VerbSarfKabeerAdapter extends RecyclerView.Adapter<VerbSarfKabeerAd
 
 
 
-
-        //  SharedPref sharedPref=new SharedPref(DarkThemeApplication.getContext());
-        //   arabicTypeface = Typeface.createFromAsset(context.getAssets(), sharedPref.arabicFontSelection());
-        //   MadhiMaroof(holder, 8);
-        //    MudhariMaroof(holder, 9);
-        ///   MadhiMajhool(holder, 10);
-        //    MudhariMajhool(holder, 11);
-        //  Amar(holder, 4);
-        //     AmarNahi(holder, 5);
-        //    pronouns(holder);
-        //   MadhiMaroof(holder, 0);
-        //  MudhariMaroof(holder, 2);
-        //  MadhiMajhool(holder, 1);
-        //  MudhariMajhool(holder, 3);
-        //  Amar(holder, 4);
-        //  AmarNahi(holder, 5);
-        //  pronouns(holder);
         MadhiMaroof(holder, 0);
         MudhariMaroof(holder, 2);
         MadhiMajhool(holder, 1);

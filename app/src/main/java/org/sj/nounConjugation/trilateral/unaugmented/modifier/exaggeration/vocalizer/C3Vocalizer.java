@@ -21,7 +21,7 @@ import java.util.List;
  * @version 1.0
  */
 public class C3Vocalizer extends TrilateralNounSubstitutionApplier implements IUnaugmentedTrilateralNounModificationApplier {
-    List substitutions = new LinkedList();
+    List<ExpressionInfixSubstitution> substitutions = new LinkedList<ExpressionInfixSubstitution>();
 
     public C3Vocalizer() {
         substitutions.add(new ExpressionInfixSubstitution("مِوْC2َاي", "مِيC2َاء"));// EX: (مِيفاء )

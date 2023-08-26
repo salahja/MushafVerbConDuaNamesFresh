@@ -21,7 +21,7 @@ import java.util.List;
  * @version 1.0
  */
 public class Geminator2 extends TrilateralNounSubstitutionApplier implements IAugmentedTrilateralModifier {
-    private final List substitutions = new LinkedList();
+    private final List<InfixSubstitution> substitutions = new LinkedList<InfixSubstitution>();
 
     public Geminator2() {
         substitutions.add(new InfixSubstitution("نْن", "نّ"));// EX: (مُنَّمِسٌ)

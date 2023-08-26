@@ -31,21 +31,21 @@ import java.util.Map;
  * @version 1.0
  */
 public class NGeminator extends SubstitutionsApplier implements IUnaugmentedTrilateralModifier {
-    private final List substitutions = new LinkedList();
+    private final List<ExpressionInfixSubstitution> substitutions = new LinkedList<>();
     //أرقام الضمائر التي يمكن التطبيق من أجلها حسب الصيغةة  ماضي أو مضارع أو أمر
-    private final Map indeciesMap = new HashMap();
+    private final Map<String, List<String>> indeciesMap = new HashMap<String, List<String>>();
 
     public NGeminator() {
         substitutions.add(new ExpressionInfixSubstitution("نْنَ", "نَّ"));
-        List indecies = new ArrayList(2);
+        List<String> indecies = new ArrayList<String>(2);
         indecies.add("2");
         indecies.add("13");
         indeciesMap.put(SystemConstants.PAST_TENSE, indecies);
-        indecies = new ArrayList(2);
+        indecies = new ArrayList<String>(2);
         indecies.add("7");
         indecies.add("13");
         indeciesMap.put(SystemConstants.PRESENT_TENSE, indecies);
-        indecies = new ArrayList(1);
+        indecies = new ArrayList<String>(1);
         indecies.add("7");
         indeciesMap.put(SystemConstants.NOT_EMPHASIZED_IMPERATIVE_TENSE, indecies);
         indeciesMap.put(SystemConstants.EMPHASIZED_IMPERATIVE_TENSE, indecies);

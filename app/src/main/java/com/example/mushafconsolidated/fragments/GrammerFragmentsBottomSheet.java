@@ -18,11 +18,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.preference.PreferenceManager;
 
-import com.example.mushafconsolidated.Adapters.RootWordDisplayAdapter;
-import com.example.mushafconsolidated.Adapters.SentenceRootWordDisplayAdapter;
 import com.example.mushafconsolidated.Entities.NewCorpusExpandWbwPOJO;
 import com.example.mushafconsolidated.Entities.NounCorpus;
-import com.example.mushafconsolidated.Entities.VerbWazan;
 import com.example.mushafconsolidated.R;
 import com.example.mushafconsolidated.Utils;
 import com.example.mushafconsolidated.model.SarfSagheerPOJO;
@@ -42,6 +39,7 @@ import java.util.concurrent.Executors;
  *     ItemListDialogFragment.newInstance(30).show(getSupportFragmentManager(), "dialog");
  * </pre>
  */
+
 public class GrammerFragmentsBottomSheet extends BottomSheetDialogFragment {
     public static final String TAG = "bottom";
     // TODO: Customize parameter argument names
@@ -54,7 +52,6 @@ public class GrammerFragmentsBottomSheet extends BottomSheetDialogFragment {
     boolean participles;
     boolean noun;
     ExpandableListView expandableListView;
-    ExpandableListAdapter expandableListAdapter;
     List<String> expandableListTitle;
     LinkedHashMap<String, List<SpannableStringBuilder>> expandableListDetail;
     List<SpannableStringBuilder> kanaExpandableListDetail;
@@ -69,15 +66,10 @@ public class GrammerFragmentsBottomSheet extends BottomSheetDialogFragment {
     private SpannableStringBuilder spannableHarf;
     private SpannableStringBuilder spannable;
     private String HarfNasbAndZarf;
-    private SpannableStringBuilder spannableShart;
-    private SpannableStringBuilder spannablemousufmudhaf;
-    private ArrayList<NewCorpusExpandWbwPOJO> SencorpusSurahWord;
-    private ArrayList<NewCorpusExpandWbwPOJO> corpusSurahWord;
+
     private AlertDialog dialog;
-    private ArrayList<ArrayList> ismfaelmafool;
-    private VerbWazan vb;
-    private RootWordDisplayAdapter rwAdapter;
-    private SentenceRootWordDisplayAdapter sentenceRootWordDisplayAdapter;
+
+
 
     // TODO: Customize parameters
     @NonNull
@@ -97,45 +89,20 @@ public class GrammerFragmentsBottomSheet extends BottomSheetDialogFragment {
         this.noun = noun;
     }
 
-    public boolean isParticiples() {
-        return participles;
-    }
+
 
     public void setParticiples(boolean participles) {
         this.participles = participles;
     }
 
-    public boolean isIsverbconjugaton() {
-        return isverbconjugaton;
-    }
+
 
     public void setIsverbconjugaton(boolean isverbconjugaton) {
         this.isverbconjugaton = isverbconjugaton;
     }
 
-    public boolean isMazeedSarfSagheer() {
-        return isMazeedSarfSagheer;
-    }
 
-    public void setMazeedSarfSagheer(boolean mazeedSarfSagheer) {
-        isMazeedSarfSagheer = mazeedSarfSagheer;
-    }
 
-    public String getHarfNasbAndZarf() {
-        return HarfNasbAndZarf;
-    }
-
-    public void setHarfNasbAndZarf(String harfNasbAndZarf) {
-        HarfNasbAndZarf = harfNasbAndZarf;
-    }
-
-    public boolean isThulathiSarfSagheer() {
-        return isThulathiSarfSagheer;
-    }
-
-    public void setThulathiSarfSagheer(boolean thulathiSarfSagheer) {
-        isThulathiSarfSagheer = thulathiSarfSagheer;
-    }
 
     @Nullable
     @Override
@@ -149,6 +116,7 @@ public class GrammerFragmentsBottomSheet extends BottomSheetDialogFragment {
         builder.setView(R.layout.layout_loading_dialog);
         dialog = builder.create();
         Bundle bundle = this.getArguments();
+        assert bundle != null;
         String[] stringArray = bundle.getStringArray(ARG_OPTIONS_DATA);
         chapterid = Integer.parseInt(stringArray[0]);
         SharedPreferences shared =
@@ -162,33 +130,28 @@ public class GrammerFragmentsBottomSheet extends BottomSheetDialogFragment {
 
             @Override
             public void run() {
-                getActivity().runOnUiThread(() -> {
-                    dialog.show();
-                });
+                getActivity().runOnUiThread(() -> dialog.show());
                 ArrayList<NewCorpusExpandWbwPOJO> corpusSurahWord;
                 corpusSurahWord = utils.getCorpusWbwBySurahAyahWordid(chapterid, ayanumber, 1);
                 ArrayList<NounCorpus> corpusNounWord = utils.getQuranNouns(chapterid, ayanumber, 1);
                 ExpandableListData expandableListData = new ExpandableListData(chapterid, ayanumber, corpusSurahWord, utils);
                 expandableListDetail = expandableListData.getData();
                 kanaExpandableListDetail = expandableListData.getKana();
-                expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
+                expandableListTitle = new ArrayList<>(expandableListDetail.keySet());
                 ThulathiMazeedConjugatonList = new ArrayList<>();
                 setIsverbconjugaton(false);
                 setParticiples(false);
                 corpusNounWord.size();
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        ex.shutdown();
-                        dialog.dismiss();
-                        GrammarFragmentsListAdapter grammarFragmentsListAdapter;
-                        grammarFragmentsListAdapter = new GrammarFragmentsListAdapter(getContext(), expandableListTitle, expandableListDetail);
-                        expandableListView.setAdapter(grammarFragmentsListAdapter);
-                        for (int i = 0; i < grammarFragmentsListAdapter.getGroupCount(); i++) {
-                            expandableListView.expandGroup(i);
-                        }
-
+                getActivity().runOnUiThread(() -> {
+                    ex.shutdown();
+                    dialog.dismiss();
+                    GrammarFragmentsListAdapter grammarFragmentsListAdapter;
+                    grammarFragmentsListAdapter = new GrammarFragmentsListAdapter(getContext(), expandableListTitle, expandableListDetail);
+                    expandableListView.setAdapter(grammarFragmentsListAdapter);
+                    for (int i = 0; i < grammarFragmentsListAdapter.getGroupCount(); i++) {
+                        expandableListView.expandGroup(i);
                     }
+
                 });
 
             }
@@ -204,18 +167,5 @@ public class GrammerFragmentsBottomSheet extends BottomSheetDialogFragment {
     }
 
 
-
-
-/*
-
-    @Override
-    public void onItemClick(View v, int position) {
-         v.findViewById(R.id.dismissView);
-         if(v.findViewById(R.id.dismissView)!=null){
-             getActivity().finish();
-
-         }
-    }
-*/
 
 }

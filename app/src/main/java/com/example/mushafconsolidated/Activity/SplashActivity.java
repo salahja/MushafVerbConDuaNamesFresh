@@ -45,9 +45,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
 //request permissions. NOTE: Copying this and the manifest will cause the app to           crash as the permissions requested aren't defined in the manifest.
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    checkPermission();
-                }
+                checkPermission();
                 //    String lang =["ss"];
                 //  Locale locale = new Locale(lang);
                 //  Locale.setDefault(locale);

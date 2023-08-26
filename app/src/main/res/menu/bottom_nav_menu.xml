@@ -26,7 +26,7 @@
         android:title="@string/Audio"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
 
-        app:showAsAction="always|collapseActionView" />
+        app:showAsAction="ifRoom|collapseActionView" />
 
 
     <item

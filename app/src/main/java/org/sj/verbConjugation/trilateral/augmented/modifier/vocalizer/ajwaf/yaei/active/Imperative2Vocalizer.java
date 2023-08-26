@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Imperative2Vocalizer extends SubstitutionsApplier implements IAugmentedTrilateralModifier {
-    private final List substitutions = new LinkedList();
+    private final List<ExpressionInfixSubstitution> substitutions = new LinkedList<>();
 
     public Imperative2Vocalizer() {
         substitutions.add(new ExpressionInfixSubstitution("َيِC3ُ", "َاC3ُ"));// EX: (انتم انهالوا، اكتالوا)

@@ -4,6 +4,7 @@ import org.sj.verbConjugation.trilateral.Substitution.InfixSubstitution;
 import org.sj.verbConjugation.trilateral.unaugmented.modifier.hamza.AbstractLamMahmouz;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ import java.util.List;
  * @version 1.0
  */
 public class ActivePastMahmouz extends AbstractLamMahmouz {
-    private final List substitutions = new ArrayList();
+    private final List<InfixSubstitution> substitutions = new LinkedList<>();
 
     public ActivePastMahmouz() {
         substitutions.add(new InfixSubstitution("َءْ", "َأْ")); // EX: (بَدأتُ، وجأتُ)

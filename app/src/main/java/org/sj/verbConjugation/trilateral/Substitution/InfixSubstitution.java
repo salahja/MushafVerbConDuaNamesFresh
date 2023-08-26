@@ -8,6 +8,7 @@ public class InfixSubstitution extends Substitution {
         super(segment, result);
     }
 
+
     public String apply(String word, TrilateralRoot root) {
         return word.indexOf(segment) != -1 ? word.replaceAll(segment, result) : null;
     }

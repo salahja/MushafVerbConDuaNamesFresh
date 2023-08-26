@@ -19,7 +19,7 @@ import java.util.List;
  * @version 1.0
  */
 public class Geminator extends AbstractGeminator {
-    List substitutions = new LinkedList();
+    List<ExpressionInfixSubstitution> substitutions = new LinkedList<ExpressionInfixSubstitution>();
 
     public Geminator() {
         substitutions.add(new ExpressionInfixSubstitution("ْC3َC3", "َC3ّ"));// EX: (أصَمّ)

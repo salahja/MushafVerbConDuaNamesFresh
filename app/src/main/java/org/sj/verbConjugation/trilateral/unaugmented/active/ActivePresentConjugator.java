@@ -96,8 +96,8 @@ public class ActivePresentConjugator {
      * @param root TripleVerb
      * @return List
      */
-    public List createNominativeVerbList(UnaugmentedTrilateralRoot root) {
-        List result = new LinkedList();
+    public List<ActivePresentVerb> createNominativeVerbList(UnaugmentedTrilateralRoot root) {
+        List<ActivePresentVerb> result = new LinkedList<>();
         for (int i = 0; i < 13; i++) {
             result.add(createNominativeVerb(i, root));
         }
@@ -111,8 +111,8 @@ public class ActivePresentConjugator {
      * @param root TripleVerb
      * @return List
      */
-    public List createAccusativeVerbList(UnaugmentedTrilateralRoot root) {
-        List result = new LinkedList();
+    public List<ActivePresentVerb> createAccusativeVerbList(UnaugmentedTrilateralRoot root) {
+        List<ActivePresentVerb> result = new LinkedList<ActivePresentVerb>();
         for (int i = 0; i < 13; i++) {
             result.add(createAccusativeVerb(i, root));
         }
@@ -126,8 +126,8 @@ public class ActivePresentConjugator {
      * @param root TripleVerb
      * @return List
      */
-    public List createJussiveVerbList(UnaugmentedTrilateralRoot root) {
-        List result = new LinkedList();
+    public List<ActivePresentVerb> createJussiveVerbList(UnaugmentedTrilateralRoot root) {
+        List<ActivePresentVerb> result = new LinkedList<>();
         for (int i = 0; i < 13; i++) {
             result.add(createJussiveVerb(i, root));
         }
@@ -141,40 +141,40 @@ public class ActivePresentConjugator {
      * @param root TripleVerb
      * @return List
      */
-    public List createEmphasizedVerbList(UnaugmentedTrilateralRoot root) {
-        List result = new LinkedList();
+    public List<ActivePresentVerb> createEmphasizedVerbList(UnaugmentedTrilateralRoot root) {
+        List<ActivePresentVerb> result = new LinkedList<>();
         for (int i = 0; i < 13; i++) {
             result.add(createEmphasizedVerb(i, root));
         }
         return result;
     }
 
-    public List createNominativeVerbHua(UnaugmentedTrilateralRoot root) {
-        List result = new LinkedList();
+    public List<ActivePresentVerb> createNominativeVerbHua(UnaugmentedTrilateralRoot root) {
+        List<ActivePresentVerb> result = new LinkedList<>();
         for (int i = 0; i < 1; i++) {
             result.add(createNominativeVerb(i, root));
         }
         return result;
     }
 
-    public List createAccusativeVerbHua(UnaugmentedTrilateralRoot root) {
-        List result = new LinkedList();
+    public List<ActivePresentVerb> createAccusativeVerbHua(UnaugmentedTrilateralRoot root) {
+        List<ActivePresentVerb> result = new LinkedList<ActivePresentVerb>();
         for (int i = 0; i < 1; i++) {
             result.add(createAccusativeVerb(i, root));
         }
         return result;
     }
 
-    public List createJussiveVerbHua(UnaugmentedTrilateralRoot root) {
-        List result = new LinkedList();
+    public List<ActivePresentVerb> createJussiveVerbHua(UnaugmentedTrilateralRoot root) {
+        List<ActivePresentVerb> result = new LinkedList<>();
         for (int i = 0; i < 1; i++) {
             result.add(createJussiveVerb(i, root));
         }
         return result;
     }
 
-    public List createEmphasizedVerbHua(UnaugmentedTrilateralRoot root) {
-        List result = new LinkedList();
+    public List<ActivePresentVerb> createEmphasizedVerbHua(UnaugmentedTrilateralRoot root) {
+        List<ActivePresentVerb> result = new LinkedList<>();
         for (int i = 0; i < 1; i++) {
             result.add(createEmphasizedVerb(i, root));
         }

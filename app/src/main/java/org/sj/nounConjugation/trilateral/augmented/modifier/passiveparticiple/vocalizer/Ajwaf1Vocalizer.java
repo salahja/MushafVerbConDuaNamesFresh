@@ -21,7 +21,7 @@ import java.util.List;
  * @version 1.0
  */
 public class Ajwaf1Vocalizer extends TrilateralNounSubstitutionApplier implements IAugmentedTrilateralModifier {
-    private final List substitutions = new LinkedList();
+    private final List<InfixSubstitution> substitutions = new LinkedList<>();
 
     public Ajwaf1Vocalizer() {
         substitutions.add(new InfixSubstitution("ْوَ", "َا"));// EX: (مُقامٌ، مُسْتَدارٌ)

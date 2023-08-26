@@ -50,16 +50,16 @@ public class PassivePastConjugator {
      * @param root TripleVerb
      * @return List
      */
-    public List createVerbList(UnaugmentedTrilateralRoot root) {
-        List result = new LinkedList();
+    public List<PassivePastVerb> createVerbList(UnaugmentedTrilateralRoot root) {
+        List<PassivePastVerb> result = new LinkedList<PassivePastVerb>();
         for (int i = 0; i < 13; i++) {
             result.add(createVerb(i, root));
         }
         return result;
     }
 
-    public List createVerbHua(UnaugmentedTrilateralRoot root) {
-        List result = new LinkedList();
+    public List<PassivePastVerb> createVerbHua(UnaugmentedTrilateralRoot root) {
+        List<PassivePastVerb> result = new LinkedList<>();
         for (int i = 0; i < 1; i++) {
             result.add(createVerb(i, root));
         }

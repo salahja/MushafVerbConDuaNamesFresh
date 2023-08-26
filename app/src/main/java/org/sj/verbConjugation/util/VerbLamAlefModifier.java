@@ -9,7 +9,7 @@ import java.util.List;
 
 public class VerbLamAlefModifier extends SubstitutionsApplier {
     private static final VerbLamAlefModifier instance = new VerbLamAlefModifier();
-    List substitutions = new LinkedList();
+    List<InfixSubstitution> substitutions = new LinkedList<>();
 
     private VerbLamAlefModifier() {
         substitutions.add(new InfixSubstitution("لَا", "لا"));// EX: (قالا)

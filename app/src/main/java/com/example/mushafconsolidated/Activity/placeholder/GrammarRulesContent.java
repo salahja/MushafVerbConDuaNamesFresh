@@ -15,7 +15,7 @@ import java.util.Map;
  * <p>
  * TODO: Replace all uses of this class before publishing your app.
  */
-public class PlaceholderContent {
+public class GrammarRulesContent {
     /**
      * An array of sample (placeholder) items.
      */

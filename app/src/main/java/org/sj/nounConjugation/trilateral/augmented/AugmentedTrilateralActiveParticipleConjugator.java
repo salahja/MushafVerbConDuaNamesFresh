@@ -46,24 +46,13 @@ public class AugmentedTrilateralActiveParticipleConjugator {
     }
 
     public List createNounList(AugmentedTrilateralRoot root, int formulaNo) {
-        List result = new LinkedList();
+        LinkedList<AugmentedTrilateralNoun> result = new LinkedList<AugmentedTrilateralNoun>();
         for (int i = 0; i < 18; i++) {
             AugmentedTrilateralNoun noun = createNoun(root, i, formulaNo);
             result.add(noun);
         }
         return result;
 
-    }
-
-    public Map createAllNounList(AugmentedTrilateralRoot root) {
-        Map result = new HashMap();
-        Iterator iter = root.getAugmentationList().iterator();
-        while (iter.hasNext()) {
-            AugmentationFormula formula = (AugmentationFormula) iter.next();
-            List formulaVerbList = createNounList(root, formula.getFormulaNo());
-            result.put(formula.getFormulaNo() + "", formulaVerbList);
-        }
-        return result;
     }
 
 }

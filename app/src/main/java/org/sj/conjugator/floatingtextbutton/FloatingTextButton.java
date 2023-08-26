@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -161,19 +160,11 @@ public class FloatingTextButton extends FrameLayout {
 
     @SuppressWarnings("SameParameterValue")
     private int getVerticalPaddingValue(int dp) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            return DimensionUtils.dpToPx(getContext(), dp) / 4;
-        } else {
-            return DimensionUtils.dpToPx(getContext(), dp);
-        }
+        return DimensionUtils.dpToPx(getContext(), dp);
     }
 
     @SuppressWarnings("SameParameterValue")
     private int getHorizontalPaddingValue(int dp) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            return DimensionUtils.dpToPx(getContext(), dp) / 2;
-        } else {
-            return DimensionUtils.dpToPx(getContext(), dp);
-        }
+        return DimensionUtils.dpToPx(getContext(), dp);
     }
 }

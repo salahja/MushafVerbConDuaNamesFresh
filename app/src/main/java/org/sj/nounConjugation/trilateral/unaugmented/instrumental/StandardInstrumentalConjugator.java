@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class StandardInstrumentalConjugator implements IUnaugmentedTrilateralNounConjugator {
     private static final StandardInstrumentalConjugator instance = new StandardInstrumentalConjugator();
-    private static final List formulas = new LinkedList();
+    private static final List<String> formulas = new LinkedList<String>();
 
     static {
         formulas.add("مِفْعَل");
@@ -50,8 +50,8 @@ public class StandardInstrumentalConjugator implements IUnaugmentedTrilateralNou
         return null;
     }
 
-    public List createNounList(UnaugmentedTrilateralRoot root, int formulaNo) {
-        List result = new LinkedList();
+    public List<NounFormula> createNounList(UnaugmentedTrilateralRoot root, int formulaNo) {
+        List<NounFormula> result = new LinkedList<NounFormula>();
         for (int i = 0; i < 18; i++) {
             NounFormula noun = createNoun(root, i, formulaNo);
             result.add(noun);

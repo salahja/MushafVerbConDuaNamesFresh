@@ -20,7 +20,7 @@ import java.util.List;
  * @version 1.0
  */
 public class ImperativeGeminator extends SubstitutionsApplier {
-    private final List substitutions = new LinkedList();
+    private final List<org.sj.verbConjugation.trilateral.Substitution.Substitution> substitutions = new LinkedList<>();
 
     public ImperativeGeminator() {
         substitutions.add(new ExpressionInfixSubstitution("اC1ْC3ُC3ُ", "C1ُC3ُّ"));// EX: (مُدُّوا)

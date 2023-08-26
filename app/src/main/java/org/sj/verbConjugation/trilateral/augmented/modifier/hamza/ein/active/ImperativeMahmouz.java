@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ImperativeMahmouz extends AbstractEinMahmouz {
-    private final List substitutions = new LinkedList();
+    private final List<org.sj.verbConjugation.trilateral.Substitution.Substitution> substitutions = new LinkedList<>();
 
     public ImperativeMahmouz() {
         substitutions.add(new InfixSubstitution("وْءُ", "وْءُ"));// EX: (اسْتَوْءُوا)

@@ -35,8 +35,8 @@ public class AbstractAugmentedPresentConjugator {
         return null;
     }
 
-    public List createVerbList(AugmentedTrilateralRoot root, int formulaNo) {
-        List result = new LinkedList();
+    public List<AugmentedPresentVerb> createVerbList(AugmentedTrilateralRoot root, int formulaNo) {
+        List<AugmentedPresentVerb> result = new LinkedList<>();
         for (int i = 0; i < 13; i++) {
             AugmentedPresentVerb verb = createVerb(root, i, formulaNo);
             result.add(verb);
@@ -44,12 +44,12 @@ public class AbstractAugmentedPresentConjugator {
         return result;
     }
 
-    public Map createAllVerbList(AugmentedTrilateralRoot root) {
-        Map result = new HashMap();
+    public Map<String, List<AugmentedPresentVerb>> createAllVerbList(AugmentedTrilateralRoot root) {
+        Map<String, List<AugmentedPresentVerb>> result = new HashMap<String, List<AugmentedPresentVerb>>();
         Iterator iter = root.getAugmentationList().iterator();
         while (iter.hasNext()) {
             AugmentationFormula formula = (AugmentationFormula) iter.next();
-            List formulaVerbList = createVerbList(root, formula.getFormulaNo());
+            List<AugmentedPresentVerb> formulaVerbList = createVerbList(root, formula.getFormulaNo());
             result.put(formula.getFormulaNo() + "", formulaVerbList);
         }
         return result;

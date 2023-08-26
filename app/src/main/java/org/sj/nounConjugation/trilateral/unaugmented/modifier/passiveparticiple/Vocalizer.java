@@ -26,7 +26,7 @@ import java.util.List;
  * @version 1.0
  */
 public class Vocalizer {
-    private final List modifiers = new LinkedList();
+    private final List<org.sj.nounConjugation.TrilateralNounSubstitutionApplier> modifiers = new LinkedList<org.sj.nounConjugation.TrilateralNounSubstitutionApplier>();
 
     public Vocalizer() {
         modifiers.add(new WawiLafifNakes1Vocalizer());
@@ -37,7 +37,7 @@ public class Vocalizer {
     }
 
     public void apply(ConjugationResult conjResult) {
-        Iterator iter = modifiers.iterator();
+        Iterator<org.sj.nounConjugation.TrilateralNounSubstitutionApplier> iter = modifiers.iterator();
         while (iter.hasNext()) {
             IUnaugmentedTrilateralNounModificationApplier modifier = (IUnaugmentedTrilateralNounModificationApplier) iter.next();
             if (modifier.isApplied(conjResult)) {

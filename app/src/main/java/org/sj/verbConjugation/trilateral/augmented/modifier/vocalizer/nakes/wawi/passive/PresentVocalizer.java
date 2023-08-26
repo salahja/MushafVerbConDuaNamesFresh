@@ -10,7 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class PresentVocalizer extends SubstitutionsApplier implements IAugmentedTrilateralModifier {
-    private final List substitutions = new LinkedList();
+    private final List<org.sj.verbConjugation.trilateral.Substitution.Substitution> substitutions = new LinkedList<>();
 
     public PresentVocalizer() {
         substitutions.add(new SuffixSubstitution("وُ", "ى")); // EX: (يُدْنَى، يُسَمَّى، يحابَى، يرتضى، يرعوَى، يُتسامى، يُتزكَّى، يسترضى، يحلولى)

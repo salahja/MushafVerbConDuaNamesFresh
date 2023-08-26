@@ -24,16 +24,16 @@ import java.util.Map;
  */
 public class NonStandardExaggerationConjugator implements IUnaugmentedTrilateralNounConjugator {
     private static final NonStandardExaggerationConjugator instance = new NonStandardExaggerationConjugator();
-    private final Map formulaClassNamesMap = new HashMap();
+    private final Map<String, Class<NonStandardExaggerationNounFormula>> formulaClassNamesMap = new HashMap<String, Class<NonStandardExaggerationNounFormula>>();
     //map <symbol,formulaName>
-    private final Map formulaSymbolsNamesMap = new HashMap();
+    private final Map<String, String> formulaSymbolsNamesMap = new HashMap<String, String>();
 
     private NonStandardExaggerationConjugator() {
         for (int i = 1; i <= 10; i++) {
             String formulaClassName = getClass().getPackage().getName() + ".nonstandard.NounFormula" + i;
             try {
-                Class formulaClass = Class.forName(formulaClassName);
-                NonStandardExaggerationNounFormula nonStandardExaggerationNounFormula = (NonStandardExaggerationNounFormula) formulaClass.newInstance();
+                Class<NonStandardExaggerationNounFormula> formulaClass = (Class<NonStandardExaggerationNounFormula>) Class.forName(formulaClassName);
+                NonStandardExaggerationNounFormula nonStandardExaggerationNounFormula = formulaClass.newInstance();
                 formulaClassNamesMap.put(nonStandardExaggerationNounFormula.getFormulaName(), formulaClass);
                 formulaSymbolsNamesMap.put(nonStandardExaggerationNounFormula.getSymbol(), nonStandardExaggerationNounFormula.getFormulaName());
             } catch (Exception ex) {
@@ -49,7 +49,7 @@ public class NonStandardExaggerationConjugator implements IUnaugmentedTrilateral
     public NounFormula createNoun(UnaugmentedTrilateralRoot root, int suffixNo, String formulaName) {
         Object[] parameters = {root, suffixNo + ""};
         try {
-            Class formulaClass = (Class) formulaClassNamesMap.get(formulaName);
+            Class<NonStandardExaggerationNounFormula> formulaClass = formulaClassNamesMap.get(formulaName);
             NounFormula noun = (NounFormula) formulaClass.getConstructors()[1].newInstance(parameters);
             return noun;
         } catch (Exception ex) {
@@ -59,7 +59,7 @@ public class NonStandardExaggerationConjugator implements IUnaugmentedTrilateral
     }
 
     public List createNounList(UnaugmentedTrilateralRoot root, String formulaName) {
-        List result = new LinkedList();
+        List<NounFormula> result = new LinkedList<>();
         for (int i = 0; i < 18; i++) {
             NounFormula noun = createNoun(root, i, formulaName);
             result.add(noun);
@@ -74,10 +74,10 @@ public class NonStandardExaggerationConjugator implements IUnaugmentedTrilateral
         XmExaggerationNounFormulaTree formulaTree = null;
         if (formulaTree == null)
             return null;
-        List result = new LinkedList();
-        Iterator iter = formulaTree.getFormulaList().iterator();
+        List<String> result = new LinkedList<>();
+        Iterator<XmExaggerationNounFormula> iter = formulaTree.getFormulaList().iterator();
         while (iter.hasNext()) {
-            XmExaggerationNounFormula formula = (XmExaggerationNounFormula) iter.next();
+            XmExaggerationNounFormula formula = iter.next();
             if (formula.getC2() == root.getC2() && formula.getC3() == root.getC3()) {
                 if (formula.getForm1() != null && formula.getForm1() != "")
                     //add the formula pattern insteaed of the symbol (form1)

@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class WawiVocalizer extends SubstitutionsApplier implements IAugmentedTrilateralModifier {
-    private final List substitutions = new LinkedList();
+    private final List<InfixSubstitution> substitutions = new LinkedList<InfixSubstitution>();
 
     public WawiVocalizer() {
         substitutions.add(new InfixSubstitution("ُوْ", "ُو"));// EX: (يُوجِبُ، )

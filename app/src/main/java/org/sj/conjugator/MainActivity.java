@@ -77,7 +77,7 @@ public class MainActivity extends BaseActivity {
         }
         initView();
         SetupBOttomMenu();
-        //  DatabaseUtils utils = new DatabaseUtils(this);
+        //  VerbDatabaseUtils utils = new VerbDatabaseUtils(this);
         //  ArrayList<Mazeed> mazeedAll = utils.getMazeedAll();
         //   createFile();
 /*

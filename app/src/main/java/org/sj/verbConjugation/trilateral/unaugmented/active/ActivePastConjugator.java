@@ -48,8 +48,8 @@ public class ActivePastConjugator {
      * @param root UnaugmentedTrilateralRoot
      * @return List
      */
-    public List createVerbList(UnaugmentedTrilateralRoot root) {
-        List result = new LinkedList();
+    public List<ActivePastVerb> createVerbList(UnaugmentedTrilateralRoot root) {
+        List<ActivePastVerb> result = new LinkedList<ActivePastVerb>();
         for (int i = 0; i < 13; i++) {
             boolean add = result.add(createVerb(i, root));
         }
@@ -57,8 +57,8 @@ public class ActivePastConjugator {
         return result;
     }
 
-    public List createVerbHua(UnaugmentedTrilateralRoot root) {
-        List result = new LinkedList();
+    public List<ActivePastVerb> createVerbHua(UnaugmentedTrilateralRoot root) {
+        List<ActivePastVerb> result = new LinkedList<>();
         for (int i = 0; i < 1; i++) {
             boolean add = result.add(createVerb(i, root));
         }

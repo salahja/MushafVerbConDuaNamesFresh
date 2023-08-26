@@ -27,7 +27,7 @@ import java.util.List;
  * @version 1.0
  */
 public class Vocalizer {
-    private final List modifiers = new LinkedList();
+    private final List<IUnaugmentedTrilateralNounModificationApplier> modifiers = new LinkedList<>();
 
     public Vocalizer() {
         modifiers.add(new Vocalizer1());
@@ -39,9 +39,9 @@ public class Vocalizer {
     }
 
     public void apply(ConjugationResult conjResult) {
-        Iterator iter = modifiers.iterator();
+        Iterator<IUnaugmentedTrilateralNounModificationApplier> iter = modifiers.iterator();
         while (iter.hasNext()) {
-            IUnaugmentedTrilateralNounModificationApplier modifier = (IUnaugmentedTrilateralNounModificationApplier) iter.next();
+            IUnaugmentedTrilateralNounModificationApplier modifier = iter.next();
             if (modifier.isApplied(conjResult)) {
                 ((SubstitutionsApplier) modifier).apply(conjResult.getFinalResult(), conjResult.getRoot());
                 break;

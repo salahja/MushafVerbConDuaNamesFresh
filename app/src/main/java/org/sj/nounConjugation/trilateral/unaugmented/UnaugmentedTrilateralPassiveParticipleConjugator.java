@@ -35,7 +35,7 @@ public class UnaugmentedTrilateralPassiveParticipleConjugator implements IUnaugm
     }
 
     public List createNounList(UnaugmentedTrilateralRoot root, String formulaName) {
-        List result = new ArrayList(18);
+        List<UnaugmentedTrilateralPassiveParticiple> result = new ArrayList<UnaugmentedTrilateralPassiveParticiple>(18);
         for (int i = 0; i < 18; i++)
             result.add(createNoun(root, i));
         return result;

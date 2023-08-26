@@ -2,6 +2,7 @@ package com.example.mushafconsolidated.Adapters;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
@@ -37,12 +38,10 @@ import java.util.List;
 public class NewSurahDisplayAdapter extends RecyclerView.Adapter<NewSurahDisplayAdapter.ItemViewAdapter> implements Filterable {
     private static final String TAG = "SurahPartAdap ";
     OnItemClickListener mItemClickListener;
-    private List<ChaptersAnaEntity> listonearray = new ArrayList<>();
-    private List<ChaptersAnaEntity> listtwoarray = new ArrayList<>();
+    private List<ChaptersAnaEntity> listonearray;
     private final Context context;
     private String surahname;
     private List<ChaptersAnaEntity> chapterfilered;
-    private boolean defaultfont;
 
     public NewSurahDisplayAdapter(Context context, ArrayList<ChaptersAnaEntity> allAnaChapters) {
         this.context = context;
@@ -71,19 +70,13 @@ public class NewSurahDisplayAdapter extends RecyclerView.Adapter<NewSurahDisplay
         final ChaptersAnaEntity surah = chapterfilered.get(position);
         Context context = QuranGrammarApplication.getContext();
         SharedPreferences pref = context.getSharedPreferences("lastread", MODE_PRIVATE);
-        int chapterno = pref.getInt("surah", 1);
-        int verse_no = pref.getInt("ayah", 1);
-        SharedPref sharedPref = new SharedPref(context);
-        final String isNightmode = SharedPref.themePreferences();
         TypedArray imgs = this.context.getResources().obtainTypedArray(R.array.sura_imgs);
-        TypedArray array = imgs;
+
+
         SharedPreferences sharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(context);
         String theme = sharedPreferences.getString("themepref", "dark");
-        String sb = surah.getChapterid() +
-                ":" +
-                surah.getNameenglish();
-        defaultfont = sharedPreferences.getBoolean("default_font", true);
+        boolean defaultfont = sharedPreferences.getBoolean("default_font", true);
 
         int surahIsmakki = surah.getIsmakki();
         int cno = surah.getChapterid();
@@ -94,6 +87,7 @@ public class NewSurahDisplayAdapter extends RecyclerView.Adapter<NewSurahDisplay
         }
    //
         final Drawable drawable = imgs.getDrawable(cno - 1);
+        imgs.recycle();
         holder.ivsurahicon.setImageDrawable(drawable);
 
         if (surahIsmakki == 1) {
@@ -105,16 +99,6 @@ public class NewSurahDisplayAdapter extends RecyclerView.Adapter<NewSurahDisplay
             holder.surahcardview.setCardBackgroundColor(context.getResources().getColor(R.color.mdgreen_theme_dark_onPrimary));
         }
 
-      /*  } else if (theme.equals("blue")) {
-            holder.surahcardview.setCardBackgroundColor(context.getResources().getColor(R.color.bg_dark_blue));
-
-        } else if (theme.equals("purple")) {
-            holder.surahcardview.setCardBackgroundColor(context.getResources().getColor(R.color.md_theme_dark_inversePrimary));
-
-        }  else if (theme.equals("light")) {
-            holder.surahcardview.setCardBackgroundColor(context.getResources().getColor(R.color.md_theme_light_secondary));
-
-        }*/
         if (theme.equals("dark") || theme.equals("blue")  ||theme.equals("green")) {
             holder.makkimadaniIcon.setColorFilter(Color.CYAN);
             holder.ivsurahicon.setColorFilter(Color.CYAN);
@@ -147,7 +131,6 @@ public class NewSurahDisplayAdapter extends RecyclerView.Adapter<NewSurahDisplay
 
     public void setUp(List<ChaptersAnaEntity> listone, List<ChaptersAnaEntity> listtwo) {
         this.listonearray = listone;
-        this.listtwoarray = listtwo;
 
     }
 
@@ -164,7 +147,7 @@ public class NewSurahDisplayAdapter extends RecyclerView.Adapter<NewSurahDisplay
             protected FilterResults performFiltering(CharSequence charSequence) {
                 String charString = charSequence.toString();
                 boolean bool = false;
-                char charArray[] = charString.toCharArray();
+                char[] charArray = charString.toCharArray();
                 if(!charString.isEmpty()) {
                     bool = Character.isDigit(charArray[0]);
                 }
@@ -187,7 +170,6 @@ public class NewSurahDisplayAdapter extends RecyclerView.Adapter<NewSurahDisplay
                         List<ChaptersAnaEntity> filteredList = new ArrayList<>();
                         for (ChaptersAnaEntity details : listonearray) {
                             int str= Integer.parseInt(charString);
-                            String Cardresult = String.valueOf(details.getChapterid());
                             // name match condition. this might differ depending on your requirement
                             // here we are looking for name or phone number match
                            if(details.getChapterid()==str)
@@ -206,6 +188,7 @@ public class NewSurahDisplayAdapter extends RecyclerView.Adapter<NewSurahDisplay
                 return filterResults;
             }
 
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
                 chapterfilered = (ArrayList<ChaptersAnaEntity>) filterResults.values;
@@ -217,16 +200,23 @@ public class NewSurahDisplayAdapter extends RecyclerView.Adapter<NewSurahDisplay
     public class ItemViewAdapter extends RecyclerView.ViewHolder
             implements View.OnClickListener // current clickListerner
     {
-        public TextView tvnumber, tvsurahright, tvsurahleft, part, tvSurahlefttarabic, tvSurahrightarabic;
-        public TextView overlayTypeChapterView, overlayTypePartView;
+        public TextView tvnumber;
+        public TextView tvsurahright;
+        public final TextView tvsurahleft;
+        public TextView part;
+        public TextView tvSurahlefttarabic;
+        public TextView tvSurahrightarabic;
+        public final TextView overlayTypeChapterView;
+        public TextView overlayTypePartView;
         public TextView surah_name_arabic;
         public TextView referenceview;
         public RelativeLayout row_surah;
         //   public ConstraintLayout surah_row_table;///for rnew_surah_row
         public LinearLayout surah_row_table;
-        ImageView makkimadaniIcon;
-        ImageView ivsurahicon, tvarabicright;
-        CardView surahcardview;
+        final ImageView makkimadaniIcon;
+        final ImageView ivsurahicon;
+        ImageView tvarabicright;
+        final CardView surahcardview;
 
         ItemViewAdapter(View layout, int viewType) {
             super(layout);
@@ -236,8 +226,6 @@ public class NewSurahDisplayAdapter extends RecyclerView.Adapter<NewSurahDisplay
             makkimadaniIcon = itemView.findViewById(R.id.makkimadaniicon);
             overlayTypeChapterView = itemView.findViewById(R.id.overlayTypeChapterView);
             ivsurahicon = itemView.findViewById(R.id.surahicon);
-            //  overlayTypeChapterView.setOnClickListener(this);
-            // overlayTypePartView.setOnClickListener(this);
             layout.setOnClickListener(this); // current clickListerner
 
         }

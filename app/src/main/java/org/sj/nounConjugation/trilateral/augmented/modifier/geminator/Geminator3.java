@@ -21,7 +21,7 @@ import java.util.List;
  * @version 1.0
  */
 public class Geminator3 extends TrilateralNounSubstitutionApplier implements IAugmentedTrilateralModifier {
-    private final List substitutions = new LinkedList();
+    private final List<InfixSubstitution> substitutions = new LinkedList<>();
 
     public Geminator3() {
         substitutions.add(new InfixSubstitution("تْت", "تّ"));// EX: (مُتَّبِعٌ، مُتَّئِمٌ)

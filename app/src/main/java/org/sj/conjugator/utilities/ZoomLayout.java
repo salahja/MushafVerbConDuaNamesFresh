@@ -1,5 +1,6 @@
 package org.sj.conjugator.utilities;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -43,9 +44,11 @@ public class ZoomLayout extends FrameLayout implements ScaleGestureDetector.OnSc
         init(context);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void init(Context context) {
         final ScaleGestureDetector scaleDetector = new ScaleGestureDetector(context, this);
         this.setOnTouchListener(new OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {

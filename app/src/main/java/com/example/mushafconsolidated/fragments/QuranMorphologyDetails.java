@@ -17,7 +17,6 @@ import com.example.mushafconsolidated.R;
 import com.example.mushafconsolidated.model.CorpusWbwWord;
 import com.example.utility.CorpusConstants;
 import com.example.utility.CorpusUtilityorig;
-import com.example.utility.SharedPref;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -25,10 +24,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
+@SuppressWarnings("DuplicateCondition")
 public class QuranMorphologyDetails {
     int form = 0;
     String Thulathi;
-    private CorpusWbwWord word;
+    // --Commented out by Inspection (16/08/23, 1:44 pm):private CorpusWbwWord word;
     private ArrayList<NounCorpus> corpusNoun;
     private ArrayList<NewCorpusExpandWbwPOJO> corpusSurahWord;
     private ArrayList<VerbCorpus> verbcorpusform;
@@ -42,24 +42,7 @@ public class QuranMorphologyDetails {
         this.corpusNoun = corpusNounWord;
 
 
-        String dark  = PreferenceManager.getDefaultSharedPreferences(context).getString("themepref", "dark");
 
-        int indigo;
-        int cyan;
-        int yellow;
-        int green;
-        if (dark.equals("dark")) {
-            indigo = ContextCompat.getColor(context, R.color.indigo);
-            cyan = ContextCompat.getColor(context, R.color.cyan);
-            yellow = ContextCompat.getColor(context, R.color.yellow);
-            green = ContextCompat.getColor(context, R.color.green);
-        } else {
-            indigo = ContextCompat.getColor(context, R.color.indigo);
-            cyan = ContextCompat.getColor(context, R.color.red);
-            yellow = ContextCompat.getColor(context, R.color.hotpink);
-            green = ContextCompat.getColor(context, R.color.deeppink);
-
-        }
 
     }
 
@@ -206,62 +189,39 @@ public class QuranMorphologyDetails {
                     break;
             }
 
-        } else if (gendernumber.length() == 2) {
-            person = gendernumber.substring(0, 1);
-            number = gendernumber.substring(1, 2);
-            switch (person) {
-                case "1":
-                    sb.append("1st Person");
-                    break;
-                case "2":
-                    sb.append("2nd Person");
-                    break;
-                case "3":
-                    sb.append("3rd Person");
-                    break;
-            }
-            switch (number) {
-                case "S":
-                    sb.append("Singular");
-                    break;
-                case "P":
-                    sb.append("Plural");
-                    break;
-                case "D":
-                    sb.append("Dual");
-                    break;
-            }
+        } else {
+            gendernumber.length();
+            if (gendernumber.length() == 1) {
+                person = gendernumber.substring(0, 1);
+                switch (person) {
+                    case "S":
+                        sb.append("Singular");
+                        break;
+                    case "P":
+                        sb.append("Plural");
+                        break;
+                    case "D":
+                        sb.append("Dual");
+                        break;
+                    case "1":
+                        sb.append("1st Per.");
+                        break;
+                    case "2":
+                        sb.append("2nd Per.");
+                        break;
+                    case "3":
+                        sb.append("3rd Per.");
+                        break;
+                    case "M":
+                        sb.append("Mas.");
+                        break;
+                    case "F":
+                        sb.append("Fem.");
+                        break;
 
-        } else if (gendernumber.length() == 1) {
-            person = gendernumber.substring(0, 1);
-            switch (person) {
-                case "S":
-                    sb.append("Singular");
-                    break;
-                case "P":
-                    sb.append("Plural");
-                    break;
-                case "D":
-                    sb.append("Dual");
-                    break;
-                case "1":
-                    sb.append("1st Per.");
-                    break;
-                case "2":
-                    sb.append("2nd Per.");
-                    break;
-                case "3":
-                    sb.append("3rd Per.");
-                    break;
-                case "M":
-                    sb.append("Mas.");
-                    break;
-                case "F":
-                    sb.append("Fem.");
-                    break;
+                }
 
             }
-
         }
         return sb;
     }
@@ -468,7 +428,8 @@ public class QuranMorphologyDetails {
                     vbdetail.put("thulathi", sb.toString());
                     vbdetail.put("wazan", thulathibab);
 
-                } else if (thulathibab.length() > 1) {
+                } else {
+                    thulathibab.length();
                     String s = thulathibab.substring(0, 1);
                     final StringBuilder sb = getThulathiName(s);
                     vbdetail.put("thulathi", sb.toString());
@@ -654,7 +615,6 @@ public class QuranMorphologyDetails {
 
     public HashMap<String, SpannableStringBuilder> getWordDetails() {
         HashMap<String, SpannableStringBuilder> wordbdetail = new HashMap<>();
-        int surah = corpusSurahWord.get(0).getSurah();
         wordbdetail.put("surahid", SpannableStringBuilder.valueOf(String.valueOf(corpusSurahWord.get(0).getSurah())));
         wordbdetail.put("ayahid", SpannableStringBuilder.valueOf(String.valueOf(corpusSurahWord.get(0).getAyah())));
         wordbdetail.put("wordno", SpannableStringBuilder.valueOf(String.valueOf(corpusSurahWord.get(0).getWordno())));
@@ -666,33 +626,23 @@ public class QuranMorphologyDetails {
             if (corpusNoun.get(0).getProptwo().equals(CorpusConstants.NominalsProp.PCPL)) {
                 String form = corpusNoun.get(0).getForm();
                 final String mform = form.replaceAll("[()]", "");
-                //   String mform = corpusNoun.get(0).getForm();
                 if (!mform.equals("I")) {
                     convertForms(mform);
                     wordbdetail.put("form", SpannableStringBuilder.valueOf(String.valueOf(getForm())));
                     getRoot(corpusSurahWord, wordbdetail);
                     //chedk if particple
-                    if (corpusNoun.get(0).getProptwo().equals("PCPL")) {
-                        wordbdetail.put("PCPL", SpannableStringBuilder.valueOf(corpusNoun.get(0).getPropone().concat(corpusNoun.get(0).getProptwo())));
-                        wordbdetail.put("particple", SpannableStringBuilder.valueOf("PART"));
-                        //    wordbdetail.put("form", SpannableStringBuilder.valueOf("I"));
-                    } else {
-                        wordbdetail.put("PCPL", SpannableStringBuilder.valueOf("NONE"));
-                        wordbdetail.put("particple", SpannableStringBuilder.valueOf("PART"));
-                        //   wordbdetail.put("form", SpannableStringBuilder.valueOf("I"));
-                    }
                 } else {
                     wordbdetail.put("form", SpannableStringBuilder.valueOf(corpusNoun.get(0).getForm()));
-                    if (corpusNoun.get(0).getProptwo().equals("PCPL")) {
-                        wordbdetail.put("PCPL", SpannableStringBuilder.valueOf(corpusNoun.get(0).getPropone().concat(corpusNoun.get(0).getProptwo())));
-                        wordbdetail.put("particple", SpannableStringBuilder.valueOf("PART"));
-                        //    wordbdetail.put("form", SpannableStringBuilder.valueOf("I"));
-                    } else {
-                        wordbdetail.put("PCPL", SpannableStringBuilder.valueOf("NONE"));
-                        wordbdetail.put("particple", SpannableStringBuilder.valueOf("PART"));
-                        //   wordbdetail.put("form", SpannableStringBuilder.valueOf("I"));
-                    }
 
+                }
+                if (corpusNoun.get(0).getProptwo().equals("PCPL")) {
+                    wordbdetail.put("PCPL", SpannableStringBuilder.valueOf(corpusNoun.get(0).getPropone().concat(corpusNoun.get(0).getProptwo())));
+                    wordbdetail.put("particple", SpannableStringBuilder.valueOf("PART"));
+                    //    wordbdetail.put("form", SpannableStringBuilder.valueOf("I"));
+                } else {
+                    wordbdetail.put("PCPL", SpannableStringBuilder.valueOf("NONE"));
+                    wordbdetail.put("particple", SpannableStringBuilder.valueOf("PART"));
+                    //   wordbdetail.put("form", SpannableStringBuilder.valueOf("I"));
                 }
 
             }
@@ -704,7 +654,7 @@ public class QuranMorphologyDetails {
         getRoot(corpusSurahWord, wordbdetail);
         getNdetails(corpusNoun, wordbdetail, sb);
         getProperNounDetails(corpusNoun, wordbdetail, sb);
-        int length = wordbdetail.get("worddetails").length();
+
         boolean isNoun = wordbdetail.get("worddetails").toString().contains("Noun");
         if (wordbdetail.get("worddetails") != null) {//todo need refactor based on wordcount
             if (!isNoun) {
@@ -831,6 +781,7 @@ public class QuranMorphologyDetails {
         }
     }
 
+    @SuppressWarnings("DuplicateCondition")
     void getNdetails(ArrayList<NounCorpus> corpusNoun, HashMap<String, SpannableStringBuilder> wordbdetail, StringBuilder sb) {
         if (corpusNoun.size() > 0) {
             if (corpusNoun.get(0).getTag().equals("N") || corpusNoun.get(0).getTag().equals("PN") ||
@@ -1033,7 +984,6 @@ public class QuranMorphologyDetails {
             //noun yelllo
             //verb cyan
             //
-            int one = corpusSurahWord.get(0).getAraone().length();//2
             String expandTagsone = expandTags(tagone);
             wordbdetail.put("lemma", SpannableStringBuilder.valueOf(corpusSurahWord.get(0).getLemaraone()));
 
@@ -1061,9 +1011,6 @@ public class QuranMorphologyDetails {
             }
             int one = corpusSurahWord.get(0).getAraone().length();//2
             int two = corpusSurahWord.get(0).getAratwo().length();//3
-            int secondend = one + two;
-            int twotag = expandTagsone.length();//1
-            int onetag = expandTagstwo.length();//3
             SpannableString spannableString = CorpusUtilityorig.NewSetWordSpan(tagone, tagtwo, "", "", "", araone, aratwo, "", "", "");
             SpannableString tagspannables = CorpusUtilityorig.NewSetWordSpanTag(tagone, tagtwo, "", "", "", araone, aratwo, "", expandTagstwo, expandTagsone);
             wordbdetail.put("word", SpannableStringBuilder.valueOf(spannableString));
@@ -1075,9 +1022,6 @@ public class QuranMorphologyDetails {
                     corpusSurahWord.get(0).getLemrathree()));
             int one = corpusSurahWord.get(0).getAraone().length();//2
             int two = corpusSurahWord.get(0).getAratwo().length();//3
-            int three = corpusSurahWord.get(0).getArathree().length();//10
-            int secondend = one + two;
-            int thirdstart = one + two;
             String expandTagsone = expandTags(corpusSurahWord.get(0).getTagone());
             String expandTagstwo = expandTags(corpusSurahWord.get(0).getTagtwo());
             String expandTagsthree = expandTags(corpusSurahWord.get(0).getTagthree());
@@ -1110,10 +1054,6 @@ public class QuranMorphologyDetails {
 
             int onetag = corpusSurahWord.get(0).getTagone().length();//1
             int twotag = corpusSurahWord.get(0).getTagtwo().length();//3
-            int threetag = corpusSurahWord.get(0).getTagthree().length();//1
-            int thirdstart = one + two;
-
-            int thirdstarttag = onetag + twotag + 1;
 
             String expandTagsone = expandTags(corpusSurahWord.get(0).getTagone());
             String expandTagstwo = expandTags(corpusSurahWord.get(0).getTagtwo());

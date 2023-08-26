@@ -17,7 +17,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -39,9 +38,7 @@ import com.example.mushafconsolidated.Entities.TameezEnt;
 import com.example.mushafconsolidated.Entities.lughat;
 import com.example.mushafconsolidated.R;
 import com.example.mushafconsolidated.intrface.OnItemClickListener;
-import com.example.mushafconsolidated.model.SarfSagheerPOJO;
 import com.example.utility.QuranGrammarApplication;
-import com.example.utility.SharedPref;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.chip.Chip;
 
@@ -85,6 +82,23 @@ public class RootWordDisplayAdapter extends RecyclerView.Adapter<RootWordDisplay
     private ArrayList<MafoolMutlaqEnt> mutlaq;
     private ArrayList<LiajlihiEnt> liajlihi;
     private SharedPreferences sharedPreferences;
+
+    public RootWordDisplayAdapter(Context context, ArrayList<HalEnt> haliaSentence, ArrayList<TameezEnt> tameez, ArrayList<MafoolBihi> mafoolbihi,
+                                  ArrayList<MafoolMutlaqEnt> mutlaqword, ArrayList<LiajlihiEnt> liajlihiEntArrayList,
+                                  boolean verb, ArrayList<String> wazannumberslist,
+                                  SpannableStringBuilder spannable, boolean noun, ArrayList<ArrayList> ismfaelmafool,
+                                  boolean participles, boolean isverbconjugaton, ArrayList<NewCorpusExpandWbwPOJO> corpusSurahWord,
+                                  HashMap<String, SpannableStringBuilder> wordbdetail, HashMap<String, String> vbdetail,
+                                  boolean mazeedSarfSagheer, boolean thulathiSarfSagheer, ArrayList<SarfSagheer> sarfSagheerList) {
+        this.context = context;
+        this.haliaSentence=haliaSentence;
+        this.tameez=tameez;
+        this.mafoolbihi=mafoolbihi;this.mutlaq=mutlaqword;this.liajlihi=liajlihiEntArrayList;this.isverb=verb;this.wazannumberslist=wazannumberslist;
+        this.spannable=spannable;this.isnoun=noun;this.ismfaelmafool=ismfaelmafool;this.particples=participles;this.isverbconjugation=isverbconjugaton;
+        this.corpusexpand=corpusSurahWord;this.worddetails=wordbdetail;this.vbdetail=vbdetail;this.isSarfSagheerMazeed=mazeedSarfSagheer;this.isSarfSagheerThulahi=thulathiSarfSagheer;
+        this.sarfsagheer=sarfSagheerList;
+
+    }
 
     public RootWordDisplayAdapter(Context context) {
         this.context = context;
@@ -874,7 +888,9 @@ public class RootWordDisplayAdapter extends RecyclerView.Adapter<RootWordDisplay
         public final TextView nom2, acc2, gen2;
         public final TextView nom3, acc3, gen3;
         public final TextView wordDictionary, moodrules;
-        public final Chip triroot, paradigm, rootdetails, verb;
+      //  public final Chip triroot, paradigm, rootdetails, verb;
+
+     //   public final Chip triroot, paradigm, rootdetails;
         final TextView referenceView;
         final TextView wdetailstv;
         final TextView lemma;
@@ -919,10 +935,10 @@ public class RootWordDisplayAdapter extends RecyclerView.Adapter<RootWordDisplay
             radioGroup = view.findViewById(R.id.rdgroup);
             expandable = view.findViewById(R.id.wazanlist);
             //   list=view.findViewById(R.id.verbrootlist);
-            verb = view.findViewById(R.id.verb);
+      /*      verb = view.findViewById(R.id.verb);
             triroot = view.findViewById(R.id.triroot);
             paradigm = view.findViewById(R.id.paradigm);
-            rootdetails = view.findViewById(R.id.rootdetails);
+            rootdetails = view.findViewById(R.id.rootdetails);*/
             wordDictionary = view.findViewById(R.id.wordDictionary);
             spannableverse = view.findViewById(R.id.spannableverse);
             quranverseShart = view.findViewById(R.id.quranverseShart);

@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Past1Vocalizer extends SubstitutionsApplier implements IUnaugmentedTrilateralModifier {
 
-    private final List substitutions = new LinkedList();
+    private final List<org.sj.verbConjugation.trilateral.Substitution.Substitution> substitutions = new LinkedList<>();
 
     public Past1Vocalizer() {
         substitutions.add(new SuffixSubstitution("َوَ", "َا"));// EX: (غزا، أسا، عثا)

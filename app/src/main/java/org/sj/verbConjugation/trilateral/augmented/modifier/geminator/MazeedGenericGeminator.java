@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MazeedGenericGeminator implements IAugmentedTrilateralModifier {
-    private final Map geminators = new HashMap();
+    private final Map<String, SubstitutionsApplier> geminators = new HashMap<String, SubstitutionsApplier>();
 
     public MazeedGenericGeminator() {
         geminators.put(SystemConstants.PAST_TENSE + "true", new ActivePastGeminator());
@@ -62,7 +62,7 @@ public class MazeedGenericGeminator implements IAugmentedTrilateralModifier {
     }
 
     public void apply(String tense, boolean active, MazeedConjugationResult conjResult) {
-        SubstitutionsApplier geminator = (SubstitutionsApplier) geminators.get(tense + active);
+        SubstitutionsApplier geminator = geminators.get(tense + active);
         geminator.apply(conjResult.getFinalResult(), conjResult.getRoot());
     }
 }

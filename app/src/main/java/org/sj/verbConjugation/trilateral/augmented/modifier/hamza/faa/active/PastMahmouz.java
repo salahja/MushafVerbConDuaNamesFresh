@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class PastMahmouz extends AbstractFaaMahmouz {
-    private final List substitutions = new LinkedList();
+    private final List<InfixSubstitution> substitutions = new LinkedList<>();
 
     public PastMahmouz() {
         substitutions.add(new InfixSubstitution("أَءْ", "آ"));// EX: (آثَرَ، آتَى، آخَى، آوَى، )

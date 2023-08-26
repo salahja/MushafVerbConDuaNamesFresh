@@ -7,23 +7,18 @@ import static com.example.Constant.SARFKABEERWEAKNESS;
 import static com.example.Constant.VERBMOOD;
 import static com.example.Constant.VERBTYPE;
 
-import android.Manifest;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mushafconsolidated.R;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationView;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -37,19 +32,10 @@ import ru.dimorinny.floatingtextbutton.FloatingTextButton;
 
 public class FragmentIsmZarf extends Fragment {
     private static final String TAG = "PermissionDemo";
-    private static final String[] PERMISSIONS_STORAGE = {
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-    };
-    private final ArrayList sarfSagheer = new ArrayList();
-    private final ArrayList sarfSagheermahmooz = new ArrayList();
-    ArrayList<String> sarfkabeer = new ArrayList<>();
+
     RecyclerView recyclerView;
-    Button llPdf;
-    ArrayList<String> getall = new ArrayList<>();
 
 
-    boolean regularverb;
     boolean isAugmented, isUnAugmented;
     private FloatingTextButton callButton;
 
@@ -77,10 +63,6 @@ public class FragmentIsmZarf extends Fragment {
         f.setArguments(dataBundle);
         return f;
 
-    }
-
-    public void setRegularverb(boolean regularverb) {
-        this.regularverb = regularverb;
     }
 
     @Override
@@ -145,7 +127,7 @@ public class FragmentIsmZarf extends Fragment {
     }
 
     private void ninitThulathiAdapter() {
-        ArrayList<ArrayList> mujarradListing = GatherAll.getInstance().getMujarradZarf(verbmood, verbroot, unaugmentedFormula);
+        ArrayList<ArrayList> mujarradListing = GatherAll.getInstance().getMujarradZarf(verbroot, unaugmentedFormula);
         if (!mujarradListing.isEmpty()) {
             IsmZarffKabeerAdapter ska = new IsmZarffKabeerAdapter(mujarradListing, getContext());
 

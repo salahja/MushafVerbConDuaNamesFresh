@@ -13,7 +13,7 @@
         android:layout_marginTop="60dp"
         android:fontFamily="cursive"
         android:textSize="25sp"
-        android:text="Light"
+        android:text="@string/light"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="28dp"
-        android:text="Black"
+        android:text="@string/black"
         android:fontFamily="cursive"
         android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="28dp"
-        android:text="Dark Blue"
+        android:text="@string/dark_blue"
         android:fontFamily="cursive"
         android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="28dp"
-        android:text="Dark Green"
+        android:text="@string/dark_green"
         android:fontFamily="cursive"
         android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,7 +61,7 @@
         android:layout_marginTop="28dp"
         android:fontFamily="cursive"
         android:textSize="25sp"
-        android:text="Brown"
+        android:text="@string/brown"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/green" />
 
@@ -75,7 +75,7 @@
         android:ems="10"
         android:fontFamily="cursive"
         android:gravity="center_horizontal"
-        android:text="Select Theme"
+        android:text="@string/select_theme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"

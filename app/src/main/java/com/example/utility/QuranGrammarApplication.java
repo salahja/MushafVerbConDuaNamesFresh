@@ -20,33 +20,20 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.util.Log;
 
 import androidx.preference.PreferenceManager;
 
-import com.example.mushafconsolidated.Entities.Page;
-import com.example.mushafconsolidated.Entities.QuranEntity;
 
-import com.example.mushafconsolidated.Utils;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 import leakcanary.LeakCanary;
 
 public class QuranGrammarApplication extends Application {
     public static Context appContext;
-    private static final String TAG = "App";
-    private Utils repository;
-    private List<Page> fullQuranPages;
+
     public static Context getContext() {
         return appContext;
     }
-/*
-    public List<Page> getFullQuranPages() {
-        return fullQuranPages;
-    }*/
 
     public static Context getInstance() {
         //Check application language
@@ -58,12 +45,6 @@ public class QuranGrammarApplication extends Application {
 
     public void onCreate() {
         super.onCreate();
-//        repository = Utils.getInstance(this);
-      //  repository = new Utils(getContext()) ;
-
-      //  Log.d(TAG, "onCreate:  nbbbbbb  ahyas" + ahays);
-
-//            persistanscePages();
 
 
         LeakCanary.Config config = LeakCanary.getConfig();
@@ -76,34 +57,5 @@ public class QuranGrammarApplication extends Application {
         String themePref = sharedPreferences.getString("themepref", "white");
         ThemeHelper.applyTheme(themePref);
     }
- /*   private void persistanscePages() {
-        new Thread(() -> {
-            try {
-                loadFullQuran();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }).start();
-
-    }
-
-    private void loadFullQuran() {
-        List<Page> pages = new ArrayList<>();
-        Page page;
-        List<QuranMetaEntity> ayahItems;
-        for (int i = 1; i <= 604; i++) {
-            ayahItems = repository.getAyahsByPage(i);
-            if (ayahItems.size() > 0) {
-                page = new Page();
-                page.setAyahItems(ayahItems);
-                page.setPageNum(i);
-                page.setJuz(ayahItems.get(0).getJuz());
-                pages.add(page);
-            }
-        }
-
-        fullQuranPages = new ArrayList<>(pages);
-
-    }*/
 
 }

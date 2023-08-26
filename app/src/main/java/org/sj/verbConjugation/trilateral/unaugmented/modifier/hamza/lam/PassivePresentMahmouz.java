@@ -20,7 +20,7 @@ import java.util.List;
  * @version 1.0
  */
 public class PassivePresentMahmouz extends AbstractLamMahmouz {
-    private final List substitutions = new ArrayList();
+    private final List<org.sj.verbConjugation.trilateral.Substitution.Substitution> substitutions = new ArrayList<>();
 
     public PassivePresentMahmouz() {
         substitutions.add(new SuffixSubstitution("َءُ", "َأُ")); // EX: (هو يُوطَأُ)

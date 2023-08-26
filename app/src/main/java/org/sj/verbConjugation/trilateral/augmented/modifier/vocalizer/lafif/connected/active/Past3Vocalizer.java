@@ -11,7 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Past3Vocalizer extends SubstitutionsApplier implements IAugmentedTrilateralModifier {
-    private final List substitutions = new LinkedList();
+    private final List<org.sj.verbConjugation.trilateral.Substitution.Substitution> substitutions = new LinkedList<org.sj.verbConjugation.trilateral.Substitution.Substitution>();
 
     public Past3Vocalizer() {
         substitutions.add(new SuffixSubstitution("َوَ", "َى"));// EX: (أسوَى، سَوَّى ساوَى، انغوى، استوى، تساوى، تَسَوَّى استغوى احْوَوَّى)

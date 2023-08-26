@@ -106,7 +106,7 @@ public class ThemeListPrefrence extends BottomSheetDialogFragment  {
             green = itemView.findViewById(R.id.green);
             brown = itemView.findViewById(R.id.Brown);
 
-           frameLayout= itemView.findViewById(R.id.bottomSheet);
+          // frameLayout= itemView.findViewById(R.id.bottomSheet);
            itemView.setOnClickListener(this);
 
             purple.setOnClickListener(new View.OnClickListener() {

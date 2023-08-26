@@ -39,7 +39,7 @@ public class ActiveParticipleModifier {
     }
 
     // AugmentedTrilateralModifierListener listener //todo
-    public MazeedConjugationResult build(AugmentedTrilateralRoot root, int kov, int formulaNo, List conjugations, boolean listener) {
+    public MazeedConjugationResult build(AugmentedTrilateralRoot root, int kov, int formulaNo, List<Object> conjugations, boolean listener) {
         MazeedConjugationResult conjResult = new MazeedConjugationResult(kov, formulaNo, root, conjugations);
         substituter.apply(conjResult);
         geminator.apply(conjResult);

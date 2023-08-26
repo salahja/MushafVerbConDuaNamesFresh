@@ -20,7 +20,7 @@ import java.util.List;
  * @version 1.0
  */
 public class FaaMahmouz extends AbstractFaaMahmouz {
-    List substitutions = new LinkedList();
+    List<org.sj.verbConjugation.trilateral.Substitution.Substitution> substitutions = new LinkedList<org.sj.verbConjugation.trilateral.Substitution.Substitution>();
 
     public FaaMahmouz() {
         substitutions.add(new InfixSubstitution("ِء", "ِئ")); // EX: (مِئْزَر، مِئزرة، مِئزار)

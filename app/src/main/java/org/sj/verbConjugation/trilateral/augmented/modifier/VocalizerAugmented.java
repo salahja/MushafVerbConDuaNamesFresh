@@ -11,14 +11,14 @@ import java.util.List;
 import java.util.Map;
 
 public class VocalizerAugmented {
-    private final Map vocalizerMap = new HashMap();
+    private final Map<String, List<IAugmentedTrilateralModifier>> vocalizerMap = new HashMap<String, List<IAugmentedTrilateralModifier>>();
 
     public VocalizerAugmented() {
-        List activePastList = new LinkedList();
-        List passivePastList = new LinkedList();
-        List activePresentList = new LinkedList();
-        List passivePresentList = new LinkedList();
-        List imperativeList = new LinkedList();
+        List<IAugmentedTrilateralModifier> activePastList = new LinkedList<IAugmentedTrilateralModifier>();
+        List<IAugmentedTrilateralModifier> passivePastList = new LinkedList<IAugmentedTrilateralModifier>();
+        List<IAugmentedTrilateralModifier> activePresentList = new LinkedList<>();
+        List<IAugmentedTrilateralModifier> passivePresentList = new LinkedList<IAugmentedTrilateralModifier>();
+        List<IAugmentedTrilateralModifier> imperativeList = new LinkedList<>();
         vocalizerMap.put(SystemConstants.PAST_TENSE + "true", activePastList);
         vocalizerMap.put(SystemConstants.PRESENT_TENSE + "true", activePresentList);
         vocalizerMap.put(SystemConstants.NOT_EMPHASIZED_IMPERATIVE_TENSE + "true", imperativeList);
@@ -105,10 +105,10 @@ public class VocalizerAugmented {
     }
 
     public void apply(String tense, boolean active, MazeedConjugationResult conjResult) {
-        List vocalizers = (List) vocalizerMap.get(tense + active);
-        Iterator iter = vocalizers.iterator();
+        List<IAugmentedTrilateralModifier> vocalizers = vocalizerMap.get(tense + active);
+        Iterator<IAugmentedTrilateralModifier> iter = vocalizers.iterator();
         while (iter.hasNext()) {
-            IAugmentedTrilateralModifier vocalizer = (IAugmentedTrilateralModifier) iter.next();
+            IAugmentedTrilateralModifier vocalizer = iter.next();
             if (vocalizer.isApplied(conjResult)) {
                 ((SubstitutionsApplier) vocalizer).apply(conjResult.getFinalResult(), conjResult.getRoot());
                 break;

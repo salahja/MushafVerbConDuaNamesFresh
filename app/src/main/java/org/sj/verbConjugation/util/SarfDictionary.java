@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import database.DatabaseUtils;
+import database.VerbDatabaseUtils;
 import database.entity.Mazeed;
 import database.entity.MujarradVerbs;
 
@@ -27,11 +27,11 @@ public class SarfDictionary {
         char c1 = rootText.charAt(0);
         char c2 = rootText.charAt(1);
         char c3 = rootText.charAt(2);
-        List roots = new LinkedList();
+        List<String> roots = new LinkedList<String>();
         AugmentedTrilateralRoot augroot = new
                 AugmentedTrilateralRoot();
         //  AugmentedTrilateralRootTree augmentedRootsTree = DatabaseManager.getInstance().getAugmentedTrilateralRootTree(c1);
-        DatabaseUtils utils = new DatabaseUtils(QuranGrammarApplication.getContext());
+        VerbDatabaseUtils utils = new VerbDatabaseUtils(QuranGrammarApplication.getContext());
         //  final ArrayList<VerbsTriMazeedDictEntity> triVerbMazeed = utils.getTriVerbMazeed(rootText);
         final ArrayList<Mazeed> triVerbMazeed = utils.getMazeedRoot(rootText);
         for (Mazeed root : triVerbMazeed) {
@@ -51,11 +51,11 @@ public class SarfDictionary {
         char c1 = rootText.charAt(0);
         char c2 = rootText.charAt(1);
         char c3 = rootText.charAt(2);
-        List roots = new LinkedList();
+        List<String> roots = new LinkedList<>();
         AugmentedTrilateralRoot augroot = new
                 AugmentedTrilateralRoot();
         //  AugmentedTrilateralRootTree augmentedRootsTree = DatabaseManager.getInstance().getAugmentedTrilateralRootTree(c1);
-        DatabaseUtils utils = new DatabaseUtils(QuranGrammarApplication.getContext());
+        VerbDatabaseUtils utils = new VerbDatabaseUtils(QuranGrammarApplication.getContext());
         ArrayList<Mazeed> triVerbMazeed = utils.getMazeedRoot(rootText);
         for (Mazeed root : triVerbMazeed) {
             if (root.getForm().equals(formula)) {
@@ -172,12 +172,12 @@ public class SarfDictionary {
 
   */
 
-    public List getUnaugmentedTrilateralRootsLists(String rootText) {
+    public List<UnaugmentedTrilateralRoot> getUnaugmentedTrilateralRootsLists(String rootText) {
         char c1 = rootText.charAt(0);
         char c2 = rootText.charAt(1);
         char c3 = rootText.charAt(2);
-        java.util.List result = new LinkedList();
-        DatabaseUtils utils = new DatabaseUtils(QuranGrammarApplication.getContext());
+        List<UnaugmentedTrilateralRoot> result = new LinkedList<>();
+        VerbDatabaseUtils utils = new VerbDatabaseUtils(QuranGrammarApplication.getContext());
         final ArrayList<MujarradVerbs> mujarrad = utils.getMujarradVerbs(rootText);
         UnaugmentedTrilateralRoot unaugmentedTrilateralRoot = new UnaugmentedTrilateralRoot();
         //  UnaugmentedTrilateralRootTree unaugmentedRootsTree = DatabaseManager.getInstance().getUnaugmentedTrilateralRootTree(c1);
@@ -199,7 +199,7 @@ public class SarfDictionary {
         char c1 = rootText.charAt(0);
         char c2 = rootText.charAt(1);
         char c3 = rootText.charAt(2);
-        DatabaseUtils utils = new DatabaseUtils(QuranGrammarApplication.getContext());
+        VerbDatabaseUtils utils = new VerbDatabaseUtils(QuranGrammarApplication.getContext());
         final ArrayList<MujarradVerbs> trimujarrad = utils.getMujarradVerbs(rootText);
         UnaugmentedTrilateralRoot unaugmentedTrilateralRoot = new UnaugmentedTrilateralRoot();
         //  UnaugmentedTrilateralRootTree unaugmentedRootsTree = DatabaseManager.getInstance().getUnaugmentedTrilateralRootTree(c1);
@@ -211,7 +211,7 @@ public class SarfDictionary {
         unaugmentedTrilateralRoot.setVerbtype(trimujarrad.get(0).getVerbtype());
         unaugmentedTrilateralRoot.setVerb(trimujarrad.get(0).getVerb());
         unaugmentedTrilateralRoot.setRulename(trimujarrad.get(0).getKovname());
-        java.util.List result = new LinkedList();
+        List<UnaugmentedTrilateralRoot> result = new LinkedList<UnaugmentedTrilateralRoot>();
         result.add(unaugmentedTrilateralRoot);
         return unaugmentedTrilateralRoot;
         // return result;
@@ -221,7 +221,7 @@ public class SarfDictionary {
         char c1 = rootText.charAt(0);
         char c2 = rootText.charAt(1);
         char c3 = rootText.charAt(2);
-        DatabaseUtils utils = new DatabaseUtils(QuranGrammarApplication.getContext());
+        VerbDatabaseUtils utils = new VerbDatabaseUtils(QuranGrammarApplication.getContext());
         final ArrayList<MujarradVerbs> trimujarrad = utils.getMujarradVerbs(rootText);
         UnaugmentedTrilateralRoot unaugmentedTrilateralRoot = new UnaugmentedTrilateralRoot();
         for (MujarradVerbs tri : trimujarrad) {
@@ -247,7 +247,7 @@ public class SarfDictionary {
             unaugmentedTrilateralRoot.setVerb(trimujarrad.get(0).getVerb());
 
         }
-        java.util.List result = new LinkedList();
+        List<UnaugmentedTrilateralRoot> result = new LinkedList<UnaugmentedTrilateralRoot>();
         result.add(unaugmentedTrilateralRoot);
         return unaugmentedTrilateralRoot;
         // return result;

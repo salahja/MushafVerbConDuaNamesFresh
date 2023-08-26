@@ -17,14 +17,14 @@ public class ImperativeConjugationDataContainer {
     private static final ImperativeConjugationDataContainer instance = new ImperativeConjugationDataContainer();
     //قائمة حركات عين الفعل حسب باب التصريف
     //الأمر غير المؤكد
-    private final List lastDimList = new ArrayList(13);
+    private final List<String> lastDimList = new ArrayList<>(13);
     //الأمر المؤكد
-    private final List emphasizedLastDimList = new ArrayList(13);
+    private final List<String> emphasizedLastDimList = new ArrayList<>(13);
     //قائمة ضمائر الرفع المتصلة
     //الأمر غير المؤكد
-    private final List connectedPronounList = new ArrayList(13);
+    private final List<String> connectedPronounList = new ArrayList<String>(13);
     //الأمر المؤكد
-    private final List emphasizedConnectedPronounList = new ArrayList(13);
+    private final List<String> emphasizedConnectedPronounList = new ArrayList<String>(13);
 
     private ImperativeConjugationDataContainer() {
         lastDimList.add("");
@@ -85,19 +85,19 @@ public class ImperativeConjugationDataContainer {
         return instance;
     }
 
-    public List getEmphasizedConnectedPronounList() {
+    public List<String> getEmphasizedConnectedPronounList() {
         return emphasizedConnectedPronounList;
     }
 
-    public List getEmphasizedLastDimList() {
+    public List<String> getEmphasizedLastDimList() {
         return emphasizedLastDimList;
     }
 
-    public List getConnectedPronounList() {
+    public List<String> getConnectedPronounList() {
         return connectedPronounList;
     }
 
-    public List getLastDimList() {
+    public List<String> getLastDimList() {
         return lastDimList;
     }
 
@@ -109,7 +109,7 @@ public class ImperativeConjugationDataContainer {
      * @return String
      */
     public String getLastDim(int pronounIndex) {
-        return (String) lastDimList.get(pronounIndex);
+        return lastDimList.get(pronounIndex);
     }
 
     /**
@@ -120,7 +120,7 @@ public class ImperativeConjugationDataContainer {
      * @return String
      */
     public String getEmphasizedLastDim(int pronounIndex) {
-        return (String) emphasizedLastDimList.get(pronounIndex);
+        return emphasizedLastDimList.get(pronounIndex);
     }
 
     /**
@@ -131,7 +131,7 @@ public class ImperativeConjugationDataContainer {
      * @return String
      */
     public String getConnectedPronoun(int pronounIndex) {
-        return (String) connectedPronounList.get(pronounIndex);
+        return connectedPronounList.get(pronounIndex);
     }
 
     /**
@@ -142,6 +142,6 @@ public class ImperativeConjugationDataContainer {
      * @return String
      */
     public String getEmphasizedConnectedPronoun(int pronounIndex) {
-        return (String) emphasizedConnectedPronounList.get(pronounIndex);
+        return emphasizedConnectedPronounList.get(pronounIndex);
     }
 }

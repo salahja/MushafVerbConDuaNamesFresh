@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Past1Vocalizer extends SubstitutionsApplier implements IAugmentedTrilateralModifier {
-    private final List substitutions = new LinkedList();
+    private final List<ExpressionInfixSubstitution> substitutions = new LinkedList<ExpressionInfixSubstitution>();
 
     public Past1Vocalizer() {
         substitutions.add(new ExpressionInfixSubstitution("ْيَC3ْ", "َC3ْ"));// EX: (أبَدْتُ، استقلتُ)

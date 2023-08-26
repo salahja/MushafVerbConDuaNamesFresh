@@ -32,14 +32,14 @@ public class AugmentedPassivePastConjugator {
         return null;
     }
 
-    public List createVerbList(AugmentedTrilateralRoot root, int formulaNo) {
+    public List<AugmentedPastVerb> createVerbList(AugmentedTrilateralRoot root, int formulaNo) {
         AugmentationFormula augmentationFormula = root.getAugmentationFormula(formulaNo);
         //todo correct
         if (formulaNo == 20) {
             // if (augmentationFormula.getTransitive() == 'ل') {
             return createLazzemVerbList(root, formulaNo);
         } else {
-            List result = new LinkedList();
+            List<AugmentedPastVerb> result = new LinkedList<>();
             for (int i = 0; i < 13; i++) {
                 AugmentedPastVerb verb = createVerb(root, i, formulaNo);
                 result.add(verb);
@@ -49,8 +49,8 @@ public class AugmentedPassivePastConjugator {
     }
 
     //������ ������ ������ ��� �� �� �� ��
-    public List createLazzemVerbList(AugmentedTrilateralRoot root, int formulaNo) {
-        List result = new LinkedList();
+    public List<AugmentedPastVerb> createLazzemVerbList(AugmentedTrilateralRoot root, int formulaNo) {
+        List<AugmentedPastVerb> result = new LinkedList<>();
         for (int i = 0; i < 13; i++) {
             if (i == 7 || i == 8) {
                 AugmentedPastVerb verb = createVerb(root, i, formulaNo);

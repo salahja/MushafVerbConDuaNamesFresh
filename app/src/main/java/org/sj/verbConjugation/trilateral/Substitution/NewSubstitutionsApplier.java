@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 
 
-public abstract class SubstitutionsApplier {
+public abstract class NewSubstitutionsApplier {
 
     protected static List<String> defaultAppliedProunounsIndecies = new ArrayList<>(13);
 
@@ -17,7 +17,7 @@ public abstract class SubstitutionsApplier {
         }
     }
 
-    public SubstitutionsApplier() {
+    public NewSubstitutionsApplier() {
 
     }
 
@@ -37,7 +37,7 @@ public abstract class SubstitutionsApplier {
                 String result = substitution.apply(word, root);
                 if (result != null) {
 
-                   words.set(index, result);
+                    Object set = words.set(index, result);
 
                     break;
                 }

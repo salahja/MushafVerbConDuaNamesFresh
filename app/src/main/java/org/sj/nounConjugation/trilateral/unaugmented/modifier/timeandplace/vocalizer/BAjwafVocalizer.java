@@ -21,7 +21,7 @@ import java.util.List;
  * @version 1.0
  */
 public class BAjwafVocalizer extends TrilateralNounSubstitutionApplier implements IUnaugmentedTrilateralNounModificationApplier {
-    List substitutions = new LinkedList();
+    List<InfixSubstitution> substitutions = new LinkedList<>();
 
     public BAjwafVocalizer() {
         substitutions.add(new InfixSubstitution("ْيِ", "ِي"));// EX: (مَبِيع)

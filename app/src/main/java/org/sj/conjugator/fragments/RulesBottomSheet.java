@@ -5,7 +5,6 @@ import static com.example.Constant.VERBMOOD;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,7 +27,7 @@ import org.sj.conjugator.interfaces.OnItemClickListener;
 
 import java.util.ArrayList;
 
-import database.DatabaseUtils;
+import database.VerbDatabaseUtils;
 import database.entity.kov;
 
 public class RulesBottomSheet extends BottomSheetDialogFragment {
@@ -57,16 +55,15 @@ public class RulesBottomSheet extends BottomSheetDialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.mujarrad_bottom_fragment, container, false);
-        SharedPreferences prefs = android.preference.PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.getContext());
+
         RecyclerView recyclerView = view.findViewById(R.id.recview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, true));
         Bundle bundle = this.getArguments();
         verbtype = bundle.getStringArray(ARG_OPTIONS_DATA);
-        String indictive = prefs.getString(VERBMOOD, "Indicative");
+
         GridLayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
-        SharedPreferences shared =
-                PreferenceManager.getDefaultSharedPreferences(getContext());
-        DatabaseUtils db = new DatabaseUtils(QuranGrammarApplication.getContext());
+
+        VerbDatabaseUtils db = new VerbDatabaseUtils(QuranGrammarApplication.getContext());
         kovArrayList = db.getKov();
         adapter = new rulesbottomsheetadapter(kovArrayList, QuranGrammarApplication.getContext());
         recyclerView.setHasFixedSize(true);

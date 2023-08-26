@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class YaeiPassivePresentVocalizer extends SubstitutionsApplier implements IUnaugmentedTrilateralModifier {
 
-    private final List substitutions = new LinkedList();
+    private final List<InfixSubstitution> substitutions = new LinkedList<>();
 
     public YaeiPassivePresentVocalizer() {
         substitutions.add(new InfixSubstitution("ُيْ", "ُو"));// EX: (يُوسَرُ، يوقَظُ، )

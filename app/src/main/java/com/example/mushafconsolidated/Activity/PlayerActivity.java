@@ -2,7 +2,6 @@ package com.example.mushafconsolidated.Activity;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.KeyEvent;
@@ -12,10 +11,11 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.mushafconsolidated.Entities.ChaptersAnaEntity;
 import com.example.mushafconsolidated.Entities.QuranEntity;
 import com.example.mushafconsolidated.R;
 import com.example.mushafconsolidated.Utils;
@@ -30,18 +30,16 @@ import com.google.android.exoplayer2.audio.AudioAttributes;
 
 import com.google.android.exoplayer2.mediacodec.MediaCodecRenderer.DecoderInitializationException;
 import com.google.android.exoplayer2.mediacodec.MediaCodecUtil.DecoderQueryException;
-import com.google.android.exoplayer2.offline.DownloadRequest;
 import com.google.android.exoplayer2.source.ads.AdsLoader;
 import com.google.android.exoplayer2.trackselection.TrackSelectionParameters;
 import com.google.android.exoplayer2.ui.StyledPlayerView;
-import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.util.DebugTextViewHelper;
 import com.google.android.exoplayer2.util.ErrorMessageProvider;
 import com.google.android.exoplayer2.util.EventLogger;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 
 /** An activity that plays media using {@link ExoPlayer}. */
@@ -51,7 +49,6 @@ public class PlayerActivity extends AppCompatActivity
     // Saved instance state keys.
 
     private static final String KEY_TRACK_SELECTION_PARAMETERS = "track_selection_parameters";
-    private static final String KEY_SERVER_SIDE_ADS_LOADER_STATE = "server_side_ads_loader_state";
     private static final String KEY_ITEM_INDEX = "item_index";
     private static final String KEY_POSITION = "position";
     private static final String KEY_AUTO_PLAY = "auto_play";
@@ -61,18 +58,12 @@ public class PlayerActivity extends AppCompatActivity
     protected TextView debugTextView;
     protected @Nullable ExoPlayer player;
 
-    private boolean isShowingTrackSelectionDialog;
-    private Button selectTracksButton;
-    private DataSource.Factory dataSourceFactory;
-    private List<MediaItem> mediaItems;
     private TrackSelectionParameters trackSelectionParameters;
     private DebugTextViewHelper debugViewHelper;
     private Tracks lastSeenTracks;
     private boolean startAutoPlay;
     private int startItemIndex;
     private long startPosition;
-    private int currentItem = 0;
-    private long playbackPosition = 0L;
     // For ad playback only.
 
     @Nullable private AdsLoader clientSideAdsLoader;
@@ -95,7 +86,7 @@ public class PlayerActivity extends AppCompatActivity
         setContentView();
         debugRootView = findViewById(R.id.controls_root);
         debugTextView = findViewById(R.id.debug_text_view);
-        selectTracksButton = findViewById(R.id.select_tracks_button);
+        Button selectTracksButton = findViewById(R.id.select_tracks_button);
         selectTracksButton.setOnClickListener(this);
 
         playerView = findViewById(R.id.player_view);
@@ -119,11 +110,6 @@ public class PlayerActivity extends AppCompatActivity
         }
     }
 
-    private Object playbackStateListener() {
-        Object o = null;
-        return o;
-    }
-
     @Override
     public void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
@@ -136,18 +122,16 @@ public class PlayerActivity extends AppCompatActivity
     @Override
     public void onStart() {
         super.onStart();
-        if (Build.VERSION.SDK_INT > 23) {
-            initializePlayer();
-            if (playerView != null) {
-                playerView.onResume();
-            }
+        initializePlayer();
+        if (playerView != null) {
+            playerView.onResume();
         }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (Build.VERSION.SDK_INT <= 23 || player == null) {
+        if (player == null) {
             initializePlayer();
             if (playerView != null) {
                 playerView.onResume();
@@ -158,23 +142,15 @@ public class PlayerActivity extends AppCompatActivity
     @Override
     public void onPause() {
         super.onPause();
-        if (Build.VERSION.SDK_INT <= 23) {
-            if (playerView != null) {
-                playerView.onPause();
-            }
-            releasePlayer();
-        }
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        if (Build.VERSION.SDK_INT > 23) {
-            if (playerView != null) {
-                playerView.onPause();
-            }
-            releasePlayer();
+        if (playerView != null) {
+            playerView.onPause();
         }
+        releasePlayer();
     }
 
     @Override
@@ -185,7 +161,7 @@ public class PlayerActivity extends AppCompatActivity
 
     @Override
     public void onRequestPermissionsResult(
-            int requestCode, String[] permissions, int[] grantResults) {
+            int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (grantResults.length == 0) {
             // Empty results are triggered if a permission is requested while another request was already
@@ -201,7 +177,7 @@ public class PlayerActivity extends AppCompatActivity
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         updateTrackSelectorParameters();
         updateStartPosition();
@@ -242,7 +218,6 @@ public class PlayerActivity extends AppCompatActivity
      */
     protected boolean initializePlayer() {
         if (player == null) {
-            Intent intent = getIntent();
             createPlaylist();
             marray = createMediaItems();
             if (marray.isEmpty()) {
@@ -250,8 +225,7 @@ public class PlayerActivity extends AppCompatActivity
             }
             player = new ExoPlayer.Builder(this).build();
             lastSeenTracks = Tracks.EMPTY;
-            ArrayList<String> tracks=new ArrayList<>();
-       //     ExoPlayer.Builder playerBuilder=new ExoPlayer.Builder((Context) this);
+            //     ExoPlayer.Builder playerBuilder=new ExoPlayer.Builder((Context) this);
        /*     ExoPlayer.Builder playerBuilder =new ExoPlayer.Builder(*//* context= *//* this)
                             .setMediaSourceFactory(createMediaSourceFactory());
             setRenderersFactory(
@@ -263,6 +237,8 @@ public class PlayerActivity extends AppCompatActivity
             player.addAnalyticsListener(new EventLogger());
             player.setAudioAttributes(AudioAttributes.DEFAULT, /* handleAudioFocus= */ true);
             player.setPlayWhenReady(startAutoPlay);
+            int currentItem = 0;
+            long playbackPosition = 0L;
             player.seekTo(currentItem, playbackPosition);
 
             playerView.setPlayer(player);
@@ -281,20 +257,13 @@ public class PlayerActivity extends AppCompatActivity
     }
 
     public List<String> createPlaylist() {
-        Utils repository=new Utils(this);
-        List<ChaptersAnaEntity> chap = repository.getSingleChapter(9);
-        int versescount = chap.get(0).getVersescount();
 
-        List<QuranEntity> quranbySurah = repository.getQuranbySurah(9);
+        List<QuranEntity> quranbySurah = Utils.getQuranbySurah(9);
 
-        //   int ayaID=0;
-        int counter = 0;
-        //   quranbySurah.add(0, new QuranEntity(1, 1, 1));
         List<String> downloadLinks = new ArrayList<>();
         //   ayaList.add(0, new Aya(1, 1, 1));
         //loop for all page ayat
         List<String> ayaLocations = new ArrayList<>();
-        MediaItem media= new MediaItem.Builder().build();
         ArrayList<MediaItem> marray=new ArrayList<>();
         //Create files locations for the all page ayas
         for (QuranEntity ayaItem : quranbySurah) {
@@ -305,25 +274,6 @@ public class PlayerActivity extends AppCompatActivity
         }
 
 
-
-
-
-
-
-
-/*
-        exoplayerview.setPlayer(exoPlayer);
-        Uri videouri = Uri.parse(ayaLocations.get(0));
-        MediaItem firstItem = MediaItem.fromUri(ayaLocations.get(0));
-        MediaItem secondItem = MediaItem.fromUri(ayaLocations.get(1));
-        MediaItem three = MediaItem.fromUri(ayaLocations.get(2));
-        exoPlayer.addMediaItem(firstItem);
-        exoPlayer.addMediaItem(secondItem);
-        exoPlayer.addMediaItem(three);
-
-        exoPlayer.prepare();
-
-        exoPlayer.play();*/
         return downloadLinks;
     }
 
@@ -341,12 +291,11 @@ public class PlayerActivity extends AppCompatActivity
             player.release();
             player = null;
             playerView.setPlayer(/* player= */ null);
-            mediaItems = Collections.emptyList();
         }
         if (clientSideAdsLoader != null) {
             clientSideAdsLoader.setPlayer(null);
         } else {
-            playerView.getAdViewGroup().removeAllViews();
+            Objects.requireNonNull(playerView.getAdViewGroup()).removeAllViews();
         }
     }
 
@@ -356,7 +305,7 @@ public class PlayerActivity extends AppCompatActivity
         if (clientSideAdsLoader != null) {
             clientSideAdsLoader.release();
             clientSideAdsLoader = null;
-            playerView.getAdViewGroup().removeAllViews();
+            Objects.requireNonNull(playerView.getAdViewGroup()).removeAllViews();
         }
     }
 
@@ -425,6 +374,7 @@ public class PlayerActivity extends AppCompatActivity
         @Override
         public void onPlayerError(PlaybackException error) {
             if (error.errorCode == PlaybackException.ERROR_CODE_BEHIND_LIVE_WINDOW) {
+                assert player != null;
                 player.seekToDefaultPosition();
                 player.prepare();
             } else {
@@ -435,10 +385,10 @@ public class PlayerActivity extends AppCompatActivity
 
         @Override
         @SuppressWarnings("ReferenceEquality")
-        public void onTracksChanged(Tracks tracks) {
+        public void onTracksChanged(@NonNull Tracks tracks) {
          //   updateButtonVisibility();
-            Tracks currentTracks = player.getCurrentTracks();
-      int ayah=      player.getCurrentMediaItemIndex();
+            assert player != null;
+            int ayah=      player.getCurrentMediaItemIndex();
             System.out.println("Ayah"+""+ayah);
 
             if (tracks == lastSeenTracks) {
@@ -455,6 +405,7 @@ public class PlayerActivity extends AppCompatActivity
 
     private class PlayerErrorMessageProvider implements ErrorMessageProvider<PlaybackException> {
 
+        @NonNull
         @Override
         public Pair<Integer, String> getErrorMessage(PlaybackException e) {
             String errorString = getString(R.string.error_generic);
@@ -486,20 +437,14 @@ public class PlayerActivity extends AppCompatActivity
     }
 
     private List<MediaItem> createMediaItems() {
-        Utils repository=new Utils(this);
-        List<ChaptersAnaEntity> chap = repository.getSingleChapter(9);
-        int versescount = chap.get(0).getVersescount();
 
-        List<QuranEntity> quranbySurah = repository.getQuranbySurah(9);
+        List<QuranEntity> quranbySurah = Utils.getQuranbySurah(9);
 
         //   int ayaID=0;
-        int counter = 0;
         //   quranbySurah.add(0, new QuranEntity(1, 1, 1));
-        List<String> downloadLinks = new ArrayList<>();
         //   ayaList.add(0, new Aya(1, 1, 1));
         //loop for all page ayat
         List<String> ayaLocations = new ArrayList<>();
-        MediaItem media= new MediaItem.Builder().build();
         marray=new ArrayList<>();
         //Create files locations for the all page ayas
         for (QuranEntity ayaItem : quranbySurah) {
@@ -514,24 +459,4 @@ public class PlayerActivity extends AppCompatActivity
         return marray;
     }
 
-    private static MediaItem maybeSetDownloadProperties(
-            MediaItem item, @Nullable DownloadRequest downloadRequest) {
-        if (downloadRequest == null) {
-            return item;
-        }
-        MediaItem.Builder builder = item.buildUpon();
-        builder
-                .setMediaId(downloadRequest.id)
-                .setUri(downloadRequest.uri)
-                .setCustomCacheKey(downloadRequest.customCacheKey)
-                .setMimeType(downloadRequest.mimeType)
-                .setStreamKeys(downloadRequest.streamKeys);
-        @Nullable
-        MediaItem.DrmConfiguration drmConfiguration = item.localConfiguration.drmConfiguration;
-        if (drmConfiguration != null) {
-            builder.setDrmConfiguration(
-                    drmConfiguration.buildUpon().setKeySetId(downloadRequest.keySetId).build());
-        }
-        return builder.build();
-    }
 }

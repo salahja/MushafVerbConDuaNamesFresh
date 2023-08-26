@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class WawiPassivePresentVocalizer extends SubstitutionsApplier implements IUnaugmentedTrilateralModifier {
 
-    private final List substitutions = new LinkedList();
+    private final List<org.sj.verbConjugation.trilateral.Substitution.Substitution> substitutions = new LinkedList<>();
 
     public WawiPassivePresentVocalizer() {
         substitutions.add(new ExpressionSuffixSubstitution("ْC2َيُ", "C2َى")); // EX: (يُوقَى)

@@ -31,6 +31,7 @@ public class NounCorpusBreakup {
     private String gendernumber;
     private String type;
     private String cases;
+
     public NounCorpusBreakup(int count, String root_a, String lemma_a, String araword, int surah, int ayah, int wordno, int token, String words, @NonNull String tag, String propone, String proptwo, String form, String lemma, String root, String gendernumber, String type, String cases) {
         this.count = count;
         this.root_a = root_a;
@@ -51,6 +52,7 @@ public class NounCorpusBreakup {
         this.type = type;
         this.cases = cases;
     }
+
 
     public SpannableString getSpannedWord() {
         return spannedWord;

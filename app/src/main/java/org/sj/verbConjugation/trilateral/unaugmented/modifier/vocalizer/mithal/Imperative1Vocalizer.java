@@ -24,10 +24,10 @@ import java.util.List;
  */
 public class Imperative1Vocalizer extends SubstitutionsApplier implements IUnaugmentedTrilateralModifier {
 
-    private final List substitutions = new LinkedList();
+    private final List<InfixSubstitution> substitutions = new LinkedList<>();
 
-    private final List acceptList = new LinkedList();
-    private final List declineList = new LinkedList();
+    private final List<String> acceptList = new LinkedList<>();
+    private final List<String> declineList = new LinkedList<>();
 
     public Imperative1Vocalizer() {
         acceptList.add("وذر");
@@ -69,9 +69,9 @@ public class Imperative1Vocalizer extends SubstitutionsApplier implements IUnaug
         //فحص الباب التصريفي أولاً
         if (!root.getConjugation().equals("4")) return false;
 
-        Iterator iter = acceptList.iterator();
+        Iterator<String> iter = acceptList.iterator();
         while (iter.hasNext()) {
-            String appliedRoot = (String) iter.next();
+            String appliedRoot = iter.next();
             char c1 = appliedRoot.charAt(0);
             char c2 = appliedRoot.charAt(1);
             char c3 = appliedRoot.charAt(2);
@@ -86,9 +86,9 @@ public class Imperative1Vocalizer extends SubstitutionsApplier implements IUnaug
         //فحص الباب التصريفي أولاً
         if (!root.getConjugation().equals("3")) return false;
 
-        Iterator iter = declineList.iterator();
+        Iterator<String> iter = declineList.iterator();
         while (iter.hasNext()) {
-            String appliedRoot = (String) iter.next();
+            String appliedRoot = iter.next();
             char c1 = appliedRoot.charAt(0);
             char c2 = appliedRoot.charAt(1);
             char c3 = appliedRoot.charAt(2);

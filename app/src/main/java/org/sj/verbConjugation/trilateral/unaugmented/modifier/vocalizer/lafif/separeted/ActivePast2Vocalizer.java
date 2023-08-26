@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class ActivePast2Vocalizer extends SubstitutionsApplier implements IUnaugmentedTrilateralModifier {
 
-    private final List substitutions = new LinkedList();
+    private final List<InfixSubstitution> substitutions = new LinkedList<>();
 
     public ActivePast2Vocalizer() {
         substitutions.add(new InfixSubstitution("ِيْ", "ِي"));

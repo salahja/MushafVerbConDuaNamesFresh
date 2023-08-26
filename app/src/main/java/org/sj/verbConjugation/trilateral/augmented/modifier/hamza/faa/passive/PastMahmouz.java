@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class PastMahmouz extends AbstractFaaMahmouz {
-    private final List substitutions = new LinkedList();
+    private final List<org.sj.verbConjugation.trilateral.Substitution.Substitution> substitutions = new LinkedList<>();
 
     public PastMahmouz() {
         substitutions.add(new ExpressionInfixSubstitution("أُءْيِC3ْ", "أُئِC3ْ"));// EX: (أُئِستُ )

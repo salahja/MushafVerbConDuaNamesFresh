@@ -16,7 +16,7 @@ import java.util.List;
  * @version 1.0
  */
 public class ElativeNounFormulaTree {
-    private final List formulas = new LinkedList();
+    private final List<ElativeNounFormula> formulas = new LinkedList<ElativeNounFormula>();
 
     public ElativeNounFormulaTree() {
     }
@@ -25,7 +25,7 @@ public class ElativeNounFormulaTree {
         formulas.add(formula);
     }
 
-    public List getFormulaList() {
+    public List<ElativeNounFormula> getFormulaList() {
         return formulas;
     }
 

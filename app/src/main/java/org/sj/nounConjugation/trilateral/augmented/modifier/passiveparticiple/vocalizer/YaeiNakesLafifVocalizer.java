@@ -22,7 +22,7 @@ import java.util.List;
  * @version 1.0
  */
 public class YaeiNakesLafifVocalizer extends TrilateralNounSubstitutionApplier implements IAugmentedTrilateralModifier {
-    private final List substitutions = new LinkedList();
+    private final List<org.sj.verbConjugation.trilateral.Substitution.Substitution> substitutions = new LinkedList<org.sj.verbConjugation.trilateral.Substitution.Substitution>();
 
     public YaeiNakesLafifVocalizer() {
         substitutions.add(new InfixSubstitution("ايَيٌ", "ايًا"));// EX: (هذا مُتَحايًا)

@@ -28,6 +28,7 @@ import static com.example.Constant.shartspanDark;
 import static com.example.Constant.sifaspansDark;
 import static com.example.utility.CorpusUtilityorig.getSpancolor;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -78,7 +79,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import database.DatabaseUtils;
+import database.VerbDatabaseUtils;
 import database.entity.MujarradVerbs;
 
 /**
@@ -250,11 +251,10 @@ public class SentenceAnalysisBottomSheet extends BottomSheetDialogFragment {
             Swordbdetail = qm.getWordDetails();
             if (!Swordbdetail.isEmpty()) {
                 wordetailsall.put(index, Swordbdetail);
-                //  this. Swordbdetail.clear();
+
             }
             if (!Sbdetail.isEmpty()) {
-                //         verbdetailsall.put(index, Sbdetail);
-                //    Sbdetail.clear();
+
             }
             index++;
         }
@@ -270,14 +270,8 @@ public class SentenceAnalysisBottomSheet extends BottomSheetDialogFragment {
                     wordetailsall.get(noun.getWordno()).put("PART", Swordbdetail.get("PART"));
                 }
             }
-            //    if (!Swordbdetail.isEmpty()) {
-            //       wordetailsall.put(index, Swordbdetail);
-            //  this. Swordbdetail.clear();
-            //    }
-            if (!Sbdetail.isEmpty()) {
-                //         verbdetailsall.put(index, Sbdetail);
-                //    Sbdetail.clear();
-            }
+
+
             index++;
         }
         index = 1;
@@ -353,7 +347,7 @@ public class SentenceAnalysisBottomSheet extends BottomSheetDialogFragment {
         //  this.spannable = new SpannableStringBuilder(quranverses);
         //  this.spannableHarf = new SpannableStringBuilder(quranverses);
         for (NewMudhafEntity mudhafEntity : mudhafSurahAyah) {
-            mudhafspansDark = getSpancolor(preferences, true);
+            mudhafspansDark = getSpancolor(true);
             spannable.setSpan(mudhafspansDark, mudhafEntity.getStartindex(), mudhafEntity.getEndindex(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         }
@@ -363,7 +357,7 @@ public class SentenceAnalysisBottomSheet extends BottomSheetDialogFragment {
         ArrayList<SifaEntity> sifabySurahAyah = utils.getSifabySurahAyah(chapterid, ayanumber);
         //  String quranverses = corpusSurahWord.get(0).getQurantext();
         for (SifaEntity shartEntity : sifabySurahAyah) {
-            sifaspansDark = getSpancolor(preferences, false);
+            sifaspansDark = getSpancolor(false);
             try {
                 spannable.setSpan(sifaspansDark, shartEntity.getStartindex(), shartEntity.getEndindex(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             } catch (IndexOutOfBoundsException e) {
@@ -484,8 +478,8 @@ public class SentenceAnalysisBottomSheet extends BottomSheetDialogFragment {
                 if (isparticple) {
                     vb = new VerbWazan();
                     if (String.valueOf(wordetailsall.get(actulaposition).get("form")).equals("I")) {
-                        DatabaseUtils databaseUtils = new DatabaseUtils(getActivity());
-                        ArrayList<MujarradVerbs> triVerb = databaseUtils.getMujarradVerbs(root);
+                        VerbDatabaseUtils verbDatabaseUtils = new VerbDatabaseUtils(getActivity());
+                        ArrayList<MujarradVerbs> triVerb = verbDatabaseUtils.getMujarradVerbs(root);
                         if (!triVerb.isEmpty()) {
                             setParticiples(true);
                             //   ismfaelmafool = GatherAll.getInstance().getMujarradParticiple(root, triVerb.get(0).getBab());
@@ -565,8 +559,8 @@ public class SentenceAnalysisBottomSheet extends BottomSheetDialogFragment {
                     dataBundle.putInt(AYAHNUMBER, ayanumber);
                     item.setArguments(dataBundle);
                     String[] data = {String.valueOf(chapterid), String.valueOf(ayanumber)};
-                    FragmentTransaction transactions = fragmentManager.beginTransaction().setCustomAnimations(R.anim.abc_slide_in_top, android.R.anim.fade_out);
-                    //   transactions.show(item);
+               @SuppressLint("CommitTransaction") FragmentTransaction transactions = fragmentManager.beginTransaction().setCustomAnimations(R.anim.abc_slide_in_top, android.R.anim.fade_out);
+                   transactions.show(item);
                     GrammerFragmentsBottomSheet.newInstance(data).show((getActivity().getSupportFragmentManager()), WordAnalysisBottomSheet.TAG);
 
                 } else if (nouns != null) {

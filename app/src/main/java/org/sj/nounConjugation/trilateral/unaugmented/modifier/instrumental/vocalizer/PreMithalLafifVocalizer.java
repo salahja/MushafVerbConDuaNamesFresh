@@ -21,7 +21,7 @@ import java.util.List;
  * @version 1.0
  */
 public class PreMithalLafifVocalizer extends TrilateralNounSubstitutionApplier implements IUnaugmentedTrilateralNounModificationApplier {
-    List substitutions = new LinkedList();
+    List<InfixSubstitution> substitutions = new LinkedList<InfixSubstitution>();
 
     public PreMithalLafifVocalizer() {
         substitutions.add(new InfixSubstitution("مِوْ", "مِي")); // EX: (مِيسَم، مِيسمة، مِيصال، مِيفاء)

@@ -19,7 +19,7 @@ import java.util.List;
  * @version 1.0
  */
 public class PassivePresentAjwafWawiVocalizer extends AbstractAjwafWawiVocalizer {
-    private final List substitutions = new LinkedList();
+    private final List<ExpressionInfixSubstitution> substitutions = new LinkedList<ExpressionInfixSubstitution>();
 
     public PassivePresentAjwafWawiVocalizer() {
         //نفس القائمة في listed

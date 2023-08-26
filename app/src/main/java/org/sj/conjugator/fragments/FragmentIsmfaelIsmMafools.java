@@ -45,46 +45,20 @@ import java.util.List;
 import ru.dimorinny.floatingtextbutton.FloatingTextButton;
 
 public class FragmentIsmfaelIsmMafools extends Fragment {
-    private static final int WRITE_REQUEST_CODE = 101;
-    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+
     private static final String TAG = "PermissionDemo";
-    private static final String[] PERMISSIONS_STORAGE = {
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-    };
-    private final ArrayList sarfSagheer = new ArrayList();
-    private final ArrayList sarfSagheermahmooz = new ArrayList();
-    Spinner spinthulathi;
-    boolean thulathi, mazeed;
-    Button mujarradregular, mujarradweak, mazeedregular, mazeedweak;
-    ArrayList<String> sarfkabeer = new ArrayList<>();
+
     RecyclerView recyclerView;
-    Button llPdf;
-    ArrayList<String> getall = new ArrayList<>();
-    boolean mahmoozfa, mahmoozayn, mahmoozlam, mithalwawi, mithalyayi, ajwafwawi, ajwafyayi, naqiswawi, naqisyai, lafeefajwafwawi, lafeefajwfyayi;
+
     boolean regularverb;
     boolean isAugmented, isUnAugmented;
-    private NavigationView navigationView;
-    private Toolbar materialToolbar;
-    private BottomNavigationView bottomNavigationView;
-    private MazeedFihiSagheerListingadapter mazeedFiHiSagheerListingadapter;
-    private Bitmap bitmap;
-    private Spinner spinmazeed;
 
     private ArrayList<ArrayList> skabeer = new ArrayList<>();
-    private ArrayList<ArrayList> getsarfsagheer;
-    private int augmented;
-    private String unaugmented;
-    private String madhi;
-    private String mudharay;
-    private String madhimajhool;
-    private String mudharaymajhool;
-    private String amrstr;
-    private String verbweakness;
-    private boolean isSarfKabeer;
+
     private String augmentedFormula;
     private String unaugmentedFormula;
-    private String verbroot, verbmood;
+    private String verbroot;
+    private String verbmood;
 
     public FragmentIsmfaelIsmMafools newInstance() {
         FragmentIsmfaelIsmMafools f = new FragmentIsmfaelIsmMafools();
@@ -101,10 +75,6 @@ public class FragmentIsmfaelIsmMafools extends Fragment {
         return f;
 
     }
-    //  public static SarfKabeerFragmentOnClickFromListing newInstance() {
-    //     SarfKabeerFragmentOnClickFromListing VerbListFragment = new SarfKabeerFragmentOnClickFromListing();
-    //     return VerbListFragment;
-    // }
 
     public void setRegularverb(boolean regularverb) {
         this.regularverb = regularverb;
@@ -132,18 +102,15 @@ public class FragmentIsmfaelIsmMafools extends Fragment {
         callButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //     FragmentManager fragmentManager = null;
-                //   fragmentManager.popBackStack("mujarrad", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
                 FragmentManager fm = getActivity()
                         .getSupportFragmentManager();
-                //   fm.popBackStack ("mujarrad", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                //    getFragmentManager().popBackStack();
-                //   FragmentManager fm = getActivity().getSupportFragmentManager();
+ ;
                 fm.popBackStack();
-                //   fm.popBackStack();
+
             }
         });
-        //    Bundle dataBundle = this.getArguments();
+
         assert dataBundle != null;
         if (dataBundle.getString(VERBTYPE).equals("mujarrad")) {
             isUnAugmented = true;
@@ -166,7 +133,7 @@ public class FragmentIsmfaelIsmMafools extends Fragment {
             ninitThulathiAdapter();
 
         } else {
-            //   initMazeedAdapter();
+
             initMazeedAdapterNew();
         }
         recyclerView = view.findViewById(R.id.sarfrecview);
@@ -174,10 +141,7 @@ public class FragmentIsmfaelIsmMafools extends Fragment {
     }
 
     private void initMazeedAdapterNew() {
-        //   SarfKabeerMazeed skmazeed = new SarfKabeerMazeed(verbroot, augmented);
-        // skabeer = skmazeed.SarfKabeerMazeed();
-        List ismfael = null;
-        List ismmafool = null;
+
         ArrayList<ArrayList> arrayLists = GatherAll.getInstance().buildAugmenteParticiples(verbroot, augmentedFormula);
         if (!arrayLists.isEmpty()) {
             IsmFaelIsmMafoolSarfKabeerAdapter ska = new IsmFaelIsmMafoolSarfKabeerAdapter(arrayLists, getContext(), false);
@@ -189,41 +153,17 @@ public class FragmentIsmfaelIsmMafools extends Fragment {
     }
 
     private void ninitThulathiAdapter() {
-        //   OldThulathi();
+
         ArrayList<ArrayList> mujarradListing = GatherAll.getInstance().getMujarradParticiple(verbroot, unaugmentedFormula);
         if (!mujarradListing.isEmpty()) {
             boolean newsarf = true;
             IsmFaelIsmMafoolSarfKabeerAdapter ska = new IsmFaelIsmMafoolSarfKabeerAdapter(mujarradListing, getContext(), newsarf);
-            //AconSarfSagheerAdapter sk=new AconSarfSagheerAdapter(ar, MainActivity.this);
+
             recyclerView.setAdapter(ska);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         }
 
-    }
-
-    private void sarfParticpleCOnjugation() {
-        char c1 = verbroot.charAt(0);
-        char c2 = verbroot.charAt(1);
-        char c3 = verbroot.charAt(2);
-        TrilateralKovRule rule = KovRulesManager.getInstance().getTrilateralKovRule(c1, c2, c3);
-        final UnaugmentedTrilateralRoot unaugmentedTrilateralRoot = SarfDictionary.getInstance()
-                .getUnaugmentedTrilateralRoots(verbroot, augmentedFormula);
-        List conjugatedIsmFael = UnaugmentedTrilateralActiveParticipleConjugator.getInstance().createNounList(unaugmentedTrilateralRoot,
-                unaugmentedTrilateralRoot.getConjugation());
-        final String formula = "";
-        final org.sj.nounConjugation.trilateral.unaugmented.modifier.ConjugationResult conjugationResult = org.sj.nounConjugation.trilateral.unaugmented.modifier.activeparticiple.ActiveParticipleModifier.
-                getInstance().build(unaugmentedTrilateralRoot, rule.getKov(), conjugatedIsmFael, "");
-        final List finalIsmFael = conjugationResult.getFinalResult();
-        List conjugatedIsmMafool = UnaugmentedTrilateralPassiveParticipleConjugator.getInstance().createNounList(unaugmentedTrilateralRoot,
-                unaugmentedTrilateralRoot.getConjugation());
-        final String formulas = "";
-        final org.sj.nounConjugation.trilateral.unaugmented.modifier.ConjugationResult ismmafoolresult =
-                PassiveParticipleModifier.
-                        getInstance().build(unaugmentedTrilateralRoot, rule.getKov(), conjugatedIsmMafool, "");
-        final List ismmafoolresultFinalResult = ismmafoolresult.getFinalResult();
-        skabeer.add((ArrayList) finalIsmFael);
-        skabeer.add((ArrayList) ismmafoolresultFinalResult);
     }
 
     @Override
@@ -234,8 +174,8 @@ public class FragmentIsmfaelIsmMafools extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         ImageView ref;
-        ref = view.findViewById(R.id.dismissView);
-        //     dismiss(ref);
+
+
     }
 
 }

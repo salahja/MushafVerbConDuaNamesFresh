@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class PresentVocalizer extends SubstitutionsApplier implements IUnaugmentedTrilateralModifier {
 
-    private final List substitutions = new LinkedList();
+    private final List<org.sj.verbConjugation.trilateral.Substitution.Substitution> substitutions = new LinkedList<>();
 
     public PresentVocalizer() {
 

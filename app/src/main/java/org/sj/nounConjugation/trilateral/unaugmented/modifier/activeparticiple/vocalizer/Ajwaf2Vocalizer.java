@@ -22,7 +22,7 @@ import java.util.List;
  * @version 1.0
  */
 public class Ajwaf2Vocalizer extends TrilateralNounSubstitutionApplier implements IUnaugmentedTrilateralNounModificationApplier {
-    List substitutions = new LinkedList();
+    List<org.sj.verbConjugation.trilateral.Substitution.Substitution> substitutions = new LinkedList<org.sj.verbConjugation.trilateral.Substitution.Substitution>();
 
     public Ajwaf2Vocalizer() {
         substitutions.add(new InfixSubstitution("اوِءٌ", "اءٍ"));// EX: (هذا ناءٍ)

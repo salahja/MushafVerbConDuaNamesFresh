@@ -21,7 +21,7 @@ import java.util.List;
  * @version 1.0
  */
 public class AVocalizer extends TrilateralNounSubstitutionApplier implements IUnaugmentedTrilateralNounModificationApplier {
-    List substitutions = new LinkedList();
+    List<InfixSubstitution> substitutions = new LinkedList<InfixSubstitution>();
 
     public AVocalizer() {
         substitutions.add(new InfixSubstitution("اوًا", "اءً")); // EX: (غَزَّاءً)

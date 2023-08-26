@@ -11,14 +11,14 @@ import java.util.List;
 import java.util.Map;
 
 public class SarfHamzaModifier {
-    private final Map modifiersMap = new HashMap();
+    private final Map<String, List<IAugmentedTrilateralModifier>> modifiersMap = new HashMap<String, List<IAugmentedTrilateralModifier>>();
 
     public SarfHamzaModifier() {
-        List activePastList = new LinkedList();
-        List passivePastList = new LinkedList();
-        List activePresentList = new LinkedList();
-        List passivePresentList = new LinkedList();
-        List imperativeList = new LinkedList();
+        List<IAugmentedTrilateralModifier> activePastList = new LinkedList<>();
+        List<IAugmentedTrilateralModifier> passivePastList = new LinkedList<>();
+        List<IAugmentedTrilateralModifier> activePresentList = new LinkedList<>();
+        List<IAugmentedTrilateralModifier> passivePresentList = new LinkedList<>();
+        List<IAugmentedTrilateralModifier> imperativeList = new LinkedList<IAugmentedTrilateralModifier>();
         modifiersMap.put(SystemConstants.PAST_TENSE + "true", activePastList);
         modifiersMap.put(SystemConstants.PRESENT_TENSE + "true", activePresentList);
         modifiersMap.put(SystemConstants.NOT_EMPHASIZED_IMPERATIVE_TENSE + "true", imperativeList);
@@ -56,10 +56,10 @@ public class SarfHamzaModifier {
      * @param conjResult ConjugationResult
      */
     public void apply(String tense, boolean active, MazeedConjugationResult conjResult) {
-        List modifiers = (List) modifiersMap.get(tense + active);
-        Iterator iter = modifiers.iterator();
+        List<IAugmentedTrilateralModifier> modifiers = modifiersMap.get(tense + active);
+        Iterator<IAugmentedTrilateralModifier> iter = modifiers.iterator();
         while (iter.hasNext()) {
-            IAugmentedTrilateralModifier modifier = (IAugmentedTrilateralModifier) iter.next();
+            IAugmentedTrilateralModifier modifier = iter.next();
             if (modifier.isApplied(conjResult)) {
                 ((SubstitutionsApplier) modifier).apply(conjResult.getFinalResult(), conjResult.getRoot());
                 break;

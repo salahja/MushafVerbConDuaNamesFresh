@@ -19,7 +19,7 @@ import java.util.List;
  * @version 1.0
  */
 public class LamMahmouz extends AbstractLamMahmouz {
-    List substitutions = new LinkedList();
+    List<InfixSubstitution> substitutions = new LinkedList<InfixSubstitution>();
 
     public LamMahmouz() {
         substitutions.add(new InfixSubstitution("ِء", "ِئ")); // EX: (ظَامِئ)

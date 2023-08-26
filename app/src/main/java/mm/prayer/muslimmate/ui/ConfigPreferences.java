@@ -40,7 +40,7 @@ public class ConfigPreferences {
         Gson gson = new Gson();
         String json = gson.toJson(locationConfig);
         editor.putString(LOCATION_INFO, json);
-        editor.commit();
+        editor.apply();
     }
     public static void setLastPlayedAudio(Context context, ArrayList<AudioPlayed> audioPlayed,String surah) {
         SharedPreferences.Editor editor = context.getSharedPreferences
@@ -51,7 +51,7 @@ public class ConfigPreferences {
 
 
         editor.putString(surah, json);
-        editor.commit();
+        editor.apply();
     }
 
     public static AudioPositionSaved getLastPlayedAudio(Context context,String surah) {

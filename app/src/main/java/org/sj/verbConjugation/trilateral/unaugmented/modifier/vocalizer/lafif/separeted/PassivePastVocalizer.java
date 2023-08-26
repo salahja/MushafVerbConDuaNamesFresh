@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class PassivePastVocalizer extends SubstitutionsApplier implements IUnaugmentedTrilateralModifier {
 
-    private final List substitutions = new LinkedList();
+    private final List<InfixSubstitution> substitutions = new LinkedList<InfixSubstitution>();
 
     public PassivePastVocalizer() {
 

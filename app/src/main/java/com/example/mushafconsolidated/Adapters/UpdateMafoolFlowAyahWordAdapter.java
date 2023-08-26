@@ -172,7 +172,6 @@ public class UpdateMafoolFlowAyahWordAdapter extends RecyclerView.Adapter<Update
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onBindViewHolder(ItemViewAdapter holder, int position) {
         SharedPreferences sharedPreferences =
@@ -193,8 +192,12 @@ public class UpdateMafoolFlowAyahWordAdapter extends RecyclerView.Adapter<Update
         if (getItemViewType(position) == 0) {
             TypedArray imgs = this.context.getResources().obtainTypedArray(R.array.sura_imgs);
             // You have to set your header items values with the help of model class and you can modify as per your needs
-            holder.tvRukus.setText("Ruku's :" + header.get(0));
-            holder.tvVerses.setText("Aya's :" + header.get(1));
+            StringBuilder sb1=new StringBuilder();
+            sb1.append("Ruku's :").append(header.get(0));
+            holder.tvRukus.setText(sb1.toString());
+            sb1=new StringBuilder();
+            sb1.append("Aya's :").append(header.get(1));
+            holder.tvVerses.setText(sb1.toString()  );
             holder.tvSura.setText(header.get(3));
             String chapterno = header.get(2);
             int tauba = Integer.parseInt(chapterno);
@@ -209,6 +212,7 @@ public class UpdateMafoolFlowAyahWordAdapter extends RecyclerView.Adapter<Update
                 holder.ivLocationmakki.setVisibility(View.GONE);
             }
             final Drawable drawable = imgs.getDrawable(Integer.parseInt(chapterno) - 1);
+            imgs.recycle();
             holder.ivSurahIcon.setImageDrawable(drawable);
             if (isNightmode.equals("dark") || isNightmode.equals("blue")) {
                 holder.ivLocationmakki.setColorFilter(Color.CYAN);
@@ -417,14 +421,13 @@ if (SharedPref.themePreferences().equals("dark")) {
 
             });
             view.setOnClickListener(new View.OnClickListener() {
-                @RequiresApi(api = Build.VERSION_CODES.N)
                 @Override
                 public void onClick(View view) {
                     Utils utils = new Utils(getContext());
                     String filename = "mafool.csv";
                     //  writetofile(filename,word.getSurahId(), word.getVerseId(), word.getWordno(),word.getWordsAr());
                     FileUtility fl = new FileUtility(context);
-                    FileUtility.writetofile(filename, word.getSurahId(), word.getVerseId(), word.getWordno(), word.getWordsAr());
+                    fl.writetofile(filename, word.getSurahId(), word.getVerseId(), word.getWordno(), word.getWordsAr());
                     Toast.makeText(QuranGrammarApplication.getContext(), "inserted", Toast.LENGTH_SHORT).show();
 
                 }
@@ -481,7 +484,7 @@ if (SharedPref.themePreferences().equals("dark")) {
                         FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
                         item.setArguments(dataBundle);
                         String[] data = {String.valueOf(word.getSurahId()), String.valueOf(word.getVerseId()), word.getTranslateEn(), String.valueOf((word.getWordno()))};
-                        FragmentTransaction transactions = fragmentManager.beginTransaction().setCustomAnimations(R.anim.abc_slide_in_top, android.R.anim.fade_out);
+                 //       FragmentTransaction transactions = fragmentManager.beginTransaction().setCustomAnimations(R.anim.abc_slide_in_top, android.R.anim.fade_out);
                         //   transactions.show(item);
                         SentenceAnalysisBottomSheet.newInstance(data).show(((AppCompatActivity) context).getSupportFragmentManager(), SentenceAnalysisBottomSheet.TAG);
 
@@ -491,7 +494,7 @@ if (SharedPref.themePreferences().equals("dark")) {
                         FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
                         item.setArguments(dataBundle);
                         String[] data = {String.valueOf(word.getSurahId()), String.valueOf(word.getVerseId()), word.getTranslateEn(), String.valueOf((word.getWordno())), SurahName};
-                        FragmentTransaction transactions = fragmentManager.beginTransaction().setCustomAnimations(R.anim.abc_slide_in_top, android.R.anim.fade_out);
+                     //   FragmentTransaction transactions = fragmentManager.beginTransaction().setCustomAnimations(R.anim.abc_slide_in_top, android.R.anim.fade_out);
                         //   transactions.show(item);
                         WordAnalysisBottomSheet.newInstance(data).show(((AppCompatActivity) context).getSupportFragmentManager(), WordAnalysisBottomSheet.TAG);
 
@@ -533,11 +536,10 @@ if (SharedPref.themePreferences().equals("dark")) {
         editor.putInt(AYAH_ID, entity.getAyah());
         editor.putString(SURAH_ARABIC_NAME, SurahName);
         editor.apply();
-        editor.commit();
+       // editor.commit();
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     private void setChapterInfo(ItemViewAdapter holder, CorpusAyahWord verse) {
         StringBuilder surahInfo = new StringBuilder();
 //        surahInfo.append(surahName+".");

@@ -20,7 +20,7 @@ import java.util.List;
  * @version 1.0
  */
 public class GenericSubstituter7 extends AbstractGenericSubstituter {
-    private final List substitutions = new LinkedList();
+    private final List<InfixSubstitution> substitutions = new LinkedList<>();
 
     public GenericSubstituter7() {
         substitutions.add(new InfixSubstitution("ضْت", "ضْط")); // EX: (اضطلاع، )

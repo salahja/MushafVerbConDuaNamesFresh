@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class OrderedMap extends HashMap {
-    protected List orderedKeys = new LinkedList();
+    protected List<Object> orderedKeys = new LinkedList<>();
 
     public OrderedMap() {
     }
@@ -27,7 +27,7 @@ public class OrderedMap extends HashMap {
         return super.remove(key);
     }
 
-    public List getOrderedKeys() {
+    public List<Object> getOrderedKeys() {
         return orderedKeys;
     }
 

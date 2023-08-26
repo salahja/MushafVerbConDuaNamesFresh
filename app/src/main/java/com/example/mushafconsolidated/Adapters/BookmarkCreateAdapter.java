@@ -1,10 +1,8 @@
-package sj.hisnul.adapter;
+package com.example.mushafconsolidated.Adapters;
 
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,17 +15,15 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mushafconsolidated.Entities.BookMarks;
 import com.example.mushafconsolidated.Entities.BookMarksPojo;
 import com.example.mushafconsolidated.R;
 import com.example.utility.QuranGrammarApplication;
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.checkbox.MaterialCheckBox;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookmarCrateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class BookmarkCreateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
     private final List<BookMarksPojo> collection;
@@ -38,7 +34,7 @@ public class BookmarCrateAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     int wazancolor;
     ArrayList<String> subheaders;
 
-    public BookmarCrateAdapter( List<BookMarksPojo> collectionC) {
+    public BookmarkCreateAdapter(List<BookMarksPojo> collectionC) {
 
         this.collection=collectionC;
     }
@@ -74,7 +70,7 @@ public class BookmarCrateAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
            ViewHolder itemholder=(ViewHolder)  holder;
            //    setHolderposition(position);
            //   setBookmarid(bookMark.getId());
-           TypedArray imgs = QuranGrammarApplication.getContext().getResources().obtainTypedArray(R.array.sura_imgs);
+       //    TypedArray imgs = QuranGrammarApplication.getContext().getResources().obtainTypedArray(R.array.sura_imgs);
            SharedPreferences shared = android.preference.PreferenceManager.getDefaultSharedPreferences(QuranGrammarApplication.getContext());
            String isNightmode = shared.getString("theme", "dark");
 

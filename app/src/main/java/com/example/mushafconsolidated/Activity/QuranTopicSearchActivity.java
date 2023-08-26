@@ -1,18 +1,15 @@
 package com.example.mushafconsolidated.Activity;
 
 import static com.example.mushafconsolidated.R.drawable.custom_search_box;
-import static com.example.mushafconsolidated.R.drawable.search_rounded_borderline;
 
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,12 +24,12 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mushafconsolidated.Adapters.QuranTopicSearchAdapter;
 import com.example.mushafconsolidated.Entities.quranexplorer;
 import com.example.mushafconsolidated.R;
 import com.example.mushafconsolidated.Utils;
 import com.example.mushafconsolidated.intrface.OnItemClickListenerOnLong;
 import com.example.mushafconsolidated.model.CorpusAyahWord;
-import com.example.utility.QuranGrammarApplication;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;

@@ -6,6 +6,7 @@ import org.sj.nounConjugation.trilateral.unaugmented.modifier.ConjugationResult;
 import org.sj.nounConjugation.trilateral.unaugmented.modifier.IUnaugmentedTrilateralNounModifier;
 import org.sj.verbConjugation.trilateral.unaugmented.UnaugmentedTrilateralRoot;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -38,7 +39,7 @@ public class ElativeModifier implements IUnaugmentedTrilateralNounModifier {
     }
 
     public ConjugationResult build(UnaugmentedTrilateralRoot root, int kov, List conjugations, String formula) {
-        ConjugationResult conjResult = new ConjugationResult(kov, root, conjugations, formula);
+        ConjugationResult conjResult = new ConjugationResult(kov, root,   conjugations, formula);
         if (alkhairModifier.isApplied(conjResult)) {
             alkhairModifier.apply(conjResult);
         } else if (alSharModifier.isApplied(conjResult)) {

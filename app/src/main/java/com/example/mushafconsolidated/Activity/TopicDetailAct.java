@@ -8,6 +8,7 @@ import static com.example.Constant.SURAHNAME;
 import static com.example.Constant.SURAH_ARABIC_NAME;
 import static com.example.Constant.SURAH_ID;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -86,6 +87,7 @@ public class  TopicDetailAct extends BaseActivity implements OnItemClickListener
         return super.onOptionsItemSelected(item);
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -254,7 +256,7 @@ public class  TopicDetailAct extends BaseActivity implements OnItemClickListener
         FragmentManager fragmentManager = getSupportFragmentManager();
         item.setArguments(dataBundle);
         String[] data = {String.valueOf(word.getWord().get(0).getSurahId()), String.valueOf(word.getWord().get(0).getVerseId()), word.getQuranTranslate(), String.valueOf((1))};
-        FragmentTransaction transactions = fragmentManager.beginTransaction().setCustomAnimations(R.anim.abc_slide_in_top, android.R.anim.fade_out);
+       @SuppressLint("CommitTransaction") FragmentTransaction transactions = fragmentManager.beginTransaction().setCustomAnimations(R.anim.abc_slide_in_top, android.R.anim.fade_out);
         transactions.show(item);
         GrammerFragmentsBottomSheet.newInstance(data).show(getSupportFragmentManager(), WordAnalysisBottomSheet.TAG);
 
@@ -266,6 +268,7 @@ public class  TopicDetailAct extends BaseActivity implements OnItemClickListener
 
     }
 
+    @SuppressLint("InflateParams")
     void qurangrammarmenu(View view, int position) {
         Object tag = view.getTag();
         View bookmarkview = null;

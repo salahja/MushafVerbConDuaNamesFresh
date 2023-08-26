@@ -16,7 +16,7 @@ import java.util.List;
  * @version 1.0
  */
 public class AugmentedTrilateralRootTree {
-    private final List roots = new LinkedList();
+    private final List<AugmentedTrilateralRoot> roots = new LinkedList<AugmentedTrilateralRoot>();
 
     public AugmentedTrilateralRootTree() {
     }
@@ -25,7 +25,7 @@ public class AugmentedTrilateralRootTree {
         roots.add(root);
     }
 
-    public List getRoots() {
+    public List<AugmentedTrilateralRoot> getRoots() {
         return roots;
     }
 }

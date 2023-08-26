@@ -11,9 +11,9 @@ import java.util.List;
 
 public class PastConjugationDataContainer {
     private static final PastConjugationDataContainer instance = new PastConjugationDataContainer();
-    private final List dpa2List = new ArrayList(6);
-    private final List lastDpaList = new ArrayList(13);
-    private final List connectedPronounsList = new ArrayList(13);
+    private final List<String> dpa2List = new ArrayList<String>(6);
+    private final List<String> lastDpaList = new ArrayList<String>(13);
+    private final List<String> connectedPronounsList = new ArrayList<String>(13);
 
     private PastConjugationDataContainer() {
         dpa2List.add(ArabCharUtil.FATHA);
@@ -71,17 +71,17 @@ public class PastConjugationDataContainer {
     }
 
     public String getDpa2(UnaugmentedTrilateralRoot root) {
-        String s = (String) dpa2List.get((Integer.parseInt(root.getConjugation()) - 1));
+        String s = dpa2List.get((Integer.parseInt(root.getConjugation()) - 1));
         return s;
     }
 
     public String getLastDpa(int pronounIndex) {
-        String s = (String) lastDpaList.get(pronounIndex);
+        String s = lastDpaList.get(pronounIndex);
         return s;
     }
 
     public String getConnectedPronoun(int pronounIndex) {
-        String s = (String) connectedPronounsList.get(pronounIndex);
+        String s = connectedPronounsList.get(pronounIndex);
         ////System.out.println(s);
         return s;
     }

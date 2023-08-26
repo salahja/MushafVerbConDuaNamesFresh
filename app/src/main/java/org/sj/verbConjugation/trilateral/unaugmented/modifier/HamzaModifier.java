@@ -23,15 +23,15 @@ import java.util.Map;
  * @version 1.0
  */
 public class HamzaModifier {
-    private final Map modifiersMap = new HashMap();
+    private final Map<String, List<SubstitutionsApplier>> modifiersMap = new HashMap<>();
 
     public HamzaModifier() {
-        List activePastList = new LinkedList();
-        List passivePastList = new LinkedList();
-        List activePresentList = new LinkedList();
-        List passivePresentList = new LinkedList();
-        List imperativeList = new LinkedList();
-        List emphasizedImperativeList = new LinkedList();
+        List<SubstitutionsApplier> activePastList = new LinkedList<>();
+        List<SubstitutionsApplier> passivePastList = new LinkedList<SubstitutionsApplier>();
+        List<SubstitutionsApplier> activePresentList = new LinkedList<SubstitutionsApplier>();
+        List<SubstitutionsApplier> passivePresentList = new LinkedList<SubstitutionsApplier>();
+        List<SubstitutionsApplier> imperativeList = new LinkedList<SubstitutionsApplier>();
+        List<SubstitutionsApplier> emphasizedImperativeList = new LinkedList<SubstitutionsApplier>();
 
         //خمس أنواع  أساسية  للمهموز للمعلوم والمبني لمجهول في الماضي والمضارع والأمر
         modifiersMap.put(SystemConstants.PAST_TENSE + "true", activePastList);
@@ -93,8 +93,8 @@ public class HamzaModifier {
      * @param conjResult ConjugationResult
      */
     public void apply(String tense, boolean active, ConjugationResult conjResult) {
-        List modifiers = (List) modifiersMap.get(tense + active);
-        Iterator iter = modifiers.iterator();
+        List<SubstitutionsApplier> modifiers = modifiersMap.get(tense + active);
+        Iterator<SubstitutionsApplier> iter = modifiers.iterator();
         while (iter.hasNext()) {
             IUnaugmentedTrilateralModifier modifier = (IUnaugmentedTrilateralModifier) iter.next();
             if (modifier.isApplied(conjResult)) {

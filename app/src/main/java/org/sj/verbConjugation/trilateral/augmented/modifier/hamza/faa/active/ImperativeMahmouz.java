@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ImperativeMahmouz extends AbstractFaaMahmouz {
-    private final List substitutions = new LinkedList();
+    private final List<InfixSubstitution> substitutions = new LinkedList<InfixSubstitution>();
 
     public ImperativeMahmouz() {
         substitutions.add(new InfixSubstitution("أَءْ", "آ"));// EX: (آثِرْ،  )

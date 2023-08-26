@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class StandardExaggerationConjugator implements IUnaugmentedTrilateralNounConjugator {
     private static final StandardExaggerationConjugator instance = new StandardExaggerationConjugator();
-    static List formulas = new ArrayList(1);
+    static List<String> formulas = new ArrayList<String>(1);
 
     static {
         formulas.add("فَعَّال");
@@ -37,7 +37,7 @@ public class StandardExaggerationConjugator implements IUnaugmentedTrilateralNou
     }
 
     public List createNounList(UnaugmentedTrilateralRoot root, String formulaName) {
-        List result = new LinkedList();
+        List<NounFormula> result = new LinkedList<NounFormula>();
         for (int i = 0; i < 18; i++) {
             NounFormula noun = new NounFormula1(root, i + "");
             result.add(noun);

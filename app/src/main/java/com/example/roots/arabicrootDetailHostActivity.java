@@ -1,45 +1,28 @@
 package com.example.roots;
 
-import static com.example.Constant.QURAN_VERB_ROOT;
 import static com.example.Constant.WORDDETAILS;
 
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
-import com.example.mushafconsolidated.Activity.ActivitySettings;
 import com.example.mushafconsolidated.Activity.BaseActivity;
 import com.example.mushafconsolidated.R;
-import com.example.mushafconsolidated.databinding.ActivityArabicrootDetailBinding;
-import com.example.mushafconsolidated.fragments.NewSurahDisplayFrag;
-import com.example.mushafconsolidated.fragments.WbwTranslationListPrefrence;
-import com.example.mushafconsolidated.fragments.WordAnalysisBottomSheet;
 import com.google.android.material.appbar.MaterialToolbar;
-
-import java.util.Objects;
 
 
 public class arabicrootDetailHostActivity extends BaseActivity {
-
-    private String wordorverb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-     //   ActivityArabicrootDetailBinding binding = ActivityArabicrootDetailBinding.inflate(getLayoutInflater());
-   //     setContentView(binding.getRoot());
         setContentView(R.layout.activity_arabicroot_detail);
         Bundle bundle = getIntent().getExtras();
-        wordorverb = bundle.getString(WORDDETAILS);
+        String wordorverb = bundle.getString(WORDDETAILS);
         Bundle arguments = new Bundle();
         arguments.putString(WORDDETAILS, wordorverb);
         MaterialToolbar toolbar=findViewById(R.id.toolbar_layout);
@@ -49,9 +32,6 @@ public class arabicrootDetailHostActivity extends BaseActivity {
         }else {
             toolbar.setTitle("Verb Root List");
         }
-
-
-        arabicrootListFragment afrag=new arabicrootListFragment();
 
 
         FragmentManager fragmentManager = getSupportFragmentManager();

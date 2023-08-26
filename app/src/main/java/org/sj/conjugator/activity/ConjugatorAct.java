@@ -6,6 +6,7 @@ import static com.example.Constant.SARFKABEER;
 import static com.example.Constant.VERBMOOD;
 import static com.example.Constant.VERBTYPE;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -46,7 +47,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
-import database.DatabaseUtils;
+import database.VerbDatabaseUtils;
 import database.entity.Mazeed;
 import database.entity.MujarradVerbs;
 import ru.dimorinny.floatingtextbutton.FloatingTextButton;
@@ -58,7 +59,7 @@ public class ConjugatorAct extends com.example.mushafconsolidated.Activity.BaseA
             settingbtn;
     FloatingActionButton floatingActionButton;
     RelativeLayout layoutBottomSheet;
-    BottomSheetBehavior sheetBehavior;
+    BottomSheetBehavior<RelativeLayout> sheetBehavior;
     ListView tlist;
     ListView mlist;
     Chip nasara, zaraba, samia, fataha, karuma, haseeba;
@@ -153,7 +154,7 @@ public class ConjugatorAct extends com.example.mushafconsolidated.Activity.BaseA
     private void SetUpEditText() {
         KeyboardUtil.hideKeyboard(ConjugatorAct.this);
         String[] root;
-        DatabaseUtils util = new DatabaseUtils(ConjugatorAct.this);
+        VerbDatabaseUtils util = new VerbDatabaseUtils(ConjugatorAct.this);
         ArrayList<MujarradVerbs> verbAll = util.getMujarradAall();
         int size = verbAll.size();
         root = new String[size];
@@ -179,10 +180,11 @@ public class ConjugatorAct extends com.example.mushafconsolidated.Activity.BaseA
 
     }
 
+    @SuppressLint("CutPasteId")
     private void SetUpAutoComplete() {
         KeyboardUtil.hideKeyboard(ConjugatorAct.this);
         String[] root;
-        DatabaseUtils util = new DatabaseUtils(ConjugatorAct.this);
+        VerbDatabaseUtils util = new VerbDatabaseUtils(ConjugatorAct.this);
         ArrayList<MujarradVerbs> verbAll = util.getMujarradAall();
         int size = verbAll.size();
         root = new String[size];
@@ -191,14 +193,14 @@ public class ConjugatorAct extends com.example.mushafconsolidated.Activity.BaseA
             String roots = entity.getRoot();
             root[i++] = roots;
         }
-        HashSet h = new HashSet(Arrays.asList(root));
-        List aList2 = new ArrayList(h);
+        HashSet<String> h = new HashSet<>(Arrays.asList(root));
+        List<String> aList2 = new ArrayList<>(h);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>
                 (this, R.layout.dropdown_item_list, aList2);
         //       ArrayAdapter<String> adapter = new ArrayAdapter<String>
         //          (this, R.layout.dropdown_item_list, root);
         //Getting the instance of AutoCompleteTextView
-        AutoCompleteTextView actv = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
+        @SuppressLint("CutPasteId") AutoCompleteTextView actv = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
         int sizes = 500;
         actv.setDropDownHeight(sizes);
         actv.setThreshold(1);//will start working from first character
@@ -584,7 +586,7 @@ public class ConjugatorAct extends com.example.mushafconsolidated.Activity.BaseA
         SharedPref pref = new SharedPref(this);
         tlist = new ListView(ConjugatorAct.this);
         mlist = new ListView(ConjugatorAct.this);
-        DatabaseUtils utils = new DatabaseUtils(ConjugatorAct.this);
+        VerbDatabaseUtils utils = new VerbDatabaseUtils(ConjugatorAct.this);
         mujarradVerbs = utils.getMujarradVerbs(root);
         for (MujarradVerbs s : mujarradVerbs) {
             switch (s.getBab()) {

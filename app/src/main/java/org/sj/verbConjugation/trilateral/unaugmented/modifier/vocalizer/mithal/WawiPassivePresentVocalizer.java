@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class WawiPassivePresentVocalizer extends SubstitutionsApplier implements IUnaugmentedTrilateralModifier {
 
-    private final List substitutions = new LinkedList();
+    private final List<InfixSubstitution> substitutions = new LinkedList<InfixSubstitution>();
 
     public WawiPassivePresentVocalizer() {
         substitutions.add(new InfixSubstitution("ُوْ", "ُو"));// EX: (يُوعَدُ، يُوهَبُ، يُورَثُ، )

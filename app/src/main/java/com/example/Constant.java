@@ -255,13 +255,13 @@ public class Constant {
     public static ForegroundColorSpan surprisespanLight = new ForegroundColorSpan(DarkTurquoise);
     public static ForegroundColorSpan certainityspanLight = new ForegroundColorSpan(DeepPink);
     //dark
-    public static ForegroundColorSpan timeadverbspanDark = new ForegroundColorSpan(CYANLIGHT);
-    public static ForegroundColorSpan locationadverspanDark = new ForegroundColorSpan(CYANLIGHTEST);
+    public static final ForegroundColorSpan timeadverbspanDark = new ForegroundColorSpan(CYANLIGHT);
+    public static final ForegroundColorSpan locationadverspanDark = new ForegroundColorSpan(CYANLIGHTEST);
     public static final Map<String, String> spanhash = new HashMap<String, String>() {
         {
             put("RSLT", "resultspan");
             put("P", "prepositionspan");
-            put("N", "nounspan");
+
             put("T", String.valueOf(timeadverbspanDark));
             put("LOC", String.valueOf(locationadverspanDark));
             put("N", "nounspan");

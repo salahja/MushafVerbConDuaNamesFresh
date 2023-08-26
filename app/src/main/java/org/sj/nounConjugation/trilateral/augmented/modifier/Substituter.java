@@ -21,7 +21,7 @@ import java.util.List;
  * @version 1.0
  */
 public class Substituter {
-    private final List modifiers = new LinkedList();
+    private final List<IAugmentedTrilateralModifier> modifiers = new LinkedList<IAugmentedTrilateralModifier>();
 
     public Substituter() {
         modifiers.add(new org.sj.nounConjugation.trilateral.augmented.modifier.substituter.GenericSubstituter1());
@@ -37,9 +37,9 @@ public class Substituter {
     }
 
     public void apply(MazeedConjugationResult conjResult) {
-        Iterator iter = modifiers.iterator();
+        Iterator<IAugmentedTrilateralModifier> iter = modifiers.iterator();
         while (iter.hasNext()) {
-            IAugmentedTrilateralModifier modifier = (IAugmentedTrilateralModifier) iter.next();
+            IAugmentedTrilateralModifier modifier = iter.next();
             if (modifier.isApplied(conjResult)) {
                 ((TrilateralNounSubstitutionApplier) modifier).apply(conjResult.getFinalResult(), conjResult.getRoot());
                 break;

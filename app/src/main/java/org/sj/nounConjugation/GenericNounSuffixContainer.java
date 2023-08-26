@@ -17,15 +17,15 @@ import java.util.ArrayList;
 public class GenericNounSuffixContainer implements INounSuffixContainer {
     private static final GenericNounSuffixContainer instance = new GenericNounSuffixContainer();
     //���� ������
-    private final ArrayList indefiniteSuffixList = new ArrayList(18);
+    private final ArrayList<String> indefiniteSuffixList = new ArrayList<>(18);
     //���� �������
-    private final ArrayList definiteSuffixList = new ArrayList(18);
+    private final ArrayList<String> definiteSuffixList = new ArrayList<>(18);
     //���� �������
-    private final ArrayList annexedSuffixList = new ArrayList(18);
+    private final ArrayList<String> annexedSuffixList = new ArrayList<>(18);
     //���� ��� ���� ����� ���� ������ �� �����
     private String prefix = "";
     //���� ������� �������� ����� ������
-    private ArrayList currentSuffixList = indefiniteSuffixList;
+    private ArrayList<String> currentSuffixList = indefiniteSuffixList;
 
     private GenericNounSuffixContainer() {
         indefiniteSuffixList.add("ٌ");
@@ -115,7 +115,7 @@ public class GenericNounSuffixContainer implements INounSuffixContainer {
     }
 
     public String get(int index) {
-        return (String) currentSuffixList.get(index);
+        return currentSuffixList.get(index);
     }
 
     public boolean isInDefiniteMode() {

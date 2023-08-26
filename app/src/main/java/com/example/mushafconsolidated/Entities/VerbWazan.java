@@ -1,9 +1,5 @@
 package com.example.mushafconsolidated.Entities;
 
-import static com.example.Constant.VERBMOOD;
-
-import com.example.mushafconsolidated.R;
-
 public class VerbWazan {
     public final static String BNASARA = "نصر"; //   A-U // NASRA-YANSURU
     public final static String BZARABA = "ضرب";  //   A-I // ZARABA-YASZRIBU
@@ -12,21 +8,14 @@ public class VerbWazan {
     public final static String BKARUMU = "كرم";   //   U-U  //KARUMA-YAKRUMU
     public final static String BHASIBA = "حسب";    //  I-I  //HASIBA-YAHSIU
     private String root;
-    private static String wazan;
+    private  String wazan;
     private String arabicword;
 
-    public VerbWazan(String root, String wazan) {
-        this.root = root;
-        this.wazan = wazan;
-    }
     public VerbWazan() {
     }
 
-    public String getArabicword() {
-        return arabicword;
-    }
-
-    public void setArabicword(String arabicword) {
+    public VerbWazan(String root, String arabicword) {
+        this.root = root;
         this.arabicword = arabicword;
     }
 
@@ -38,7 +27,19 @@ public class VerbWazan {
         this.root = root;
     }
 
-    public static String getWazan() {
+    public void setWazan(String wazan) {
+        this.wazan = wazan;
+    }
+
+    public String getArabicword() {
+        return arabicword;
+    }
+
+    public void setArabicword(String arabicword) {
+        this.arabicword = arabicword;
+    }
+
+    public  String getWazan() {
         if (wazan.equals("N")) {
             wazan = "1";
         } else if (wazan.equals("Z")) {
@@ -110,9 +111,6 @@ return vmood;
    }
 
 
-    public void setWazan(String wazan) {
-        this.wazan = wazan;
-    }
 
     public String getWazan(String wazan) {
         if (wazan.equals("N")) {

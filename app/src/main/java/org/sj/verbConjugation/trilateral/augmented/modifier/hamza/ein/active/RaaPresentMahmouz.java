@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RaaPresentMahmouz extends SubstitutionsApplier implements IAugmentedTrilateralModifier {
-    private final List substitutions = new ArrayList();
+    private final List<InfixSubstitution> substitutions = new ArrayList<InfixSubstitution>();
 
     public RaaPresentMahmouz() {
         substitutions.add(new InfixSubstitution("ْءِ", "ِ")); // EX: (يُرِي، )

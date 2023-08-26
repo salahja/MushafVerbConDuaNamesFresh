@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class GenericSubstituter6 extends AbstractGenericSubstituter {
-    private final List substitutions = new LinkedList();
+    private final List<InfixSubstitution> substitutions = new LinkedList<InfixSubstitution>();
 
     public GenericSubstituter6() {
         substitutions.add(new InfixSubstitution("صْتَ", "صْطَ"));// EX: (اصْطَبَر، يَصْطَبِرُ، اصْطَبِرْ)

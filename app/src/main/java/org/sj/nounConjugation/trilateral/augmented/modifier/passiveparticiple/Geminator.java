@@ -24,7 +24,7 @@ import java.util.List;
  * @version 1.0
  */
 public class Geminator {
-    private final List modifiers = new LinkedList();
+    private final List<IAugmentedTrilateralModifier> modifiers = new LinkedList<IAugmentedTrilateralModifier>();
 
     public Geminator() {
         modifiers.add(new Geminator1());
@@ -33,9 +33,9 @@ public class Geminator {
     }
 
     public void apply(MazeedConjugationResult conjResult) {
-        Iterator iter = modifiers.iterator();
+        Iterator<IAugmentedTrilateralModifier> iter = modifiers.iterator();
         while (iter.hasNext()) {
-            IAugmentedTrilateralModifier modifier = (IAugmentedTrilateralModifier) iter.next();
+            IAugmentedTrilateralModifier modifier = iter.next();
             if (modifier.isApplied(conjResult)) {
                 ((SubstitutionsApplier) modifier).apply(conjResult.getFinalResult(), conjResult.getRoot());
                 break;

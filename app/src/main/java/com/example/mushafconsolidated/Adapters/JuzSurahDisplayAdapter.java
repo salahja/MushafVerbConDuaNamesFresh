@@ -2,6 +2,7 @@ package com.example.mushafconsolidated.Adapters;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
@@ -32,12 +33,11 @@ public class JuzSurahDisplayAdapter extends RecyclerView.Adapter<JuzSurahDisplay
     //implements Filterable
     private static final String TAG = "SurahPartAdap ";
     OnItemClickListener mItemClickListener;
-    private List<ChaptersAnaEntity> listonearray = new ArrayList<>();
-    private List<ChaptersAnaEntity> listtwoarray = new ArrayList<>();
+    private final List<ChaptersAnaEntity> listonearray = new ArrayList<>();
+    private final List<ChaptersAnaEntity> listtwoarray = new ArrayList<>();
     private final Context context;
-    private String surahname;
-    private List<Juz> JuzArray;
-    private boolean defaultfont;
+
+    private final List<Juz> JuzArray;
 
     public JuzSurahDisplayAdapter(Context context, List<Juz> juzArray) {
         this.context = context;
@@ -66,22 +66,24 @@ public class JuzSurahDisplayAdapter extends RecyclerView.Adapter<JuzSurahDisplay
         final Juz juzitem = JuzArray.get(position);
         Context context = QuranGrammarApplication.getContext();
         SharedPreferences pref = context.getSharedPreferences("lastread", MODE_PRIVATE);
-        int chapterno = pref.getInt("surah", 1);
-        int verse_no = pref.getInt("ayah", 1);
-        SharedPref sharedPref = new SharedPref(context);
-        final String isNightmode = SharedPref.themePreferences();
-        TypedArray imgs = this.context.getResources().obtainTypedArray(R.array.sura_imgs);
+
+            TypedArray imgs = this.context.getResources().obtainTypedArray(R.array.sura_imgs);
+            imgs.recycle();
+
+
+
         TypedArray array = imgs;
         SharedPreferences sharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(context);
-        String theme = sharedPreferences.getString("themepref", "dark");
+        StringBuilder sb=new StringBuilder();
 
         String juzdetail="Juz".concat(" ").concat(String.valueOf(juzitem.getJuz()));
+
         String surahdetails=juzitem.getNamearabic().concat(" ").concat(String.valueOf(juzitem.getChapterid())).concat(":").concat(String.valueOf(juzitem.getAyah()));
         String text=juzitem.getQurantext();
         String[] split = text.split(" ");
 
-        defaultfont = sharedPreferences.getBoolean("default_font", true);
+        boolean defaultfont = sharedPreferences.getBoolean("default_font", true);
 
 
 
@@ -137,9 +139,6 @@ public class JuzSurahDisplayAdapter extends RecyclerView.Adapter<JuzSurahDisplay
             tvnumber = itemView.findViewById(R.id.tvNumber);
             tvJuz=itemView.findViewById(R.id.tvJuz);
             tvArabic = itemView.findViewById(R.id.tvArabic);
-     /*       makkimadaniIcon = itemView.findViewById(R.id.makkimadaniicon);
-            overlayTypeChapterView = itemView.findViewById(R.id.overlayTypeChapterView);
-            ivsurahicon = itemView.findViewById(R.id.surahicon);*/
 
             layout.setOnClickListener(this); // current clickListerner
 

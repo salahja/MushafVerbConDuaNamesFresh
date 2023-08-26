@@ -19,7 +19,7 @@ import java.util.List;
  * @version 1.0
  */
 public class PassivePresentMahmouz extends AbstractEinMahmouz {
-    private final List substitutions = new ArrayList();
+    private final List<InfixSubstitution> substitutions = new ArrayList<InfixSubstitution>();
 
     public PassivePresentMahmouz() {
         substitutions.add(new InfixSubstitution("يْءَ", "ْئَ"));// EX: (يُيْئَس)

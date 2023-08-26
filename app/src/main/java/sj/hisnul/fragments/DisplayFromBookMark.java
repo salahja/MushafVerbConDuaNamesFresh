@@ -32,7 +32,7 @@ public class DisplayFromBookMark extends Fragment {
     SelectedDuaViewAdapter sadapter;
     //called by allduarag and  catwofrag retrival by the chaptername in hdunames
     RecyclerView recyclerView;
-    LinkedList link = new LinkedList<>();
+    LinkedList<Object> link = new LinkedList<>();
     private String lists, name, subheader;
     private boolean fromcatwo = false;
     private int chap_id;

@@ -1,7 +1,5 @@
 package org.sj.conjugator.floatingtextbutton.behavior;
 
-import android.content.Context;
-import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.Interpolator;
 
@@ -18,10 +16,6 @@ public class SnackbarBehavior extends CoordinatorLayout.Behavior<FloatingTextBut
     private static final Interpolator HIDE_INTERPOLATOR = new FastOutSlowInInterpolator();
     private static final Long HIDE_DURATION = 250L;
     private ViewPropertyAnimatorCompat animation = null;
-
-    public SnackbarBehavior(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
 
     @Override
     public boolean layoutDependsOn(

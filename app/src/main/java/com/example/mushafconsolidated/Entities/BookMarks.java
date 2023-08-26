@@ -68,12 +68,6 @@ public class BookMarks {
     public void setHeader(String header) {
         this.header = header;
     }
-
-    @NonNull
-    public String getVerseno() {
-        return verseno;
-    }
-
     public void setVerseno(@NonNull String verseno) {
         this.verseno = verseno;
     }
@@ -82,6 +76,12 @@ public class BookMarks {
     public String getChapterno() {
         return chapterno;
     }
+
+    @NonNull
+    public String getVerseno() {
+        return verseno;
+    }
+
 
     public void setChapterno(@NonNull String chapterno) {
         this.chapterno = chapterno;

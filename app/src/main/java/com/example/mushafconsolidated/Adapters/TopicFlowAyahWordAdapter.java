@@ -1,6 +1,5 @@
 package com.example.mushafconsolidated.Adapters;
 
-import static android.content.Context.MODE_PRIVATE;
 import static androidx.preference.PreferenceManager.getDefaultSharedPreferences;
 import static com.example.Constant.AYAHNUMBER;
 import static com.example.Constant.AYAH_ID;
@@ -10,6 +9,7 @@ import static com.example.Constant.WORDNUMBER;
 import static com.example.utility.QuranGrammarApplication.getContext;
 import static com.example.utility.QuranGrammarApplication.getInstance;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -95,24 +95,12 @@ public class TopicFlowAyahWordAdapter extends RecyclerView.Adapter<TopicFlowAyah
     private final ArrayList<CorpusAyahWord> ayahWordArrayList;
     public Context context;
     public TextView arabic, rootword;
-    private OnItemClickListener listener;
     private String isNightmode;
     private String SurahName;
     private int isMakkiMadani;
     CorpusAyahWord ayahWord = null;
     SpannableString quranverses = null;
 
-
-    public TopicFlowAyahWordAdapter(ArrayList<CorpusAyahWord> corpusayahWordArrayList, OnItemClickListenerOnLong listener) {
-        this.ayahWordArrayList = corpusayahWordArrayList;
-        this.mItemClickListener = listener;
-        //  mItemClickListener = listener;
-        SharedPreferences sharedPreferences = getDefaultSharedPreferences(QuranGrammarApplication.getContext());
-        sharedPreferences.getBoolean(Config.SHOW_Erab, Config.defaultShowErab);
-        issentence = sharedPreferences.getBoolean("grammarsentence", false);
-        arabicfontSize = sharedPreferences.getInt("pref_font_arabic_key", 18);
-        translationfontsize = sharedPreferences.getInt("pref_font_englsh_key", 18);
-    }
 
     public TopicFlowAyahWordAdapter(ArrayList<CorpusAyahWord> corpusayahWordArrayList, OnItemClickListenerOnLong listener, String surahname) {
         this.ayahWordArrayList = corpusayahWordArrayList;
@@ -166,10 +154,12 @@ public class TopicFlowAyahWordAdapter extends RecyclerView.Adapter<TopicFlowAyah
 
     }
 
-    public Object getItem(int position) {
-        return ayahWordArrayList.get(0).getWord().get(position);
-        //    return allofQuran.get(position);
-    }
+// --Commented out by Inspection START (23/08/23, 6:07 am):
+//    public Object getItem(int position) {
+//        return ayahWordArrayList.get(0).getWord().get(position);
+//        //    return allofQuran.get(position);
+//    }
+// --Commented out by Inspection STOP (23/08/23, 6:07 am)
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewAdapter holder, int position) {
@@ -218,7 +208,7 @@ public class TopicFlowAyahWordAdapter extends RecyclerView.Adapter<TopicFlowAyah
         
         setChapterInfo(holder, ayahWord);
         //  setAdapterposition(position);
-        wordBywordWithTranslation(showrootkey, holder, custom_font, showWordColor, wbw, ayahWord, showWordByword);
+        wordBywordWithTranslation(showrootkey, holder, showWordColor, wbw, ayahWord, showWordByword);
 
         if (showTransliteration) {
             holder.quran_transliteration.setText(Html.fromHtml(ayahWord.getEn_transliteration(), Html.FROM_HTML_MODE_LEGACY));
@@ -287,7 +277,7 @@ public class TopicFlowAyahWordAdapter extends RecyclerView.Adapter<TopicFlowAyah
         }
     }
 
-    private void wordBywordWithTranslation(boolean showrootkey, ItemViewAdapter holder, Typeface custom_font, boolean showWordColor, String wbw, CorpusAyahWord ayahWord, boolean showWbwTranslation) {
+    private void wordBywordWithTranslation(boolean showrootkey, ItemViewAdapter holder, boolean showWordColor, String wbw, CorpusAyahWord ayahWord, boolean showWbwTranslation) {
         final String FONTS_LOCATION_PATH = "fonts/DejaVuSans.ttf";
         Typeface colorwordfont = Typeface.createFromAsset(getContext().getAssets(), FONTS_LOCATION_PATH);
 
@@ -295,7 +285,7 @@ public class TopicFlowAyahWordAdapter extends RecyclerView.Adapter<TopicFlowAyah
                 (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         holder.flow_word_by_word.removeAllViews();
         for (final CorpusWbwWord word : ayahWord.getWord()) {
-            final View view = inflater.inflate(R.layout.word_by_word, null);
+            @SuppressLint("InflateParams") final View view = inflater.inflate(R.layout.word_by_word, null);
             arabic = view.findViewById(R.id.word_arabic_textView);
             rootword = view.findViewById(R.id.root_word);
             //   wordno = view.findViewById(R.id.wordno);
@@ -483,18 +473,18 @@ public class TopicFlowAyahWordAdapter extends RecyclerView.Adapter<TopicFlowAyah
     }
 
     public class ItemViewAdapter extends RecyclerView.ViewHolder implements View.OnClickListener, OnLongClickListener {
-        public final TextView quran_jalalayn;
-        public final TextView kathir_translation;
+        // --Commented out by Inspection (23/08/23, 6:10 am):public final TextView quran_jalalayn;
+        // --Commented out by Inspection (23/08/23, 6:10 am):public final TextView kathir_translation;
         public final TextView quran_transliteration;
         public final TextView translate_textView;
         public final TextView erab_textView;
         public final TextView surah_info;
         public final TextView mafoolbihi;
-        public final TextView bismilla;
+
         public final TextView quran_textView;
-        public final TextView erab_notes;
-        public final TextView quran_transliterationnote;
-        public final TextView quran_jalalaynnote;
+        // --Commented out by Inspection (23/08/23, 6:09 am):public final TextView erab_notes;
+  //      public final TextView quran_transliterationnote;
+       // public final TextView quran_jalalaynnote;
         public final TextView erab_textViewnote, header;
         public final TextView translate_textViewnote;
         public final ImageView makkimadaniicon;
@@ -512,30 +502,35 @@ public class TopicFlowAyahWordAdapter extends RecyclerView.Adapter<TopicFlowAyah
         final Group hiddenGroup;
 
         final MaterialCardView base_cardview;
-        FloatingActionButton tafsir, jumptofb, bookmarfb, fabmenu,helpfb,summbaryfb,sharescreenfb;
-        public ImageView bookmark;
-        public ImageView ivBismillah;
+        final FloatingActionButton tafsir;
+        final FloatingActionButton jumptofb;
+        final FloatingActionButton bookmarfb;
+        final FloatingActionButton fabmenu;
+        final FloatingActionButton helpfb;
+        final FloatingActionButton summbaryfb;
+        final FloatingActionButton sharescreenfb;
 
+        @SuppressLint("CutPasteId")
         ItemViewAdapter(View view, int viewType) {
             super(view);
             view.setTag(this);
             header = view.findViewById(R.id.headers);
             itemView.setOnClickListener(this);
             surahicon = view.findViewById(R.id.surahicon);
-            kathir_translation = view.findViewById(R.id.katheer_textview);
+         //   kathir_translation = view.findViewById(R.id.katheer_textview);
             colorize = view.findViewById(R.id.colorized);
             ivoverflow = view.findViewById(R.id.ivActionOverflow);
             ivoverflow.setOnClickListener(this);
             ivoverflow.setTag("overflow_img");
             //  ivhelp.setOnClickListener(this);
             makkimadaniicon = view.findViewById(R.id.makkimadaniicon);
-            bismilla = view.findViewById(R.id.bismillah);
-            quran_transliterationnote = view.findViewById(R.id.quran_transliterationnote);
-            quran_jalalaynnote = view.findViewById(R.id.quran_jalalaynnote);
+
+           // quran_transliterationnote = view.findViewById(R.id.quran_transliterationnote);
+        //    quran_jalalaynnote = view.findViewById(R.id.quran_jalalaynnote);
             translate_textViewnote = view.findViewById(R.id.translate_textViewnote);
             erab_textViewnote = view.findViewById(R.id.erab_textViewnote);
             quran_transliteration = view.findViewById(R.id.quran_transliteration);
-            quran_jalalayn = view.findViewById(R.id.quran_jalalayn);
+          //  quran_jalalayn = view.findViewById(R.id.quran_jalalayn);
             surah_info = view.findViewById(R.id.chaptername);
             //    verse_idTextView = view.findViewById(R.id.verse_id_textView);
             flow_word_by_word = view.findViewById(R.id.flow_word_by_word);
@@ -543,7 +538,7 @@ public class TopicFlowAyahWordAdapter extends RecyclerView.Adapter<TopicFlowAyah
             erab_textView = view.findViewById(R.id.erab_textView);
             //     erab_textView.setTextIsSelectable(true);
             quran_textView = view.findViewById(R.id.quran_textView);
-            erab_notes = view.findViewById(R.id.erab_notes);
+       //     erab_notes = view.findViewById(R.id.erab_notes);
             erabexpand = view.findViewById(R.id.erabexpand);
             erab_notes_expand = view.findViewById(R.id.erab_img);
             expandImageButton = view.findViewById(R.id.expandImageButton);
@@ -600,7 +595,7 @@ public class TopicFlowAyahWordAdapter extends RecyclerView.Adapter<TopicFlowAyah
                     isFABOpen = true;
                     fabmenu.animate().rotationBy(180);
                     tafsir.setVisibility(View.VISIBLE);
-                    tafsir.animate().translationX(- getInstance().getResources().getDimension(R.dimen.standard_55));
+                    tafsir.animate().translationX( getInstance().getResources().getDimension(R.dimen.standard_55));
                     tafsir.animate().rotationBy(360);
                     tafsir.animate().setDuration(1500);
                     // ObjectAnimator animation = ObjectAnimator.ofFloat(tafsir, "translationX", 90f);
@@ -745,9 +740,7 @@ public class TopicFlowAyahWordAdapter extends RecyclerView.Adapter<TopicFlowAyah
                         }
                         private void shareScreenShot(File imageFile) {
 
-                            Uri uri = FileProvider.getUriForFile( ((AppCompatActivity) context), getContext().getPackageName() + ".provider", imageFile);
- /*      CropImage.activity(uri)
-                .start(this);*/
+                            Uri uri = FileProvider.getUriForFile( ((AppCompatActivity) context), QuranGrammarApplication.getContext().getPackageName() + ".provider", imageFile);
 
 
                             Intent intent = new Intent();

@@ -19,7 +19,7 @@ import java.util.List;
  * @version 1.0
  */
 public class PassivePresentAjwafYaeiListedVocalizer extends AbstractAjwafYaeiListedVocalizer {
-    private final List substitutions = new LinkedList();
+    private final List<ExpressionInfixSubstitution> substitutions = new LinkedList<ExpressionInfixSubstitution>();
 
     public PassivePresentAjwafYaeiListedVocalizer() {
         substitutions.add(new ExpressionInfixSubstitution("ْيَC3ُ", "َاC3ُ"));// EX: (يُباع، يُبات، لن تُباتوا)

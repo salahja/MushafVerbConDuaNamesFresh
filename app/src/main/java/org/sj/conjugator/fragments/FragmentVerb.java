@@ -27,12 +27,11 @@ import java.util.ArrayList;
 import ru.dimorinny.floatingtextbutton.FloatingTextButton;
 
 public class FragmentVerb extends Fragment {
-    private static final int WRITE_REQUEST_CODE = 101;
+ 
     private static final String TAG = "PermissionDemo";
     RecyclerView recyclerView;
     boolean isAugmented, isUnAugmented;
-    private String verbweakness;
-    private String callingfragment;
+ 
     private ArrayList<ArrayList> skabeer = new ArrayList<>();
     private String augmentedFormula;
     private String unaugmentedFormula;
@@ -42,13 +41,11 @@ public class FragmentVerb extends Fragment {
         FragmentVerb f = new FragmentVerb();
         Bundle dataBundle = getArguments();
         assert dataBundle != null;
-        if (null != dataBundle) {
-            dataBundle.getString(QURAN_VERB_ROOT);
-            dataBundle.getString(QURAN_VERB_WAZAN);//verb formula depnding upon the verbtype mujjarad or mazeed
-            dataBundle.getString(VERBMOOD);
-            dataBundle.getString(VERBTYPE);
+        dataBundle.getString(QURAN_VERB_ROOT);
+        dataBundle.getString(QURAN_VERB_WAZAN);//verb formula depnding upon the verbtype mujjarad or mazeed
+        dataBundle.getString(VERBMOOD);
+        dataBundle.getString(VERBTYPE);
 
-        }
         f.setArguments(dataBundle);
         return f;
 
@@ -77,15 +74,12 @@ public class FragmentVerb extends Fragment {
         callButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //     FragmentManager fragmentManager = null;
-                //   fragmentManager.popBackStack("mujarrad", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+  
                 FragmentManager fm = getActivity()
                         .getSupportFragmentManager();
-                //   fm.popBackStack ("mujarrad", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                //    getFragmentManager().popBackStack();
-                //   FragmentManager fm = getActivity().getSupportFragmentManager();
+ 
                 fm.popBackStack();
-                //     fm.popBackStack();
+        
             }
         });
         assert dataBundle != null;
@@ -110,15 +104,14 @@ public class FragmentVerb extends Fragment {
             ninitThulathiAdapter();
 
         } else {
-            //   initMazeedAdapter();
-            // initMazeedAdapterNew();
+       
             final ArrayList<ArrayList> indictive = GatherAll.getInstance().getMazeedListing(verbmood, verbroot, augmentedFormula);
             VerbSarfKabeerAdapter sk;
             if (!indictive.isEmpty()) {
                 indictive.remove(0);
                 sk = new VerbSarfKabeerAdapter(indictive, getContext());
                 recyclerView.setAdapter(sk);
-                //  recyclerView.setAdapter(ska);
+              
                 recyclerView.setHasFixedSize(true);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             }
@@ -129,7 +122,7 @@ public class FragmentVerb extends Fragment {
     }
 
     private void ninitThulathiAdapter() {
-        //  extracted();
+ 
         final ArrayList<ArrayList> mujarradListing = GatherAll.getInstance().getMujarradListing(verbmood, verbroot, unaugmentedFormula);
         mujarradListing.remove(0);
         VerbSarfKabeerAdapter ska = new VerbSarfKabeerAdapter(mujarradListing, getContext());

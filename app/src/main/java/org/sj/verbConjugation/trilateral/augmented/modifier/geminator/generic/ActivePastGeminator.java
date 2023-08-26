@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ActivePastGeminator extends SubstitutionsApplier {
-    private final List substitutions = new LinkedList();
+    private final List<ExpressionInfixSubstitution> substitutions = new LinkedList<ExpressionInfixSubstitution>();
 
     public ActivePastGeminator() {
         substitutions.add(new ExpressionInfixSubstitution("ْC3َC3َ", "َC3َّ"));// EX: (أَمَدَّ،)

@@ -9,9 +9,11 @@ import androidx.preference.PreferenceManager;
 public class VerbApplication extends Application {
     private static Context appContext;
 
-    public static Context getContext() {
-        return appContext;
-    }
+// --Commented out by Inspection START (20/08/23, 8:37 am):
+//    public static Context getContext() {
+//        return appContext;
+//    }
+// --Commented out by Inspection STOP (20/08/23, 8:37 am)
 
     public void onCreate() {
         super.onCreate();

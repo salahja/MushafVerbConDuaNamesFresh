@@ -2,6 +2,7 @@ package com.example.mushafconsolidated.Activity;
 
 import static com.example.Constant.QURAN_VERB_ROOT;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -36,58 +37,32 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
-import database.DatabaseUtils;
 import ru.dimorinny.floatingtextbutton.FloatingTextButton;
 
 public class SearchKeyBoardAct extends BaseActivity implements View.OnClickListener {
     private final SparseArray<String> keyValues = new SparseArray<>();
-    Button quranbtn,
-            settingbtn;
+    Button quranbtn;
     FloatingActionButton floatingActionButton;
     RelativeLayout layoutBottomSheet;
-    BottomSheetBehavior sheetBehavior;
+    BottomSheetBehavior<RelativeLayout> sheetBehavior;
     ListView tlist;
     ListView mlist;
-    boolean isSarfKabeed;
     private ArrayList<qurandictionary> qurandictionaryArrayList;
     private View keyboard;
     private InputConnection inputConnection;
     private AutoCompleteTextView actv;
 
-    public void setSarfKabeed(boolean sarfKabeed) {
-        isSarfKabeed = sarfKabeed;
-    }
-
-    public void setInputtext(String inputtext) {
-    }
+// --Commented out by Inspection START (22/08/23, 5:56 pm):
+//    public void setInputtext(String inputtext) {
+//    }
+// --Commented out by Inspection STOP (22/08/23, 5:56 pm)
 
     @Override
     public void onBackPressed() {
         Log.d("CDA", "onBackPressed Called");
-      /*
-       Intent setIntent = new Intent(Intent.ACTION_MAIN);
-        setIntent.addCategory(Intent.CATEGORY_HOME);
-       setIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-       startActivity(setIntent);
-       */
         SearchKeyBoardAct.super.finish();
         super.onBackPressed();
 
-     /*
-        SearchKeyBoardAct.super.finish();
-
-        HashMap<String, String> map = CorpusUtilityorig.getpreferences();
-        Bundle dataBundle=new Bundle();
-        map.get(SURAH_ARABIC_NAME);
-        dataBundle.putString(SURAH_ARABIC_NAME,map.get(SURAH_ARABIC_NAME));
-        dataBundle.putInt(CHAPTER, Integer.parseInt(map.get(CHAPTER)));
-        dataBundle.putInt(AYAH_ID, Integer.parseInt(map.get(AYAH_ID)));
-
-        Intent intent = new Intent(SearchKeyBoardAct.this, QuranGrammarAct.class);
-        intent.putExtras(dataBundle);
-        finish();
-        startActivity(intent);
-      */
     }
 
     @Override
@@ -100,19 +75,6 @@ public class SearchKeyBoardAct extends BaseActivity implements View.OnClickListe
         callButton.setOnClickListener(view -> {
             SearchKeyBoardAct.super.finish();
 
-  /*
-        HashMap<String, String> map = CorpusUtilityorig.getpreferences();
-        Bundle dataBundle=new Bundle();
-        map.get(SURAH_ARABIC_NAME);
-        dataBundle.putString(SURAH_ARABIC_NAME,map.get(SURAH_ARABIC_NAME));
-        dataBundle.putInt(CHAPTER, Integer.parseInt(map.get(CHAPTER)));
-        dataBundle.putInt(AYAH_ID, Integer.parseInt(map.get(AYAH_ID)));
-
-            Intent intent = new Intent(SearchKeyBoardAct.this, QuranGrammarAct.class);
-        intent.putExtras(dataBundle);
-        finish();
-        startActivity(intent);
-   */
             SearchKeyBoardAct.super.finish();
             super.onBackPressed();
             //  Snackbar.make(viewById, "Call button clicked", Snackbar.LENGTH_SHORT).show();
@@ -140,14 +102,14 @@ public class SearchKeyBoardAct extends BaseActivity implements View.OnClickListe
             String roots = entity.getRootarabic();
             root[i++] = roots;
         }
-        HashSet h = new HashSet(Arrays.asList(root));
-        List aList2 = new ArrayList(h);
-        ArrayAdapter adapters = new ArrayAdapter
+        HashSet<String> h = new HashSet<>(Arrays.asList(root));
+        List<String> aList2 = new ArrayList<>(h);
+        ArrayAdapter<String> adapters = new ArrayAdapter<>
                 (this, R.layout.my_simple_list_item, aList2);
-        ArrayAdapter listadapters = new ArrayAdapter
+        ArrayAdapter<String> listadapters = new ArrayAdapter<>
                 (this, R.layout.my_simple_list_item, root);
         //Getting the instance of AutoCompleteTextView
-        actv = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
+        actv = findViewById(R.id.autoCompleteTextView);
         ListView listdisp = findViewById(R.id.list_item);
         listdisp.setAdapter(listadapters);
         listdisp.setOnItemClickListener((adapterView, view, position, l) -> {
@@ -288,6 +250,7 @@ public class SearchKeyBoardAct extends BaseActivity implements View.OnClickListe
 
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View view) {
         //   hideKeyboardSoft();
@@ -329,13 +292,12 @@ public class SearchKeyBoardAct extends BaseActivity implements View.OnClickListe
             case R.id.key_enter:
                 CharSequence charSequence = inputConnection.getTextBeforeCursor(currentText.length(), 0);
                 if (charSequence.toString().length() == 3) {
-                    setInputtext(charSequence.toString());
+                  //  setInputtext(charSequence.toString());
                     InitSelecton(charSequence.toString());
                 }
                 break;
             case R.id.key_delete:
                 CharSequence selectedText = inputConnection.getSelectedText(0);
-                CharSequence charSequences = inputConnection.getTextBeforeCursor(10, 10);
                 if (TextUtils.isEmpty(selectedText))
                     inputConnection.deleteSurroundingText(1, 0);
                 else
@@ -378,7 +340,6 @@ public class SearchKeyBoardAct extends BaseActivity implements View.OnClickListe
         String root = split[0];
         tlist = new ListView(SearchKeyBoardAct.this);
         mlist = new ListView(SearchKeyBoardAct.this);
-        DatabaseUtils utils = new DatabaseUtils(SearchKeyBoardAct.this);
         Utils util = new Utils(SearchKeyBoardAct.this);
         util.getQuranDictionary();
         launchActivity(root);
@@ -388,7 +349,7 @@ public class SearchKeyBoardAct extends BaseActivity implements View.OnClickListe
     private void launchActivity(String root) {
         Bundle bundle = new Bundle();
         //   Intent intent = new Intent(getActivity(), NounOccuranceAsynKAct.class);
-        Intent intent = new Intent(SearchKeyBoardAct.this, SearchResult.class);
+        Intent intent = new Intent(SearchKeyBoardAct.this, KeyboardSearchResult.class);
         //   getTypedValues();
         bundle.putString(QURAN_VERB_ROOT, root);
         intent.putExtras(bundle);

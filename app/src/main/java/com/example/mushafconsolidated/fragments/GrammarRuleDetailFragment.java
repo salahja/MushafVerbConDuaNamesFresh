@@ -1,5 +1,6 @@
-package com.example.mushafconsolidated.Activity;
+package com.example.mushafconsolidated.fragments;
 
+import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.os.Bundle;
 import android.view.DragEvent;
@@ -11,7 +12,7 @@ import android.webkit.WebView;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.mushafconsolidated.Activity.placeholder.PlaceholderContent;
+import com.example.mushafconsolidated.Activity.placeholder.GrammarRulesContent;
 import com.example.mushafconsolidated.Entities.GrammarRules;
 import com.example.mushafconsolidated.R;
 
@@ -39,7 +40,7 @@ public class GrammarRuleDetailFragment extends Fragment {
     private final View.OnDragListener dragListener = (v, event) -> {
         if (event.getAction() == DragEvent.ACTION_DROP) {
             ClipData.Item clipDataItem = event.getClipData().getItemAt(0);
-            mItem = PlaceholderContent.ITEM_MAP.get(clipDataItem.getText().toString());
+            mItem = GrammarRulesContent.ITEM_MAP.get(clipDataItem.getText().toString());
             updateContent();
         }
         return true;
@@ -60,10 +61,11 @@ public class GrammarRuleDetailFragment extends Fragment {
             // Load the placeholder content specified by the fragment
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
-            mItem = PlaceholderContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
+            mItem = GrammarRulesContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
         }
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

@@ -22,7 +22,7 @@ import java.util.List;
  * @version 1.0
  */
 public class Vocalizer41 extends TrilateralNounSubstitutionApplier implements IUnaugmentedTrilateralNounModificationApplier {
-    List substitutions = new LinkedList();
+    List<org.sj.verbConjugation.trilateral.Substitution.Substitution> substitutions = new LinkedList<org.sj.verbConjugation.trilateral.Substitution.Substitution>();
 
     public Vocalizer41() {
         substitutions.add(new SuffixSubstitution("ِوُ", "ِي")); // EX: (هذا الرَّضِي )

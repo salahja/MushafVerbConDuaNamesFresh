@@ -20,7 +20,7 @@ import java.util.Map;
  * @version 1.0
  */
 public class PostHamzaModifier {
-    private final Map modifiersMap = new HashMap();
+    private final Map<String, org.sj.verbConjugation.trilateral.unaugmented.modifier.hamza.AbstractLamMahmouz> modifiersMap = new HashMap<>();
 
     public PostHamzaModifier() {
         //خمس أنواع  أساسية  للمهموز للمعلوم والمبني لمجهول في الماضي والمضارع والأمر
@@ -44,7 +44,7 @@ public class PostHamzaModifier {
         if (conjResult.getKov() != 4)
             return;
 
-        IUnaugmentedTrilateralModifier modifier = (IUnaugmentedTrilateralModifier) modifiersMap.get(tense + active);
+        IUnaugmentedTrilateralModifier modifier = modifiersMap.get(tense + active);
         if (modifier.isApplied(conjResult)) {
             ((SubstitutionsApplier) modifier).apply(conjResult.getFinalResult(), conjResult.getRoot());
         }

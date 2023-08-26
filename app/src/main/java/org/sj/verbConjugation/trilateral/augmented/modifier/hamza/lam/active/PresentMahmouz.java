@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class PresentMahmouz extends AbstractLamMahmouz {
-    private final List substitutions = new LinkedList();
+    private final List<org.sj.verbConjugation.trilateral.Substitution.Substitution> substitutions = new LinkedList<org.sj.verbConjugation.trilateral.Substitution.Substitution>();
 
     public PresentMahmouz() {
         substitutions.add(new SuffixSubstitution("يءُ", "يءُ")); // EX: (يُسِيءُ، )

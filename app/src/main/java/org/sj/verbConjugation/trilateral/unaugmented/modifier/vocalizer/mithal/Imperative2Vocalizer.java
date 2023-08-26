@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class Imperative2Vocalizer extends SubstitutionsApplier implements IUnaugmentedTrilateralModifier {
 
-    private final List substitutions = new LinkedList();
+    private final List<InfixSubstitution> substitutions = new LinkedList<InfixSubstitution>();
 
     public Imperative2Vocalizer() {
         substitutions.add(new InfixSubstitution("اوْ", "اي"));// EX: (ايجل، ايبأ، ايدد، ايئب )
