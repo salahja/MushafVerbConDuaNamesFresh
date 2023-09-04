@@ -2,6 +2,7 @@ package com.example.mushafconsolidated.Adapters;
 
 import static android.graphics.Color.CYAN;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -52,6 +53,7 @@ public class NounVerbOccuranceListAdapter extends BaseExpandableListAdapter {
         return expandedListPosition;
     }
 
+    @SuppressLint("InflateParams")
     @Override
     public View getChildView(int listPosition, final int expandedListPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
@@ -69,18 +71,11 @@ public class NounVerbOccuranceListAdapter extends BaseExpandableListAdapter {
         TextView expandedListTextViewlane = (TextView) convertView
                 .findViewById(R.id.expandedListItemverb);
         boolean contains = false;
-        if (contains) {
-            //setTextDirection(View.TEXT_DIRECTION_ANY_RTL)
-            expandedListTextView.setTextDirection(View.TEXT_DIRECTION_LTR);
-            //  CharSequence start = " Arabic to English" + child;
-            //   expandedListTextView.setText((CharSequence) child);
-            expandedListTextView.setText(HtmlCompat.fromHtml(String.valueOf(child), 0));
-        } else {
-            expandedListTextView.setText(HtmlCompat.fromHtml(String.valueOf(child), 0));
-            //  expandedListTextView.setText((CharSequence) child);
-        }
-        expandedListTextView.setText(HtmlCompat.fromHtml(String.valueOf(child), 0));
-        expandedListTextView.setTypeface(mequran);
+       // expandedListTextView.setText(HtmlCompat.fromHtml(String.valueOf(child), 0));
+        //  expandedListTextView.setText((CharSequence) child);
+        expandedListTextViewlane.setText((CharSequence) child);
+      //  expandedListTextView.setText(HtmlCompat.fromHtml(String.valueOf(child), 0));
+        expandedListTextViewlane.setTypeface(mequran);
         return convertView;
     }
 

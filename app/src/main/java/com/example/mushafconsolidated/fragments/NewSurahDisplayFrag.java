@@ -59,7 +59,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import database.GridImageAct;
+import database.NamesGridImageAct;
 import sj.hisnul.activity.HisnulBottomACT;
 
 /**
@@ -387,7 +387,7 @@ public class NewSurahDisplayFrag extends Fragment implements  SearchView.OnQuery
                     if(item.getItemId()==R.id.names) {
 
 
-                        Intent settingint = new Intent(getActivity(), GridImageAct.class);
+                        Intent settingint = new Intent(getActivity(), NamesGridImageAct.class);
                         //  settingint.putExtra(Constants.SURAH_INDEX, getChapterno());
                         startActivity(settingint);
 

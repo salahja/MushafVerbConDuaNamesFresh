@@ -110,15 +110,16 @@ public class RootWordDisplayAdapter extends RecyclerView.Adapter<RootWordDisplay
         View view;
         if (isverbconjugation) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.qaris_view_word_details, parent, false);
-
+             viewType=0;
         } else if (particples) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.wordbottomsheetismfaelmafoolsktraditional, parent, false);
+            viewType=1;
             //    view = LayoutInflater.from(parent.getContext()).inflate(R.layout.qaris_view_word_details, parent, false);
         } else {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.qaris_view_word_details, parent, false);
 
         }
-        return new ItemViewAdapter(view);
+        return new ItemViewAdapter(view,viewType);
     }
 
     public void SetOnItemClickListener(final OnItemClickListener mItemClickListener) {
@@ -631,6 +632,7 @@ public class RootWordDisplayAdapter extends RecyclerView.Adapter<RootWordDisplay
         holder.imafone.setText(smafone);
         holder.imaftwo.setText(smaftwo);
         holder.imafthree.setText(smafthree);
+        holder.imafthree.setText(smafthree);
         holder.imaffour.setText(smaffour);
         holder.imaffive.setText(smaffive);
         holder.imafsix.setText(smafsix);
@@ -922,10 +924,11 @@ public class RootWordDisplayAdapter extends RecyclerView.Adapter<RootWordDisplay
         final ConstraintLayout expandable;
         final MaterialCardView ifverborpart;
 
-        public ItemViewAdapter(View view) {
+        public ItemViewAdapter(View view, int viewType) {
             super(view);
             ifverborpart = view.findViewById(R.id.ifverborpart);
             moodrules = itemView.findViewById(R.id.moodrules);
+
             mazeedmeaning = itemView.findViewById(R.id.mazeedmeaning);
             darkThemeBacground = itemView.findViewById(R.id.jumptoverse);
             rdone = view.findViewById(R.id.rdone);

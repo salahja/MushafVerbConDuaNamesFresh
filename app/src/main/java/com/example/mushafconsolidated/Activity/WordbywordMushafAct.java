@@ -129,7 +129,6 @@ public class WordbywordMushafAct extends BaseActivity implements
     // private UpdateMafoolFlowAyahWordAdapter flowAyahWordAdapter;
     private boolean mausoof, mudhaf, harfnasb, shart;
     private ArrayList<ChaptersAnaEntity> soraList;
-    private EditText ayahIndex;
     private boolean kana;
     private List<QuranEntity> allofQuran;
     private SharedPreferences shared;
@@ -142,11 +141,8 @@ public class WordbywordMushafAct extends BaseActivity implements
     private ArrayList<MafoolMutlaqEnt> Mutlaqent;
     private ArrayList<LiajlihiEnt> Liajlihient;
     private ArrayList<com.example.mushafconsolidated.Entities.BadalErabNotesEnt> BadalErabNotesEnt;
-    private Utils utils;
     private int isMakkiMadani;
-    private int chapterno;
-    private RecyclerView parentRecyclerView;
-    private RecyclerView surahRecView;
+
 
     private static final String KEY_TRACK_SELECTION_PARAMETERS = "track_selection_parameters";
     private static final String KEY_SERVER_SIDE_ADS_LOADER_STATE = "server_side_ads_loader_state";
@@ -167,7 +163,6 @@ public class WordbywordMushafAct extends BaseActivity implements
     boolean flow = false;
     boolean singleline,rangeRecitation;
     private ArrayList<Page> fullQuranPages;
-    private long resumetrackposition;
     private boolean resume;
 
     public int getVersestartrange() {
@@ -204,21 +199,16 @@ public class WordbywordMushafAct extends BaseActivity implements
     private static final String KEY_AUTO_PLAY = "auto_play";
     private List<MediaItem> marray;
     private List<MediaItem> marrayrange=new ArrayList<>();
-    private String singleverse;
+
 
     private boolean isSingle;
     private boolean isStartFrom = false;
     private List<QuranEntity> quranbySurahadapter;
-    private MaterialButton resetplayer;
+
     private SharedPreferences sharedPreferences;
     private String selectedqari;
     MaterialTextView qariname,ayaprogress;
-    ImageView buffering;
     MaterialButton canceldownload;
-
-    public void setPrevqari(String prevqari) {
-        this.prevqari = prevqari;
-    }
 
     //  FrameLayout eqContainer;
 
@@ -451,7 +441,7 @@ public class WordbywordMushafAct extends BaseActivity implements
         AudioPositionSaved aplayed = ConfigPreferences.getLastPlayedAudio(this, String.valueOf(surah));
         if(aplayed!=null) {
             resumelastplayed = aplayed.getAudiopsaved().get(0).getAyah();
-            resumetrackposition = aplayed.getAudiopsaved().get(0).getTrackposition();
+            long resumetrackposition = aplayed.getAudiopsaved().get(0).getTrackposition();
 
 
         }
@@ -660,7 +650,6 @@ public class WordbywordMushafAct extends BaseActivity implements
         }
 
 //        wvDay = (WheelView) view.findViewById(R.id.wv_day);
-        final String[] currentsurahVersescount = null;
 
         int vcount = Integer.parseInt(versearrays[getSurahselected() - 1]);
 
@@ -754,7 +743,7 @@ public class WordbywordMushafAct extends BaseActivity implements
         buttonNegative.setTextColor(ContextCompat.getColor(WordbywordMushafAct.this, R.color.red));
         if (preferences.equals("light")) {
             buttonPositive.setTextColor(ContextCompat.getColor(WordbywordMushafAct.this, R.color.colorMuslimMate));
-            buttonNegative.setTextColor(ContextCompat.getColor(WordbywordMushafAct.this, R.color.red));;
+            buttonNegative.setTextColor(ContextCompat.getColor(WordbywordMushafAct.this, R.color.red));
 
         } else if (preferences.equals("brown")) {
             buttonPositive.setTextColor(ContextCompat.getColor(WordbywordMushafAct.this, R.color.colorMuslimMate));
@@ -973,15 +962,14 @@ public class WordbywordMushafAct extends BaseActivity implements
                 start = 0;
                 endb = String.valueOf(currenttrack);
 
-                end = str.indexOf(endb);
             } else {
                 starta = String.valueOf(currenttrack);
                 start = str.indexOf(starta);
                 endb = String.valueOf(currenttrack + 1);
 
-                end = str.indexOf(endb);
-
             }
+
+            end = str.indexOf(endb);
 
             try {
                 System.out.println(span.subSequence(start, end));
@@ -1039,7 +1027,6 @@ public class WordbywordMushafAct extends BaseActivity implements
        }
 
 
-     ;
         if (isMusicplaying) {
             releasePlayer();
         }
@@ -1371,39 +1358,6 @@ public class WordbywordMushafAct extends BaseActivity implements
         System.out.println("check");
     }
 
-    private void preparehighlights(int passageno, StringBuilder str, ArrayList<Integer> ayahmat) {
-
-        RecyclerView.ViewHolder holder = (RecyclerView.ViewHolder) recyclerView.findViewHolderForAdapterPosition(1);
-
-        int ayahindex = ayahmat.get(0);
-
-        String[] split1 = str.toString().split("﴿");
-        if (ayahindex == 1) {
-            int start = 0;
-            int end = str.indexOf("1");
-            AyahCoordinate ac = new AyahCoordinate(0, end, passageno);
-            ArrayList<AyahCoordinate> Coordinates = new ArrayList<>();
-
-            Coordinates.add(ac);
-            hlights.put(ayahindex, Coordinates);
-            ayahindex++;
-        }
-        for (int i = 0; i < split1.length; i++) {
-            int s = str.indexOf(String.valueOf(ayahindex));
-            int e = str.indexOf(String.valueOf(ayahindex + 1));
-
-            if (s != -1 && e != -1) {
-                AyahCoordinate ac = new AyahCoordinate(s, e, passageno);
-                ArrayList<AyahCoordinate> Coordinates = new ArrayList<>();
-
-                Coordinates.add(ac);
-                hlights.put(ayahindex++, Coordinates);
-            }
-        }
-
-        System.out.println("check");
-    }
-
     protected void clearStartPosition() {
         startAutoPlay = true;
         startItemIndex = C.INDEX_UNSET;
@@ -1417,7 +1371,7 @@ public class WordbywordMushafAct extends BaseActivity implements
         canceldownload.setOnClickListener(this);
         ayaprogress= (MaterialTextView) findViewById(R.id.ayaprogress);
         qariname = (MaterialTextView) findViewById(R.id.lqari);
-        buffering = (ImageView) findViewById(R.id.exo_buffering);
+        //buffering = (ImageView) findViewById(R.id.exo_buffering);
         SwitchCompat chooseDisplaytype = findViewById(R.id.chooseDisplaytype);
         chooseDisplaytype.setOnClickListener(this);
         playfb = (MovableFloatingActionButton) findViewById(R.id.playfb);
@@ -1467,15 +1421,9 @@ public class WordbywordMushafAct extends BaseActivity implements
             }
         });
 
-        ListView listView = (ListView) findViewById(R.id.ayahlist);
-
-
-        SeekBar seekBar = findViewById(R.id.SeekBar01);
-
-        RelativeLayout footerContainer = (RelativeLayout) findViewById(R.id.footerbar);
 
         audio_settings_bottom = findViewById(R.id.audio_settings_bottom);
-      //  normalFooter = (LinearLayout) findViewById(R.id.normalfooter);
+
         downloadFooter = (RelativeLayout) findViewById(R.id.footerdownload);
         playerFooter = (RelativeLayout) findViewById(R.id.footerplayer);
 
@@ -1656,7 +1604,7 @@ public class WordbywordMushafAct extends BaseActivity implements
     }
 
     public void ExecuteSurahWordByWord() {
-        utils=new Utils(this);
+        Utils utils = new Utils(this);
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.ThemeOverlay_Material3_Dialog);
         builder.setCancelable(false); // if you want user to wait for some process to finish,
         builder.setView(R.layout.layout_loading_dialog);
@@ -1731,20 +1679,11 @@ public class WordbywordMushafAct extends BaseActivity implements
             setSurahNameArabic(chapter.get(0).getNamearabic());
             LinearLayoutManager manager = new LinearLayoutManager(this);
             manager.setOrientation(LinearLayoutManager.VERTICAL);
-            GridLayoutManager mLayoutManager = new GridLayoutManager(this, 2);
 
             recyclerView.setHasFixedSize(true);
 
             manager.setOrientation(LinearLayoutManager.VERTICAL);
 
-/*
-            recyclerView.setLayoutManager(manager);
-            flowAyahWordAdapterpassage = new FlowAyahWordAdapterPassage(ruku, Mutlaqent, Tammezent, BadalErabNotesEnt, Liajlihient, Jumlahaliya, mafoolbihiwords, header, allofQuran, corpusayahWordArrayList, WordbywordMushafAct.this, surah, getSurahNameEnglish(), isMakkiMadani, listener);
-            flowAyahWordAdapterpassage.addContext(WordbywordMushafAct.this);
-            recyclerView.setHasFixedSize(true);
-            recyclerView.setAdapter(flowAyahWordAdapterpassage);
-            flowAyahWordAdapterpassage.notifyDataSetChanged();
-*/
 
 
 
@@ -1788,7 +1727,7 @@ public class WordbywordMushafAct extends BaseActivity implements
         audioSettingBottomBehaviour.setState(BottomSheetBehavior.STATE_EXPANDED);
         playerFooter.setVisibility(View.VISIBLE);
         if(player!=null){
-            player.pause();;
+            player.pause();
         }
        // player.play();
         //unregister broadcast for download ayat
@@ -1991,8 +1930,6 @@ public class WordbywordMushafAct extends BaseActivity implements
 
         int internetStatus = Settingsss.checkInternetStatus(this);
 
-//https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/
-        //check if there is other download in progress
         if (!Settingsss.isMyServiceRunning(this, DownloadService.class)) {
             //internal media play
             List<String> Links;

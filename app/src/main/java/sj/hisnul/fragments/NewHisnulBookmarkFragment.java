@@ -52,7 +52,7 @@ public class NewHisnulBookmarkFragment extends Fragment implements AdapterView.O
         //  List<BookMarks> bookmarks = new DatabaseAccess().getBookmarks();
         bookmarksShowAdapter = new NewHisnulBookmarksShowAdapter(getActivity());
         mRecview = view.findViewById(R.id.recyclerViewAdapterTranslation);
-        coordinatorLayout = view.findViewById(R.id.coordinatorLayout);
+     //   coordinatorLayout = view.findViewById(R.id.coordinatorLayout);
         this.layoutManager = new LinearLayoutManager(getActivity());
         mRecview.setLayoutManager(layoutManager);
         //    bookmarksShowAdapter.setBookMarkArrayList((ArrayList<String>) bookmarstringarray);

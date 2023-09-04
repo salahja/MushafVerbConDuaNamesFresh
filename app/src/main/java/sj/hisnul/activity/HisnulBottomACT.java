@@ -126,7 +126,7 @@ public class HisnulBottomACT extends BaseActivity implements OnItemClickListener
                     transactionss.commit();
                     break;
                 case R.id.exitact:
-                    finish();
+                    this.finish();
                     break;
                 default:
                     break;

@@ -3,6 +3,7 @@ package database;
 
 import static androidx.preference.PreferenceManager.getDefaultSharedPreferences;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -15,7 +16,7 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.cardview.widget.CardView;
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mushafconsolidated.R;
@@ -30,27 +31,29 @@ import java.util.List;
 import database.entity.AllahNames;
 
 public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder>  implements Filterable {
-    private CharSequence mSearchText = "";
-    private  List<AllahNames> names;
+    // --Commented out by Inspection (28/08/23, 6:54 pm):private final CharSequence mSearchText = "";
+    private final List<AllahNames> names;
     private  List<AllahNames> namesfilter;
     ArrayList<ImageItem> data;
-    int rootcolor, weaknesscolor, wazancolor;
-        private final Context context;
-        int bookmarkpostion;
+    // --Commented out by Inspection (28/08/23, 6:54 pm):int rootcolor, weaknesscolor, wazancolor;
+        // --Commented out by Inspection (28/08/23, 6:54 pm):private final Context context;
+        // --Commented out by Inspection (28/08/23, 6:53 pm):int bookmarkpostion;
         OnItemClickListener mItemClickListener;
-        //    private final Integer arabicTextColor;
-        Context mycontext;
+// --Commented out by Inspection START (28/08/23, 6:54 pm):
+//        //    private final Integer arabicTextColor;
+      Context context;
+// --Commented out by Inspection STOP (28/08/23, 6:54 pm)
 
-        private boolean mazeedregular;
-        private int bookChapterno;
-        private int bookVerseno;
-        private Integer ayahNumber;
-        private String urdu_font_selection;
-        private int quran_arabic_font;
+        // --Commented out by Inspection (28/08/23, 6:54 pm):private boolean mazeedregular;
+        // --Commented out by Inspection (28/08/23, 6:53 pm):private int bookChapterno;
+        // --Commented out by Inspection (28/08/23, 6:54 pm):private int bookVerseno;
+        // --Commented out by Inspection (28/08/23, 6:53 pm):private Integer ayahNumber;
+        // --Commented out by Inspection (28/08/23, 6:54 pm):private String urdu_font_selection;
+        // --Commented out by Inspection (28/08/23, 6:54 pm):private int quran_arabic_font;
 
 
-        private int urdu_font_size;
-        private String arabic_font_selection;
+        // --Commented out by Inspection (28/08/23, 6:54 pm):private int urdu_font_size;
+        // --Commented out by Inspection (28/08/23, 6:53 pm):private String arabic_font_selection;
 
 
 
@@ -65,23 +68,21 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder>  i
     }
 
 
+    @NonNull
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
 
             //      View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.sarfkabeercolumn, parent, false);
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.nameimages, parent, false);
             //    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.thulathisarfsagheer, parent, false);
-            ViewHolder viewHolder = new ViewHolder(view);
 
-            return viewHolder;
+        return new ViewHolder(view);
             
             
         }
 
 
         public void onBindViewHolder(@NotNull ViewHolder holder, int position) {
-            //  final List sarf = sarfSagheer.get(position);
-//        final String[] array = (String[]) sarfSagheer.get(position).toArray.get();
 
             SharedPreferences sharedPreferences =getDefaultSharedPreferences(QuranGrammarApplication.getContext());
 
@@ -99,7 +100,7 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder>  i
             Typeface mequran= Typeface.createFromAsset(QuranGrammarApplication.getContext().getAssets(), "Taha.ttf");
             final Integer arabicFontsize = Integer.valueOf(fonts);
 
-            ImageItem imageItem = (ImageItem) data.get(position);
+            ImageItem imageItem = data.get(position);
             holder.imageView.setImageBitmap(imageItem.getImage());
             names.get(position);
 
@@ -110,11 +111,6 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder>  i
             holder.meaning.setTypeface(mequran);
             holder.meaning.setTextSize(translationfontsize);
 
-
-
-
-// holder.ivSurahIcon.setImageDrawable(drawable);
-        //    holder.rulenumber.setTextSize(arabicFontsize);
 
         }
 
@@ -163,6 +159,7 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder>  i
                 return filterResults;
             }
 
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
                 namesfilter = (ArrayList<AllahNames>) filterResults.values;

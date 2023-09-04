@@ -152,7 +152,7 @@ public class DownloadManager extends AsyncTask<String, Long, Boolean> {
         openApplication = new Intent(context, ShowMushafActivity.class);
         notificationPending = PendingIntent.getActivity(context, 0,
                 openApplication, PendingIntent.FLAG_IMMUTABLE);
-        aboveLollipopFlag = android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
+        aboveLollipopFlag = true;
 
     }
 
@@ -505,20 +505,18 @@ public class DownloadManager extends AsyncTask<String, Long, Boolean> {
     private String createNotificationChannel(Context context) {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
-            int importance = NotificationManager.IMPORTANCE_LOW;
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, importance);
-            channel.setDescription(CHANNEL_DESCRIPTION);
-            channel.enableLights(true);
-            channel.setLightColor(Color.RED);
-            channel.setShowBadge(true);
-            channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
-            NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
+        int importance = NotificationManager.IMPORTANCE_LOW;
+        NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, importance);
+        channel.setDescription(CHANNEL_DESCRIPTION);
+        channel.enableLights(true);
+        channel.setLightColor(Color.RED);
+        channel.setShowBadge(true);
+        channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+        // Register the channel with the system; you can't change the importance
+        // or other notification behaviors after this
+        NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
+        notificationManager.createNotificationChannel(channel);
         return CHANNEL_ID;
     }
 
@@ -531,12 +529,8 @@ public class DownloadManager extends AsyncTask<String, Long, Boolean> {
 
 
         remoteViews = new RemoteViews(context.getPackageName(), R.layout.notification_download_progress);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            String channelID = createNotificationChannel(context);
-            builder = new NotificationCompat.Builder(context, channelID);
-        } else {
-            builder = new NotificationCompat.Builder(context);
-        }
+        String channelID = createNotificationChannel(context);
+        builder = new NotificationCompat.Builder(context, channelID);
         builder.setSmallIcon(aboveLollipopFlag ? R.drawable.ic_quran_trans : R.drawable.logo)
                 .setColor(Color.parseColor("#3E686A"))
                 .setProgress(100, 0, false)

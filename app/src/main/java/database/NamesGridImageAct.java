@@ -2,23 +2,18 @@ package database;
 
 import static com.example.Constant.SURAH_ID;
 import static com.example.mushafconsolidated.R.drawable.custom_search_box;
-import static com.example.mushafconsolidated.R.drawable.search_box_bg;
-import static com.example.mushafconsolidated.R.drawable.search_round;
 
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,8 +29,6 @@ import com.example.mushafconsolidated.NamesDetail;
 import com.example.mushafconsolidated.R;
 import com.example.mushafconsolidated.Utils;
 
-import com.example.utility.QuranGrammarApplication;
-
 import org.sj.conjugator.interfaces.OnItemClickListener;
 
 import java.util.ArrayList;
@@ -43,7 +36,7 @@ import java.util.Objects;
 
 import database.entity.AllahNames;
 
-public class GridImageAct extends BaseActivity {
+public class NamesGridImageAct extends BaseActivity {
 
 
     private GridAdapter gadapter;
@@ -86,23 +79,25 @@ public class GridImageAct extends BaseActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(gadapter);
-        gadapter.SetOnItemClickListener((v, position) -> {
 
-            AllahNames item1 = (AllahNames) gadapter.getItem(position);
-            System.out.println(item1.getArabic());
-            NamesDetail item=new NamesDetail();
+        gadapter.SetOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                AllahNames item1 = (AllahNames) gadapter.getItem(position);
+                System.out.println(item1.getArabic());
+                NamesDetail item=new NamesDetail();
 
-            Bundle dataBundle = new Bundle();
-            dataBundle.putInt(SURAH_ID, item1.getId());
+                Bundle dataBundle = new Bundle();
+                dataBundle.putInt(SURAH_ID, item1.getId());
 
 
 
 
-            item.setArguments(dataBundle);
-           int data = (item1.getId());
-            NamesDetail.newInstance(data).show(getSupportFragmentManager(), NamesDetail.TAG);
+                item.setArguments(dataBundle);
+                int data = (item1.getId());
+                NamesDetail.newInstance(data).show(getSupportFragmentManager(), NamesDetail.TAG);
 
-            //   Toast.makeText(GridImageAct.this, item1.getId(), Toast.LENGTH_SHORT).show();
+            }
         });
 
 
@@ -136,6 +131,7 @@ public class GridImageAct extends BaseActivity {
             Bitmap bitmap = BitmapFactory.decodeResource(getResources(), imgs.getResourceId(i, -1));
             imageItems.add(new ImageItem(bitmap, "Image#" + i));
         }
+        imgs.recycle();
         return imageItems;
     }
 

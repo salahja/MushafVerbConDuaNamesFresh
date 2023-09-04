@@ -131,7 +131,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import database.GridImageAct;
+import database.NamesGridImageAct;
 import mm.prayer.muslimmate.Activity.MainTwoActivityPrayer;
 import sj.hisnul.activity.HisnulBottomACT;
 import wheel.OnWheelChangedListener;
@@ -465,7 +465,7 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
 
                    materialToolbar.setTitle("Quran Audio");
 
-                   Intent settingint = new Intent(QuranGrammarAct.this, GridImageAct.class);
+                   Intent settingint = new Intent(QuranGrammarAct.this, NamesGridImageAct.class);
                    settingint.putExtra(Constants.SURAH_INDEX, getChapterno());
                    startActivity(settingint);
 
@@ -666,6 +666,8 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
+
+
         verses.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
@@ -678,58 +680,68 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
-        ok.setOnClickListener(view -> {
-            if (!ayahIndex.getText().toString().trim().equals("")) {
-                jumpDialog.dismiss();
-                //    soraList.get(suraNumber).getAbjadname();
-                setSurahArabicName(suraNumber + "-" + soraList.get(suraNumber - 1).getNameenglish() + "-" + soraList.get(suraNumber - 1).getAbjadname());
-                setSurahArabicName(soraList.get(suraNumber - 1).getAbjadname());
-                //  ayahIndex.getInputType();
-                Editable text = ayahIndex.getText();
-                setVerse_no(Integer.parseInt(String.valueOf(text)));
-                setVersescount(soraList.get(suraNumber - 1).getVersescount());
-                setIsMakkiMadani(soraList.get(suraNumber - 1).getIsmakki());
-                setRukucount(soraList.get(suraNumber - 1).getRukucount());
-                setCurrentSelectSurah(suraNumber);
-                //  setVerse_no(verseNumber);
-                setChapterno(suraNumber);
-                parentRecyclerView = findViewById(id.overlayViewRecyclerView);
-                if (currentSelectSurah == surah_id) {
-                    parentRecyclerView.post(() -> parentRecyclerView.scrollToPosition(verse_no));
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-                } else {
-                    jumptostatus = true;
-                    setSurahorpart(currentSelectSurah);
-                    setSurah_id(currentSelectSurah);
-                    ExecuteSurahWordByWord();
-                    //     asyncTaskcorpus = new refactoringcurrentSurahSyncWordByWord().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                }
+            }
+        });
 
-            } else if (surahIndex.getText().toString().trim().equals("") || surahIndex.getText() == null) {
-                jumpDialog.dismiss();
-                //     soraList.get(suraNumber).getAbjadname();
-                setSurahArabicName(suraNumber + "-" + soraList.get(suraNumber - 1).getNameenglish() + "-" + soraList.get(suraNumber - 1).getAbjadname());
-                setSurahArabicName(soraList.get(suraNumber - 1).getAbjadname());
-                setVerse_no(verseNumber);
-                setVersescount(soraList.get(suraNumber - 1).getVersescount());
-                setIsMakkiMadani(soraList.get(suraNumber - 1).getIsmakki());
-                setRukucount(soraList.get(suraNumber - 1).getRukucount());
-                setCurrentSelectSurah(suraNumber);
-                setChapterno(suraNumber);
-                parentRecyclerView = findViewById(id.overlayViewRecyclerView);
-                if (currentSelectSurah == surah_id) {
-                    parentRecyclerView.post(() -> parentRecyclerView.scrollToPosition(verse_no));
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!ayahIndex.getText().toString().trim().equals("")) {
+                    jumpDialog.dismiss();
+                    //    soraList.get(suraNumber).getAbjadname();
+                    QuranGrammarAct.this.setSurahArabicName(suraNumber + "-" + soraList.get(suraNumber - 1).getNameenglish() + "-" + soraList.get(suraNumber - 1).getAbjadname());
+                    QuranGrammarAct.this.setSurahArabicName(soraList.get(suraNumber - 1).getAbjadname());
+                    //  ayahIndex.getInputType();
+                    Editable text = ayahIndex.getText();
+                    QuranGrammarAct.this.setVerse_no(Integer.parseInt(String.valueOf(text)));
+                    QuranGrammarAct.this.setVersescount(soraList.get(suraNumber - 1).getVersescount());
+                    QuranGrammarAct.this.setIsMakkiMadani(soraList.get(suraNumber - 1).getIsmakki());
+                    QuranGrammarAct.this.setRukucount(soraList.get(suraNumber - 1).getRukucount());
+                    QuranGrammarAct.this.setCurrentSelectSurah(suraNumber);
+                    //  setVerse_no(verseNumber);
+                    QuranGrammarAct.this.setChapterno(suraNumber);
+                    parentRecyclerView = QuranGrammarAct.this.findViewById(id.overlayViewRecyclerView);
+                    if (currentSelectSurah == surah_id) {
+                        parentRecyclerView.post(() -> parentRecyclerView.scrollToPosition(verse_no));
 
-                } else {
-                    jumptostatus = true;
-                    setSurahorpart(currentSelectSurah);
-                    setSurah_id(currentSelectSurah);
-                    ExecuteSurahWordByWord();
-                    //     asyncTaskcorpus = new refactoringcurrentSurahSyncWordByWord().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    } else {
+                        jumptostatus = true;
+                        QuranGrammarAct.this.setSurahorpart(currentSelectSurah);
+                        QuranGrammarAct.this.setSurah_id(currentSelectSurah);
+                        QuranGrammarAct.this.ExecuteSurahWordByWord();
+                        //     asyncTaskcorpus = new refactoringcurrentSurahSyncWordByWord().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    }
+
+                } else if (surahIndex.getText().toString().trim().equals("") || surahIndex.getText() == null) {
+                    jumpDialog.dismiss();
+                    //     soraList.get(suraNumber).getAbjadname();
+                    QuranGrammarAct.this.setSurahArabicName(suraNumber + "-" + soraList.get(suraNumber - 1).getNameenglish() + "-" + soraList.get(suraNumber - 1).getAbjadname());
+                    QuranGrammarAct.this.setSurahArabicName(soraList.get(suraNumber - 1).getAbjadname());
+                    QuranGrammarAct.this.setVerse_no(verseNumber);
+                    QuranGrammarAct.this.setVersescount(soraList.get(suraNumber - 1).getVersescount());
+                    QuranGrammarAct.this.setIsMakkiMadani(soraList.get(suraNumber - 1).getIsmakki());
+                    QuranGrammarAct.this.setRukucount(soraList.get(suraNumber - 1).getRukucount());
+                    QuranGrammarAct.this.setCurrentSelectSurah(suraNumber);
+                    QuranGrammarAct.this.setChapterno(suraNumber);
+                    parentRecyclerView = QuranGrammarAct.this.findViewById(id.overlayViewRecyclerView);
+                    if (currentSelectSurah == surah_id) {
+                        parentRecyclerView.post(() -> parentRecyclerView.scrollToPosition(verse_no));
+
+                    } else {
+                        jumptostatus = true;
+                        QuranGrammarAct.this.setSurahorpart(currentSelectSurah);
+                        QuranGrammarAct.this.setSurah_id(currentSelectSurah);
+                        QuranGrammarAct.this.ExecuteSurahWordByWord();
+                        //     asyncTaskcorpus = new refactoringcurrentSurahSyncWordByWord().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    }
+
                 }
 
             }
-
         });
 
     }
@@ -806,14 +818,14 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
 
             try {
                 setSurahArabicName(suraNumber + "-" + soraList.get(chapterno[0] - 1).getNameenglish() + "-" + soraList.get(chapterno[0] - 1).getAbjadname());
-                setSurahArabicName(soraList.get(chapterno[0]).getAbjadname());
+                setSurahArabicName(soraList.get(chapterno[0]-1).getAbjadname());
                 setVerse_no(verseno[0]);
                 setVersescount(soraList.get(chapterno[0] - 1).getVersescount());
                 setIsMakkiMadani(soraList.get(chapterno[0] - 1).getIsmakki());
                 setRukucount(soraList.get(chapterno[0] - 1).getRukucount());
                 setCurrentSelectSurah(soraList.get(chapterno[0] - 1).getChapterid());
 
-                setChapterno(soraList.get(chapterno[0] - 1).getChapterid());
+            //    setChapterno(soraList.get(chapterno[0] - 1).getChapterid());
             } catch (ArrayIndexOutOfBoundsException e){
                 setSurahArabicName(suraNumber + "-" + soraList.get(chapterno[0]).getNameenglish() + "-" + soraList.get(chapterno[0]).getAbjadname());
                 setSurahArabicName(soraList.get(chapterno[0]).getAbjadname());

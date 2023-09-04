@@ -163,6 +163,11 @@ public class WordOccuranceAct extends BaseActivity {
                 }else{
                     verbroot=root;
                 }
+
+
+
+
+
                 nounCorpusArrayList = utils.getNounBreakup(nounroot);
                 verbCorpusArrayList = utils.getVerbBreakUp(verbroot);
                 ArrayList<SpannableString> alist = new ArrayList<>();
@@ -463,10 +468,11 @@ public class WordOccuranceAct extends BaseActivity {
                                                     }
                                                 });
                                                 List<SpannableString> list = new ArrayList<>();
+                                                SpannableString spannablestrin;
                                                 ArrayList<CorpusVerbWbwOccurance> verses = utils.getVerbOccuranceBreakVerses((split[1]));
                                                 for (CorpusVerbWbwOccurance vers : verses) {
                                                     StringBuilder sb = new StringBuilder();
-                                                    Spannable spannableVerses = CorpusUtilityorig.getSpannableVerses(vers.getAraone() + vers.getAratwo() + vers.getArathree() + vers.getArafour() + vers.getArafive(),
+                                                    spannablestrin=          CorpusUtilityorig.getSpannableVerses(vers.getAraone() + vers.getAratwo() + vers.getArathree() + vers.getArafour() + vers.getArafive(),
                                                             vers.getQurantext());
                                                     sb.append(vers.getSurah()).append(":").append(vers.getAyah()).append(":").append(vers.getWordno()).append("-").append(vers.getEn()).append("-");
                                                     //       sb.append(vers.getSurah()).append(":").append(vers.getAyah()).append(":").append(vers.getWordno()).append("-");
@@ -489,9 +495,9 @@ public class WordOccuranceAct extends BaseActivity {
                                                             trans = SpannableString.valueOf(vers.getEn_arberry());
                                                             break;
                                                     }
-                                                    CharSequence charSequence = TextUtils.concat(ref, "\n ", spannableVerses);
+                                                    CharSequence charSequence = TextUtils.concat(ref, "\n ", spannablestrin);
                                                     list.add(SpannableString.valueOf(charSequence));
-                                                    list.add(trans);
+                                                      list.add(trans);
 
                                                 }
                                                 runOnUiThread(new Runnable() {
