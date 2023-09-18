@@ -50,6 +50,10 @@ public class wbwentity {
         this.juz = juz;
     }
 
+    public wbwentity() {
+
+    }
+
     @NonNull
     public String getUr() {
         return ur;

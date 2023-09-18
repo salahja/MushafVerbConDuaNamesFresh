@@ -62,16 +62,7 @@ public abstract class VerbDatabase extends RoomDatabase {
     public abstract BuckwaterDao BuckwaterDao();
 
     public abstract QuranVerbsDao QuranVerbsDao();
-
-
-
-
-
-
-
     public abstract verbcorpusDao verbcorpusDao();
-
-
   public abstract kovDao kovDao();
     public abstract mujarradDao mujarradDao();
     public abstract mazeedDao mazeedDao();

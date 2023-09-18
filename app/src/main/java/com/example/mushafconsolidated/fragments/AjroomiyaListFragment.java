@@ -1,6 +1,5 @@
 package com.example.mushafconsolidated.fragments;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -14,7 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mushafconsolidated.Activity.placeholder.GrammarRulesContent;
+import com.example.mushafconsolidated.Activity.placeholder.AjroomiyaRulecontents;
 import com.example.mushafconsolidated.Entities.GrammarRules;
 import com.example.mushafconsolidated.R;
 import com.example.mushafconsolidated.databinding.FragmentGrammarruleListBinding;
@@ -26,11 +25,12 @@ import java.util.List;
  * A fragment representing a list of GrammarRules. This fragment
  * has different presentations for handset and larger screen devices. On
  * handsets, the fragment presents a list of items, which when touched,
- * lead to a {@link GrammarRuleDetailFragment} representing
+ * lead to a {@link AjroomiyaDetailFragment} representing
  * item details. On larger screens, the Navigation controller presents the list of items and
  * item details side-by-side using two vertical panes.
  */
-public class GrammarRuleListFragment extends Fragment {
+public class AjroomiyaListFragment extends Fragment {
+
     /**
      * Method to intercept global key events in the
      * item list fragment to trigger keyboard shortcuts
@@ -56,7 +56,7 @@ public class GrammarRuleListFragment extends Fragment {
         return false;
     };
     private FragmentGrammarruleListBinding binding;
-    private FragmentGrammarruleListBinding bindings;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -82,7 +82,7 @@ public class GrammarRuleListFragment extends Fragment {
             GrammarRules item =
                     (GrammarRules) itemView.getTag();
             Bundle arguments = new Bundle();
-            arguments.putString(GrammarRuleDetailFragment.ARG_ITEM_ID, String.valueOf(item.getId()));
+            arguments.putString(AjroomiyaDetailFragment.ARG_ITEM_ID, String.valueOf(item.getId()));
             //     if (itemDetailFragmentContainer != null) {
             //      Navigation.findNavController(itemDetailFragmentContainer)
             //            .navigate(R.id.fragment_grammarrule_detail, arguments);
@@ -97,8 +97,8 @@ public class GrammarRuleListFragment extends Fragment {
          * experience on larger screen devices
          */
         View.OnContextClickListener onContextClickListener = itemView -> {
-            GrammarRulesContent.PlaceholderItem item =
-                    (GrammarRulesContent.PlaceholderItem) itemView.getTag();
+            AjroomiyaRulecontents.PlaceholderItem item =
+                    (AjroomiyaRulecontents.PlaceholderItem) itemView.getTag();
             Toast.makeText(
                     itemView.getContext(),
                     "Context click of item " + item.id,
@@ -115,7 +115,7 @@ public class GrammarRuleListFragment extends Fragment {
             View.OnContextClickListener onContextClickListener
     ) {
         recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(
-                GrammarRulesContent.ITEMS,
+                AjroomiyaRulecontents.ITEMS,
                 onClickListener,
                 onContextClickListener
         ));
@@ -159,9 +159,7 @@ public class GrammarRuleListFragment extends Fragment {
             //    holder.mContentView.setText(HtmlCompat.fromHtml(mValues.get(position).getWorddetails() ,0));
             holder.itemView.setTag(mValues.get(position));
             holder.itemView.setOnClickListener(mOnClickListener);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                holder.itemView.setOnContextClickListener(mOnContextClickListener);
-            }
+            holder.itemView.setOnContextClickListener(mOnContextClickListener);
 
         }
 

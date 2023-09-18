@@ -12,20 +12,21 @@ import android.webkit.WebView;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.mushafconsolidated.Activity.placeholder.GrammarRulesContent;
+import com.example.mushafconsolidated.Activity.placeholder.AjroomiyaRulecontents;
 import com.example.mushafconsolidated.Entities.GrammarRules;
 import com.example.mushafconsolidated.R;
+
 
 import com.example.mushafconsolidated.databinding.FragmentGrammarruleDetailBinding;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 /**
  * A fragment representing a single GrammarRule detail screen.
- * This fragment is either contained in a {@link GrammarRuleListFragment}
+ * This fragment is either contained in a {@link AjroomiyaListFragment}
  * in two-pane mode (on larger screen devices) or self-contained
  * on handsets.
  */
-public class GrammarRuleDetailFragment extends Fragment {
+public class AjroomiyaDetailFragment extends Fragment {
     /**
      * The fragment argument representing the item ID that this fragment
      * represents.
@@ -40,7 +41,7 @@ public class GrammarRuleDetailFragment extends Fragment {
     private final View.OnDragListener dragListener = (v, event) -> {
         if (event.getAction() == DragEvent.ACTION_DROP) {
             ClipData.Item clipDataItem = event.getClipData().getItemAt(0);
-            mItem = GrammarRulesContent.ITEM_MAP.get(clipDataItem.getText().toString());
+            mItem = AjroomiyaRulecontents.ITEM_MAP.get(clipDataItem.getText().toString());
             updateContent();
         }
         return true;
@@ -51,7 +52,7 @@ public class GrammarRuleDetailFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public GrammarRuleDetailFragment() {
+    public AjroomiyaDetailFragment() {
     }
 
     @Override
@@ -61,7 +62,7 @@ public class GrammarRuleDetailFragment extends Fragment {
             // Load the placeholder content specified by the fragment
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
-            mItem = GrammarRulesContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
+            mItem = AjroomiyaRulecontents.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
         }
     }
 

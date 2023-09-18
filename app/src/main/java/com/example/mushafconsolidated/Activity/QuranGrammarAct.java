@@ -37,6 +37,7 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.InputFilter;
+import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.format.DateFormat;
@@ -75,21 +76,26 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.webkit.internal.ApiFeature;
 
 import com.example.JustJava.InputFilterMinMax;
 import com.example.JustJava.WbwSurah;
 import com.example.mushafconsolidated.Adapters.FlowAyahWordAdapter;
 import com.example.mushafconsolidated.Adapters.FlowAyahWordAdapterPassage;
+import com.example.mushafconsolidated.Adapters.NewFlowAyahWordAdapter;
 import com.example.mushafconsolidated.Entities.BadalErabNotesEnt;
 import com.example.mushafconsolidated.Entities.BookMarks;
 import com.example.mushafconsolidated.Entities.ChaptersAnaEntity;
+import com.example.mushafconsolidated.Entities.CorpusEntity;
 import com.example.mushafconsolidated.Entities.HalEnt;
 import com.example.mushafconsolidated.Entities.LiajlihiEnt;
 import com.example.mushafconsolidated.Entities.MafoolBihi;
 import com.example.mushafconsolidated.Entities.MafoolMutlaqEnt;
+import com.example.mushafconsolidated.Entities.QuranCorpusWbw;
 import com.example.mushafconsolidated.Entities.QuranEntity;
 import com.example.mushafconsolidated.Entities.TameezEnt;
 import com.example.mushafconsolidated.BottomOptionDialog;
+import com.example.mushafconsolidated.Entities.wbwentity;
 import com.example.mushafconsolidated.NamesDetail;
 import com.example.mushafconsolidated.ParticleColorScheme;
 import com.example.mushafconsolidated.R;
@@ -103,8 +109,10 @@ import com.example.mushafconsolidated.fragments.NewSurahDisplayFrag;
 import com.example.mushafconsolidated.fragments.WordAnalysisBottomSheet;
 import com.example.mushafconsolidated.intrface.OnItemClickListenerOnLong;
 import com.example.mushafconsolidated.intrface.PassdataInterface;
+import com.example.mushafconsolidated.model.AyahWord;
 import com.example.mushafconsolidated.model.CorpusAyahWord;
 import com.example.mushafconsolidated.model.CorpusWbwWord;
+import com.example.mushafconsolidated.model.NewCorpusAyahWord;
 import com.example.mushafconsolidated.settings.Constants;
 import com.example.roots.arabicrootDetailHostActivity;
 
@@ -142,7 +150,9 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
     private String[] surahWheelDisplayData;
     private String[] ayahWheelDisplayData;
     private static final String TAG = "fragment";
+    private  List<QuranCorpusWbw> corpusSurahWord=new ArrayList<>();
 
+            private    LinkedHashMap<Integer, ArrayList<QuranCorpusWbw>> newnewadapterlist = new LinkedHashMap<>();
     FloatingActionButton btnBottomSheet;
     String surahArabicName;
     boolean jumptostatus = false;
@@ -168,6 +178,7 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
     private Toolbar materialToolbar;
     private FlowAyahWordAdapter flowAyahWordAdapter;
     private FlowAyahWordAdapterPassage flowAyahWordAdapterpassage;
+    private NewFlowAyahWordAdapter newflowadapter;
     // private UpdateMafoolFlowAyahWordAdapter flowAyahWordAdapter;
     private boolean mausoof, mudhaf, harfnasb, shart;
     private ArrayList<ChaptersAnaEntity> soraList;
@@ -178,6 +189,7 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
 
     //  private OnClickListener onClickListener;
     private ArrayList<CorpusAyahWord> corpusayahWordArrayList;
+    private ArrayList<NewCorpusAyahWord> corpusayahWordArrayListtwo;
     private final LinkedHashMap<Integer, ArrayList<CorpusWbwWord>> passage = new LinkedHashMap<>();
     private ArrayList<MafoolBihi> mafoolbihiwords;
     private ArrayList<HalEnt> Jumlahaliya;
@@ -1210,10 +1222,28 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
     @SuppressLint("NotifyDataSetChanged")
     private void bysurah(AlertDialog dialog, ExecutorService ex) {
         runOnUiThread(dialog::show);
+        NewCorpusAyahWord ayahWord=new NewCorpusAyahWord();
+        ArrayList<wbwentity> wbwentities = utils.getwbwQuran(chapterno);
+        ArrayList<NewCorpusAyahWord> pre=new ArrayList<>();
+        ArrayList<NewCorpusAyahWord> pres=new ArrayList<>();
+      ArrayList<ArrayList<NewCorpusAyahWord>> wbwarraylist = new ArrayList();
+        allofQuran = Utils.getQuranbySurah(chapterno);
+        corpusSurahWord=       utils.getQuranCorpusWbwbysurah(chapterno);
+        composeWbwCollection();
+
+        NewCorpusAyahWord aayahWord=new NewCorpusAyahWord();
+        ArrayList<wbwentity> awbwentities = utils.getwbwQuran(chapterno);
+        ArrayList<NewCorpusAyahWord> apre=new ArrayList<>();
+        ArrayList<NewCorpusAyahWord> apres=new ArrayList<>();
+        ArrayList<ArrayList<NewCorpusAyahWord>> awbwarraylist = new ArrayList();
+
+
+
+
         WbwSurah wbwSurah=new WbwSurah(QuranGrammarAct.this, chapterno, corpusayahWordArrayList,passage);
         wbwSurah.getWordbyword();
         CorpusUtilityorig corpus = new CorpusUtilityorig(this);
-      //     corpus.highLightVerbs(corpusayahWordArrayList,surah_id);
+
         if (kana) {
             corpus.setKana(corpusayahWordArrayList, chapterno);
 
@@ -1232,8 +1262,6 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
         if (harfnasb) {
             corpus.newnewHarfNasbDb(corpusayahWordArrayList, chapterno);
         }
-        //     corpus.highLightVerbs(corpusayahWordArrayList,surah_id);
-        //post
         runOnUiThread(() -> {
             dialog.dismiss();
             ex.shutdown();
@@ -1251,11 +1279,17 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
             header.add(getSurahArabicName());
             HightLightKeyWord();
             if (!mushafview) {
-                flowAyahWordAdapter = new FlowAyahWordAdapter(false, passage, Mutlaqent, Tammezent, BadalErabNotesEnt, Liajlihient, Jumlahaliya, mafoolbihiwords, header, allofQuran, corpusayahWordArrayList, QuranGrammarAct.this, surah_id, surahArabicName, isMakkiMadani, listener);
+/*                flowAyahWordAdapter = new FlowAyahWordAdapter(false, passage, Mutlaqent, Tammezent, BadalErabNotesEnt, Liajlihient, Jumlahaliya, mafoolbihiwords, header, allofQuran, corpusayahWordArrayList, QuranGrammarAct.this, surah_id, surahArabicName, isMakkiMadani, listener);
                 flowAyahWordAdapter.addContext(QuranGrammarAct.this);
                 parentRecyclerView.setHasFixedSize(true);
                 parentRecyclerView.setAdapter(flowAyahWordAdapter);
                 flowAyahWordAdapter.notifyDataSetChanged();
+                parentRecyclerView.post(() -> parentRecyclerView.scrollToPosition(verse_no));*/
+                newflowadapter = new NewFlowAyahWordAdapter(false, passage, Mutlaqent, Tammezent, BadalErabNotesEnt, Liajlihient, Jumlahaliya, mafoolbihiwords, header, allofQuran, newnewadapterlist, QuranGrammarAct.this, surah_id, surahArabicName, isMakkiMadani, listener);
+                newflowadapter.addContext(QuranGrammarAct.this);
+                parentRecyclerView.setHasFixedSize(true);
+                parentRecyclerView.setAdapter(newflowadapter);
+                newflowadapter.notifyDataSetChanged();
                 parentRecyclerView.post(() -> parentRecyclerView.scrollToPosition(verse_no));
 
             } else {
@@ -1324,6 +1358,51 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
             }*/
 
         });
+    }
+
+    private void composeWbwCollection() {
+
+
+
+ ArrayList qurancorpusarray  = new ArrayList<QuranCorpusWbw>()  ;
+
+
+
+
+        int aindex = 0;
+        int secondindex = 0;
+
+        while (aindex <= allofQuran.size()) {
+
+            QuranCorpusWbw     ayahWord = new QuranCorpusWbw();
+
+            try {
+                while (corpusSurahWord.get(secondindex).getCorpus().getAyah() <= allofQuran.get(aindex).getAyah()) {
+                    if (corpusSurahWord.get(secondindex).getCorpus().getAyah() != allofQuran.get(aindex).getAyah()) {
+                        break;
+                    }
+
+                    ayahWord.setSpannableverse(SpannableString.valueOf(allofQuran.get(aindex).getQurantext()));
+
+                    ayahWord.setWbw(corpusSurahWord.get(secondindex).getWbw());
+                    ayahWord.setCorpus( corpusSurahWord.get(secondindex++).getCorpus());
+                    qurancorpusarray.add(ayahWord);
+
+                    ayahWord =new QuranCorpusWbw();
+                }
+            }
+            catch (IndexOutOfBoundsException e) {
+                System.out.println(e.getMessage());
+            }
+
+            if (!qurancorpusarray.isEmpty()) {
+                newnewadapterlist.put(aindex,qurancorpusarray);
+
+                ayahWord =new QuranCorpusWbw();
+            }
+            qurancorpusarray =new  ArrayList();
+            aindex++;
+        }
     }
 
     private void HightLightKeyWord() {

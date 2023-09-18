@@ -2,13 +2,28 @@ package com.example.mushafconsolidated.DAO;
 
 import androidx.room.Dao;
 import androidx.room.Query;
+import androidx.room.Transaction;
 
+import com.example.mushafconsolidated.Entities.QuranCorpusWbw;
 import com.example.mushafconsolidated.Entities.QuranEntity;
 
 import java.util.List;
 
 @Dao
 public interface QuranDao {
+
+
+    @Transaction
+    @Query("SELECT * FROM CorpusExpand JOIN wbw ON wbw.id = CorpusExpand.id where corpusexpand.surah=:surahid and corpusexpand.ayah=:ayahid and corpusexpand.wordno=:wordno")
+
+    List<QuranCorpusWbw> getQuranCorpusWbw(int surahid, int ayahid, int wordno);
+
+    @Transaction
+    @Query("SELECT * FROM CorpusExpand JOIN wbw ON wbw.id = CorpusExpand.id where corpusexpand.surah=:surahid")
+
+    List<QuranCorpusWbw> getQuranCorpusWbwbysurah(int surahid);
+
+
     @Query("SELECT * FROM qurans where surah=:surahid")
     List<QuranEntity> getQuranVersesBySurah(int surahid);
 

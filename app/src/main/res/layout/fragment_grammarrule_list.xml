@@ -16,4 +16,5 @@
 
         app:layoutManager="LinearLayoutManager"
         tools:context="com.example.mushafconsolidated.Activity.GrammarRuleDetailHostActivity" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

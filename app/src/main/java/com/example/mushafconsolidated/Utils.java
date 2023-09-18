@@ -32,6 +32,7 @@ import com.example.mushafconsolidated.Entities.NewShartEntity;
 import com.example.mushafconsolidated.Entities.NounCorpus;
 import com.example.mushafconsolidated.Entities.NounCorpusBreakup;
 import com.example.mushafconsolidated.Entities.Qari;
+import com.example.mushafconsolidated.Entities.QuranCorpusWbw;
 import com.example.mushafconsolidated.Entities.QuranEntity;
 
 import com.example.mushafconsolidated.Entities.RootVerbDetails;
@@ -267,6 +268,9 @@ Utils {
         Log.d(TAG, "getAllAnaChapters: started");
         return (ArrayList<ChaptersAnaEntity>) database.AnaQuranChapterDao().getChapters();
 
+    }
+    public  List<QuranCorpusWbw> getQuranCorpusWbwbysurah(int surahid) {
+        return  database.QuranDao().getQuranCorpusWbwbysurah(surahid);
     }
 
     public ArrayList<ChaptersAnaEntity> getSingleChapter(int id) {
@@ -983,6 +987,14 @@ Utils {
         return (ArrayList<wbwentity>) database.wbwDao().getwbwQuranBySurahAyah(id, aid);
 
     }
+    public ArrayList<wbwentity> getwbwQuran(int id) {
+        return (ArrayList<wbwentity>) database.wbwDao().getwbwQuran(id);
+
+    }
+
+
+
+
 
     public ArrayList<wbwentity> getwbwQuranbTranslation(int sid, int aid, int firstwordindex, int lastwordindex) {
         return (ArrayList<wbwentity>) database.wbwDao().getwbwQuranbTranslation(sid, aid, firstwordindex, lastwordindex);

@@ -15,7 +15,7 @@ import java.util.Map;
  * <p>
  * TODO: Replace all uses of this class before publishing your app.
  */
-public class GrammarRulesContent {
+public class AjroomiyaRulecontents {
     /**
      * An array of sample (placeholder) items.
      */
@@ -49,26 +49,6 @@ public class GrammarRulesContent {
     private static void addItems(GrammarRules item) {
         ITEMS.add(item);
         ITEM_MAP.put(String.valueOf(item.getId()), item);
-    }
-
-    /*
-        private static void addItem(PlaceholderItem item) {
-            ITEMS.add(item);
-            ITEM_MAP.put(item.id, item);
-        }
-
-     */
-    private static PlaceholderItem createPlaceholderItem(int position) {
-        return new PlaceholderItem(String.valueOf(position), "Item " + position, makeDetails(position));
-    }
-
-    private static String makeDetails(int position) {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Details about Item: ").append(position);
-        for (int i = 0; i < position; i++) {
-            builder.append("\nMore details information here.");
-        }
-        return builder.toString();
     }
 
     /**
