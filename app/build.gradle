@@ -8,7 +8,7 @@ android {
     repositories {
         google()
        // mavenCentral()
-        jcenter() {
+        mavenCentral() {
             content {
                 includeModule("com.theartofdev.edmodo", "android-image-cropper")
             }

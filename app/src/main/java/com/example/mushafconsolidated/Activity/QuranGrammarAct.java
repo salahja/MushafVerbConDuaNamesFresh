@@ -1240,27 +1240,27 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
 
 
 
-        WbwSurah wbwSurah=new WbwSurah(QuranGrammarAct.this, chapterno, corpusayahWordArrayList,passage);
-        wbwSurah.getWordbyword();
+      //  WbwSurah wbwSurah=new WbwSurah(QuranGrammarAct.this, chapterno, corpusayahWordArrayList,passage);
+      //  wbwSurah.getWordbyword();
         CorpusUtilityorig corpus = new CorpusUtilityorig(this);
 
         if (kana) {
-            corpus.setKana(corpusayahWordArrayList, chapterno);
+            corpus.setKana(newnewadapterlist, chapterno);
 
         }
         if (shart) {
-            corpus.setShart(corpusayahWordArrayList, chapterno);
+            corpus.setShart(newnewadapterlist, chapterno);
         }
         if (mudhaf) {
-            corpus.setMudhafFromDB(corpusayahWordArrayList, chapterno);
+            corpus.setMudhafFromDB(newnewadapterlist, chapterno);
 
         }
         if (mausoof) {
-            corpus.SetMousufSifaDB(corpusayahWordArrayList, chapterno);
+            corpus.SetMousufSifaDB(newnewadapterlist, chapterno);
             //  corpus.NewMAOUSOOFSIFA(corpusayahWordArrayList);
         }
         if (harfnasb) {
-            corpus.newnewHarfNasbDb(corpusayahWordArrayList, chapterno);
+            corpus.newnewHarfNasbDb(newnewadapterlist, chapterno);
         }
         runOnUiThread(() -> {
             dialog.dismiss();

@@ -59,6 +59,7 @@ import com.example.JustJava.WbwSurah;
 import com.example.mushafconsolidated.Adapters.FlowAyahWordAdapter;
 import com.example.mushafconsolidated.Adapters.FlowAyahWordAdapterPassage;
 import com.example.mushafconsolidated.Adapters.LineMushaAudioAdapter;
+import com.example.mushafconsolidated.Adapters.NewFlowAyahWordAdapter;
 import com.example.mushafconsolidated.Adapters.PageMushaAudioAdapter;
 import com.example.mushafconsolidated.Adapters.vtwoMushaAudioAdapter;
 import com.example.mushafconsolidated.Entities.AudioPlayed;
@@ -71,6 +72,7 @@ import com.example.mushafconsolidated.Entities.MafoolBihi;
 import com.example.mushafconsolidated.Entities.MafoolMutlaqEnt;
 import com.example.mushafconsolidated.Entities.Page;
 import com.example.mushafconsolidated.Entities.Qari;
+import com.example.mushafconsolidated.Entities.QuranCorpusWbw;
 import com.example.mushafconsolidated.Entities.QuranEntity;
 import com.example.mushafconsolidated.Entities.TameezEnt;
 import com.example.mushafconsolidated.R;
@@ -125,7 +127,9 @@ public class WordbywordMushafAct extends BaseActivity implements
 
         OnItemClickListenerOnLong, View.OnClickListener, StyledPlayerView.FullscreenButtonClickListener {
 
+    private  List<QuranCorpusWbw> corpusSurahWord=new ArrayList<>();
 
+    private    LinkedHashMap<Integer, ArrayList<QuranCorpusWbw>> newnewadapterlist = new LinkedHashMap<>();
     // private UpdateMafoolFlowAyahWordAdapter flowAyahWordAdapter;
     private boolean mausoof, mudhaf, harfnasb, shart;
     private ArrayList<ChaptersAnaEntity> soraList;
@@ -1635,27 +1639,32 @@ public class WordbywordMushafAct extends BaseActivity implements
     @SuppressLint("NotifyDataSetChanged")
     private void bysurah(AlertDialog dialog, ExecutorService ex) {
         runOnUiThread(dialog::show);
-        WbwSurah wbwSurah=new WbwSurah(WordbywordMushafAct.this, surah, corpusayahWordArrayList,ruku);
-        wbwSurah.getWordbyword();
+      //  WbwSurah wbwSurah=new WbwSurah(WordbywordMushafAct.this, surah, corpusayahWordArrayList,ruku);
+      //  wbwSurah.getWordbyword();
+        Utils utils=new Utils(this);
+        corpusSurahWord=       utils.getQuranCorpusWbwbysurah(surah);
+        allofQuran = Utils.getQuranbySurah(surah);
+
         CorpusUtilityorig corpus = new CorpusUtilityorig(this);
+        newnewadapterlist=corpus.composeWBWCollection(allofQuran,corpusSurahWord);
         //      corpus.highLightVerbs(corpusayahWordArrayList,surah_id);
         if (kana) {
-            corpus.setKana(corpusayahWordArrayList, surah);
+            corpus.setKana(newnewadapterlist, surah);
 
         }
         if (shart) {
-            corpus.setShart(corpusayahWordArrayList, surah);
+            corpus.setShart(newnewadapterlist, surah);
         }
         if (mudhaf) {
-            corpus.setMudhafFromDB(corpusayahWordArrayList, surah);
+            corpus.setMudhafFromDB(newnewadapterlist, surah);
 
         }
         if (mausoof) {
-            corpus.SetMousufSifaDB(corpusayahWordArrayList, surah);
+            corpus.SetMousufSifaDB(newnewadapterlist, surah);
             //  corpus.NewMAOUSOOFSIFA(corpusayahWordArrayList);
         }
         if (harfnasb) {
-            corpus.newnewHarfNasbDb(corpusayahWordArrayList, surah);
+            corpus.newnewHarfNasbDb(newnewadapterlist, surah);
         }
         //     corpus.highLightVerbs(corpusayahWordArrayList,surah_id);
         //post
@@ -1663,7 +1672,7 @@ public class WordbywordMushafAct extends BaseActivity implements
             dialog.dismiss();
             ex.shutdown();
             recyclerView = findViewById(R.id.rvAyahsPages);
-            allofQuran = Utils.getQuranbySurah(surah);
+
             ArrayList<ChaptersAnaEntity> chapter = repository.getSingleChapter(surah);
             //  initlistview(quranbySurah, chapter);
 
@@ -1689,7 +1698,7 @@ public class WordbywordMushafAct extends BaseActivity implements
 
            // recyclerView.setItemAnimator(new DefaultItemAnimator());
             recyclerView.setLayoutManager(manager);
-            FlowAyahWordAdapter flowAyahWordAdapter = new FlowAyahWordAdapter(true,ruku, Mutlaqent, Tammezent, BadalErabNotesEnt, Liajlihient, Jumlahaliya, mafoolbihiwords, header, allofQuran, corpusayahWordArrayList, WordbywordMushafAct.this, surah, getSurahNameArabic(), isMakkiMadani, listener);
+            NewFlowAyahWordAdapter flowAyahWordAdapter = new NewFlowAyahWordAdapter(true,ruku, Mutlaqent, Tammezent, BadalErabNotesEnt, Liajlihient, Jumlahaliya, mafoolbihiwords, header, allofQuran, newnewadapterlist, WordbywordMushafAct.this, surah, getSurahNameArabic(), isMakkiMadani, listener);
             flowAyahWordAdapter.addContext(WordbywordMushafAct.this);
             recyclerView.setHasFixedSize(true);
             recyclerView.setAdapter(flowAyahWordAdapter);
@@ -1702,6 +1711,51 @@ public class WordbywordMushafAct extends BaseActivity implements
 
         });
 
+    }
+
+    private void composeWbwCollection() {
+
+
+
+        ArrayList qurancorpusarray  = new ArrayList<QuranCorpusWbw>()  ;
+
+
+
+
+        int aindex = 0;
+        int secondindex = 0;
+
+        while (aindex <= allofQuran.size()) {
+
+            QuranCorpusWbw     ayahWord = new QuranCorpusWbw();
+
+            try {
+                while (corpusSurahWord.get(secondindex).getCorpus().getAyah() <= allofQuran.get(aindex).getAyah()) {
+                    if (corpusSurahWord.get(secondindex).getCorpus().getAyah() != allofQuran.get(aindex).getAyah()) {
+                        break;
+                    }
+
+                    ayahWord.setSpannableverse(SpannableString.valueOf(allofQuran.get(aindex).getQurantext()));
+
+                    ayahWord.setWbw(corpusSurahWord.get(secondindex).getWbw());
+                    ayahWord.setCorpus( corpusSurahWord.get(secondindex++).getCorpus());
+                    qurancorpusarray.add(ayahWord);
+
+                    ayahWord =new QuranCorpusWbw();
+                }
+            }
+            catch (IndexOutOfBoundsException e) {
+                System.out.println(e.getMessage());
+            }
+
+            if (!qurancorpusarray.isEmpty()) {
+                newnewadapterlist.put(aindex,qurancorpusarray);
+
+                ayahWord =new QuranCorpusWbw();
+            }
+            qurancorpusarray =new  ArrayList();
+            aindex++;
+        }
     }
     public void getReaderAudioLink(String readerName) {
         for (Qari reader : readersList) {

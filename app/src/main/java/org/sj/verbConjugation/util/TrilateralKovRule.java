@@ -51,7 +51,7 @@ public class TrilateralKovRule {
         boolean b1 = (c1.equals("?")) || c1.equals("null") || (c1.equals(verbC1 + ""));
         boolean b2 = false, b3 = false;
         if (c2.equalsIgnoreCase("c3") && c3.equalsIgnoreCase("c2")) {
-            b2 = b3 = (verbC2 == verbC3);
+            b2 = b3 = verbC2 == verbC3;
         } else {
             b2 = (c2.equals("?")) || c2.equals("null") || (c2.equals(verbC2 + ""));
             b3 = (c3.equals("?")) || c3.equals("null") || (c3.equals(verbC3 + ""));

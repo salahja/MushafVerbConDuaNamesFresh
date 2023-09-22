@@ -1,14 +1,10 @@
 package org.sj.nounConjugation.trilateral.augmented;
 
-import org.sj.nounConjugation.AugmentationFormula;
 import org.sj.nounConjugation.GenericNounSuffixContainer;
 import org.sj.verbConjugation.trilateral.augmented.AugmentedTrilateralRoot;
 
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p>Title: Sarf Program</p>
