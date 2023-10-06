@@ -90,6 +90,16 @@ import com.example.mushafconsolidated.intrface.OnItemClickListener;
 import com.example.utility.QuranGrammarApplication;
 import com.google.android.material.button.MaterialButton;
 
+import org.sj.AmrNahiAmr;
+import org.sj.FaelMafool;
+import org.sj.IsmAlaMifaalun;
+import org.sj.IsmAlaMifalatun;
+import org.sj.IsmAlaMifalun;
+import org.sj.IsmZarfMafalatun;
+import org.sj.IsmZarfMafalun;
+import org.sj.IsmZarfMafilun;
+import org.sj.MadhiMudharay;
+import org.sj.VerbDetails;
 import org.sj.conjugator.activity.ConjugatorTabsActivity;
 import org.sj.conjugator.fragments.SarfSagheer;
 import org.sj.conjugator.utilities.GatherAll;
@@ -364,25 +374,56 @@ public class WordAnalysisBottomSheet extends DialogFragment {
                 vb.setWazan(mujarradwazan);
                 ArrayList<ArrayList> listing = GatherAll.getInstance().getMujarradListing(verbmood, root, vb.getWazan());//     ThulathiMazeedConjugatonList = iniitThulathiQuerys(vbdetail.get("wazan"), vbdetail.get("root"));
                 SarfSagheer ss = new SarfSagheer();
-                ss.setWeakness(listing.get(0).get(0).toString());
-                ss.setWazanname(listing.get(0).get(1).toString());
-                ss.setVerbroot(listing.get(0).get(2).toString());
-                ss.setMadhi(listing.get(0).get(3).toString());
-                ss.setMadhimajhool(listing.get(0).get(4).toString());
-                ss.setMudharay(listing.get(0).get(5).toString());
-                ss.setMudharaymajhool(listing.get(0).get(6).toString());
-                ss.setAmrone(listing.get(0).get(7).toString());
-                ss.setNahiamrone(listing.get(0).get(8).toString());
-                ss.setIsmfael(listing.get(0).get(9).toString());
-                ss.setIsmmafool(listing.get(0).get(10).toString());
-                ss.setIsmalaone(listing.get(0).get(11).toString());
-                ss.setIsmalatwo(listing.get(0).get(12).toString());
-                ss.setIsmalathree(listing.get(0).get(13).toString());
-                ss.setZarfone(listing.get(0).get(14).toString());
-                ss.setZarftwo(listing.get(0).get(15).toString());
-                ss.setZarfthree(listing.get(0).get(16).toString());
-                ss.setVerbtype(listing.get(0).get(17).toString());
-                ss.setWazan(listing.get(0).get(18).toString());
+
+/*
+
+                ss.weakness = (listing[3][0] as VerbDetails).verbtype
+                ss.wazanname =(listing[3][0] as VerbDetails).babname
+                ss.verbroot = (listing[3][0] as VerbDetails).verbroot
+                ss.madhi =(listing[0][0] as MadhiMudharay).hua
+                ss.madhimajhool = (listing[0][1] as MadhiMudharay).hua
+                ss.mudharay = (listing[0][2] as MadhiMudharay).hua
+                ss.mudharaymajhool = (listing[0][3] as MadhiMudharay).hua
+                ss.amrone =  (listing[2][0] as AmrNahiAmr).anta
+                ss.nahiamrone = (listing[2][1] as AmrNahiAmr).anta
+                ss.ismfael = (listing[1][0] as FaelMafool).nomsinM
+                ss.ismmafool = (listing[1][1] as FaelMafool).nomsinM
+*/
+
+                String verbtype = ((VerbDetails) listing.get(3).get(0)).verbtype;
+                ss.setWeakness(((VerbDetails) (VerbDetails) listing.get(3).get(0)).verbtype);
+                ss.setWazanname(((VerbDetails) listing.get(3).get(0))  .babname);
+                ss.setVerbroot(((VerbDetails) listing.get(3).get(0))  .verbroot);
+
+
+                ss.setMadhi(((MadhiMudharay) listing.get(0).get(0)).getHua().replace("[", "").replace("]", ""));
+
+                ss.setMadhimajhool(((MadhiMudharay) listing.get(0).get(1)).getHua().replace("[", "").replace("]", ""));
+                ss.setMudharay(((MadhiMudharay) listing.get(0).get(2)).getHua().replace("[", "").replace("]", ""));
+                ss.setMudharaymajhool(((MadhiMudharay) listing.get(0).get(3)).getHua().replace("[", "").replace("]", ""));
+                ss.setAmrone(((AmrNahiAmr) listing.get(1).get(0)) .anta .replace("[", "").replace("]", ""));
+                ss.setNahiamrone(((AmrNahiAmr) listing.get(1).get(1)) .anta .replace("[", "").replace("]", ""));
+                ss.setIsmfael(((FaelMafool) listing.get(2).get(0)) .nomsinM .replace("[", "").replace("]", ""));
+                ss.setIsmmafool(((FaelMafool) listing.get(2).get(1)) .nomsinF .replace("[", "").replace("]", ""));
+                ss.setIsmalaone((((IsmAlaMifalun) listing.get(5).get(0)).nomsinMifalun));
+                ss.setIsmalatwo((((IsmAlaMifalatun) listing.get(6).get(0)).nomsinMifalatun));
+                ss.setIsmalathree((((IsmAlaMifaalun) listing.get(7).get(0)).nomsinMifaalun));
+                ss.setZarfone((((IsmZarfMafilun) listing.get(8).get(0)).nomsinMafilun));
+                ss.setZarftwo((((IsmZarfMafalatun) listing.get(9).get(0)).nomsinMafalatun));
+
+                ss.setZarfthree((((IsmZarfMafalun) listing.get(10).get(0)).nomsinMafalun));
+
+                ss.setVerbtype(((VerbDetails) listing.get(3).get(0))  .verbtype);
+                ss.setWazan(((VerbDetails) listing.get(3).get(0))  .babname);
+
+
+
+
+
+
+
+
+
                 sarfSagheerList.add(ss);
                 setIsroot(true);
                 setThulathiSarfSagheer(true);
@@ -412,25 +453,33 @@ public class WordAnalysisBottomSheet extends DialogFragment {
                     setIsverbconjugaton(true);
                     ArrayList<ArrayList> listing = GatherAll.getInstance().getMazeedListing(verbmood, root, mazeedwazan);
                     SarfSagheer ss = new SarfSagheer();
-                    ss.setWeakness(listing.get(0).get(0).toString());
-                    ss.setWazanname(listing.get(0).get(1).toString());
-                    ss.setVerbroot(listing.get(0).get(2).toString());
-                    ss.setMadhi(listing.get(0).get(3).toString());
-                    ss.setMadhimajhool(listing.get(0).get(4).toString());
-                    ss.setMudharay(listing.get(0).get(5).toString());
-                    ss.setMudharaymajhool(listing.get(0).get(6).toString());
-                    ss.setAmrone(listing.get(0).get(7).toString());
-                    ss.setNahiamrone(listing.get(0).get(8).toString());
-                    ss.setIsmfael(listing.get(0).get(9).toString());
-                    ss.setIsmmafool(listing.get(0).get(10).toString());
-                    ss.setIsmalaone(listing.get(0).get(11).toString());
-                    ss.setIsmalatwo(listing.get(0).get(12).toString());
-                    ss.setIsmalathree(listing.get(0).get(13).toString());
-                    ss.setZarfone(listing.get(0).get(14).toString());
-                    ss.setZarftwo(listing.get(0).get(15).toString());
-                    ss.setZarfthree(listing.get(0).get(16).toString());
-                    ss.setVerbtype(listing.get(0).get(17).toString());
-                    ss.setWazan(listing.get(0).get(18).toString());
+                    String verbtype = ((VerbDetails) listing.get(3).get(0)).verbtype;
+                    ss.setWeakness(((VerbDetails) (VerbDetails) listing.get(3).get(0)).verbtype);
+                    ss.setWazanname(((VerbDetails) listing.get(3).get(0))  .babname);
+                    ss.setVerbroot(((VerbDetails) listing.get(3).get(0))  .verbroot);
+
+
+                    ss.setMadhi(((MadhiMudharay) listing.get(0).get(0)).getHua().replace("[", "").replace("]", ""));
+
+                    ss.setMadhimajhool(((MadhiMudharay) listing.get(0).get(1)).getHua().replace("[", "").replace("]", ""));
+                    ss.setMudharay(((MadhiMudharay) listing.get(0).get(2)).getHua().replace("[", "").replace("]", ""));
+                    ss.setMudharaymajhool(((MadhiMudharay) listing.get(0).get(3)).getHua().replace("[", "").replace("]", ""));
+                    ss.setAmrone(((AmrNahiAmr) listing.get(1).get(0)) .anta .replace("[", "").replace("]", ""));
+                    ss.setNahiamrone(((AmrNahiAmr) listing.get(1).get(1)) .anta .replace("[", "").replace("]", ""));
+                    ss.setIsmfael(((FaelMafool) listing.get(2).get(0)) .nomsinM .replace("[", "").replace("]", ""));
+                    ss.setIsmmafool(((FaelMafool) listing.get(2).get(1)) .nomsinF .replace("[", "").replace("]", ""));
+                    ss.setIsmalaone("") ;
+                    ss.setIsmalatwo("");
+                    ss.setIsmalathree("");
+                    ss.setZarfone("");
+                    ss.setZarftwo("");
+
+                    ss.setZarfthree("");
+
+                    ss.setVerbtype(((VerbDetails) listing.get(3).get(0))  .verbtype);
+                    ss.setWazan(((VerbDetails) listing.get(3).get(0))  .babname);
+
+
                     sarfSagheerList.add(ss);
                     setIsroot(true);
                     vb = new VerbWazan();

@@ -33,7 +33,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -74,19 +73,18 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.webkit.internal.ApiFeature;
 
 import com.example.JustJava.InputFilterMinMax;
-import com.example.JustJava.WbwSurah;
 import com.example.mushafconsolidated.Adapters.FlowAyahWordAdapter;
 import com.example.mushafconsolidated.Adapters.FlowAyahWordAdapterPassage;
 import com.example.mushafconsolidated.Adapters.NewFlowAyahWordAdapter;
 import com.example.mushafconsolidated.Entities.BadalErabNotesEnt;
 import com.example.mushafconsolidated.Entities.BookMarks;
 import com.example.mushafconsolidated.Entities.ChaptersAnaEntity;
-import com.example.mushafconsolidated.Entities.CorpusEntity;
 import com.example.mushafconsolidated.Entities.HalEnt;
 import com.example.mushafconsolidated.Entities.LiajlihiEnt;
 import com.example.mushafconsolidated.Entities.MafoolBihi;
@@ -109,10 +107,10 @@ import com.example.mushafconsolidated.fragments.NewSurahDisplayFrag;
 import com.example.mushafconsolidated.fragments.WordAnalysisBottomSheet;
 import com.example.mushafconsolidated.intrface.OnItemClickListenerOnLong;
 import com.example.mushafconsolidated.intrface.PassdataInterface;
-import com.example.mushafconsolidated.model.AyahWord;
 import com.example.mushafconsolidated.model.CorpusAyahWord;
 import com.example.mushafconsolidated.model.CorpusWbwWord;
 import com.example.mushafconsolidated.model.NewCorpusAyahWord;
+import com.example.mushafconsolidated.quranrepo.QuranModel;
 import com.example.mushafconsolidated.settings.Constants;
 import com.example.roots.arabicrootDetailHostActivity;
 
@@ -1226,8 +1224,11 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
         ArrayList<wbwentity> wbwentities = utils.getwbwQuran(chapterno);
         ArrayList<NewCorpusAyahWord> pre=new ArrayList<>();
         ArrayList<NewCorpusAyahWord> pres=new ArrayList<>();
-      ArrayList<ArrayList<NewCorpusAyahWord>> wbwarraylist = new ArrayList();
-        allofQuran = Utils.getQuranbySurah(chapterno);
+        QuranModel mainViewModel = (QuranModel) (new ViewModelProvider((ViewModelStoreOwner) this)).get(QuranModel.class);
+        allofQuran=    utils.getQuranbySurah(chapterno);
+    //    allofQuran = (List<QuranEntity>) mainViewModel.getquranbySUrah(chapterno).getValue();
+      ArrayList<ArrayList<NewCorpusAyahWord>> wbwarraylist = new ArrayList<>();
+      //  allofQuran = Utils.getQuranbySurah(chapterno);
         corpusSurahWord=       utils.getQuranCorpusWbwbysurah(chapterno);
         composeWbwCollection();
 
@@ -1235,7 +1236,7 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
         ArrayList<wbwentity> awbwentities = utils.getwbwQuran(chapterno);
         ArrayList<NewCorpusAyahWord> apre=new ArrayList<>();
         ArrayList<NewCorpusAyahWord> apres=new ArrayList<>();
-        ArrayList<ArrayList<NewCorpusAyahWord>> awbwarraylist = new ArrayList();
+        ArrayList<ArrayList<NewCorpusAyahWord>> awbwarraylist = new ArrayList<>();
 
 
 
@@ -1364,7 +1365,7 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
 
 
 
- ArrayList qurancorpusarray  = new ArrayList<QuranCorpusWbw>()  ;
+ ArrayList<QuranCorpusWbw> qurancorpusarray  = new ArrayList<QuranCorpusWbw>()  ;
 
 
 
@@ -1400,7 +1401,7 @@ public class QuranGrammarAct extends BaseActivity implements PassdataInterface, 
 
                 ayahWord =new QuranCorpusWbw();
             }
-            qurancorpusarray =new  ArrayList();
+            qurancorpusarray =new  ArrayList<QuranCorpusWbw>();
             aindex++;
         }
     }

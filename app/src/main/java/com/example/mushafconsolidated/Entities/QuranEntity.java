@@ -81,6 +81,10 @@ public class QuranEntity {
         this.ayah = ayah;
     }
 
+    public QuranEntity() {
+
+    }
+
     public int getPage() {
         return page;
     }

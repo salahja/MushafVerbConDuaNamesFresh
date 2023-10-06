@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mushafconsolidated.R;
 import com.example.utility.QuranGrammarApplication;
 
+import org.sj.FaelMafool;
 import org.sj.conjugator.interfaces.OnItemClickListener;
 import org.sj.conjugator.utilities.SharedPref;
 
@@ -83,22 +84,21 @@ public class IsmFaelIsmMafoolSarfKabeerAdapter extends RecyclerView.Adapter<IsmF
 
     public void onBindViewHolder(ViewHolder holder, int position) {
         //  final List sarf = sarfSagheer.get(position);
-        boolean newsarf = true;
-        if (newsarf) {
-            SetTypeFace(holder);
-            IsmFael(holder, 0);
-            IsmFaelFem(holder, 0);
-            IsmMafool(holder, 1);
-            IsmMafoolFem(holder, 1);
 
-        } else {
-            SetTypeFace(holder);
-            IsmFael(holder, 6);
-            IsmFaelFem(holder, 6);
-            IsmMafool(holder, 7);
-            IsmMafoolFem(holder, 7);
+     ArrayList   faelmafool= sarfSagheer.get(0);
+        FaelMafool ismfael= (FaelMafool) faelmafool.get(0);
+        FaelMafool ismmafool = (FaelMafool) faelmafool.get(1);
 
-        }
+        // String ismfael=faelmafoolMas
+        //  String ismmafool=faelmafoolFem
+
+            SetTypeFace(holder);
+            IsmFael(ismfael,holder, 0);
+            IsmFaelFem(ismfael,holder, 0);
+            IsmMafool(ismmafool, holder, 1);
+            IsmMafoolFem(ismmafool , holder, 1);
+
+
         gcase(holder);
         ismfaelmafoolnumbers(holder);
         //      FontSIzeSelection(holder);
@@ -187,16 +187,17 @@ public class IsmFaelIsmMafoolSarfKabeerAdapter extends RecyclerView.Adapter<IsmF
 
     }
 
-    private void IsmFael(ViewHolder holder, int position) {
-        String iisone = sarfSagheer.get(position).get(0).toString();//isone);
-        String iistwo = sarfSagheer.get(position).get(2).toString();//istwo);
-        String iisthree = sarfSagheer.get(position).get(4).toString();//isthree);
-        String iisfour = sarfSagheer.get(position).get(6).toString();//isfour);
-        String iisfive = sarfSagheer.get(position).get(8).toString();//isfive);
-        String iissix = sarfSagheer.get(position).get(10).toString();//issix);
-        String iisseven = sarfSagheer.get(position).get(12).toString();//isseven);
-        String iiseight = sarfSagheer.get(position).get(14).toString();//iseight);
-        String iisnine = sarfSagheer.get(position).get(16).toString();//isnine);
+    private void IsmFael(FaelMafool ismfael, ViewHolder holder, int position) {
+        String iisone =  ismfael.nomsinM.replace("[", "").replace("]", "");//[0].toString() //isone);
+        iisone.replace("[\"\\[ \\]]", "");
+        String iistwo =  ismfael.nomdualM;//[2].toString() //istwo);
+        String iisthree =  ismfael.nomplurarM;//[4].toString() //isthree);
+        String iisfour =  ismfael.accsinM;//[6].toString() //isfour);
+        String iisfive =  ismfael.accdualM;//[8].toString() //isfive);
+        String iissix =  ismfael.accplurarlM;//[10].toString() //issix);
+        String iisseven =  ismfael.gensinM;//[12].toString() //isseven);
+        String iiseight =  ismfael.gendualM;//[14].toString() //iseight);
+        String iisnine =  ismfael.genplurarM;//[16].toString() //isnine);
         //    FontSIzeSelection(holder);
         SetTypeFace(holder);
         holder.isone.setText(iisone);
@@ -211,17 +212,17 @@ public class IsmFaelIsmMafoolSarfKabeerAdapter extends RecyclerView.Adapter<IsmF
 
     }
 
-    private void IsmFaelFem(ViewHolder holder, int position) {
-        String iisone = sarfSagheer.get(position).get(1).toString();//isone);
-        String iistwo = sarfSagheer.get(position).get(3).toString();//istwo);
-        String iisthree = sarfSagheer.get(position).get(5).toString();//isthree);
-        String iisfour = sarfSagheer.get(position).get(7).toString();//isfour);
-        String iisfive = sarfSagheer.get(position).get(9).toString();//isfive);
-        String iissix = sarfSagheer.get(position).get(11).toString();//issix);
-        String iisseven = sarfSagheer.get(position).get(13).toString();//isseven);
-        String iiseight = sarfSagheer.get(position).get(15).toString();//iseight);
-        String iisnine = sarfSagheer.get(position).get(17).toString();//isnine);
-        //     FontSIzeSelection(holder);
+    private void IsmFaelFem(FaelMafool ismfael, ViewHolder holder, int position) {
+        String iisone =  ismfael.nomsinF;//[0].toString() ;//isone);
+        String iistwo =  ismfael.nomdualF;//[2].toString() ;//istwo);
+        String iisthree =  ismfael.nomplurarF;//[4].toString() ;//isthree);
+        String iisfour =  ismfael.accsinF;//[6].toString() ;//isfour);
+        String iisfive =  ismfael.accdualF;//[8].toString() ;//isfive);
+        String iissix =  ismfael.accplurarlF;//[10].toString() ;//issix);
+        String iisseven =  ismfael.gensinF;//[12].toString() ;//isseven);
+        String iiseight =  ismfael.gendualF;//[14].toString() ;//iseight);
+        String iisnine =  ismfael.genplurarF.replace("[", "").replace("]", "");//[16].toString() ;//isnine);
+        ;//     FontSIzeSelection(holder);
         SetTypeFace(holder);
         holder.ismfemone.setText(iisone);
         holder.ismfemtwo.setText(iistwo);
@@ -235,17 +236,17 @@ public class IsmFaelIsmMafoolSarfKabeerAdapter extends RecyclerView.Adapter<IsmF
 
     }
 
-    private void IsmMafoolFem(ViewHolder holder, int position) {
-        String smafone = sarfSagheer.get(position).get(1).toString();
-        String smaftwo = sarfSagheer.get(position).get(3).toString();//imaftwo);
-        String smafthree = sarfSagheer.get(position).get(5).toString();//imafthree);
-        String smaffour = sarfSagheer.get(position).get(7).toString();//imaffour);
-        String smaffive = sarfSagheer.get(position).get(9).toString();//imaffive);
-        String smafsix = sarfSagheer.get(position).get(11).toString();//imafseven);
-        String smafseven = sarfSagheer.get(position).get(13).toString();//imafseven);
-        String smafeight = sarfSagheer.get(position).get(15).toString();//imafeight);
-        String smafnine = sarfSagheer.get(position).get(17).toString();//imafnine);
-        //     FontSIzeSelection(holder);
+    private void IsmMafoolFem(FaelMafool ismmafoolFem, ViewHolder holder, int position) {
+        String smafone =  ismmafoolFem.nomsinF;//[2].toString() ;//istwo);
+        String smaftwo=ismmafoolFem.nomdualF;
+        String smafthree =  ismmafoolFem.nomplurarF;//[4].toString() ;//isthree);
+        String smaffour =  ismmafoolFem.accsinF;//[6].toString() ;//isfour);
+        String smaffive =  ismmafoolFem.accdualF;//[8].toString() ;//isfive);
+        String smafsix =  ismmafoolFem.accplurarlF;//[10].toString() ;//issix);
+        String smafseven =  ismmafoolFem.gensinF;//[12].toString() ;//isseven);
+        String smafeight =  ismmafoolFem.gendualF;//[14].toString() ;//iseight);
+        String smafnine =  ismmafoolFem.genplurarF.replace("[", "").replace("]", "");//[16].toString() ;//isnine);
+        ;//     FontSIzeSelection(holder);
         SetTypeFace(holder);
         holder.imafoolfemone.setText(smafone);
         holder.imafoolfemtwo.setText(smaftwo);
@@ -258,16 +259,17 @@ public class IsmFaelIsmMafoolSarfKabeerAdapter extends RecyclerView.Adapter<IsmF
         holder.imafoolfemnine.setText(smafnine);
     }
 
-    private void IsmMafool(ViewHolder holder, int position) {
-        String smafone = sarfSagheer.get(position).get(0).toString();
-        String smaftwo = sarfSagheer.get(position).get(2).toString();//imaftwo);
-        String smafthree = sarfSagheer.get(position).get(4).toString();//imafthree);
-        String smaffour = sarfSagheer.get(position).get(6).toString();//imaffour);
-        String smaffive = sarfSagheer.get(position).get(8).toString();//imaffive);
-        String smafsix = sarfSagheer.get(position).get(10).toString();//imafseven);
-        String smafseven = sarfSagheer.get(position).get(12).toString();//imafseven);
-        String smafeight = sarfSagheer.get(position).get(14).toString();//imafeight);
-        String smafnine = sarfSagheer.get(position).get(16).toString();//imafnine);
+    private void IsmMafool(FaelMafool ismmafoolMas, ViewHolder holder, int position) {
+
+        String smafone =  ismmafoolMas.nomsinM.replace("[", "").replace("]", "");;//[2].toString() ;//istwo);
+        String smaftwo=ismmafoolMas.nomdualM;
+        String smafthree =  ismmafoolMas.nomplurarM;//[4].toString() ;//isthree);
+        String smaffour =  ismmafoolMas.accsinM;//[6].toString() ;//isfour);
+        String smaffive =  ismmafoolMas.accdualM;//[8].toString() ;//isfive);
+        String smafsix =  ismmafoolMas.accplurarlM;//[10].toString() ;//issix);
+        String smafseven =  ismmafoolMas.gensinM;//[12].toString() ;//isseven);
+        String smafeight =  ismmafoolMas.gendualM;//[14].toString() ;//iseight);
+        String smafnine =  ismmafoolMas.genplurarM;//[16].toString() ;//isnine);
         //     FontSIzeSelection(holder);
         SetTypeFace(holder);
         holder.imafone.setText(smafone);

@@ -1,5 +1,8 @@
 package org.sj.verbConjugation.trilateral.augmented;
 
+import org.sj.AmrNahiAmr;
+import org.sj.FaelMafool;
+import org.sj.MadhiMudharay;
 import org.sj.verbConjugation.trilateral.unaugmented.ConjugationResult;
 
 import java.util.ArrayList;
@@ -14,6 +17,33 @@ public class MazeedConjugationResult {
     //13 conjugated verbs
     private final LinkedList<Objects> originalResult;
     private final ArrayList finalResult;
+    public org.sj.MadhiMudharay MadhiMudharay = new  MadhiMudharay();
+    public FaelMafool faelMafool = new FaelMafool();
+    public AmrNahiAmr amrNahiAmr= new AmrNahiAmr();
+
+    public org.sj.MadhiMudharay getMadhiMudharay() {
+        return MadhiMudharay;
+    }
+
+    public void setMadhiMudharay(org.sj.MadhiMudharay madhiMudharay) {
+        MadhiMudharay = madhiMudharay;
+    }
+
+    public FaelMafool getFaelMafool() {
+        return faelMafool;
+    }
+
+    public void setFaelMafool(FaelMafool faelMafool) {
+        this.faelMafool = faelMafool;
+    }
+
+    public AmrNahiAmr getAmrNahiAmr() {
+        return amrNahiAmr;
+    }
+
+    public void setAmrNahiAmr(AmrNahiAmr amrNahiAmr) {
+        this.amrNahiAmr = amrNahiAmr;
+    }
 
     public MazeedConjugationResult(int kov, int formulaNo, AugmentedTrilateralRoot root, List originalResult) {
         this.kov = kov;
@@ -42,4 +72,6 @@ public class MazeedConjugationResult {
     public int getFormulaNo() {
         return formulaNo;
     }
+
+
 }

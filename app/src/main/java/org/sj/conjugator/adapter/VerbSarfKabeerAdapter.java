@@ -14,11 +14,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mushafconsolidated.R;
 import com.example.utility.QuranGrammarApplication;
 
+import org.sj.AmrNahiAmr;
+import org.sj.MadhiMudharay;
 import org.sj.conjugator.interfaces.OnItemClickListener;
 import org.sj.conjugator.utilities.SharedPref;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class VerbSarfKabeerAdapter extends RecyclerView.Adapter<VerbSarfKabeerAdapter.ViewHolder> {
     private final Context context;
@@ -70,16 +71,29 @@ public class VerbSarfKabeerAdapter extends RecyclerView.Adapter<VerbSarfKabeerAd
      arabicTypeface = Typeface.createFromAsset(context.getAssets(),
                 arabic_font_selection);
 
+        ArrayList madhimudhary = sarfSagheer.get(0);
+        ArrayList faelmafool = sarfSagheer.get(2);
+        ArrayList amrandnahi = sarfSagheer.get(1);
+        MadhiMudharay madhi= (MadhiMudharay) madhimudhary.get(0);
+        MadhiMudharay madhimajhool= (MadhiMudharay) madhimudhary.get(1);
+        MadhiMudharay mudharaymaroof= (MadhiMudharay) madhimudhary.get(2);
+        MadhiMudharay mudharaymajhool= (MadhiMudharay) madhimudhary.get(3);
+        AmrNahiAmr amr= (AmrNahiAmr) amrandnahi.get(0);
+        AmrNahiAmr amrnahi= (AmrNahiAmr) amrandnahi.get(1);
 
+        this.MadhiMaroof(madhi ,holder, 0);
+        MudhariMaroof(mudharaymaroof,holder, 2);
+        MadhiMajhool(madhimajhool,holder, 1);
+        MudhariMajhool(mudharaymajhool,holder, 3);
+        Amar(amr,holder, 4);
+        AmarNahi(amrnahi,holder, 5);
 
-
-
-        MadhiMaroof(holder, 0);
-        MudhariMaroof(holder, 2);
-        MadhiMajhool(holder, 1);
-        MudhariMajhool(holder, 3);
-        Amar(holder, 4);
-        AmarNahi(holder, 5);
+        MadhiMaroof(madhi, holder, 0);
+        MudhariMaroof(mudharaymaroof, holder, 2);
+        MadhiMajhool(madhimajhool, holder, 1);
+        MudhariMajhool(mudharaymajhool, holder, 3);
+        Amar(amr, holder, 4);
+        AmarNahi(amrnahi, holder, 5);
         if(!aBoolean) {
             pronouns(holder);
         }
@@ -119,7 +133,7 @@ public class VerbSarfKabeerAdapter extends RecyclerView.Adapter<VerbSarfKabeerAd
 
     }
 
-    private void AmarNahi(ViewHolder holder, int position) {
+    private void AmarNahi(AmrNahiAmr amrnahi, ViewHolder holder, int position) {
         String anta, antuma, antum, anti, antumaf, antunna;
         SharedPref sf = new SharedPref(context);
         Boolean isTraditional = SharedPref.GetSarfKabeerVerb();
@@ -129,45 +143,40 @@ public class VerbSarfKabeerAdapter extends RecyclerView.Adapter<VerbSarfKabeerAd
             sb = new StringBuilder();
             sb.append(arraypronouns[6]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(0).toString());
+            sb.append(amrnahi.anta);
             anta = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[7]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(2).toString());
+            sb.append(amrnahi.antuma);
             antuma = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[8]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(3).toString());
+            sb.append(amrnahi.antum);
             antum = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[9]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(1).toString());
+            sb.append(amrnahi.anti);
             anti = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[7]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(2).toString());
+            sb.append(amrnahi.antumaf);
             antumaf = sb.toString();
-            sb = new StringBuilder();
-            sb.append(arraypronouns[10]);
-            sb.append("-");
-            sb.append(sarfSagheer.get(position).get(4).toString());
-            antunna = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[11]);
             sb.append("-");
-
+            sb.append(amrnahi.antunna);
+            antunna = sb.toString();
         } else {
-            anta = sarfSagheer.get(position).get(0).toString();
-            antuma = sarfSagheer.get(position).get(2).toString();
-            antum = sarfSagheer.get(position).get(3).toString();
-            anti = sarfSagheer.get(position).get(1).toString();
-            antumaf = sarfSagheer.get(position).get(2).toString();
-            antunna = sarfSagheer.get(position).get(4).toString();
-
+            anta = amrnahi.getAnta().toString();//[0].toString();
+            antuma = amrnahi.getAntuma().toString();//[2].toString();
+            antum = amrnahi.getAntum().toString();//[3].toString();
+            anti = amrnahi.getAnti().toString();//[1].toString();
+            antumaf = amrnahi.getAntumaf().toString();//[2].toString();
+            antunna = amrnahi.getAntunna().toString();//[4].toString()
         }
         holder.nahiamranta.setTypeface(arabicTypeface);
         holder.nahiamrantuma.setTypeface(arabicTypeface);
@@ -182,9 +191,12 @@ public class VerbSarfKabeerAdapter extends RecyclerView.Adapter<VerbSarfKabeerAd
         holder.nahiamrantumaf.setText(antumaf);
         holder.nahiamrantunna.setText(antunna);
 
+
+
+
     }
 
-    private void Amar(ViewHolder holder, int position) {
+    private void Amar(AmrNahiAmr amr, ViewHolder holder, int position) {
         String anta, antuma, antum, anti, antumaf, antunna;
         SharedPref sf = new SharedPref(context);
         Boolean isTraditional = SharedPref.GetSarfKabeerVerb();
@@ -194,42 +206,40 @@ public class VerbSarfKabeerAdapter extends RecyclerView.Adapter<VerbSarfKabeerAd
             sb = new StringBuilder();
             sb.append(arraypronouns[6]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(0).toString());
+            sb.append(amr.anta);
             anta = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[7]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(2).toString());
+            sb.append(amr.antuma);
             antuma = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[8]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(3).toString());
+            sb.append(amr.antum);
             antum = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[9]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(1).toString());
+            sb.append(amr.anti);
             anti = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[7]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(2).toString());
+            sb.append(amr.antumaf);
             antumaf = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[11]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(4).toString());
+            sb.append(amr.antunna);
             antunna = sb.toString();
-
         } else {
-            anta = sarfSagheer.get(position).get(0).toString();
-            antuma = sarfSagheer.get(position).get(2).toString();
-            antum = sarfSagheer.get(position).get(3).toString();
-            anti = sarfSagheer.get(position).get(1).toString();
-            antumaf = sarfSagheer.get(position).get(2).toString();
-            antunna = sarfSagheer.get(position).get(4).toString();
-
+            anta = amr.getAnta().toString();//[0].toString();
+            antuma = amr.getAntuma().toString();//[2].toString();
+            antum = amr.getAntum().toString();//[3].toString();
+            anti = amr.getAnti().toString();//[1].toString();
+            antumaf = amr.getAntumaf().toString();//[2].toString();
+            antunna = amr.getAntunna().toString();//[4].toString()
         }
         holder.amranta.setTypeface(arabicTypeface);
         holder.amrantuma.setTypeface(arabicTypeface);
@@ -246,7 +256,7 @@ public class VerbSarfKabeerAdapter extends RecyclerView.Adapter<VerbSarfKabeerAd
 
     }
 
-    private void MudhariMajhool(ViewHolder holder, int position) {
+    private void MudhariMajhool(MadhiMudharay mudharaymajhool, ViewHolder holder, int position) {
         String hua, huma, hum, hia, humaf, hunna, anta, antuma, antum, anti, antumaf, antunna, ana, nahnu;
         SharedPref sf = new SharedPref(context);
         Boolean isTraditional = SharedPref.GetSarfKabeerVerb();
@@ -256,89 +266,88 @@ public class VerbSarfKabeerAdapter extends RecyclerView.Adapter<VerbSarfKabeerAd
             sb = new StringBuilder();
             sb.append(arraypronouns[0]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(0).toString());
+            sb.append(mudharaymajhool.getHua().toString().replace("[", "").replace("]", ""));//[0].toString())
             hua = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[1]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(1).toString());
+            sb.append(mudharaymajhool.getHuma().toString());//[1].toString())
             huma = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[2]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(2).toString());
+            sb.append(mudharaymajhool.getHum().toString());//[2].toString())
             hum = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[3]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(3).toString());
+            sb.append(mudharaymajhool.getHia().toString());//[3].toString())
             hia = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[4]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(4).toString());
+            sb.append(mudharaymajhool.getHumaf().toString());//[4].toString())
             humaf = sb.toString();
             sb = new StringBuilder();
             sb.append(arraypronouns[5]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(5).toString());
+            sb.append(mudharaymajhool.getHunna().toString());//[5].toString())
             hunna = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[6]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(6).toString());
+            sb.append(mudharaymajhool.getAnta().toString());//[6].toString())
             anta = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[7]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(7).toString());
+            sb.append(mudharaymajhool.getAntuma());
             antuma = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[8]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(8).toString());
+            sb.append(mudharaymajhool.getAntum());
             antum = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[9]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(9).toString());
+            sb.append(mudharaymajhool.getAnti().toString());//[9].toString(););
             anti = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[7]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(7).toString());
+            sb.append(mudharaymajhool.getAntumf().toString());//[7].toString(););
             antumaf = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[11]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(10).toString());
+            sb.append(mudharaymajhool.getAntunna().toString());//[10].toString(););
             antunna = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[12]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(11).toString());
+            sb.append(mudharaymajhool.getAna().toString());//[11].toString(););
             ana = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[13]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(12).toString());
+            sb.append(mudharaymajhool.getNahnu().toString().replace("[", "").replace("]", ""));//[12].toString(););
             nahnu = sb.toString();
-
         } else {
-            hua = sarfSagheer.get(position).get(0).toString();
-            huma = sarfSagheer.get(position).get(1).toString();
-            hum = sarfSagheer.get(position).get(2).toString();
-            hia = sarfSagheer.get(position).get(3).toString();
-            humaf = sarfSagheer.get(position).get(4).toString();
-            hunna = sarfSagheer.get(position).get(5).toString();
-            anta = sarfSagheer.get(position).get(6).toString();
-            antuma = sarfSagheer.get(position).get(7).toString();
-            antum = sarfSagheer.get(position).get(8).toString();
-            anti = sarfSagheer.get(position).get(9).toString();
-            antumaf = sarfSagheer.get(position).get(4).toString();
-            antunna = sarfSagheer.get(position).get(10).toString();
-            ana = sarfSagheer.get(position).get(11).toString();
-            nahnu = sarfSagheer.get(position).get(12).toString();
+            hua = mudharaymajhool.getHua().toString().replace("[", "").replace("]", "");
+            huma = mudharaymajhool.getHuma().toString();
+            hum = mudharaymajhool.getHum().toString();
+            hia = mudharaymajhool.getHia().toString();
+            humaf = mudharaymajhool.getHumaf().toString();
+            hunna = mudharaymajhool.getHunna().toString();
+            anta = mudharaymajhool.getAnta().toString();
+            antuma = mudharaymajhool.getAntuma().toString();
+            antum = mudharaymajhool.getAntum().toString();
+            anti = mudharaymajhool.getAnti().toString();
+            antumaf =mudharaymajhool.getAntumf().toString();
+            antunna =mudharaymajhool.getAntunna().toString();
+            ana = mudharaymajhool.getAna().toString();
+            nahnu = mudharaymajhool.getNahnu().toString().replace("[", "").replace("]", "");//[position][12].toString()
         }
         //     FontSIzeSelection(holder);
 //ismfaile
@@ -471,7 +480,7 @@ public class VerbSarfKabeerAdapter extends RecyclerView.Adapter<VerbSarfKabeerAd
         }
     }
 
-    private void MadhiMajhool(ViewHolder holder, int position) {
+    private void MadhiMajhool(MadhiMudharay madhimajhool, ViewHolder holder, int position) {
         String hua, huma, hum, hia, humaf, hunna, anta, antuma, antum, anti, antumaf, antunna, ana, nahnu;
         SharedPref sf = new SharedPref(context);
         Boolean isTraditional = SharedPref.GetSarfKabeerVerb();
@@ -481,89 +490,88 @@ public class VerbSarfKabeerAdapter extends RecyclerView.Adapter<VerbSarfKabeerAd
             sb = new StringBuilder();
             sb.append(arraypronouns[0]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(0).toString());
+            sb.append(madhimajhool.getHua().toString().replace("[", "").replace("]", ""));//[0].toString())
             hua = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[1]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(1).toString());
+            sb.append(madhimajhool.getHuma().toString());//[1].toString())
             huma = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[2]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(2).toString());
+            sb.append(madhimajhool.getHum().toString());//[2].toString())
             hum = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[3]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(3).toString());
+            sb.append(madhimajhool.getHia().toString());//[3].toString())
             hia = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[4]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(4).toString());
+            sb.append(madhimajhool.getHumaf().toString());//[4].toString())
             humaf = sb.toString();
             sb = new StringBuilder();
             sb.append(arraypronouns[5]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(5).toString());
+            sb.append(madhimajhool.getHunna().toString());//[5].toString())
             hunna = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[6]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(6).toString());
+            sb.append(madhimajhool.getAnta().toString());//[6].toString())
             anta = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[7]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(7).toString());
+            sb.append(madhimajhool.getAntuma());
             antuma = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[8]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(8).toString());
+            sb.append(madhimajhool.getAntum());
             antum = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[9]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(9).toString());
+            sb.append(madhimajhool.getAnti().toString());//[9].toString(););
             anti = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[7]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(7).toString());
+            sb.append(madhimajhool.getAntumf().toString());//[7].toString(););
             antumaf = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[11]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(10).toString());
+            sb.append(madhimajhool.getAntunna().toString());//[10].toString(););
             antunna = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[12]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(11).toString());
+            sb.append(madhimajhool.getAna().toString());//[11].toString(););
             ana = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[13]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(12).toString());
+            sb.append(madhimajhool.getNahnu().toString().replace("[", "").replace("]", ""));//[12].toString(););
             nahnu = sb.toString();
-
         } else {
-            hua = sarfSagheer.get(position).get(0).toString();
-            huma = sarfSagheer.get(position).get(1).toString();
-            hum = sarfSagheer.get(position).get(2).toString();
-            hia = sarfSagheer.get(position).get(3).toString();
-            humaf = sarfSagheer.get(position).get(4).toString();
-            hunna = sarfSagheer.get(position).get(5).toString();
-            anta = sarfSagheer.get(position).get(6).toString();
-            antuma = sarfSagheer.get(position).get(7).toString();
-            antum = sarfSagheer.get(position).get(8).toString();
-            anti = sarfSagheer.get(position).get(9).toString();
-            antumaf = sarfSagheer.get(position).get(4).toString();
-            antunna = sarfSagheer.get(position).get(10).toString();
-            ana = sarfSagheer.get(position).get(11).toString();
-            nahnu = sarfSagheer.get(position).get(12).toString();
+            hua = madhimajhool.getHua().toString().replace("[", "").replace("]", "");
+            huma = madhimajhool.getHuma().toString();
+            hum = madhimajhool.getHum().toString();
+            hia = madhimajhool.getHia().toString();
+            humaf = madhimajhool.getHumaf().toString();
+            hunna = madhimajhool.getHunna().toString();
+            anta = madhimajhool.getAnta().toString();
+            antuma = madhimajhool.getAntuma().toString();
+            antum = madhimajhool.getAntum().toString();
+            anti = madhimajhool.getAnti().toString();
+            antumaf =madhimajhool.getAntumf().toString();
+            antunna =madhimajhool.getAntunna().toString();
+            ana = madhimajhool.getAna().toString();
+            nahnu = madhimajhool.getNahnu().toString().replace("[", "").replace("]", "");//[position][12].toString()
         }
         holder.madimajhua.setTypeface(arabicTypeface);
         holder.madimajhuma.setTypeface(arabicTypeface);
@@ -597,7 +605,7 @@ public class VerbSarfKabeerAdapter extends RecyclerView.Adapter<VerbSarfKabeerAd
 
     }
 
-    private void MudhariMaroof(ViewHolder holder, int position) {
+    private void MudhariMaroof(MadhiMudharay mudharaymaroof, ViewHolder holder, int position) {
         String hua, huma, hum, hia, humaf, hunna, anta, antuma, antum, anti, antumaf, antunna, ana, nahnu;
         SharedPref sf = new SharedPref(context);
         Boolean isTraditional = SharedPref.GetSarfKabeerVerb();
@@ -607,89 +615,88 @@ public class VerbSarfKabeerAdapter extends RecyclerView.Adapter<VerbSarfKabeerAd
             sb = new StringBuilder();
             sb.append(arraypronouns[0]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(0).toString());
+            sb.append(mudharaymaroof.getHua().toString().replace("[", "").replace("]", ""));//[0].toString())
             hua = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[1]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(1).toString());
+            sb.append(mudharaymaroof.getHuma().toString());//[1].toString())
             huma = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[2]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(2).toString());
+            sb.append(mudharaymaroof.getHum().toString());//[2].toString())
             hum = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[3]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(3).toString());
+            sb.append(mudharaymaroof.getHia().toString());//[3].toString())
             hia = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[4]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(4).toString());
+            sb.append(mudharaymaroof.getHumaf().toString());//[4].toString())
             humaf = sb.toString();
             sb = new StringBuilder();
             sb.append(arraypronouns[5]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(5).toString());
+            sb.append(mudharaymaroof.getHunna().toString());//[5].toString())
             hunna = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[6]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(6).toString());
+            sb.append(mudharaymaroof.getAnta().toString());//[6].toString())
             anta = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[7]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(7).toString());
+            sb.append(mudharaymaroof.getAntuma());
             antuma = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[8]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(8).toString());
+            sb.append(mudharaymaroof.getAntum());
             antum = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[9]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(9).toString());
+            sb.append(mudharaymaroof.getAnti().toString());//[9].toString(););
             anti = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[7]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(7).toString());
+            sb.append(mudharaymaroof.getAntumf().toString());//[7].toString(););
             antumaf = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[11]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(10).toString());
+            sb.append(mudharaymaroof.getAntunna().toString());//[10].toString(););
             antunna = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[12]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(11).toString());
+            sb.append(mudharaymaroof.getAna().toString());//[11].toString(););
             ana = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[13]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(12).toString());
+            sb.append(mudharaymaroof.getNahnu().toString().replace("[", "").replace("]", ""));//[12].toString(););
             nahnu = sb.toString();
-
         } else {
-            hua = sarfSagheer.get(position).get(0).toString();
-            huma = sarfSagheer.get(position).get(1).toString();
-            hum = sarfSagheer.get(position).get(2).toString();
-            hia = sarfSagheer.get(position).get(3).toString();
-            humaf = sarfSagheer.get(position).get(4).toString();
-            hunna = sarfSagheer.get(position).get(5).toString();
-            anta = sarfSagheer.get(position).get(6).toString();
-            antuma = sarfSagheer.get(position).get(7).toString();
-            antum = sarfSagheer.get(position).get(8).toString();
-            anti = sarfSagheer.get(position).get(9).toString();
-            antumaf = sarfSagheer.get(position).get(4).toString();
-            antunna = sarfSagheer.get(position).get(10).toString();
-            ana = sarfSagheer.get(position).get(11).toString();
-            nahnu = sarfSagheer.get(position).get(12).toString();
+            hua = mudharaymaroof.getHua().toString().replace("[", "").replace("]", "");
+            huma = mudharaymaroof.getHuma().toString();
+            hum = mudharaymaroof.getHum().toString();
+            hia = mudharaymaroof.getHia().toString();
+            humaf = mudharaymaroof.getHumaf().toString();
+            hunna = mudharaymaroof.getHunna().toString();
+            anta = mudharaymaroof.getAnta().toString();
+            antuma = mudharaymaroof.getAntuma().toString();
+            antum = mudharaymaroof.getAntum().toString();
+            anti = mudharaymaroof.getAnti().toString();
+            antumaf =mudharaymaroof.getAntumf().toString();
+            antunna =mudharaymaroof.getAntunna().toString();
+            ana = mudharaymaroof.getAna().toString();
+            nahnu = mudharaymaroof.getNahnu().toString().replace("[", "").replace("]", "");//[position][12].toString()
 
         }
         holder.muzhua.setTypeface(arabicTypeface);
@@ -724,7 +731,7 @@ public class VerbSarfKabeerAdapter extends RecyclerView.Adapter<VerbSarfKabeerAd
 
     }
 
-    private void MadhiMaroof(ViewHolder holder, int position) {
+    private void MadhiMaroof(MadhiMudharay madhi, ViewHolder holder, int position) {
         String hua, huma, hum, hia, humaf, hunna, anta, antuma, antum, anti, antumaf, antunna, ana, nahnu;
         SharedPref sf = new SharedPref(context);
         Boolean isTraditional = SharedPref.GetSarfKabeerVerb();
@@ -734,89 +741,89 @@ public class VerbSarfKabeerAdapter extends RecyclerView.Adapter<VerbSarfKabeerAd
             sb = new StringBuilder();
             sb.append(arraypronouns[0]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(0).toString());
+            sb.append(madhi.getHua().toString().replace("[", "").replace("]", ""));//[0].toString())
             hua = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[1]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(1).toString());
+            sb.append(madhi.getHuma().toString());//[1].toString())
             huma = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[2]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(2).toString());
+            sb.append(madhi.getHum().toString());//[2].toString())
             hum = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[3]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(3).toString());
+            sb.append(madhi.getHia().toString());//[3].toString())
             hia = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[4]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(4).toString());
+            sb.append(madhi.getHumaf().toString());//[4].toString())
             humaf = sb.toString();
             sb = new StringBuilder();
             sb.append(arraypronouns[5]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(5).toString());
+            sb.append(madhi.getHunna().toString());//[5].toString())
             hunna = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[6]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(6).toString());
+            sb.append(madhi.getAnta().toString());//[6].toString())
             anta = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[7]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(7).toString());
+            sb.append(madhi.getAntuma());
             antuma = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[8]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(8).toString());
+            sb.append(madhi.getAntum());
             antum = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[9]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(9).toString());
+            sb.append(madhi.getAnti().toString());//[9].toString(););
             anti = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[7]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(7).toString());
+            sb.append(madhi.getAntumf().toString());//[7].toString(););
             antumaf = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[11]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(10).toString());
+            sb.append(madhi.getAntunna().toString());//[10].toString(););
             antunna = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[12]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(11).toString());
+            sb.append(madhi.getAna().toString());//[11].toString(););
             ana = sb.toString();
-            sb = new StringBuilder();
+            sb = new StringBuilder();;
             sb.append(arraypronouns[13]);
             sb.append("-");
-            sb.append(sarfSagheer.get(position).get(12).toString());
+            sb.append(madhi.getNahnu().toString().replace("[", "").replace("]", ""));//[12].toString(););
             nahnu = sb.toString();
 
         } else {
-            hua = sarfSagheer.get(position).get(0).toString();
-            huma = sarfSagheer.get(position).get(1).toString();
-            hum = sarfSagheer.get(position).get(2).toString();
-            hia = sarfSagheer.get(position).get(3).toString();
-            humaf = sarfSagheer.get(position).get(4).toString();
-            hunna = sarfSagheer.get(position).get(5).toString();
-            anta = sarfSagheer.get(position).get(6).toString();
-            antuma = sarfSagheer.get(position).get(7).toString();
-            antum = sarfSagheer.get(position).get(8).toString();
-            anti = sarfSagheer.get(position).get(9).toString();
-            antumaf = sarfSagheer.get(position).get(7).toString();
-            antunna = sarfSagheer.get(position).get(10).toString();
-            ana = sarfSagheer.get(position).get(11).toString();
-            nahnu = sarfSagheer.get(position).get(12).toString();
+            hua = madhi.getHua().toString().replace("[", "").replace("]", "");
+            huma = madhi.getHuma().toString();
+            hum = madhi.getHum().toString();
+            hia = madhi.getHia().toString();
+            humaf = madhi.getHumaf().toString();
+            hunna = madhi.getHunna().toString();
+            anta = madhi.getAnta().toString();
+            antuma = madhi.getAntuma().toString();
+            antum = madhi.getAntum().toString();
+            anti = madhi.getAnti().toString();
+            antumaf =madhi.getAntumf().toString();
+            antunna =madhi.getAntunna().toString();
+            ana = madhi.getAna().toString();
+            nahnu = madhi.getNahnu().toString().replace("[", "").replace("]", "");//[position][12].toString()
         }
         SharedPreferences sharedPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(context);
          String language =    sharedPreferences.getString("lan", "en");;

@@ -2,6 +2,17 @@ package org.sj.conjugator.utilities;
 
 import androidx.annotation.NonNull;
 
+import org.sj.AmrNahiAmr;
+import org.sj.FaelMafool;
+import org.sj.IsmAlaMifaalun;
+import org.sj.IsmAlaMifalatun;
+import org.sj.IsmAlaMifalun;
+import org.sj.IsmAlaZarfSagheer;
+import org.sj.IsmZarfMafalatun;
+import org.sj.IsmZarfMafalun;
+import org.sj.IsmZarfMafilun;
+import org.sj.MadhiMudharay;
+import org.sj.VerbDetails;
 import org.sj.conjugator.activity.SystemConstants;
 import org.sj.nounConjugation.TrilateralUnaugmentedNouns;
 import org.sj.nounConjugation.trilateral.augmented.AugmentedTrilateralActiveParticipleConjugator;
@@ -190,9 +201,9 @@ public class GatherAll {
         //ismfale and ismmafool
         List conjugatedIsmFael = UnaugmentedTrilateralActiveParticipleConjugator.getInstance().createNounList(unaugmentedTrilateralRoot,
                 unaugmentedTrilateralRoot.getConjugation());
-        final org.sj.nounConjugation.trilateral.unaugmented.modifier.ConjugationResult conjugationResult = org.sj.nounConjugation.trilateral.unaugmented.modifier.activeparticiple.ActiveParticipleModifier.
+        final org.sj.nounConjugation.trilateral.unaugmented.modifier.ConjugationResult ismFaelresult = org.sj.nounConjugation.trilateral.unaugmented.modifier.activeparticiple.ActiveParticipleModifier.
                 getInstance().build(unaugmentedTrilateralRoot, rule.getKov(), conjugatedIsmFael, "");
-        final List finalIsmFael = conjugationResult.getFinalResult();
+        final List finalIsmFael = ismFaelresult.getFinalResult();
         List conjugatedIsmMafool = UnaugmentedTrilateralPassiveParticipleConjugator.getInstance().createNounList(unaugmentedTrilateralRoot,
                 unaugmentedTrilateralRoot.getConjugation());
         final org.sj.nounConjugation.trilateral.unaugmented.modifier.ConjugationResult ismmafoolresult =
@@ -214,8 +225,26 @@ public class GatherAll {
             listismmafool.add(s.toString());
 
         }
-        skabeer.add((ArrayList) listismfael);
-        skabeer.add((ArrayList) listismmafool);
+        ArrayList<  FaelMafool> arrayofFaelMafool = new ArrayList<FaelMafool>();
+        FaelMafool faelobj=new  FaelMafool();
+        FaelMafool mafoolobj=new FaelMafool();
+        faelobj=ismFaelresult.getFaelMafool();
+        mafoolobj=ismmafoolresult.getFaelMafool();
+
+
+
+
+        arrayofFaelMafool.add((faelobj));
+        arrayofFaelMafool.add(mafoolobj);
+        skabeer.add(arrayofFaelMafool);
+
+
+
+
+
+
+
+
         //  skabeer.add((ArrayList) strings);
         return skabeer;
 
@@ -547,56 +576,183 @@ public class GatherAll {
             //ismfale and ismmafool
             List conjugatedIsmFael = UnaugmentedTrilateralActiveParticipleConjugator.getInstance().createNounList(unaugmentedTrilateralRoot,
                     unaugmentedTrilateralRoot.getConjugation());
-            final org.sj.nounConjugation.trilateral.unaugmented.modifier.ConjugationResult conjugationResult = org.sj.nounConjugation.trilateral.unaugmented.modifier.activeparticiple.ActiveParticipleModifier.
+            final org.sj.nounConjugation.trilateral.unaugmented.modifier.ConjugationResult ismfaelResult = org.sj.nounConjugation.trilateral.unaugmented.modifier.activeparticiple.ActiveParticipleModifier.
                     getInstance().build(unaugmentedTrilateralRoot, rule.getKov(), conjugatedIsmFael, "");
-            final List finalIsmFael = conjugationResult.getFinalResult();
+            final List finalIsmFael = ismfaelResult.getFinalResult();
             List conjugatedIsmMafool = UnaugmentedTrilateralPassiveParticipleConjugator.getInstance().createNounList(unaugmentedTrilateralRoot,
                     unaugmentedTrilateralRoot.getConjugation());
             final org.sj.nounConjugation.trilateral.unaugmented.modifier.ConjugationResult ismmafoolresult =
                     PassiveParticipleModifier.
                             getInstance().build(unaugmentedTrilateralRoot, rule.getKov(), conjugatedIsmMafool, "");
             final List ismmafoolresultFinalResult = ismmafoolresult.getFinalResult();
-            ///ismala
-    /*
-    0 = "مِفْعَل"
-1 = "مِفْعَلَة"
-2 = "مِفْعَال"
-3 = "فَعَّالَة"
-     */
+
             StandardInstrumentalConjugator conjugator = StandardInstrumentalConjugator.getInstance();
             InstrumentalModifier modifier = InstrumentalModifier.getInstance();
             final String title = "مِفْعَلَة";
+
+
+
+
             List mifal = conjugator.createNounList(unaugmentedTrilateralRoot, "مِفْعَل");
-            ConjugationResult conjResultmifal = modifier.build(unaugmentedTrilateralRoot, rule.getKov(), mifal, "مِفْعَل");
-            List finalAlamifal = conjResultmifal.getFinalResult();
+            ConjugationResult ismAalaMifalunResult = modifier.build(unaugmentedTrilateralRoot, rule.getKov(), mifal, "مِفْعَل");
+            List finalAlamifal = ismAalaMifalunResult.getFinalResult();
             List mifalatun = conjugator.createNounList(unaugmentedTrilateralRoot, "مِفْعَلَة");
-            ConjugationResult conjResult = modifier.build(unaugmentedTrilateralRoot, rule.getKov(), mifalatun, "مِفْعَلَة");
-            List finalAlamifalatun = conjResult.getFinalResult();
+            ConjugationResult ismALaMifalatunResult = modifier.build(unaugmentedTrilateralRoot, rule.getKov(), mifalatun, "مِفْعَلَة");
+            List finalAlamifalatun = ismALaMifalatunResult.getFinalResult();
             List mifaal = conjugator.createNounList(unaugmentedTrilateralRoot, "مِفْعَال");
-            ConjugationResult conjResultmifaal = modifier.build(unaugmentedTrilateralRoot, rule.getKov(), mifaal, "مِفْعَال");
-            List finalAlamifaal = conjResultmifaal.getFinalResult();
+            ConjugationResult ismAlaMifaalun = modifier.build(unaugmentedTrilateralRoot, rule.getKov(), mifaal, "مِفْعَال");
+            List finalAlamifaal = ismAlaMifaalun.getFinalResult();
             List faalatun = conjugator.createNounList(unaugmentedTrilateralRoot, "فَعَّالَة");
             ConjugationResult conjResultfaalatun = modifier.build(unaugmentedTrilateralRoot, rule.getKov(), faalatun, "فَعَّالَة");
+
+
+
             //zarf
             TimeAndPlaceConjugator zarfconjugator = TimeAndPlaceConjugator.getInstance();
             TimeAndPlaceModifier zarfmodifier = TimeAndPlaceModifier.getInstance();
             List mafalconjuationlist = zarfconjugator.createNounList(unaugmentedTrilateralRoot, "مَفْعَل");
-            org.sj.nounConjugation.trilateral.unaugmented.modifier.ConjugationResult mafal = zarfmodifier.build(unaugmentedTrilateralRoot, rule.getKov(), mafalconjuationlist, "مَفْعَل");
-            List zarfinalmafal = mafal.getFinalResult();
+            org.sj.nounConjugation.trilateral.unaugmented.modifier.ConjugationResult ismZarafMafalunResult = zarfmodifier.build(unaugmentedTrilateralRoot, rule.getKov(), mafalconjuationlist, "مَفْعَل");
+            List zarfinalmafal = ismZarafMafalunResult.getFinalResult();
             List mafilconjugationlist = zarfconjugator.createNounList(unaugmentedTrilateralRoot, "مَفْعِل");
-            org.sj.nounConjugation.trilateral.unaugmented.modifier.ConjugationResult mafil = zarfmodifier.build(unaugmentedTrilateralRoot, rule.getKov(), mafilconjugationlist, "مَفْعِل");
-            List zarffinalmafil = mafil.getFinalResult();
+            org.sj.nounConjugation.trilateral.unaugmented.modifier.ConjugationResult ismZarfMafilunResult = zarfmodifier.build(unaugmentedTrilateralRoot, rule.getKov(), mafilconjugationlist, "مَفْعِل");
+            List zarffinalmafil = ismZarfMafilunResult.getFinalResult();
             List mafalatunconjugationlist = zarfconjugator.createNounList(unaugmentedTrilateralRoot, "مَفْعَلَة");
-            org.sj.nounConjugation.trilateral.unaugmented.modifier.ConjugationResult mafalatun = zarfmodifier.build(unaugmentedTrilateralRoot, rule.getKov(), mafalatunconjugationlist, "مَفْعَلَة");
-            List zarffinalmafalatun = mafalatun.getFinalResult();
+            org.sj.nounConjugation.trilateral.unaugmented.modifier.ConjugationResult ismZarfMafalatunResult = zarfmodifier.build(unaugmentedTrilateralRoot, rule.getKov(), mafalatunconjugationlist, "مَفْعَلَة");
+            List zarffinalmafalatun = ismZarfMafalatunResult.getFinalResult();
             madhi = madhiconjresult.getFinalResult();
             madhimajhool = madhimajhoolconj.getFinalResult();
+
             mudharay = mudharayconj.getFinalResult();
             mudharaymajhool = mudharaymajhoolconj.getFinalResult();
             amr = amrconj.getFinalResult();
             nahiamr = nahiamrconj.getFinalResult();
             amr.removeAll(Collections.singleton(null));
-            String la = "لا";
+            IsmAlaMifalun alamifal=new IsmAlaMifalun();
+            IsmAlaMifalatun alaMifalatun= new IsmAlaMifalatun();
+
+            IsmAlaMifaalun alaMifaalun= new IsmAlaMifaalun();
+
+            IsmZarfMafilun zarfMafilun= new IsmZarfMafilun();
+
+            IsmZarfMafalun zarfMafalun= new IsmZarfMafalun();
+            IsmZarfMafalatun zarfMafalatun= new IsmZarfMafalatun();
+
+            ArrayList<IsmAlaMifalun> ismalamifalunarr = new  ArrayList<IsmAlaMifalun>();
+            ArrayList<IsmAlaMifalatun> ismalamifalatunarr= new  ArrayList<IsmAlaMifalatun>();
+            ArrayList<IsmAlaMifaalun> ismaalamifaalunarr = new  ArrayList<IsmAlaMifaalun>();
+
+            ArrayList<IsmZarfMafilun> ismZarfMafilunarr = new  ArrayList<IsmZarfMafilun>();
+            ArrayList<IsmZarfMafalatun> ismzarfmafalatunarr = new  ArrayList<IsmZarfMafalatun>();
+            ArrayList<IsmZarfMafalun> ismzarfmafalunarr = new  ArrayList<IsmZarfMafalun>();
+
+            alamifal=ismAalaMifalunResult.getIsmAlaMifalun();
+            alaMifaalun=ismAlaMifaalun.getIsmAlaMifaalun();
+            alaMifalatun=ismALaMifalatunResult.getIsmAlaMifalatun();
+            zarfMafilun =ismZarfMafilunResult.getIsmZarfMafilun();
+            zarfMafalun=ismZarafMafalunResult.getIsmZarfMafalun();
+            zarfMafalatun=ismZarfMafalatunResult.getIsmZarfMafalatun();
+            ismalamifalunarr.add(alamifal);
+            ismalamifalatunarr.add(alaMifalatun);
+            ismaalamifaalunarr.add(alaMifaalun);
+            ismZarfMafilunarr.add(zarfMafilun);
+            ismzarfmafalatunarr.add(zarfMafalatun);
+            ismzarfmafalunarr.add(zarfMafalun);
+
+
+
+            ArrayList<  MadhiMudharay> madhimuhdarymainobj =new ArrayList<MadhiMudharay>();
+            ArrayList<  FaelMafool> arrayofFaelMafool = new ArrayList<FaelMafool>();
+            ArrayList<AmrNahiAmr> arrayofamrobj = new ArrayList<AmrNahiAmr>();
+
+            MadhiMudharay madhimajhoolobj=new  MadhiMudharay();
+            MadhiMudharay mudharyobj=new MadhiMudharay();
+            MadhiMudharay mudharaymajhoolobj=new  MadhiMudharay();
+            MadhiMudharay madhiobj=new  MadhiMudharay();
+            String la = "لا ";
+
+            AmrNahiAmr amrs = new AmrNahiAmr();
+
+            MadhiMudharay madhiMudharay = madhiconjresult.getMadhiMudharay();
+
+            amrs.anta = la + nahiamrconj.getMadhiMudharay().getAnta().toString();
+            amrs.antuma = la + nahiamrconj.getMadhiMudharay().getAntuma();
+            amrs.antum = la + nahiamrconj.getMadhiMudharay().getAntum();
+            amrs.anti = la +nahiamrconj.getMadhiMudharay().getAnti();
+            amrs.antumaf = la + nahiamrconj.getMadhiMudharay().getAntumf();
+            amrs.antunna = la + nahiamrconj.getMadhiMudharay().getAntunna();
+
+            FaelMafool faelobj=new  FaelMafool();
+            FaelMafool mafoolobj=new FaelMafool();
+            AmrNahiAmr amrobj=new  AmrNahiAmr();
+            AmrNahiAmr amrnahiobj=new AmrNahiAmr();
+            VerbDetails verbDetailsobj = new VerbDetails();
+            ArrayList<FaelMafool> skabeerismobj =new  ArrayList<FaelMafool>();
+            ArrayList< VerbDetails> arrverbDetailsobj = new  ArrayList<VerbDetails>();
+            ArrayList<VerbDetails> arrayofverbdetails = new ArrayList<VerbDetails>();
+            madhiobj=madhiconjresult.getMadhiMudharay();
+            madhimajhoolobj=madhimajhoolconj.getMadhiMudharay();
+            mudharyobj  =mudharayconj.getMadhiMudharay();
+            mudharaymajhoolobj      =mudharaymajhoolconj.getMadhiMudharay();
+
+            amrobj=amrconj.getAmrNahiAmr();
+
+            madhimuhdarymainobj.add(madhiobj);
+            madhimuhdarymainobj.add(madhimajhoolobj);
+            madhimuhdarymainobj.add(mudharyobj);
+            madhimuhdarymainobj.add(mudharaymajhoolobj);
+            arrayofamrobj.add(amrobj);
+            arrayofamrobj.add(amrs);
+
+
+            faelobj=ismfaelResult.getFaelMafool();
+            mafoolobj=ismmafoolresult.getFaelMafool();
+
+
+
+
+            arrayofFaelMafool.add((faelobj));
+            arrayofFaelMafool.add(mafoolobj);
+
+
+
+            skabeer.add(madhimuhdarymainobj);
+            skabeer.add(arrayofamrobj);
+
+            skabeer.add(arrayofFaelMafool);
+
+
+            verbDetailsobj.verbtype = rule.getDesc().toString();
+            verbDetailsobj.babname = unaugmentedTrilateralRoot.getConjugationname();
+            verbDetailsobj.mazeedormujarad = "mazeed";
+            verbDetailsobj.wazannumberorname = unaugmentedTrilateralRoot.getConjugation();
+            verbDetailsobj.verbroot = verbroot;
+            arrverbDetailsobj.add(verbDetailsobj);
+            skabeer.add(arrverbDetailsobj);
+
+            IsmAlaZarfSagheer ismalazarf =new IsmAlaZarfSagheer();
+
+            ismalazarf.setIsmAlaMifal(finalAlamifal.get(0).toString());
+            ismalazarf.setIsmALAMifalatun(finalAlamifalatun.get(1).toString());
+            ismalazarf.setIsmAlaMifaal(finalAlamifaal.get(0).toString());
+
+            ismalazarf.setZarfMafilun(zarffinalmafil.get(0).toString());
+            ismalazarf.setZarfMafalun(zarfinalmafal.get(0).toString());
+            ismalazarf.setZarfMafalatun(zarffinalmafalatun.get(1).toString());
+            ArrayList<IsmAlaZarfSagheer> ismalazarfobject =new  ArrayList<IsmAlaZarfSagheer>();
+            ismalazarfobject.add(ismalazarf);
+
+            skabeer.add(ismalazarfobject);
+
+            skabeer.add(ismalamifalunarr);
+            skabeer.add(ismalamifalatunarr);
+            skabeer.add(ismaalamifaalunarr);
+            skabeer.add(ismZarfMafilunarr);
+
+            skabeer.add(ismzarfmafalatunarr);
+            skabeer.add(ismzarfmafalunarr);
+
+
+           /* String la = "لا";
             final List list = nahiamr.subList(6, 11);
             ArrayList<String> nm = new ArrayList<>();
             StringBuilder sb;
@@ -731,7 +887,7 @@ public class GatherAll {
             skabeer.add((ArrayList) listmifaal);
             skabeer.add((ArrayList) listlzarfmafal);
             skabeer.add((ArrayList) listlzarfmafil);
-            skabeer.add((ArrayList) listlzarfmafalatun);
+            skabeer.add((ArrayList) listlzarfmafalatun);*/
             //  skabeer.add((ArrayList) strings);
             return skabeer;
         }
@@ -801,12 +957,14 @@ public class GatherAll {
                     SystemConstants.PRESENT_TENSE, true, true);
             ismfael = AugmentedTrilateralActiveParticipleConjugator.getInstance().createNounList(augmentedRoot,
                     Integer.parseInt(augmentedFormula));
-            MazeedConjugationResult conjResult = ActiveParticipleModifier.getInstance().build(augmentedRoot, rule.getKov(),
+            MazeedConjugationResult ismFaelResult = ActiveParticipleModifier.getInstance().
+                    build(augmentedRoot, rule.getKov(),
                     Integer.parseInt(augmentedRoot.getForm()), ismfael, true);
-            ismfael = conjResult.getFinalResult();
+            ismfael = ismFaelResult.getFinalResult();
             ismmafool = AugmentedTrilateralPassiveParticipleConjugator.getInstance().createNounList(augmentedRoot,
                     Integer.parseInt(augmentedFormula));
-            MazeedConjugationResult ismmafoolresult = ActiveParticipleModifier.getInstance().build(augmentedRoot, rule.getKov(),
+            MazeedConjugationResult ismmafoolresult = org.sj.nounConjugation.trilateral.augmented.modifier.passiveparticiple.PassiveParticipleModifier.getInstance().
+                    build(augmentedRoot, rule.getKov(),
                     Integer.parseInt(augmentedRoot.getForm()), ismmafool, true);
             ismmafool = ismmafoolresult.getFinalResult();
             madhi = madhiconjresult.getFinalResult();
@@ -816,7 +974,77 @@ public class GatherAll {
             amr = amrconj.getFinalResult();
             nahiamr = nahiamrconj.getFinalResult();
             amr.removeAll(Collections.singleton(null));
-            String la = "لا";
+
+
+            ArrayList<  MadhiMudharay> madhimuhdarymainobj =new ArrayList<MadhiMudharay>();
+            ArrayList<  FaelMafool> arrayofFaelMafool = new ArrayList<FaelMafool>();
+            ArrayList<AmrNahiAmr> arrayofamrobj = new ArrayList<AmrNahiAmr>();
+
+            MadhiMudharay madhimajhoolobj=new  MadhiMudharay();
+            MadhiMudharay mudharyobj=new MadhiMudharay();
+            MadhiMudharay mudharaymajhoolobj=new  MadhiMudharay();
+            MadhiMudharay madhiobj=new  MadhiMudharay();
+            String la = "لا ";
+
+            AmrNahiAmr amrs = new AmrNahiAmr();
+
+            MadhiMudharay madhiMudharay = nahiamrconj.getMadhiMudharay();
+
+            amrs.anta = la + nahiamrconj.getMadhiMudharay().getAnta().toString();
+            amrs.antuma = la + nahiamrconj.getMadhiMudharay().getAntuma();
+            amrs.antum = la + nahiamrconj.getMadhiMudharay().getAntum();
+            amrs.anti = la +nahiamrconj.getMadhiMudharay().getAnti();
+            amrs.antumaf = la + nahiamrconj.getMadhiMudharay().getAntumf();
+            amrs.antunna = la + nahiamrconj.getMadhiMudharay().getAntunna();
+
+            FaelMafool faelobj=new  FaelMafool();
+            FaelMafool mafoolobj=new FaelMafool();
+            AmrNahiAmr amrobj=new  AmrNahiAmr();
+            AmrNahiAmr amrnahiobj=new AmrNahiAmr();
+            VerbDetails verbDetailsobj = new VerbDetails();
+            ArrayList<FaelMafool> skabeerismobj =new  ArrayList<FaelMafool>();
+            ArrayList< VerbDetails> arrverbDetailsobj = new  ArrayList<VerbDetails>();
+            ArrayList<VerbDetails> arrayofverbdetails = new ArrayList<VerbDetails>();
+            madhiobj=madhiconjresult.getMadhiMudharay();
+           madhimajhoolobj=madhimajhoolconj.getMadhiMudharay();
+           mudharyobj  =mudharayconj.getMadhiMudharay();
+           mudharaymajhoolobj      =mudharaymajhoolconj.getMadhiMudharay();
+
+            amrobj=amrconj.getAmrNahiAmr();
+
+            madhimuhdarymainobj.add(madhiobj);
+            madhimuhdarymainobj.add(madhimajhoolobj);
+            madhimuhdarymainobj.add(mudharyobj);
+            madhimuhdarymainobj.add(mudharaymajhoolobj);
+            arrayofamrobj.add(amrobj);
+            arrayofamrobj.add(amrs);
+
+
+            faelobj=ismFaelResult.getFaelMafool();
+            mafoolobj=ismmafoolresult.getFaelMafool();
+
+
+
+
+            arrayofFaelMafool.add((faelobj));
+            arrayofFaelMafool.add(mafoolobj);
+
+
+
+            skabeer.add(madhimuhdarymainobj);
+            skabeer.add(arrayofamrobj);
+
+            skabeer.add(arrayofFaelMafool);
+
+
+            verbDetailsobj.verbtype = rule.getDesc().toString();
+            verbDetailsobj.babname = augmentedRoot.getBabname();
+            verbDetailsobj.mazeedormujarad = "mazeed";
+            verbDetailsobj.wazannumberorname = augmentedRoot.getForm();
+            verbDetailsobj.verbroot = verbroot;
+            arrverbDetailsobj.add(verbDetailsobj);
+            skabeer.add(arrverbDetailsobj);
+          /*  String la = "لا";
             final List list = nahiamr.subList(6, 11);
             ArrayList<String> nm = new ArrayList<>();
             StringBuilder sb;
@@ -825,6 +1053,7 @@ public class GatherAll {
                 nm.add(sb.append(la).append(" ").append(o.toString()).toString());
 
             }
+
             List<String> listmadhi = new ArrayList<>();
             List<String> listmadhimajhool = new ArrayList<>();
             List<String> listmudharay = new ArrayList<>();
@@ -904,7 +1133,7 @@ public class GatherAll {
             skabeer.add((ArrayList) listamr);
             skabeer.add((ArrayList) listamrnahi);
             skabeer.add((ArrayList) listismfael);
-            skabeer.add((ArrayList) listismmafool);
+            skabeer.add((ArrayList) listismmafool);*/
             return skabeer;
         }
         return skabeer;
@@ -1100,22 +1329,31 @@ public class GatherAll {
             TrilateralKovRule rule = KovRulesManager.getInstance().getTrilateralKovRule(c1, c2, c3);
             ismfael = AugmentedTrilateralActiveParticipleConjugator.getInstance().createNounList(augmentedRoot,
                     Integer.parseInt(augmentedFormula));
-            MazeedConjugationResult conjResult = ActiveParticipleModifier.getInstance().build(augmentedRoot, rule.getKov(),
+            MazeedConjugationResult ismFaelResult = ActiveParticipleModifier.getInstance().build(augmentedRoot, rule.getKov(),
                     Integer.parseInt(augmentedRoot.getForm()), ismfael, true);
-            ismfael = conjResult.getFinalResult();
+            ismfael = ismFaelResult.getFinalResult();
             ismmafool = AugmentedTrilateralPassiveParticipleConjugator.getInstance().createNounList(augmentedRoot,
                     Integer.parseInt(augmentedFormula));
             MazeedConjugationResult ismmafoolresult = ActiveParticipleModifier.getInstance().build(augmentedRoot, rule.getKov(),
                     Integer.parseInt(augmentedRoot.getForm()), ismmafool, true);
             ismmafool = ismmafoolresult.getFinalResult();
-            List<String> listismfael = new ArrayList<String>(ismfael);
-            List<String> listismmafool = new ArrayList<String>(ismmafool);
-         //   List<String> vdetails = new ArrayList<>();
-          //  vdetails.add(String.valueOf(rule.getDesc()));
-           // vdetails.add(augmentedRoot.getBabname());
-            skabeer.add((ArrayList) listismfael);
-            skabeer.add((ArrayList) listismmafool);
-            return skabeer;
+
+            ArrayList<  FaelMafool> arrayofFaelMafool = new ArrayList<FaelMafool>();
+            FaelMafool faelobj=new  FaelMafool();
+            FaelMafool mafoolobj=new FaelMafool();
+            faelobj=ismFaelResult.getFaelMafool();
+            mafoolobj=ismmafoolresult.getFaelMafool();
+
+
+
+
+            arrayofFaelMafool.add((faelobj));
+            arrayofFaelMafool.add(mafoolobj);
+            skabeer.add(arrayofFaelMafool);
+
+
+
+          return skabeer;
         }
         return skabeer;
     }

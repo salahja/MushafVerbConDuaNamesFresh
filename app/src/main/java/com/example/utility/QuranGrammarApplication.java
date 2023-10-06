@@ -26,8 +26,9 @@ import androidx.preference.PreferenceManager;
 
 import java.util.Locale;
 
+import dagger.hilt.android.HiltAndroidApp;
 import leakcanary.LeakCanary;
-
+@HiltAndroidApp
 public class QuranGrammarApplication extends Application {
     public static Context appContext;
 

@@ -108,7 +108,7 @@ public class FragmentVerb extends Fragment {
             final ArrayList<ArrayList> indictive = GatherAll.getInstance().getMazeedListing(verbmood, verbroot, augmentedFormula);
             VerbSarfKabeerAdapter sk;
             if (!indictive.isEmpty()) {
-                indictive.remove(0);
+               // indictive.remove(0);
                 sk = new VerbSarfKabeerAdapter(indictive, getContext());
                 recyclerView.setAdapter(sk);
               
@@ -124,7 +124,7 @@ public class FragmentVerb extends Fragment {
     private void ninitThulathiAdapter() {
  
         final ArrayList<ArrayList> mujarradListing = GatherAll.getInstance().getMujarradListing(verbmood, verbroot, unaugmentedFormula);
-        mujarradListing.remove(0);
+     //   mujarradListing.remove(0);
         VerbSarfKabeerAdapter ska = new VerbSarfKabeerAdapter(mujarradListing, getContext());
         recyclerView.setAdapter(ska);
         recyclerView.setHasFixedSize(true);

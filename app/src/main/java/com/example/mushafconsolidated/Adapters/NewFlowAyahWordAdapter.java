@@ -746,7 +746,7 @@ public class NewFlowAyahWordAdapter extends RecyclerView.Adapter<NewFlowAyahWord
                         dialog.setTitle(arabicword);
                         Bundle dataBundle = new Bundle();
                         dataBundle.putInt(SURAH_ID, word.getCorpus().getSurah());
-                        dataBundle.putInt(AYAHNUMBER, Math.toIntExact(word.getCorpus().getSurah()));
+                        dataBundle.putInt(AYAHNUMBER, Math.toIntExact(word.getCorpus().getAyah()));
                         dataBundle.putInt(WORDNUMBER, Math.toIntExact(word.getCorpus().getWordno()));
                         dataBundle.putString(SURAH_ARABIC_NAME, SurahName);
                         LoadItemList(dataBundle,word);
@@ -804,7 +804,7 @@ public class NewFlowAyahWordAdapter extends RecyclerView.Adapter<NewFlowAyahWord
                         dialog.setTitle(arabicword);
                         Bundle dataBundle = new Bundle();
                         dataBundle.putInt(SURAH_ID, word.getCorpus().getSurah());
-                        dataBundle.putInt(AYAHNUMBER, Math.toIntExact(word.getCorpus().getSurah()));
+                        dataBundle.putInt(AYAHNUMBER, Math.toIntExact(word.getCorpus().getAyah()));
                         dataBundle.putInt(WORDNUMBER, Math.toIntExact(word.getCorpus().getWordno()));
                         dataBundle.putString(SURAH_ARABIC_NAME, SurahName);
                         LoadItemList(dataBundle, word);
@@ -840,7 +840,7 @@ public class NewFlowAyahWordAdapter extends RecyclerView.Adapter<NewFlowAyahWord
 
             WordAnalysisBottomSheet item = new WordAnalysisBottomSheet();
             item.setArguments(dataBundle);
-            String[] data = {String.valueOf(word.getCorpus().getSurah()), String.valueOf(word.getCorpus().getSurah()), word.getWbw().getEn(), String.valueOf((word.getCorpus().getWordno())), SurahName};
+            String[] data = {String.valueOf(word.getCorpus().getSurah()), String.valueOf(word.getCorpus().getAyah()), word.getWbw().getEn(), String.valueOf((word.getCorpus().getWordno())), SurahName};
             WordAnalysisBottomSheet.newInstance(data).show(((AppCompatActivity) context).getSupportFragmentManager(), WordAnalysisBottomSheet.TAG);
 
         }

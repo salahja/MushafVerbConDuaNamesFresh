@@ -1,10 +1,12 @@
 package org.sj.conjugator.fragments;
 
+import static android.text.TextUtils.replace;
 import static com.example.Constant.QURAN_VERB_ROOT;
 import static com.example.Constant.QURAN_VERB_WAZAN;
 import static com.example.Constant.VERBMOOD;
 import static com.example.Constant.VERBTYPE;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -28,6 +30,16 @@ import com.tooltip.Tooltip;
 
 
 import org.jetbrains.annotations.NotNull;
+import org.sj.AmrNahiAmr;
+import org.sj.FaelMafool;
+import org.sj.IsmAlaMifaalun;
+import org.sj.IsmAlaMifalatun;
+import org.sj.IsmAlaMifalun;
+import org.sj.IsmZarfMafalatun;
+import org.sj.IsmZarfMafalun;
+import org.sj.IsmZarfMafilun;
+import org.sj.MadhiMudharay;
+import org.sj.VerbDetails;
 import org.sj.conjugator.adapter.SarfMujarradSarfSagheerListingAdapter;
 import org.sj.conjugator.interfaces.OnItemClickListener;
 import org.sj.conjugator.utilities.GatherAll;
@@ -113,6 +125,50 @@ public class MazeedTabSagheerFragmentVerb extends Fragment {
         ArrayList sarfSagheerMazeedArray = new ArrayList();
         ArrayList<ArrayList> listing = GatherAll.getInstance().getMazeedListing(verbmood, verbroot, augmentedFormula);
         SarfSagheer ss = new SarfSagheer();
+        listing.get(3).get(0);
+        String verbtype = ((VerbDetails) listing.get(3).get(0)).verbtype;
+        ss.setWeakness(((VerbDetails) (VerbDetails) listing.get(3).get(0)).verbtype);
+        ss.setWazanname(((VerbDetails) listing.get(3).get(0))  .babname);
+        ss.setVerbroot(((VerbDetails) listing.get(3).get(0))  .verbroot);
+
+
+        ss.setMadhi(((MadhiMudharay) listing.get(0).get(0)).getHua().replace("[", "").replace("]", ""));
+
+        ss.setMadhimajhool(((MadhiMudharay) listing.get(0).get(1)).getHua().replace("[", "").replace("]", ""));
+        ss.setMudharay(((MadhiMudharay) listing.get(0).get(2)).getHua().replace("[", "").replace("]", ""));
+        ss.setMudharaymajhool(((MadhiMudharay) listing.get(0).get(3)).getHua().replace("[", "").replace("]", ""));
+        ss.setAmrone(((AmrNahiAmr) listing.get(1).get(0)) .anta .replace("[", "").replace("]", ""));
+        ss.setNahiamrone(((AmrNahiAmr) listing.get(1).get(1)) .anta .replace("[", "").replace("]", ""));
+        ss.setIsmfael(((FaelMafool) listing.get(2).get(0)) .nomsinM .replace("[", "").replace("]", ""));
+        ss.setIsmmafool(((FaelMafool) listing.get(2).get(1)) .nomsinF .replace("[", "").replace("]", ""));
+        ss.setIsmalaone("");
+        ss.setIsmalatwo("");
+        ss.setIsmalathree("");
+        ss.setZarfone("");
+        ss.setZarftwo("");
+        ss.setZarfthree("");
+        ss.setVerbtype(((VerbDetails) listing.get(3).get(0))  .verbtype);
+        ss.setWazan(((VerbDetails) listing.get(3).get(0))  .babname);
+        ssagheer = new ArrayList<>();
+        ssagheer.add(ss);
+        sarfsagheerAdapter = new SarfMujarradSarfSagheerListingAdapter(ssagheer, getActivity());
+        recyclerView.setAdapter(sarfsagheerAdapter);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
         ss.setWeakness(listing.get(0).get(0).toString());
         ss.setWazanname(listing.get(0).get(1).toString());
         ss.setVerbroot(listing.get(0).get(2).toString());
@@ -135,7 +191,7 @@ public class MazeedTabSagheerFragmentVerb extends Fragment {
         ssagheer = new ArrayList<>();
         ssagheer.add(ss);
         sarfsagheerAdapter = new SarfMujarradSarfSagheerListingAdapter(ssagheer, getActivity());
-        recyclerView.setAdapter(sarfsagheerAdapter);
+        recyclerView.setAdapter(sarfsagheerAdapter);*/
 
     }
 
@@ -145,25 +201,42 @@ public class MazeedTabSagheerFragmentVerb extends Fragment {
         ArrayList<ArrayList> listing = GatherAll.getInstance().getMujarradListing(verbmood, verbroot, unaugmentedFormula);
         //InsertSarfSagheerThulathi(ANAQISYAYI);
         SarfSagheer ss = new SarfSagheer();
-        ss.setWeakness(listing.get(0).get(0).toString());
-        ss.setWazanname(listing.get(0).get(1).toString());
-        ss.setVerbroot(listing.get(0).get(2).toString());
-        ss.setMadhi(listing.get(0).get(3).toString());
-        ss.setMadhimajhool(listing.get(0).get(4).toString());
-        ss.setMudharay(listing.get(0).get(5).toString());
-        ss.setMudharaymajhool(listing.get(0).get(6).toString());
-        ss.setAmrone(listing.get(0).get(7).toString());
-        ss.setNahiamrone(listing.get(0).get(8).toString());
-        ss.setIsmfael(listing.get(0).get(9).toString());
-        ss.setIsmmafool(listing.get(0).get(10).toString());
-        ss.setIsmalaone(listing.get(0).get(11).toString());
-        ss.setIsmalatwo(listing.get(0).get(12).toString());
-        ss.setIsmalathree(listing.get(0).get(13).toString());
-        ss.setZarfone(listing.get(0).get(14).toString());
-        ss.setZarftwo(listing.get(0).get(15).toString());
-        ss.setZarfthree(listing.get(0).get(16).toString());
-        ss.setVerbtype(listing.get(0).get(17).toString());
-        ss.setWazan(listing.get(0).get(18).toString());
+
+
+        String verbtype = ((VerbDetails) listing.get(3).get(0)).verbtype;
+        ss.setWeakness(((VerbDetails) (VerbDetails) listing.get(3).get(0)).verbtype);
+        ss.setWazanname(((VerbDetails) listing.get(3).get(0))  .babname);
+        ss.setVerbroot(((VerbDetails) listing.get(3).get(0))  .verbroot);
+
+
+        ss.setMadhi(((MadhiMudharay) listing.get(0).get(0)).getHua().replace("[", "").replace("]", ""));
+
+        ss.setMadhimajhool(((MadhiMudharay) listing.get(0).get(1)).getHua().replace("[", "").replace("]", ""));
+        ss.setMudharay(((MadhiMudharay) listing.get(0).get(2)).getHua().replace("[", "").replace("]", ""));
+        ss.setMudharaymajhool(((MadhiMudharay) listing.get(0).get(3)).getHua().replace("[", "").replace("]", ""));
+        ss.setAmrone(((AmrNahiAmr) listing.get(1).get(0)) .anta .replace("[", "").replace("]", ""));
+        ss.setNahiamrone(((AmrNahiAmr) listing.get(1).get(1)) .anta .replace("[", "").replace("]", ""));
+        ss.setIsmfael(((FaelMafool) listing.get(2).get(0)) .nomsinM .replace("[", "").replace("]", ""));
+        ss.setIsmmafool(((FaelMafool) listing.get(2).get(1)) .nomsinF .replace("[", "").replace("]", ""));
+        ss.setIsmalaone((((IsmAlaMifalun) listing.get(5).get(0)).nomsinMifalun));
+        ss.setIsmalatwo((((IsmAlaMifalatun) listing.get(6).get(0)).nomsinMifalatun));
+        ss.setIsmalathree((((IsmAlaMifaalun) listing.get(7).get(0)).nomsinMifaalun));
+        ss.setZarfone((((IsmZarfMafilun) listing.get(8).get(0)).nomsinMafilun));
+        ss.setZarftwo((((IsmZarfMafalatun) listing.get(9).get(0)).nomsinMafalatun));
+
+        ss.setZarfthree((((IsmZarfMafalun) listing.get(10).get(0)).nomsinMafalun));
+
+        ss.setVerbtype(((VerbDetails) listing.get(3).get(0))  .verbtype);
+        ss.setWazan(((VerbDetails) listing.get(3).get(0))  .babname);
+
+
+
+
+
+
+
+
+
         ArrayList<SarfSagheer> ssagheer = new ArrayList<>();
         ssagheer.add(ss);
         sarfsagheerAdapter = new SarfMujarradSarfSagheerListingAdapter(ssagheer, getActivity());
@@ -223,7 +296,7 @@ public class MazeedTabSagheerFragmentVerb extends Fragment {
                             FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
 
                             String[] data = {form};
-                            FragmentTransaction transactions = fragmentManager.beginTransaction().setCustomAnimations(R.anim.abc_slide_in_top, android.R.anim.fade_out);
+                            @SuppressLint("CommitTransaction") FragmentTransaction transactions = fragmentManager.beginTransaction().setCustomAnimations(R.anim.abc_slide_in_top, android.R.anim.fade_out);
                             transactions.show(item);
                             VerbFormsDialogFrag.newInstance(data).show(getActivity().getSupportFragmentManager(), WordAnalysisBottomSheet.TAG);
 
