@@ -182,6 +182,8 @@ public class Constant {
   //  public static final int MARIGOLD = ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.marigold);
     public static final int FORESTGREEN = ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.sforestgreen);
     public static final int LIME = ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.Lime);
+
+
     public static final int KASHMIRIGREEN = ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.kashmirigreen);
     public static final int MIDNIGHTBLUE = ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.midnightblue);
     public static final int INDIGO = ContextCompat.getColor(QuranGrammarApplication.getContext(), R.color.indigo);

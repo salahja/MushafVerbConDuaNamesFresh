@@ -277,7 +277,6 @@
                         android:layout_width="0.0dip"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.2"
-                        android:layout_toEndOf="@+id/nahiamr"
                         android:onClick="onClick"
                         android:paddingStart="5.0dip"
                         android:paddingEnd="3.0dip"
@@ -301,7 +300,6 @@
             android:layout_width="0.0dip"
             android:layout_height="wrap_content"
             android:layout_weight="0.2"
-            android:layout_toEndOf="@+id/ismzarfheader"
             android:gravity="center|end"
             android:paddingStart="5.0dip"
             android:text="اِسْم الْظَرفْ"
@@ -311,7 +309,6 @@
             android:textSize="20sp" />
 
         <View
-            android:layout_toStartOf="@+id/ismalaheader"
             android:layout_width="1dp"
             android:layout_height="match_parent"
 
@@ -320,7 +317,6 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/ismzarfheader"
-            android:layout_alignParentStart="true"
             android:layout_width="0.0dip"
             android:layout_height="wrap_content"
             android:layout_weight="0.2"
@@ -353,7 +349,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.2"
 
-            android:layout_toEndOf="@+id/zarftable"
             android:gravity="center_horizontal"
             android:onClick="onClick"
             android:paddingStart="5.0dip"
@@ -362,7 +357,6 @@
 
             android:textSize="20sp" />
         <View
-            android:layout_toEndOf="@+id/zarftable"
             android:layout_width="1dp"
             android:layout_height="match_parent"
 
@@ -371,7 +365,6 @@
         <com.google.android.material.textview.MaterialTextView
 
             android:id="@id/zarftable"
-            android:layout_alignParentStart="true"
             android:layout_width="0.0dip"
             android:layout_height="wrap_content"
             android:layout_weight="0.2"
@@ -420,7 +413,6 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1.0"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
